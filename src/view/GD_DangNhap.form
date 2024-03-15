@@ -121,7 +121,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="utils.MyButton" name="btnDangNhap">
+        <Component class="component.MyButton" name="btnDangNhap">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="95" green="9a" red="9e" type="rgb"/>

@@ -50,7 +50,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         wrapper = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        btnDangNhap = new utils.MyButton();
+        btnDangNhap = new component.MyButton();
         imgae = new javax.swing.JLabel();
         userNameContaier = new javax.swing.JPanel();
         iconUser = new javax.swing.JLabel();
@@ -265,7 +265,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private utils.MyButton btnDangNhap;
+    private component.MyButton btnDangNhap;
     private javax.swing.JLabel iconPass;
     private javax.swing.JLabel iconUser;
     private javax.swing.JLabel imgae;
