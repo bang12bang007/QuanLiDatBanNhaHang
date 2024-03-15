@@ -8,12 +8,12 @@ package view;
  *
  * @author Laptop
  */
-public class GD_Order extends javax.swing.JPanel {
+public class GD_DatMon extends javax.swing.JPanel {
 
     /**
-     * Creates new form GD_Order
+     * Creates new form GD_DatMon
      */
-    public GD_Order() {
+    public GD_DatMon() {
         initComponents();
         setVisible(true);
     }
@@ -29,23 +29,23 @@ public class GD_Order extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("Order");
+        jLabel1.setText("Đặt món");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(jLabel1)
-                .addContainerGap(768, Short.MAX_VALUE))
+                .addGap(196, 196, 196)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(758, 758, 758))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jLabel1)
-                .addContainerGap(571, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(546, 546, 546))
         );
     }// </editor-fold>//GEN-END:initComponents
 
