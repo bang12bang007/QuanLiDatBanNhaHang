@@ -50,5 +50,10 @@ public class TaiKhoan {
 
     public void setNgayKetThuc(Date ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
-    } 
+    }
+
+    @Override
+    public String toString() {
+        return "TaiKhoan{" + "nhanVien=" + nhanVien + ", matKhau=" + matKhau + ", ngayTao=" + ngayTao + ", ngayKetThuc=" + ngayKetThuc + '}';
+    }
 }

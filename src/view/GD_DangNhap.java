@@ -29,7 +29,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
     public GD_DangNhap() {
         initComponents();
 //        nhanVien_Dao.insertNhanVien(new NhanVien("Ngo Dang Khoa", "QN", 1, 18, "0796798049", new Date(), 0, 1));
-//        System.out.println(taiKhoanDAO.insertTaiKhoan(new TaiKhoanDTO("NV1181424048")));
+//        System.out.println(taiKhoanDAO.insertTaiKhoan(new TaiKhoanDTO("NV1181424049")));
         IconFontSwing.register(FontAwesome.getIconFont());
         iconUser.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20));
         iconPass.setIcon(IconFontSwing.buildIcon(FontAwesome.LOCK, 20));

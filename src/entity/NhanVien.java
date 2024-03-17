@@ -5,6 +5,7 @@
 package entity;
 
 import java.util.Date;
+import utils.Enum.LoaiVaiTro;
 
 /**
  *
@@ -19,10 +20,10 @@ public class NhanVien {
     private int tuoi;
     private String soDienThoai;
     private Date ngayBatDauLam;
-    private int vaiTro;
+    private LoaiVaiTro vaiTro;
     private int gioiTinh;
 
-    public NhanVien(String hoTen, String diaChi, int trangThai, int tuoi, String soDienThoai, Date ngayBatDauLam, int vaiTro, int gioiTinh) {
+    public NhanVien(String hoTen, String diaChi, int trangThai, int tuoi, String soDienThoai, Date ngayBatDauLam, LoaiVaiTro vaiTro, int gioiTinh) {
         this.hoTen = hoTen;
         this.diaChi = diaChi;
         this.trangThai = trangThai;
@@ -89,14 +90,13 @@ public class NhanVien {
         this.ngayBatDauLam = ngayBatDauLam;
     }
 
-    public int getVaiTro() {
+    public LoaiVaiTro getVaiTro() {
         return vaiTro;
     }
 
-    public void setVaiTro(int vaiTro) {
+    public void setVaiTro(LoaiVaiTro vaiTro) {
         this.vaiTro = vaiTro;
     }
-
     public int getGioiTinh() {
         return gioiTinh;
     }
