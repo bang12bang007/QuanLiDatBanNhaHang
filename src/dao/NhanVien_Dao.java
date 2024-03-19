@@ -4,6 +4,7 @@
  */
 package dao;
 
+import dto.NhanVienDTO;
 import java.sql.Connection;
 import entity.NhanVien;
 import java.sql.ResultSet;
@@ -38,20 +39,24 @@ public class NhanVien_Dao {
         return insert(nhanVien, SQL);
     }
     
-    public int dangNhap(String tenDangNhap, String matKhau) {
+    //hên xui lỗi :)))
+    public NhanVien getNhanVien(String tenDangNhap, String matKhau) {
         Connection con = connect();
-        int isLoginSuccess = -1;
+        NhanVienDTO nv_dt = null;
+        NhanVien nv = null;
         try {
             Statement myStmt = con.createStatement();
             PreparedStatement pstms = con.prepareStatement("SELECT * FROM TaiKhoan tk join NhanVien nv ON tk.MaNV = nv.MaNV WHERE nv.MaNV = ? AND tk.matKhau = ?");
             pstms.setString(1, tenDangNhap);
             pstms.setString(2, matKhau);
             ResultSet myRs = pstms.executeQuery();
-            while(myRs.next()) {
-                isLoginSuccess = myRs.getInt("VaiTro");
-            }
+            //map qua 1 cái entity và 1 cái dto. những cái enum thì dùng dto set qua entity
+            nv = utils.AppUtils.getEntity(NhanVien.class, myRs,5);
+            nv_dt = utils.AppUtils.getEntity(NhanVienDTO.class, myRs,5);
+            nv.setVaiTro(utils.Enum.LoaiVaiTro.values()[nv_dt.getVaiTro()]);
         } catch (Exception e) {
         }
-        return isLoginSuccess;
+        return nv;
     }
+
 }
