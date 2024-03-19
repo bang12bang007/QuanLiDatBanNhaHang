@@ -7,6 +7,7 @@ package view;
 import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import entity.HoaDon;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -26,12 +27,14 @@ public class GD_Order extends javax.swing.JPanel {
     /**
      * Creates new form GD_Order
      */
-    public GD_Order() {
+    private JPanel mainPanel;
+    public GD_Order(JPanel main) {
+        this.mainPanel = main;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20, Color.WHITE));
         txtMaBan.setBackground(new Color(0,0,0, 1));
-        main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
+        this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
         scroll.setVerticalScrollBar(new ScrollBarCustom());
         btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
         btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
@@ -313,12 +316,15 @@ public class GD_Order extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private int count = 1;
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         // TODO add your handling code here: 1 -> 4
 //        main.removeAll();
         
 //        main.setLayout(new GridLayout(row, orderNumbers++));
-        OrderCard orderCard = new OrderCard();
+        HoaDon hoaDon = new HoaDon(null, null, null, null, null);
+        hoaDon.setMaHoaDon("OKE" + count++);
+        OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
         main.add(orderCard);
         main.repaint();
         main.revalidate();

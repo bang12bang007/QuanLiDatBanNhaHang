@@ -32,6 +32,10 @@ public class HoaDon {
     public String getMaHoaDon() {
         return maHoaDon;
     }
+    
+    public void setMaHoaDon(String maHoaDon) {
+        this.maHoaDon = maHoaDon;
+    }
 
     public NhanVien getNhanVien() {
         return nhanVien;

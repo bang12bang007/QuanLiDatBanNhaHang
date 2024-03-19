@@ -7,7 +7,10 @@ package component;
 import entity.HoaDon;
 import icon.FontAwesome;
 import java.awt.Color;
+import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
+import static utils.AppUtils.setUI;
+import view.GD_ThanhToan;
 
 /**
  *
@@ -18,12 +21,17 @@ public class OrderCard extends javax.swing.JPanel {
     /**
      * Creates new form OrderCard
      */
+    
+    private JPanel mainPanel;
+    private HoaDon hoaDon;
     public OrderCard() {
         initComponents();
         setIconBtn();
     }
     
-    public OrderCard(HoaDon hoaDon) {
+    public OrderCard(HoaDon hoaDon, JPanel main) {
+        mainPanel = main;
+        this.hoaDon = hoaDon;
         initComponents();
         setIconBtn();
     }
@@ -253,6 +261,7 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
+        utils.AppUtils.setUI(mainPanel, new GD_ThanhToan(hoaDon));
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnTacVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTacVuActionPerformed

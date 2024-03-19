@@ -7,7 +7,7 @@ package view;
 import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -21,7 +21,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
 //        setResizable(false);
-        setUI(new GD_Order());
+        setUI(mainJpanel, new GD_Order(mainJpanel));
     }
     
     /**
@@ -97,15 +97,15 @@ public class GD_TrangChu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setUI(new GD_DatMon());
+        setUI(mainJpanel, new GD_DatMon());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void setUI(JComponent jComponent) {
-        mainJpanel.removeAll();
-        mainJpanel.add(jComponent);
-        mainJpanel.repaint();
-        mainJpanel.revalidate();
-    }
+//    private void setUI(JComponent jComponent) {
+//        mainJpanel.removeAll();
+//        mainJpanel.add(jComponent);
+//        mainJpanel.repaint();
+//        mainJpanel.revalidate();
+//    }
     /**
      * @param args the command line arguments
      */

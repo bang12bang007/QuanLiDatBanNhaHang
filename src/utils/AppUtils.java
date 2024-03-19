@@ -13,6 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import entity.NhanVien;
 import java.sql.PreparedStatement;
 import java.util.Map;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 /**
  *
  * @author Laptop
@@ -82,6 +84,13 @@ public class AppUtils {
         } catch (Exception e) {
         }
         return false;
+    }
+    
+    public static void setUI(JPanel mainJPanel, JPanel jComponent) {
+        mainJPanel.removeAll();
+        mainJPanel.add(jComponent);
+        mainJPanel.repaint();
+        mainJPanel.revalidate();
     }
     
 }
