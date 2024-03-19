@@ -25,8 +25,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
      */
     
     //default test //sau này xóa
-//    NhanVien_Dao nv_dao = new NhanVien_Dao();
-//    NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
+    NhanVien_Dao nv_dao = new NhanVien_Dao();
+    NhanVien nhanVien = nv_dao.getNhanVien("NV1181424048", "12345678");
     
     
     //dùng cho run
@@ -35,15 +35,15 @@ public class GD_TrangChu extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
 //        setResizable(false);
         utils.AppUtils.setUI(mainJpanel, new GD_Order(mainJpanel));
-//        label_AVT.setText(nhanVien.getHoTen());
+        label_AVT.setText(nhanVien.getHoTen());
     }
     //dùng cho đi từ login vào
     public GD_TrangChu(NhanVien nv) {
         set_up_UI();
 //        setUI(new GD_Order());
-//        nhanVien = nv;
-//        NhanVien_Dao nvd = new NhanVien_Dao();
-//        label_AVT.setText(nv.getHoTen());
+        nhanVien = nv;
+        NhanVien_Dao nvd = new NhanVien_Dao();
+        label_AVT.setText(nv.getHoTen());
     }
     
     private void set_up_UI(){

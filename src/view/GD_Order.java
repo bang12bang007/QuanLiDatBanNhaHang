@@ -31,11 +31,11 @@ public class GD_Order extends javax.swing.JPanel {
     public GD_Order(JPanel main) {
         this.mainPanel = main;
         initComponents();
-        IconFontSwing.register(FontAwesome.getIconFont());
-        iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20, Color.WHITE));
         txtMaBan.setBackground(new Color(0,0,0, 1));
         this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
         scroll.setVerticalScrollBar(new ScrollBarCustom());
+        IconFontSwing.register(FontAwesome.getIconFont());
+        iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20, Color.WHITE));
         btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
         btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));

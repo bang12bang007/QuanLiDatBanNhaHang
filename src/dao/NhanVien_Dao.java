@@ -51,12 +51,11 @@ public class NhanVien_Dao {
             pstms.setString(2, matKhau);
             ResultSet myRs = pstms.executeQuery();
             //map qua 1 cái entity và 1 cái dto. những cái enum thì dùng dto set qua entity
-            nv = utils.AppUtils.getEntity(NhanVien.class, myRs,5);
-            nv_dt = utils.AppUtils.getEntity(NhanVienDTO.class, myRs,5);
+            nv = utils.AppUtils.getEntity(NhanVien.class, myRs, 5);
+            nv_dt = utils.AppUtils.getEntity(NhanVienDTO.class, myRs, 5);
             nv.setVaiTro(utils.Enum.LoaiVaiTro.values()[nv_dt.getVaiTro()]);
         } catch (Exception e) {
         }
         return nv;
     }
-
 }

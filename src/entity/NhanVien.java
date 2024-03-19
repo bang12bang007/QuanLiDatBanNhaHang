@@ -33,6 +33,11 @@ public class NhanVien {
         this.gioiTinh = gioiTinh;
     }
 
+    public NhanVien() {
+    }
+    
+    
+
     public String getMaNV() {
         return maNV;
     }

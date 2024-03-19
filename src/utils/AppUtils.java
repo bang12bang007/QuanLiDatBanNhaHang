@@ -87,7 +87,6 @@ public class AppUtils {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        System.out.println(json);
         return null;
     }
     

@@ -8,7 +8,7 @@ package utils;
  *
  * @author dmx
  */
-public  class Enum {
+public class Enum {
     public static enum LoaiViTri {
         BAN_TRUNG_TAM,BAN_CANH_CUA_SO,BAN_PHIA_GOC,BAN_GAN_QUAY_PHUC_VU;
     };
