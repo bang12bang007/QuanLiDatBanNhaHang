@@ -29,7 +29,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
     public GD_DangNhap() {
         initComponents();
 //        nhanVien_Dao.insertNhanVien(new NhanVien("Ngo Dang Khoa", "QN", 1, 18, "0796798049", new Date(), 0, 1));
-//        System.out.println(taiKhoanDAO.insertTaiKhoan(new TaiKhoanDTO("NV1181424049")));
+//        System.out.println(taiKhoanDAO.insertTaiKhoan(new TaiKhoanDTO("NV1181524049")));
         IconFontSwing.register(FontAwesome.getIconFont());
         iconUser.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20));
         iconPass.setIcon(IconFontSwing.buildIcon(FontAwesome.LOCK, 20));
@@ -210,17 +210,18 @@ public class GD_DangNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tenDangNhap = this.tenDangNhap.getText();
         String matKhau = this.matKhau.getText();
-        int isSuccess = nhanVien_Dao.dangNhap(tenDangNhap, matKhau);
-        if(isSuccess == -1) {
+        NhanVien nv = nhanVien_Dao.getNhanVien(tenDangNhap, matKhau);
+        System.out.println(nv);
+        if(nv==null) {
             JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
         } else {
             setVisible(false);
-            if(isSuccess == 1) {
+            if(nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
 //                Chuyen qua gd quan ly
-                new GD_TrangChu().setVisible(true);
+                new GD_TrangChu(nv).setVisible(true);
             } else {
 //                Chuyen qua gd nhan vien
-                new GD_TrangChu().setVisible(true);
+                new GD_TrangChu(nv).setVisible(true);
             }
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed

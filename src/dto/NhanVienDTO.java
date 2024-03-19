@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entity;
+package dto;
 
 import java.util.Date;
-import utils.Enum.LoaiVaiTro;
-import java.lang.annotation.*;
+
 /**
  *
- * @author Laptop
+ * @author dmx
  */
-public class NhanVien {
+public class NhanVienDTO {
     private String maNV;
     private String hoTen;
     private String diaChi;
@@ -19,10 +18,11 @@ public class NhanVien {
     private int tuoi;
     private String soDienThoai;
     private Date ngayBatDauLam;
-    private LoaiVaiTro vaiTro;
+    private int vaiTro;
     private boolean gioiTinh;
 
-    public NhanVien(String hoTen, String diaChi, boolean trangThai, int tuoi, String soDienThoai, Date ngayBatDauLam, LoaiVaiTro vaiTro, boolean gioiTinh) {
+    public NhanVienDTO(String maNV, String hoTen, String diaChi, boolean trangThai, int tuoi, String soDienThoai, Date ngayBatDauLam, int vaiTro, boolean gioiTinh) {
+        this.maNV = maNV;
         this.hoTen = hoTen;
         this.diaChi = diaChi;
         this.trangThai = trangThai;
@@ -57,7 +57,7 @@ public class NhanVien {
         this.diaChi = diaChi;
     }
 
-    public boolean getTrangThai() {
+    public boolean isTrangThai() {
         return trangThai;
     }
 
@@ -89,14 +89,15 @@ public class NhanVien {
         this.ngayBatDauLam = ngayBatDauLam;
     }
 
-    public LoaiVaiTro getVaiTro() {
+    public int getVaiTro() {
         return vaiTro;
     }
 
-    public void setVaiTro(LoaiVaiTro vaiTro) {
+    public void setVaiTro(int vaiTro) {
         this.vaiTro = vaiTro;
     }
-    public boolean getGioiTinh() {
+
+    public boolean isGioiTinh() {
         return gioiTinh;
     }
 
@@ -106,7 +107,6 @@ public class NhanVien {
 
     @Override
     public String toString() {
-        return "NhanVien{" + "maNV=" + maNV + ", hoTen=" + hoTen + ", diaChi=" + diaChi + ", trangThai=" + trangThai + ", tuoi=" + tuoi + ", soDienThoai=" + soDienThoai + ", ngayBatDauLam=" + ngayBatDauLam + ", vaiTro=" + vaiTro + ", gioiTinh=" + gioiTinh + '}';
+        return "NhanVienDTO{" + "maNV=" + maNV + ", hoTen=" + hoTen + ", diaChi=" + diaChi + ", trangThai=" + trangThai + ", tuoi=" + tuoi + ", soDienThoai=" + soDienThoai + ", ngayBatDauLam=" + ngayBatDauLam + ", vaiTro=" + vaiTro + ", gioiTinh=" + gioiTinh + '}';
     }
-       
 }
