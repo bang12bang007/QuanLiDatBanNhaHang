@@ -8,18 +8,17 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Laptop
+ * @author dmx
  */
-public class GD_DatMon extends javax.swing.JPanel {
+public class GD_Ban extends javax.swing.JPanel {
 
     /**
-     * Creates new form GD_DatMon
+     * Creates new form GD_Ban
      */
     private JPanel main;
-    public GD_DatMon(JPanel main) {
+    public GD_Ban(JPanel main) {
         this.main = main;
         initComponents();
-        setVisible(true);
     }
 
     /**
@@ -31,12 +30,11 @@ public class GD_DatMon extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         myButton1 = new component.MyButton();
 
-        jLabel1.setText("Đặt món");
-
-        myButton1.setText("GỬI BẾP");
+        myButton1.setBackground(new java.awt.Color(255, 102, 102));
+        myButton1.setForeground(new java.awt.Color(255, 255, 255));
+        myButton1.setText("BÀN_VD");
         myButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myButton1ActionPerformed(evt);
@@ -48,33 +46,26 @@ public class GD_DatMon extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(196, 196, 196)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(758, 758, 758))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117))
+                .addGap(165, 165, 165)
+                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(513, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(233, 233, 233)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(227, 227, 227))
+                .addGap(77, 77, 77)
+                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(187, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(main, new GD_QuanLyDatMon(main));
+        utils.AppUtils.setUI(main,new GD_DatMon(main));
     }//GEN-LAST:event_myButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private component.MyButton myButton1;
     // End of variables declaration//GEN-END:variables
 }

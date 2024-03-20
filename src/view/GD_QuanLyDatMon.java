@@ -22,13 +22,13 @@ import java.awt.event.*;
  *
  * @author Laptop
  */
-public class GD_Order extends javax.swing.JPanel {
+public class GD_QuanLyDatMon extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_Order
      */
     private JPanel mainPanel;
-    public GD_Order(JPanel main) {
+    public GD_QuanLyDatMon(JPanel main) {
         this.mainPanel = main;
         initComponents();
         txtMaBan.setBackground(new Color(0,0,0, 1));
