@@ -34,6 +34,7 @@ public class GD_Order extends javax.swing.JPanel {
         txtMaBan.setBackground(new Color(0,0,0, 1));
         this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
         scroll.setVerticalScrollBar(new ScrollBarCustom());
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         IconFontSwing.register(FontAwesome.getIconFont());
         iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20, Color.WHITE));
         btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));

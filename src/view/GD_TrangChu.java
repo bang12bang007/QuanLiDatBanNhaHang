@@ -33,6 +33,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
     public GD_TrangChu() {
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
+        
 //        setResizable(false);
         utils.AppUtils.setUI(mainJpanel, new GD_Order(mainJpanel));
         label_AVT.setText(nhanVien.getHoTen());
@@ -59,6 +60,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 30,new Color(20, 174, 92)));
         buttonDatMon.setIcon(IconFontSwing.buildIcon(FontAwesome.COFFEE, 30,new Color(192,192,192)));
         buttonThongKe.setIcon(IconFontSwing.buildIcon(FontAwesome.BAR_CHART, 30,new Color(255, 205, 41)));
+        
     }
     
     /**

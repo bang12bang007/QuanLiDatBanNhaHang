@@ -15,10 +15,12 @@ import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -65,7 +67,50 @@ public class AppUtils {
         return false;
     }
     //mặc định columnStart = 1
-    public static <T> T getEntity(Class<T> clazz, ResultSet myRs,int columnStart) throws SQLException {
+
+    /**
+     *
+     * @param <T>
+     * @param <K>
+     * @param clazz
+     * @param myRs
+     * @param columnStart
+     * @param enums
+     * @param enun
+     * @return
+     * @throws SQLException
+     */
+//    public static <T> T getEntity(Class<T> clazz, ResultSet myRs, int columnStart, ArrayList<String> enums,  Class<Enum> enumType) throws SQLException {
+//        Map<String, Object> properties = new LinkedHashMap<>();
+//        int columnCount = myRs.getMetaData().getColumnCount();
+//
+//        // Lấy dữ liệu từ ResultSet và đưa vào Map properties
+//        while (myRs.next()) {
+//            for (int i = columnStart; i <= columnCount; i++) {
+//                String columnName = myRs.getMetaData().getColumnName(i);
+//                Object value = myRs.getObject(i);
+//                if(enums.contains(columnName)) {
+//                    // Handle enum conversion here if necessary
+//                    // For example:
+//                   value = Enum.valueOf(enumType, (String)value);
+//                }
+//                properties.put(columnName, value);
+//            }
+//        }
+//        // Chuyển Map properties thành JSON
+//        String json = new Gson().toJson(properties);
+//        // Chuyển JSON thành đối tượng của lớp clazz
+//        try {
+//            T obj = new Gson().fromJson(json, clazz);
+//            return obj;
+//        } catch(Exception e) {
+//            // Handle deserialization exception properly
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+    
+    public static <T> T getEntity(Class<T> clazz, ResultSet myRs, int columnStart) throws SQLException {
         Map<String, Object> properties = new LinkedHashMap<>();
         int columnCount = myRs.getMetaData().getColumnCount();
 
@@ -74,22 +119,21 @@ public class AppUtils {
             for (int i = columnStart; i <= columnCount; i++) {
                 String columnName = myRs.getMetaData().getColumnName(i);
                 Object value = myRs.getObject(i);
-                columnName = columnName.substring(0, 1).toLowerCase() + columnName.substring(1);
                 properties.put(columnName, value);
             }
         }
         // Chuyển Map properties thành JSON
-        String json = GSON.toJson(properties);
+        String json = new Gson().toJson(properties);
         // Chuyển JSON thành đối tượng của lớp clazz
         try {
-            T obj = GSON.fromJson(json, clazz);
+            T obj = new Gson().fromJson(json, clazz);
             return obj;
         } catch(Exception e) {
+            // Handle deserialization exception properly
             e.printStackTrace();
         }
         return null;
     }
-    
     public static <T> boolean updateById(T t, String SQL, String id) {
         Connection con = connect();
         String json = GSON.toJson(t);
