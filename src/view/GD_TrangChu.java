@@ -30,11 +30,12 @@ public class GD_TrangChu extends javax.swing.JFrame {
     //default test //sau này xóa
     NhanVien_Dao nv_dao = new NhanVien_Dao();
     NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
-
+    
     //dùng cho run
     public GD_TrangChu() {
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
+        
 //        setResizable(false);
         label_AVT.setText(nhanVien.getHoTen());
 //        UIManager.put( "Menu.selectionBackground", Color.cyan );

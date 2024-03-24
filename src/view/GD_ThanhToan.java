@@ -4,11 +4,20 @@
  */
 package view;
 
+import LIB.FadeEffect;
+import component.OrderItem;
+import component.ScrollBarCustom;
+import component.WrapGridLayout;
+import component.WrapLayout;
 import entity.HoaDon;
 import icon.FontAwesome;
 import java.awt.Color;
 import jiconfont.swing.IconFontSwing;
-
+import javax.swing.*;
+import java.awt.*;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author Laptop
@@ -18,27 +27,47 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     /**
      * Creates new form GD_ThanhToan
      */
+//    set width for first
+    private int width = 0;
     private HoaDon hoaDon;
-    public GD_ThanhToan() {
-        initComponents();
-    }
     
     public GD_ThanhToan(HoaDon hoaDon) {
         this.hoaDon = hoaDon;
-        IconFontSwing.register(FontAwesome.getIconFont());
         initComponents();
-        theThanhVienLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CREDIT_CARD, 20));
-        chuongTrinhKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20));
-        btnAddKM.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20));
+        IconFontSwing.register(FontAwesome.getIconFont());
+        theThanhVienLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CREDIT_CARD, 20, Color.WHITE));
+        chuongTrinhKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
+        btnAddKM.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
         btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
         btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
-        btnScanQR.setIcon(IconFontSwing.buildIcon(FontAwesome.QRCODE, 20));
-        khuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.TAG, 20));
+        btnDownTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
+        btnUpTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
+        btnBack.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_LEFT, 10, Color.WHITE));
+        btnScanQR.setIcon(IconFontSwing.buildIcon(FontAwesome.QRCODE, 20, Color.WHITE));
+        khuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.TAG, 20, Color.WHITE));
         iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20));
         iconSearch_KM.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20));
-        maHoaDon.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20));
+        maHoaDon.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
         txtMTV.setBackground(new Color(0,0,0,0));
         txtMKM.setBackground(new Color(0,0,0,0));
+        tableContainer.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0)); 
+        tableBody.setVerticalScrollBar(new ScrollBarCustom());
+        tableBody.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        FirstTimeLoadItem();
+    }
+    
+    private void FirstTimeLoadItem() {
+        Timer timer = new Timer(100, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Thêm mã để kích hoạt action listener tại đây
+            loadData();
+            tableContainer.repaint();
+            tableContainer.validate();
+        }
+        });
+        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
+        timer.start();
     }
 
     /**
@@ -78,22 +107,32 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         theThanhVienContainer1 = new javax.swing.JPanel();
         maHoaDon = new javax.swing.JLabel();
         maHoaDon1 = new javax.swing.JLabel();
-        btnUp2 = new component.MyButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        btnBack = new component.MyButton();
         jPanel2 = new javax.swing.JPanel();
         btnReserve = new component.MyButton();
-        btnReserve1 = new component.MyButton();
-        btnReserve2 = new component.MyButton();
+        btnThuTien = new component.MyButton();
+        btnLuuTam = new component.MyButton();
         btnReserve3 = new component.MyButton();
-        btnUp1 = new component.MyButton();
-        btnDown1 = new component.MyButton();
+        btnUpTable = new component.MyButton();
+        btnDownTable = new component.MyButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        table = new javax.swing.JPanel();
+        headerTable = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        tableBody = new javax.swing.JScrollPane();
+        tableContainer = new javax.swing.JPanel();
 
-        leftContainer.setBackground(new java.awt.Color(255, 255, 255));
+        leftContainer.setBackground(new java.awt.Color(83, 86, 99));
 
-        theThanhVienContainer.setBackground(new java.awt.Color(204, 204, 204));
+        theThanhVienContainer.setBackground(new java.awt.Color(31, 29, 43));
 
         theThanhVienLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        theThanhVienLabel.setForeground(new java.awt.Color(255, 255, 255));
         theThanhVienLabel.setText("Thể thành viên");
 
         javax.swing.GroupLayout theThanhVienContainerLayout = new javax.swing.GroupLayout(theThanhVienContainer);
@@ -113,6 +152,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        maTheContainer.setBackground(new java.awt.Color(255, 255, 255));
         maTheContainer.setRoundBottomLeft(8);
         maTheContainer.setRoundBottomRight(8);
         maTheContainer.setRoundTopLeft(8);
@@ -143,11 +183,14 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Mã thành viên");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tên Thành viên");
 
+        maTheContainer1.setBackground(new java.awt.Color(255, 255, 255));
         maTheContainer1.setRoundBottomLeft(8);
         maTheContainer1.setRoundBottomRight(8);
         maTheContainer1.setRoundTopLeft(8);
@@ -165,8 +208,10 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Hạng Thẻ");
 
+        maTheContainer2.setBackground(new java.awt.Color(255, 255, 255));
         maTheContainer2.setRoundBottomLeft(8);
         maTheContainer2.setRoundBottomRight(8);
         maTheContainer2.setRoundTopLeft(8);
@@ -183,9 +228,10 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             .addGap(0, 38, Short.MAX_VALUE)
         );
 
-        ctkmContainer.setBackground(new java.awt.Color(204, 204, 204));
+        ctkmContainer.setBackground(new java.awt.Color(31, 29, 43));
 
         chuongTrinhKhuyenMai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chuongTrinhKhuyenMai.setForeground(new java.awt.Color(255, 255, 255));
         chuongTrinhKhuyenMai.setText("Chương trình khuyến mãi");
 
         javax.swing.GroupLayout ctkmContainerLayout = new javax.swing.GroupLayout(ctkmContainer);
@@ -205,10 +251,11 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        btnAddKM.setForeground(new java.awt.Color(255, 255, 255));
         btnAddKM.setText("KHUYẾN MÃI KHÁC");
-        btnAddKM.setColor(new java.awt.Color(204, 204, 204));
-        btnAddKM.setColorClick(new java.awt.Color(102, 102, 102));
-        btnAddKM.setColorOver(new java.awt.Color(51, 51, 51));
+        btnAddKM.setColor(new java.awt.Color(31, 29, 43));
+        btnAddKM.setColorClick(new java.awt.Color(234, 124, 105));
+        btnAddKM.setColorOver(new java.awt.Color(234, 124, 105));
         btnAddKM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAddKM.setRadius(8);
         btnAddKM.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +265,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         });
 
         btnDown.setForeground(new java.awt.Color(255, 255, 255));
-        btnDown.setColor(new java.awt.Color(83, 86, 99));
+        btnDown.setColor(new java.awt.Color(31, 29, 43));
         btnDown.setColorClick(new java.awt.Color(234, 124, 105));
         btnDown.setColorOver(new java.awt.Color(234, 124, 105));
         btnDown.setRadius(8);
@@ -229,7 +276,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         });
 
         btnUp.setForeground(new java.awt.Color(255, 255, 255));
-        btnUp.setColor(new java.awt.Color(83, 86, 99));
+        btnUp.setColor(new java.awt.Color(31, 29, 43));
         btnUp.setColorClick(new java.awt.Color(234, 124, 105));
         btnUp.setColorOver(new java.awt.Color(234, 124, 105));
         btnUp.setRadius(8);
@@ -239,11 +286,13 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             }
         });
 
-        ctkmContainer1.setBackground(new java.awt.Color(204, 204, 204));
+        ctkmContainer1.setBackground(new java.awt.Color(31, 29, 43));
 
         khuyenMai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        khuyenMai.setForeground(new java.awt.Color(255, 255, 255));
         khuyenMai.setText("Mã khuyến mãi");
 
+        maTheContainer3.setBackground(new java.awt.Color(255, 255, 255));
         maTheContainer3.setRoundBottomLeft(8);
         maTheContainer3.setRoundBottomRight(8);
         maTheContainer3.setRoundTopLeft(8);
@@ -296,6 +345,10 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jScrollPane1.setBorder(null);
+
+        jPanel1.setBackground(new java.awt.Color(83, 86, 99));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -309,10 +362,11 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(jPanel1);
 
+        btnScanQR.setForeground(new java.awt.Color(255, 255, 255));
         btnScanQR.setText("Quét mã QR");
-        btnScanQR.setColor(new java.awt.Color(153, 153, 153));
-        btnScanQR.setColorClick(new java.awt.Color(204, 204, 204));
-        btnScanQR.setColorOver(new java.awt.Color(102, 102, 102));
+        btnScanQR.setColor(new java.awt.Color(31, 29, 43));
+        btnScanQR.setColorClick(new java.awt.Color(234, 124, 105));
+        btnScanQR.setColorOver(new java.awt.Color(234, 124, 105));
         btnScanQR.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnScanQR.setRadius(8);
         btnScanQR.addActionListener(new java.awt.event.ActionListener() {
@@ -385,35 +439,38 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddKM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDown, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(btnDown, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(btnAddKM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addComponent(ctkmContainer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
         );
 
-        rightContainer.setBackground(new java.awt.Color(255, 255, 255));
+        rightContainer.setBackground(new java.awt.Color(83, 86, 99));
+        rightContainer.setForeground(new java.awt.Color(255, 255, 255));
 
-        theThanhVienContainer1.setBackground(new java.awt.Color(204, 204, 204));
+        theThanhVienContainer1.setBackground(new java.awt.Color(31, 29, 43));
 
         maHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        maHoaDon.setForeground(new java.awt.Color(255, 255, 255));
         maHoaDon.setText("11122003-Ban101");
         maHoaDon.setToolTipText("");
 
         maHoaDon1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        maHoaDon1.setForeground(new java.awt.Color(255, 255, 255));
         maHoaDon1.setText("13/3/2024 5:10 SA");
         maHoaDon1.setToolTipText("");
 
-        btnUp2.setForeground(new java.awt.Color(255, 255, 255));
-        btnUp2.setColor(new java.awt.Color(83, 86, 99));
-        btnUp2.setColorClick(new java.awt.Color(234, 124, 105));
-        btnUp2.setColorOver(new java.awt.Color(234, 124, 105));
-        btnUp2.setRadius(8);
-        btnUp2.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setColor(new java.awt.Color(83, 86, 99));
+        btnBack.setColorClick(new java.awt.Color(234, 124, 105));
+        btnBack.setColorOver(new java.awt.Color(234, 124, 105));
+        btnBack.setRadius(8);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUp2ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -423,7 +480,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             theThanhVienContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, theThanhVienContainer1Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(btnUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(maHoaDon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -436,29 +493,15 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(theThanhVienContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(theThanhVienContainer1Layout.createSequentialGroup()
-                        .addComponent(btnUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(theThanhVienContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(maHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                        .addComponent(maHoaDon1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)))
+                        .addComponent(maHoaDon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-        jTable1.getAccessibleContext().setAccessibleDescription("");
-
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(31, 29, 43));
 
         btnReserve.setForeground(new java.awt.Color(255, 255, 255));
         btnReserve.setText("Đặt trước (0)");
@@ -473,29 +516,29 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             }
         });
 
-        btnReserve1.setForeground(new java.awt.Color(255, 255, 255));
-        btnReserve1.setText("Đặt trước (0)");
-        btnReserve1.setToolTipText("");
-        btnReserve1.setColor(new java.awt.Color(83, 86, 99));
-        btnReserve1.setColorClick(new java.awt.Color(234, 124, 105));
-        btnReserve1.setColorOver(new java.awt.Color(234, 124, 105));
-        btnReserve1.setRadius(8);
-        btnReserve1.addActionListener(new java.awt.event.ActionListener() {
+        btnThuTien.setForeground(new java.awt.Color(255, 255, 255));
+        btnThuTien.setText("Thu tiền");
+        btnThuTien.setToolTipText("");
+        btnThuTien.setColor(new java.awt.Color(83, 86, 99));
+        btnThuTien.setColorClick(new java.awt.Color(234, 124, 105));
+        btnThuTien.setColorOver(new java.awt.Color(234, 124, 105));
+        btnThuTien.setRadius(8);
+        btnThuTien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReserve1ActionPerformed(evt);
+                btnThuTienActionPerformed(evt);
             }
         });
 
-        btnReserve2.setForeground(new java.awt.Color(255, 255, 255));
-        btnReserve2.setText("Đặt trước (0)");
-        btnReserve2.setToolTipText("");
-        btnReserve2.setColor(new java.awt.Color(83, 86, 99));
-        btnReserve2.setColorClick(new java.awt.Color(234, 124, 105));
-        btnReserve2.setColorOver(new java.awt.Color(234, 124, 105));
-        btnReserve2.setRadius(8);
-        btnReserve2.addActionListener(new java.awt.event.ActionListener() {
+        btnLuuTam.setForeground(new java.awt.Color(255, 255, 255));
+        btnLuuTam.setText("Lưu tạm");
+        btnLuuTam.setToolTipText("");
+        btnLuuTam.setColor(new java.awt.Color(83, 86, 99));
+        btnLuuTam.setColorClick(new java.awt.Color(234, 124, 105));
+        btnLuuTam.setColorOver(new java.awt.Color(234, 124, 105));
+        btnLuuTam.setRadius(8);
+        btnLuuTam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReserve2ActionPerformed(evt);
+                btnLuuTamActionPerformed(evt);
             }
         });
 
@@ -517,14 +560,14 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(btnReserve3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
-                .addComponent(btnReserve2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLuuTam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
-                .addComponent(btnReserve1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnThuTien, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -533,59 +576,136 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReserve1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReserve2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThuTien, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLuuTam, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReserve3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        btnUp1.setForeground(new java.awt.Color(255, 255, 255));
-        btnUp1.setColor(new java.awt.Color(83, 86, 99));
-        btnUp1.setColorClick(new java.awt.Color(234, 124, 105));
-        btnUp1.setColorOver(new java.awt.Color(234, 124, 105));
-        btnUp1.setRadius(8);
-        btnUp1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpTable.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpTable.setColor(new java.awt.Color(31, 29, 43));
+        btnUpTable.setColorClick(new java.awt.Color(234, 124, 105));
+        btnUpTable.setColorOver(new java.awt.Color(234, 124, 105));
+        btnUpTable.setRadius(8);
+        btnUpTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUp1ActionPerformed(evt);
+                btnUpTableActionPerformed(evt);
             }
         });
 
-        btnDown1.setForeground(new java.awt.Color(255, 255, 255));
-        btnDown1.setColor(new java.awt.Color(83, 86, 99));
-        btnDown1.setColorClick(new java.awt.Color(234, 124, 105));
-        btnDown1.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDown1.setRadius(8);
-        btnDown1.addActionListener(new java.awt.event.ActionListener() {
+        btnDownTable.setForeground(new java.awt.Color(255, 255, 255));
+        btnDownTable.setColor(new java.awt.Color(31, 29, 43));
+        btnDownTable.setColorClick(new java.awt.Color(234, 124, 105));
+        btnDownTable.setColorOver(new java.awt.Color(234, 124, 105));
+        btnDownTable.setRadius(8);
+        btnDownTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDown1ActionPerformed(evt);
+                btnDownTableActionPerformed(evt);
             }
         });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Thành tiền:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Còn phải thu:");
+
+        headerTable.setBackground(new java.awt.Color(31, 29, 43));
+        headerTable.setLayout(new java.awt.GridLayout(1, 4));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("  Tên món");
+        headerTable.add(jLabel6);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText(" SL");
+        headerTable.add(jLabel7);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText(" Đơn giá");
+        headerTable.add(jLabel8);
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Thành tiền");
+        headerTable.add(jLabel9);
+
+        tableBody.setBackground(new java.awt.Color(83, 86, 99));
+        tableBody.setBorder(null);
+
+        tableContainer.setBackground(new java.awt.Color(83, 86, 99));
+
+        javax.swing.GroupLayout tableContainerLayout = new javax.swing.GroupLayout(tableContainer);
+        tableContainer.setLayout(tableContainerLayout);
+        tableContainerLayout.setHorizontalGroup(
+            tableContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 733, Short.MAX_VALUE)
+        );
+        tableContainerLayout.setVerticalGroup(
+            tableContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 293, Short.MAX_VALUE)
+        );
+
+        tableBody.setViewportView(tableContainer);
+
+        javax.swing.GroupLayout tableLayout = new javax.swing.GroupLayout(table);
+        table.setLayout(tableLayout);
+        tableLayout.setHorizontalGroup(
+            tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(headerTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tableBody, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        tableLayout.setVerticalGroup(
+            tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tableLayout.createSequentialGroup()
+                .addComponent(headerTable, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(tableBody, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
         rightContainer.setLayout(rightContainerLayout);
         rightContainerLayout.setHorizontalGroup(
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(theThanhVienContainer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightContainerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDown1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDownTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(rightContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
+            .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         rightContainerLayout.setVerticalGroup(
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightContainerLayout.createSequentialGroup()
                 .addComponent(theThanhVienContainer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(2, 2, 2)
+                .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUp1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDown1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                    .addComponent(btnUpTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDownTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel5)
+                .addGap(20, 20, 20)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -595,7 +715,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(leftContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addGap(1, 1, 1)
                 .addComponent(rightContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -629,60 +749,83 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnScanQRActionPerformed
 
-    private void btnUp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUp1ActionPerformed
+    private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUp1ActionPerformed
+    }//GEN-LAST:event_btnUpTableActionPerformed
 
-    private void btnDown1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDown1ActionPerformed
+    private void btnDownTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownTableActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDown1ActionPerformed
+    }//GEN-LAST:event_btnDownTableActionPerformed
 
-    private void btnUp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUp2ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUp2ActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReserveActionPerformed
 
-    private void btnReserve1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserve1ActionPerformed
+    private void btnThuTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuTienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReserve1ActionPerformed
+        JFrame jFrame = new JFrame();
+        jFrame.setUndecorated(true);
+        jFrame.setExtendedState(MAXIMIZED_BOTH);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jFrame.add(new Form_ThuTien(jFrame));
+        jFrame.setBackground(new Color(0,0,0,0));
+        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+        jFrame.setVisible(true);
+    }//GEN-LAST:event_btnThuTienActionPerformed
 
-    private void btnReserve2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserve2ActionPerformed
+    private void btnLuuTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuTamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReserve2ActionPerformed
+        loadData();
+    }//GEN-LAST:event_btnLuuTamActionPerformed
 
     private void btnReserve3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserve3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReserve3ActionPerformed
 
+    public void loadData() {
+        width = tableContainer.getWidth();
+        tableContainer.add(new OrderItem(width,1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width,2, new String[]{"Cơm", "1", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width,1, new String[]{"Bún Bò", "2", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width,2, new String[]{"Phở Bò", "4", "400.000", "800.000"}));
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnAddKM;
+    private component.MyButton btnBack;
     private component.MyButton btnDown;
-    private component.MyButton btnDown1;
+    private component.MyButton btnDownTable;
+    private component.MyButton btnLuuTam;
     private component.MyButton btnReserve;
-    private component.MyButton btnReserve1;
-    private component.MyButton btnReserve2;
     private component.MyButton btnReserve3;
     private component.MyButton btnScanQR;
+    private component.MyButton btnThuTien;
     private component.MyButton btnUp;
-    private component.MyButton btnUp1;
-    private component.MyButton btnUp2;
+    private component.MyButton btnUpTable;
     private javax.swing.JLabel chuongTrinhKhuyenMai;
     private javax.swing.JPanel ctkmContainer;
     private javax.swing.JPanel ctkmContainer1;
+    private javax.swing.JPanel headerTable;
     private javax.swing.JLabel iconSearch;
     private javax.swing.JLabel iconSearch_KM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel khuyenMai;
     private javax.swing.JPanel leftContainer;
     private javax.swing.JLabel maHoaDon;
@@ -692,6 +835,9 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private component.PanelRound maTheContainer2;
     private component.PanelRound maTheContainer3;
     private javax.swing.JPanel rightContainer;
+    private javax.swing.JPanel table;
+    private javax.swing.JScrollPane tableBody;
+    private javax.swing.JPanel tableContainer;
     private javax.swing.JPanel theThanhVienContainer;
     private javax.swing.JPanel theThanhVienContainer1;
     private javax.swing.JLabel theThanhVienLabel;

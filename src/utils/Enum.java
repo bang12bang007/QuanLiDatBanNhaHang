@@ -9,6 +9,10 @@ package utils;
  * @author dmx
  */
 public class Enum {
+
+    static Object valueOf(Class<Enum> enumType, String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     public static enum LoaiViTri {
         BAN_TRUNG_TAM,BAN_CANH_CUA_SO,BAN_PHIA_GOC,BAN_GAN_QUAY_PHUC_VU;
     };
