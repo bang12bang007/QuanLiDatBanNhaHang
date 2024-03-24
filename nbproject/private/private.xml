@@ -1,36 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/component/MyJMenuItem.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>45</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/OrderCard.java</file>
-            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/OrderItem.java</file>
-            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/Form_ThuTien.java</file>
-            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/MyButton.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/utils/AppUtils.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/BookingItem.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_DatBan.java</file>
             <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_ThanhToan.java</file>
             <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_TrangChu.java</file>
-            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/PanelRound.java</file>
-            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_Order.java</file>
-=======
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_DangNhap.java</file>
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_DatMon.java</file>
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/component/MyJMenuItem.java</file>
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_TrangChu.java</file>
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/dto/NhanVienDTO.java</file>
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/dao/NhanVien_Dao.java</file>
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_Ban.java</file>
-            <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_QuanLyDatMon.java</file>
->>>>>>> 7ad08e23748f2c32ec466d98bcb6c29a191965bb
         </group>
     </open-files>
 </project-private>

@@ -102,7 +102,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
                 utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel));
             }
         });
-        ///////////////////////////////////////////////////////////////////////////////////////////////
     }
     
     
@@ -351,7 +350,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
         // TODO add your handling code here:
-        
+        utils.AppUtils.setUI(mainJpanel, new GD_DatBan());
     }//GEN-LAST:event_buttonDatBanActionPerformed
 
     private void buttonDatMonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDatMonMouseEntered
