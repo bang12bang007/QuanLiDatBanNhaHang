@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import jiconfont.swing.IconFontSwing;
+
 /**
  *
  * @author Laptop
@@ -26,11 +27,10 @@ public class GD_TrangChu extends javax.swing.JFrame {
     /**
      * Creates new form GD_TrangChu
      */
-    
     //default test //sau này xóa
     NhanVien_Dao nv_dao = new NhanVien_Dao();
     NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
-    
+
     //dùng cho run
     public GD_TrangChu() {
         set_up_UI();
@@ -40,6 +40,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 //        UIManager.put( "Menu.selectionBackground", Color.cyan );
 //        UIManager.put( "MenuItem.selectionBackground", Color.cyan );
     }
+
     //dùng cho đi từ login vào
     public GD_TrangChu(NhanVien nv) {
         set_up_UI();
@@ -48,24 +49,24 @@ public class GD_TrangChu extends javax.swing.JFrame {
         NhanVien_Dao nvd = new NhanVien_Dao();
         label_AVT.setText(nv.getHoTen());
     }
-    
-    private void set_up_UI(){
+
+    private void set_up_UI() {
         initComponents();
-        label_week_day.setText(""+LocalDate.now().getDayOfWeek());
-        label_day_month_year.setText(LocalDate.now().getDayOfMonth() +"/" + 
-                LocalDate.now().getMonthValue()+"/"+
-                LocalDate.now().getYear());
+        label_week_day.setText("" + LocalDate.now().getDayOfWeek());
+        label_day_month_year.setText(LocalDate.now().getDayOfMonth() + "/"
+                + LocalDate.now().getMonthValue() + "/"
+                + LocalDate.now().getYear());
         IconFontSwing.register(FontAwesome.getIconFont());
-        btnAVT.setIcon(IconFontSwing.buildIcon(FontAwesome.USER_CIRCLE, 40,Color.WHITE));
-        buttonHelp.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION_CIRCLE, 30,Color.WHITE));
-        buttonHome.setIcon(IconFontSwing.buildIcon(FontAwesome.HOME, 40,Color.WHITE));
-        buttonDatBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 30,new Color(20, 174, 92)));
-        buttonDatMon.setIcon(IconFontSwing.buildIcon(FontAwesome.COFFEE, 30,new Color(192,192,192)));
-        buttonThongKe.setIcon(IconFontSwing.buildIcon(FontAwesome.BAR_CHART, 30,new Color(255, 205, 41)));
-        
+        btnAVT.setIcon(IconFontSwing.buildIcon(FontAwesome.USER_CIRCLE, 40, Color.WHITE));
+        buttonHelp.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION_CIRCLE, 30, Color.WHITE));
+        buttonHome.setIcon(IconFontSwing.buildIcon(FontAwesome.HOME, 40, Color.WHITE));
+        buttonDatBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 30, new Color(20, 174, 92)));
+        buttonDatMon.setIcon(IconFontSwing.buildIcon(FontAwesome.COFFEE, 30, new Color(192, 192, 192)));
+        buttonThongKe.setIcon(IconFontSwing.buildIcon(FontAwesome.BAR_CHART, 30, new Color(255, 205, 41)));
+
         ///////////////////////////////////////////////////////////////////////////////////////////////
         TransparentPopupMenu popupMenu = new TransparentPopupMenu();
-        popupMenu.setBackground(new Color(1,1,1,0));
+        popupMenu.setBackground(new Color(1, 1, 1, 0));
         MyJMenuItem item1 = new MyJMenuItem("ĐẶT MÓN");
         MyJMenuItem item2 = new MyJMenuItem("THÊM MÓN");
         MyJMenuItem item3 = new MyJMenuItem("THÊM MÓN");
@@ -73,29 +74,29 @@ public class GD_TrangChu extends javax.swing.JFrame {
         popupMenu.add(item1);
         popupMenu.add(item2);
         popupMenu.add(item3);
-        
+
         buttonHome.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if(SwingUtilities.isRightMouseButton(e)){
-                    popupMenu.show(buttonHome, 0, buttonHome.getHeight()-5);
-                    if(item1.isSelected()){
-                    item1.setBackground(new Color(31,29,43));
-                    
-                }
-                if(SwingUtilities.isLeftMouseButton(e)){
-                    utils.AppUtils.setUI(mainJpanel, jPanel1);
-                }
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    popupMenu.show(buttonHome, 0, buttonHome.getHeight() - 5);
+                    if (item1.isSelected()) {
+                        item1.setBackground(new Color(31, 29, 43));
+
+                    }
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        utils.AppUtils.setUI(mainJpanel, jPanel1);
+                    }
                 }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                popupMenu.setPreferredSize(new Dimension(buttonHome.getWidth(),buttonHome.getHeight()*3));
+                popupMenu.setPreferredSize(new Dimension(buttonHome.getWidth(), buttonHome.getHeight() * 3));
             }
         });
-        
-        item1.addMouseListener(new MouseAdapter(){
+
+        item1.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel));
@@ -103,9 +104,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         });
         ///////////////////////////////////////////////////////////////////////////////////////////////
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -350,13 +349,12 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_buttonDatBanActionPerformed
 
     private void buttonDatMonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDatMonMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonDatMonMouseEntered
-
 
     private void setUI(JComponent jComponent) {
         mainJpanel.removeAll();
@@ -364,6 +362,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         mainJpanel.repaint();
         mainJpanel.revalidate();
     }
+
     /**
      * @param args the command line arguments
      */
