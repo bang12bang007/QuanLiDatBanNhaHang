@@ -10,7 +10,10 @@ import component.WrapLayout;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 
 /**
@@ -30,7 +33,21 @@ public class GD_DatBan extends javax.swing.JPanel {
         tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0)); 
         tableScroll.setVerticalScrollBar(new ScrollBarCustom());
         tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        loadData();
+        FirstTimeLoadItem();
+    }
+    
+    private void FirstTimeLoadItem() {
+        Timer timer = new Timer(100, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Thêm mã để kích hoạt action listener tại đây
+                loadData();
+                tableBody.repaint();
+                tableBody.validate();
+            }
+        });
+        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
+        timer.start();
     }
 
     /**
@@ -511,10 +528,11 @@ public class GD_DatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpTableActionPerformed
 
     private void loadData() {
-        tableBody.add(new BookingItem(1, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, tableBody.getWidth()));
-        tableBody.add(new BookingItem(2, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, tableBody.getWidth()));
-        tableBody.add(new BookingItem(1, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, tableBody.getWidth()));
-        tableBody.add(new BookingItem(2, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, tableBody.getWidth()));
+        int width = tableBody.getWidth();
+        tableBody.add(new BookingItem(1, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
+        tableBody.add(new BookingItem(2, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
+        tableBody.add(new BookingItem(1, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
+        tableBody.add(new BookingItem(2, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
         
         
     }

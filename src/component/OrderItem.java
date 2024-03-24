@@ -21,10 +21,11 @@ public class OrderItem extends javax.swing.JPanel {
     /**
      * Creates new form OrderItem
      */
-    public OrderItem(int index, String[] data) {
+    public OrderItem(int width, int index, String[] data) {
         initComponents();
         setBackground(index % 2 != 0 ? new Color(83, 86, 99) : new Color(31, 29, 43));
-        setPreferredSize( new Dimension(1076, 50));
+        setPreferredSize( new Dimension(width, 50));
+        
         push(data);
     }
     

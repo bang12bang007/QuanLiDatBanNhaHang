@@ -16,6 +16,8 @@ import jiconfont.swing.IconFontSwing;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author Laptop
@@ -26,7 +28,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
      * Creates new form GD_ThanhToan
      */
 //    set width for first
-    private int width = 0;
     private HoaDon hoaDon;
     
     public GD_ThanhToan(HoaDon hoaDon) {
@@ -51,11 +52,22 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         tableContainer.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0)); 
         tableBody.setVerticalScrollBar(new ScrollBarCustom());
         tableBody.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        System.out.println("" + jPanel2.getWidth());
-        loadData();
+        FirstTimeLoadItem();
     }
     
-    
+    private void FirstTimeLoadItem() {
+        Timer timer = new Timer(100, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Thêm mã để kích hoạt action listener tại đây
+                loadData();
+                tableContainer.repaint();
+                tableContainer.validate();
+            }
+        });
+        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
+        timer.start();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -774,11 +786,11 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnReserve3ActionPerformed
 
     public void loadData() {
-        tableContainer.add(new OrderItem(1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(2, new String[]{"Cơm", "1", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(1, new String[]{"Bún Bò", "2", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(2, new String[]{"Phở Bò", "4", "400.000", "800.000"}));
-        
+        int width = tableContainer.getWidth();
+        tableContainer.add(new OrderItem(width, 1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width,2, new String[]{"Cơm", "1", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width,1, new String[]{"Bún Bò", "2", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width,2, new String[]{"Phở Bò", "4", "400.000", "800.000"}));
     }
     
 
