@@ -4,6 +4,10 @@
  */
 package view;
 
+import LIB.FadeEffect;
+import java.awt.Color;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -31,6 +35,7 @@ public class GD_Ban extends javax.swing.JPanel {
     private void initComponents() {
 
         myButton1 = new component.MyButton();
+        btnBan = new component.MyButton();
 
         myButton1.setBackground(new java.awt.Color(255, 102, 102));
         myButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -41,21 +46,32 @@ public class GD_Ban extends javax.swing.JPanel {
             }
         });
 
+        btnBan.setText("Bàn 01");
+        btnBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(165, 165, 165)
+                .addContainerGap()
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(513, Short.MAX_VALUE))
+                .addGap(92, 92, 92)
+                .addComponent(btnBan, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBan, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -64,8 +80,21 @@ public class GD_Ban extends javax.swing.JPanel {
         utils.AppUtils.setUI(main,new GD_DatMon(main));
     }//GEN-LAST:event_myButton1ActionPerformed
 
+    private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
+        // TODO add your handling code here:
+        JFrame jFrame = new JFrame();
+        jFrame.setUndecorated(true);
+        jFrame.setExtendedState(MAXIMIZED_BOTH);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jFrame.add(new Form_DatBan(jFrame));
+        jFrame.setBackground(new Color(0,0,0,0));
+        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+        jFrame.setVisible(true);
+    }//GEN-LAST:event_btnBanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private component.MyButton btnBan;
     private component.MyButton myButton1;
     // End of variables declaration//GEN-END:variables
 }

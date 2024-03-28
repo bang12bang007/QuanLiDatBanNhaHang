@@ -6,7 +6,9 @@ package component;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
+import view.GD_DatBan;
 
 /**
  *
@@ -17,21 +19,42 @@ public class BookingItem extends javax.swing.JPanel {
     /**
      * Creates new form BookingItem
      */
+    private GD_DatBan GD;
+    private int index;
+    
     public BookingItem() {
         initComponents();
-//        wrapper.setSize(1076, 60);
         wrapper.setPreferredSize( new Dimension(1076, 60));
+
+    }
+
+    public void setActive(int active) {
+        if(active == index) {
+            this.setBorder(new LineBorder(new Color(234, 124, 105)));
+        } else {
+            this.setBorder(null);
+        }
     }
     
-    public BookingItem(int index, String[] data, int width) {
+    public BookingItem(int index, String[] data, int width, GD_DatBan GD) {
+        this.index = index;
+        this.GD = GD;
         initComponents();
-        Color color = index % 2 != 0 ? new Color(83, 86, 99) : new Color(31, 29, 43);
-        left.setBackground(color);
-        right.setBackground(color);
+        setIndex(index);
         wrapper.setPreferredSize( new Dimension(width, 65));
         IconFontSwing.register(FontAwesome.getIconFont());
         btnNhanBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 40,new Color(20, 174, 92)));
+        btnGoiMon.setColor(new Color(0, 0, 0, 0));
+        btnSapCho.setColor(new Color(0, 0, 0, 0));
+        btnNhanBan.setColor(new Color(0, 0, 0, 0));
         push(data);
+    }
+    
+    public void setIndex(int index) {
+        Color color = index % 2 == 0 ? new Color(83, 86, 99) : new Color(31, 29, 43);
+        left.setBackground(color);
+        right.setBackground(color);
+        this.index = index;
     }
     
     private void push(String[] data) {
@@ -53,8 +76,8 @@ public class BookingItem extends javax.swing.JPanel {
 
         wrapper = new javax.swing.JPanel();
         left = new javax.swing.JPanel();
-        myButton1 = new component.MyButton();
-        myButton2 = new component.MyButton();
+        btnSapCho = new component.MyButton();
+        btnGoiMon = new component.MyButton();
         btnNhanBan = new component.MyButton();
         gioDen = new javax.swing.JLabel();
         khachHang = new javax.swing.JLabel();
@@ -74,26 +97,26 @@ public class BookingItem extends javax.swing.JPanel {
 
         left.setLayout(new java.awt.GridLayout(1, 5));
 
-        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/table_icon.png"))); // NOI18N
-        myButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        myButton1.setMaximumSize(new java.awt.Dimension(30, 60));
-        myButton1.setMinimumSize(new java.awt.Dimension(30, 60));
-        myButton1.setName(""); // NOI18N
-        myButton1.setRadius(12);
-        myButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSapCho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/table_icon.png"))); // NOI18N
+        btnSapCho.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnSapCho.setMaximumSize(new java.awt.Dimension(30, 60));
+        btnSapCho.setMinimumSize(new java.awt.Dimension(30, 60));
+        btnSapCho.setName(""); // NOI18N
+        btnSapCho.setRadius(12);
+        btnSapCho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton1ActionPerformed(evt);
+                btnSapChoActionPerformed(evt);
             }
         });
-        left.add(myButton1);
+        left.add(btnSapCho);
 
-        myButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/fork_icon.png"))); // NOI18N
-        myButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        myButton2.setMaximumSize(new java.awt.Dimension(30, 60));
-        myButton2.setMinimumSize(new java.awt.Dimension(30, 60));
-        myButton2.setName(""); // NOI18N
-        myButton2.setRadius(12);
-        left.add(myButton2);
+        btnGoiMon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/fork_icon.png"))); // NOI18N
+        btnGoiMon.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnGoiMon.setMaximumSize(new java.awt.Dimension(30, 60));
+        btnGoiMon.setMinimumSize(new java.awt.Dimension(30, 60));
+        btnGoiMon.setName(""); // NOI18N
+        btnGoiMon.setRadius(12);
+        left.add(btnGoiMon);
 
         btnNhanBan.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnNhanBan.setMaximumSize(new java.awt.Dimension(30, 60));
@@ -148,25 +171,25 @@ public class BookingItem extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+    private void btnSapChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapChoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton1ActionPerformed
+    }//GEN-LAST:event_btnSapChoActionPerformed
 
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
         // TODO add your handling code here:
-        System.out.println(khachHang.getText());
+        GD.setBookingActive(index);
     }//GEN-LAST:event_wrapperMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private component.MyButton btnGoiMon;
     private component.MyButton btnNhanBan;
+    private component.MyButton btnSapCho;
     private javax.swing.JLabel datCoc;
     private javax.swing.JLabel gioDen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel khachHang;
     private javax.swing.JPanel left;
-    private component.MyButton myButton1;
-    private component.MyButton myButton2;
     private javax.swing.JPanel right;
     private javax.swing.JLabel soNguoi;
     private javax.swing.JLabel trangThai;

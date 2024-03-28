@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
@@ -25,7 +27,11 @@ public class GD_DatBan extends javax.swing.JPanel {
     /**
      * Creates new form GD_DatBan
      */
-    public GD_DatBan() {
+    private int active = -1;
+    private JPanel mainJPanel;
+    private ArrayList<BookingItem> bookingItems = new ArrayList<>();
+    public GD_DatBan(JPanel jPanel) {
+        this.mainJPanel = jPanel;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
@@ -97,6 +103,12 @@ public class GD_DatBan extends javax.swing.JPanel {
         ban = new javax.swing.JLabel();
         btnDownTable = new component.MyButton();
         btnUpTable = new component.MyButton();
+
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         wrapper.setBackground(new java.awt.Color(31, 29, 43));
 
@@ -230,7 +242,15 @@ public class GD_DatBan extends javax.swing.JPanel {
         table.setRoundTopLeft(8);
         table.setRoundTopRight(8);
 
+        tableScroll.setBackground(new java.awt.Color(83, 86, 99));
         tableScroll.setBorder(null);
+
+        tableBody.setBackground(new java.awt.Color(83, 86, 99));
+        tableBody.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBodyMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout tableBodyLayout = new javax.swing.GroupLayout(tableBody);
         tableBody.setLayout(tableBodyLayout);
@@ -250,6 +270,11 @@ public class GD_DatBan extends javax.swing.JPanel {
         btnDatCho.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDatCho.setForeground(new java.awt.Color(255, 255, 255));
         btnDatCho.setText("Đặt chỗ");
+        btnDatCho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDatChoMouseClicked(evt);
+            }
+        });
 
         btnThayDoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThayDoi.setForeground(new java.awt.Color(255, 255, 255));
@@ -259,6 +284,11 @@ public class GD_DatBan extends javax.swing.JPanel {
         btnHuyCho.setForeground(new java.awt.Color(255, 255, 255));
         btnHuyCho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icon_close.png"))); // NOI18N
         btnHuyCho.setText("Hủy đặt chỗ");
+        btnHuyCho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHuyChoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout tableServiceLayout = new javax.swing.GroupLayout(tableService);
         tableService.setLayout(tableServiceLayout);
@@ -527,14 +557,58 @@ public class GD_DatBan extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnUpTableActionPerformed
 
+    private void btnDatChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatChoMouseClicked
+        // TODO add your handling code here:
+        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel));
+    }//GEN-LAST:event_btnDatChoMouseClicked
+
+    private void tableBodyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBodyMouseClicked
+        // TODO add your handling code here:
+        setBookingActive(-1);
+    }//GEN-LAST:event_tableBodyMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        setBookingActive(-1);
+    }//GEN-LAST:event_formMouseClicked
+
+    private void btnHuyChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyChoMouseClicked
+        // TODO add your handling code here:
+        if(active >= 0) {
+            bookingItems.remove(active);
+            tableBody.removeAll();
+            if(bookingItems.size() > 0) {
+                for(int i = 0; i < bookingItems.size(); i++) {
+                    bookingItems.get(i).setIndex(i);
+                    tableBody.add(bookingItems.get(i));
+                }
+            }
+            setBookingActive(-1);
+        }
+    }//GEN-LAST:event_btnHuyChoMouseClicked
+
     private void loadData() {
         int width = tableBody.getWidth();
-        tableBody.add(new BookingItem(1, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
-        tableBody.add(new BookingItem(2, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
-        tableBody.add(new BookingItem(1, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
-        tableBody.add(new BookingItem(2, new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"}, width));
+        ArrayList<String[]> list = new ArrayList<>();
+        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
+        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
+        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
+        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
         
-        
+        for(int i = 0; i < list.size(); i++) {
+            BookingItem bookingItem = new BookingItem(i, list.get(i), width, this);
+            bookingItems.add(bookingItem);
+            tableBody.add(bookingItem);
+        }
+    }
+    
+    public void setBookingActive(int active) {
+        this.active = active;
+        for(BookingItem bookingItem :  bookingItems) {
+            bookingItem.setActive(active);
+        }
+        tableBody.repaint();
+        tableBody.revalidate();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

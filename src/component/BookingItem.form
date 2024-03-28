@@ -51,7 +51,7 @@
             <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
-            <Component class="component.MyButton" name="myButton1">
+            <Component class="component.MyButton" name="btnSapCho">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/table_icon.png"/>
@@ -67,10 +67,10 @@
                 <Property name="radius" type="int" value="12"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSapChoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="component.MyButton" name="myButton2">
+            <Component class="component.MyButton" name="btnGoiMon">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/fork_icon.png"/>

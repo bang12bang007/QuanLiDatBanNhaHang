@@ -349,7 +349,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, new GD_DatBan());
+        utils.AppUtils.setUI(mainJpanel, new GD_DatBan(mainJpanel));
     }//GEN-LAST:event_buttonDatBanActionPerformed
 
     private void buttonDatMonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDatMonMouseEntered
