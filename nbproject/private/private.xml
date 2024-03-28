@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/component/Food.java</file>
             <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_DatMon.java</file>
             <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_TrangChu.java</file>
@@ -10,6 +11,19 @@
             <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_ThanhToan.java</file>
             <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/dao/NhanVien_Dao.java</file>
             <file>file:/T:/PTUD_Projects/QLNH/QuanLiDatBanNhaHang/src/view/GD_Ban.java</file>
+=======
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/utils/AppUtils.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/OrderCard.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/OrderItem.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_DatMon.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/BookingItem.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_DatBan.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_ThanhToan.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/view/GD_TrangChu.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/Food.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/component/PanelGradient.java</file>
+            <file>file:/D:/learning_university_IUH/hoc_ky_6_(2023-2024)/Phat_trien_ung_dung/bao_cao_ck/QuanLiDatBanNhaHang/src/icon/FontAwesome.java</file>
+>>>>>>> 813835ba13c6c16d7cb2d2de3dac3b159250c43d
         </group>
     </open-files>
 </project-private>

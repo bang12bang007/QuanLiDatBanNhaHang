@@ -28,7 +28,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
      * Creates new form GD_ThanhToan
      */
 //    set width for first
-    private int width = 0;
     private HoaDon hoaDon;
     
     public GD_ThanhToan(HoaDon hoaDon) {
@@ -61,10 +60,10 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Thêm mã để kích hoạt action listener tại đây
-            loadData();
-            tableContainer.repaint();
-            tableContainer.validate();
-        }
+                loadData();
+                tableContainer.repaint();
+                tableContainer.validate();
+            }
         });
         timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
         timer.start();
@@ -787,8 +786,8 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnReserve3ActionPerformed
 
     public void loadData() {
-        width = tableContainer.getWidth();
-        tableContainer.add(new OrderItem(width,1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"}));
+        int width = tableContainer.getWidth();
+        tableContainer.add(new OrderItem(width, 1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"}));
         tableContainer.add(new OrderItem(width,2, new String[]{"Cơm", "1", "400.000", "800.000"}));
         tableContainer.add(new OrderItem(width,1, new String[]{"Bún Bò", "2", "400.000", "800.000"}));
         tableContainer.add(new OrderItem(width,2, new String[]{"Phở Bò", "4", "400.000", "800.000"}));
