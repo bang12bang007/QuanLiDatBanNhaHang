@@ -40,13 +40,13 @@ public class Food extends javax.swing.JPanel {
         btnFood.setColorOver(new java.awt.Color(234, 124, 105));
         btnFood.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnFood.setPreferredSize(new java.awt.Dimension(90, 90));
-        btnFood.setRadius(110);
+        btnFood.setRadius(210);
         btnFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFoodActionPerformed(evt);
             }
         });
-        add(btnFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 110, 110));
+        add(btnFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 210, 210));
 
         panelFood.setBackground(new java.awt.Color(31, 29, 43));
         panelFood.setRoundBottomLeft(15);
@@ -70,27 +70,20 @@ public class Food extends javax.swing.JPanel {
         panelFood.setLayout(panelFoodLayout);
         panelFoodLayout.setHorizontalGroup(
             panelFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFoodLayout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
-                .addGroup(panelFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFoodLayout.createSequentialGroup()
-                        .addComponent(jLabelGia, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFoodLayout.createSequentialGroup()
-                        .addComponent(jLabelTen)
-                        .addGap(93, 93, 93))))
+            .addComponent(jLabelGia, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(jLabelTen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelFoodLayout.setVerticalGroup(
             panelFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFoodLayout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(jLabelGia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelTen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
         );
 
-        add(panelFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 300, 210));
+        add(panelFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 270, 240));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoodActionPerformed

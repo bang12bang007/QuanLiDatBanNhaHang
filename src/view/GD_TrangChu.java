@@ -39,7 +39,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 //        setResizable(false);
         label_AVT.setText(nhanVien.getHoTen());
 //        UIManager.put( "Menu.selectionBackground", Color.cyan );
-//        UIManager.put( "MenuItem.selectionBackground", Color.cyan );
+//        UIManager.put( "MenuItem.selectionBackground", Color.cyan);
     }
 
     //dùng cho đi từ login vào
@@ -133,10 +133,10 @@ public class GD_TrangChu extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(83, 86, 99));
         jPanel1.setForeground(new java.awt.Color(83, 86, 99));
 
-        buttonHome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonHome.setBorder(null);
         buttonHome.setForeground(new java.awt.Color(255, 255, 255));
-        buttonHome.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonHome.setColor(new java.awt.Color(234, 124, 105));
+        buttonHome.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonHome.setColor(new java.awt.Color(83, 86, 99));
         buttonHome.setColorClick(new java.awt.Color(31, 29, 43));
         buttonHome.setColorOver(new java.awt.Color(31, 29, 43));
         buttonHome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -147,11 +147,11 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        buttonDatMon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonDatMon.setBorder(null);
         buttonDatMon.setForeground(new java.awt.Color(255, 255, 255));
         buttonDatMon.setText("QL ĐẶT MÓN");
-        buttonDatMon.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonDatMon.setColor(new java.awt.Color(234, 124, 105));
+        buttonDatMon.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonDatMon.setColor(new java.awt.Color(83, 86, 99));
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatMon.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatMon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -168,11 +168,11 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        buttonDatBan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonDatBan.setBorder(null);
         buttonDatBan.setForeground(new java.awt.Color(255, 255, 255));
         buttonDatBan.setText("QL ĐẶT BÀN");
-        buttonDatBan.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonDatBan.setColor(new java.awt.Color(234, 124, 105));
+        buttonDatBan.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonDatBan.setColor(new java.awt.Color(83, 86, 99));
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatBan.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -184,11 +184,11 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        buttonThongKe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonThongKe.setBorder(null);
         buttonThongKe.setForeground(new java.awt.Color(255, 255, 255));
         buttonThongKe.setText("THỐNG KÊ");
-        buttonThongKe.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonThongKe.setColor(new java.awt.Color(234, 124, 105));
+        buttonThongKe.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonThongKe.setColor(new java.awt.Color(83, 86, 99));
         buttonThongKe.setColorClick(new java.awt.Color(31, 29, 43));
         buttonThongKe.setColorOver(new java.awt.Color(31, 29, 43));
         buttonThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -253,7 +253,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(buttonHome, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addComponent(buttonHome, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(buttonDatMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
+import utils.ModelColor;
 /**
  *
  * @author dmx
@@ -79,32 +79,3 @@ public class PanelGradient extends JPanel {
     // End of variables declaration//GEN-END:variables
 }
 
-class ModelColor {
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public float getPosition() {
-        return position;
-    }
-
-    public void setPosition(float position) {
-        this.position = position;
-    }
-
-    public ModelColor(Color color, float position) {
-        this.color = color;
-        this.position = position;
-    }
-
-    public ModelColor() {
-    }
-
-    private Color color;
-    private float position;
-}
