@@ -30,23 +30,24 @@ public class GD_DatBan extends javax.swing.JPanel {
     private int active = -1;
     private JPanel mainJPanel;
     private ArrayList<BookingItem> bookingItems = new ArrayList<>();
+
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
         btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
-        tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0)); 
+        tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableScroll.setVerticalScrollBar(new ScrollBarCustom());
         tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         FirstTimeLoadItem();
     }
-    
+
     private void FirstTimeLoadItem() {
         Timer timer = new Timer(100, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Thêm mã để kích hoạt action listener tại đây
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Thêm mã để kích hoạt action listener tại đây
                 loadData();
                 tableBody.repaint();
                 tableBody.validate();
@@ -554,12 +555,12 @@ public class GD_DatBan extends javax.swing.JPanel {
         loadData();
         tableBody.repaint();
         tableBody.revalidate();
-        
+
     }//GEN-LAST:event_btnUpTableActionPerformed
 
     private void btnDatChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatChoMouseClicked
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel));
+        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN"));
     }//GEN-LAST:event_btnDatChoMouseClicked
 
     private void tableBodyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBodyMouseClicked
@@ -574,11 +575,11 @@ public class GD_DatBan extends javax.swing.JPanel {
 
     private void btnHuyChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyChoMouseClicked
         // TODO add your handling code here:
-        if(active >= 0) {
+        if (active >= 0) {
             bookingItems.remove(active);
             tableBody.removeAll();
-            if(bookingItems.size() > 0) {
-                for(int i = 0; i < bookingItems.size(); i++) {
+            if (bookingItems.size() > 0) {
+                for (int i = 0; i < bookingItems.size(); i++) {
                     bookingItems.get(i).setIndex(i);
                     tableBody.add(bookingItems.get(i));
                 }
@@ -594,17 +595,17 @@ public class GD_DatBan extends javax.swing.JPanel {
         list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
         list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
         list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        
-        for(int i = 0; i < list.size(); i++) {
+
+        for (int i = 0; i < list.size(); i++) {
             BookingItem bookingItem = new BookingItem(i, list.get(i), width, this);
             bookingItems.add(bookingItem);
             tableBody.add(bookingItem);
         }
     }
-    
+
     public void setBookingActive(int active) {
         this.active = active;
-        for(BookingItem bookingItem :  bookingItems) {
+        for (BookingItem bookingItem : bookingItems) {
             bookingItem.setActive(active);
         }
         tableBody.repaint();

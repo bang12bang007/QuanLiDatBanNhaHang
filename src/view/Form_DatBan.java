@@ -287,7 +287,7 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         btnDong2.setBackground(new java.awt.Color(31, 29, 43));
         btnDong2.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong2.setText("CẤT");
+        btnDong2.setText("+");
         btnDong2.setColor(new java.awt.Color(31, 29, 43));
         btnDong2.setColorClick(new java.awt.Color(234, 124, 105));
         btnDong2.setColorOver(new java.awt.Color(234, 124, 105));
@@ -300,7 +300,7 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         btnDong3.setBackground(new java.awt.Color(31, 29, 43));
         btnDong3.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong3.setText("CẤT");
+        btnDong3.setText("Xem thực đơn");
         btnDong3.setColor(new java.awt.Color(31, 29, 43));
         btnDong3.setColorClick(new java.awt.Color(234, 124, 105));
         btnDong3.setColorOver(new java.awt.Color(234, 124, 105));
@@ -313,7 +313,7 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         btnDong4.setBackground(new java.awt.Color(31, 29, 43));
         btnDong4.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong4.setText("CẤT");
+        btnDong4.setText("-");
         btnDong4.setColor(new java.awt.Color(31, 29, 43));
         btnDong4.setColorClick(new java.awt.Color(234, 124, 105));
         btnDong4.setColorOver(new java.awt.Color(234, 124, 105));

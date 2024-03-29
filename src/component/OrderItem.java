@@ -25,7 +25,6 @@ public class OrderItem extends javax.swing.JPanel {
         initComponents();
         setBackground(index % 2 != 0 ? new Color(83, 86, 99) : new Color(31, 29, 43));
         setPreferredSize( new Dimension(width, 50));
-        
         push(data);
     }
     

@@ -4,6 +4,7 @@
  */
 package view;
 
+import component.MyButton;
 import component.MyJMenuItem;
 import component.TransparentPopupMenu;
 import dao.NhanVien_Dao;
@@ -11,9 +12,12 @@ import entity.NhanVien;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import jiconfont.swing.IconFontSwing;
@@ -28,27 +32,28 @@ public class GD_TrangChu extends javax.swing.JFrame {
      * Creates new form GD_TrangChu
      */
     //default test //sau này xóa
-    NhanVien_Dao nv_dao = new NhanVien_Dao();
-    NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
-    
+//    NhanVien_Dao nv_dao = new NhanVien_Dao();
+//    NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
     //dùng cho run
+    private ArrayList<JButton> tabs = new ArrayList<>();
+
     public GD_TrangChu() {
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
-        
+
 //        setResizable(false);
-        label_AVT.setText(nhanVien.getHoTen());
+//        label_AVT.setText(nhanVien.getHoTen());
 //        UIManager.put( "Menu.selectionBackground", Color.cyan );
-//        UIManager.put( "MenuItem.selectionBackground", Color.cyan );
+//        UIManager.put( "MenuItem.selectionBackground", Color.cyan);
     }
 
     //dùng cho đi từ login vào
     public GD_TrangChu(NhanVien nv) {
         set_up_UI();
 //        setUI(new GD_Order());
-        nhanVien = nv;
-        NhanVien_Dao nvd = new NhanVien_Dao();
-        label_AVT.setText(nv.getHoTen());
+//        nhanVien = nv;
+//        NhanVien_Dao nvd = new NhanVien_Dao();
+//        label_AVT.setText(nv.getHoTen());
     }
 
     private void set_up_UI() {
@@ -64,7 +69,10 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 30, new Color(20, 174, 92)));
         buttonDatMon.setIcon(IconFontSwing.buildIcon(FontAwesome.COFFEE, 30, new Color(192, 192, 192)));
         buttonThongKe.setIcon(IconFontSwing.buildIcon(FontAwesome.BAR_CHART, 30, new Color(255, 205, 41)));
-
+        tabs.add(buttonDatBan);
+        tabs.add(buttonDatMon);
+        tabs.add(buttonHome);
+        tabs.add(buttonThongKe);
         ///////////////////////////////////////////////////////////////////////////////////////////////
         TransparentPopupMenu popupMenu = new TransparentPopupMenu();
         popupMenu.setBackground(new Color(1, 1, 1, 0));
@@ -100,7 +108,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         item1.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel));
+                utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel, "DAT_MON"));
             }
         });
     }
@@ -132,30 +140,28 @@ public class GD_TrangChu extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(83, 86, 99));
         jPanel1.setForeground(new java.awt.Color(83, 86, 99));
 
-        buttonHome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonHome.setBorder(null);
         buttonHome.setForeground(new java.awt.Color(255, 255, 255));
-        buttonHome.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonHome.setColor(new java.awt.Color(234, 124, 105));
+        buttonHome.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonHome.setColor(new java.awt.Color(83, 86, 99));
         buttonHome.setColorClick(new java.awt.Color(31, 29, 43));
         buttonHome.setColorOver(new java.awt.Color(31, 29, 43));
         buttonHome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonHome.setRadius(8);
         buttonHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHomeActionPerformed(evt);
             }
         });
 
-        buttonDatMon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonDatMon.setBorder(null);
         buttonDatMon.setForeground(new java.awt.Color(255, 255, 255));
         buttonDatMon.setText("QL ĐẶT MÓN");
-        buttonDatMon.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonDatMon.setColor(new java.awt.Color(234, 124, 105));
+        buttonDatMon.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonDatMon.setColor(new java.awt.Color(83, 86, 99));
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatMon.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatMon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buttonDatMon.setIconTextGap(8);
-        buttonDatMon.setRadius(8);
         buttonDatMon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 buttonDatMonMouseEntered(evt);
@@ -167,32 +173,30 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        buttonDatBan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonDatBan.setBorder(null);
         buttonDatBan.setForeground(new java.awt.Color(255, 255, 255));
         buttonDatBan.setText("QL ĐẶT BÀN");
-        buttonDatBan.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonDatBan.setColor(new java.awt.Color(234, 124, 105));
+        buttonDatBan.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonDatBan.setColor(new java.awt.Color(83, 86, 99));
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatBan.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buttonDatBan.setIconTextGap(8);
-        buttonDatBan.setRadius(8);
         buttonDatBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDatBanActionPerformed(evt);
             }
         });
 
-        buttonThongKe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonThongKe.setBorder(null);
         buttonThongKe.setForeground(new java.awt.Color(255, 255, 255));
         buttonThongKe.setText("THỐNG KÊ");
-        buttonThongKe.setBorderColor(new java.awt.Color(31, 29, 43));
-        buttonThongKe.setColor(new java.awt.Color(234, 124, 105));
+        buttonThongKe.setBorderColor(new java.awt.Color(83, 86, 99));
+        buttonThongKe.setColor(new java.awt.Color(83, 86, 99));
         buttonThongKe.setColorClick(new java.awt.Color(31, 29, 43));
         buttonThongKe.setColorOver(new java.awt.Color(31, 29, 43));
         buttonThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buttonThongKe.setIconTextGap(8);
-        buttonThongKe.setRadius(8);
         buttonThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonThongKeActionPerformed(evt);
@@ -252,7 +256,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(buttonHome, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addComponent(buttonHome, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(buttonDatMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
@@ -336,20 +340,24 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThongKeActionPerformed
         // TODO add your handling code here:
+        setActiveTab(evt);
     }//GEN-LAST:event_buttonThongKeActionPerformed
 
     private void buttonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHomeActionPerformed
         // TODO add your handling code here:
+        setActiveTab(evt);
     }//GEN-LAST:event_buttonHomeActionPerformed
 
     private void buttonDatMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatMonActionPerformed
         // TODO add your handling code here:
         utils.AppUtils.setUI(mainJpanel, new GD_QuanLyDatMon(mainJpanel));
+        setActiveTab(evt);
     }//GEN-LAST:event_buttonDatMonActionPerformed
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
         // TODO add your handling code here:
         utils.AppUtils.setUI(mainJpanel, new GD_DatBan(mainJpanel));
+        setActiveTab(evt);
     }//GEN-LAST:event_buttonDatBanActionPerformed
 
     private void buttonDatMonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDatMonMouseEntered
@@ -361,6 +369,15 @@ public class GD_TrangChu extends javax.swing.JFrame {
         mainJpanel.add(jComponent);
         mainJpanel.repaint();
         mainJpanel.revalidate();
+    }
+
+    private void setActiveTab(ActionEvent e) {
+        Color transparent = new Color(0, 0, 0, 0);
+        Color activeColor = new Color(31, 29, 43);
+        for (JButton button : tabs) {
+            boolean isButton = e.getSource().equals(button);
+            ((MyButton) button).setColor(isButton ? activeColor : transparent);
+        }
     }
 
     /**

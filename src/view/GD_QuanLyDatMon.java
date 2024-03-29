@@ -28,10 +28,11 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
      * Creates new form GD_Order
      */
     private JPanel mainPanel;
+
     public GD_QuanLyDatMon(JPanel main) {
         this.mainPanel = main;
         initComponents();
-        txtMaBan.setBackground(new Color(0,0,0, 1));
+        txtMaBan.setBackground(new Color(0, 0, 0, 1));
         this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
         scroll.setVerticalScrollBar(new ScrollBarCustom());
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -321,7 +322,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         // TODO add your handling code here: 1 -> 4
 //        main.removeAll();
-        
+
 //        main.setLayout(new GridLayout(row, orderNumbers++));
         HoaDon hoaDon = new HoaDon(null, null, null, null, null);
         hoaDon.setMaHoaDon("OKE" + count++);

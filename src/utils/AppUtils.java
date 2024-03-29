@@ -118,6 +118,7 @@ public class AppUtils {
         while (myRs.next()) {
             for (int i = columnStart; i <= columnCount; i++) {
                 String columnName = myRs.getMetaData().getColumnName(i);
+                columnName = columnName.substring(0,1).toLowerCase() + columnName.substring(1);
                 Object value = myRs.getObject(i);
                 properties.put(columnName, value);
             }

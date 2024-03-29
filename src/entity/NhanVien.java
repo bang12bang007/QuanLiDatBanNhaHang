@@ -4,7 +4,7 @@
  */
 package entity;
 
-import java.util.Date;
+import java.sql.Date;
 import utils.Enum.LoaiVaiTro;
 import java.lang.annotation.*;
 /**
