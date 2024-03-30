@@ -62,7 +62,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             // Thêm mã để kích hoạt action listener tại đây
                 loadData();
                 tableContainer.repaint();
-                tableContainer.validate();
+                tableContainer.revalidate();
             }
         });
         timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
