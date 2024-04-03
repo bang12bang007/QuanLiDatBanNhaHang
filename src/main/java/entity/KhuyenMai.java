@@ -21,23 +21,24 @@ import utils.Enum.LoaiTrangThaiKhuyenMai;
  */
 @Entity
 public class KhuyenMai {
+
     @Id
-    @Column(name="MaKhuyenMai",length = 21)
+    @Column(name = "MaKhuyenMai", length = 21)
     private String maKhuyenMai;
-    @Column(name="TenKhuyenMai",length = 100)
+    @Column(name = "TenKhuyenMai", length = 100)
     private String tenKhuyenMai;
-    @Column(name="NgayBatDau")
+    @Column(name = "NgayBatDau")
     private Date ngayBatDau;
-    @Column(name="NgayKetThuc",nullable = true)
+    @Column(name = "NgayKetThuc", nullable = true)
     private Date ngayKetThuc;
-    @Column(name="ChietKhau")
+    @Column(name = "ChietKhau")
     private Double chietKhau;
-    @Column(name="LoaiKhuyenMai")
+    @Column(name = "LoaiKhuyenMai")
     @Enumerated(EnumType.ORDINAL)
     private LoaiKhuyenMai loaiKhuyenMai;
-    @Column(name="GhiChu",nullable = true,length = 100)
+    @Column(name = "GhiChu", nullable = true, length = 100)
     private String ghiChu;
-    @Column(name="TrangThai")
+    @Column(name = "TrangThai")
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiKhuyenMai trangThai;
     @OneToMany(mappedBy = "khuyenMai")

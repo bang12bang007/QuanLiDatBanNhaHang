@@ -4,9 +4,6 @@
  */
 package view;
 
-import dao.NhanVien_Dao;
-import dao.TaiKhoanDAO;
-import dto.TaiKhoanDTO;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import icon.FontAwesome;
@@ -15,6 +12,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import jiconfont.swing.IconFontSwing;
 import static utils.AppUtils.FONT;
+
 /**
  *
  * @author Laptop
@@ -24,8 +22,6 @@ public class GD_DangNhap extends javax.swing.JFrame {
     /**
      * Creates new form GD_DangNhap
      */
-    private NhanVien_Dao nhanVien_Dao = new NhanVien_Dao();
-    private TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
     public GD_DangNhap() {
         initComponents();
 //        nhanVien_Dao.insertNhanVien(new NhanVien("Ngo Dang Khoa", "QN", 1, 18, "0796798049", new Date(), 0, 1));
@@ -33,8 +29,8 @@ public class GD_DangNhap extends javax.swing.JFrame {
         IconFontSwing.register(FontAwesome.getIconFont());
         iconUser.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20));
         iconPass.setIcon(IconFontSwing.buildIcon(FontAwesome.LOCK, 20));
-        tenDangNhap.setBackground(new Color(0,0,0,1));
-        matKhau.setBackground(new Color(0,0,0,1));
+        tenDangNhap.setBackground(new Color(0, 0, 0, 1));
+        matKhau.setBackground(new Color(0, 0, 0, 1));
         setLocationRelativeTo(null);
     }
 
@@ -205,25 +201,23 @@ public class GD_DangNhap extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         String tenDangNhap = this.tenDangNhap.getText();
         String matKhau = this.matKhau.getText();
-        NhanVien nv = nhanVien_Dao.getNhanVien(tenDangNhap, matKhau);
-        System.out.println(nv);
-        if(nv==null) {
-            JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
-        } else {
-            setVisible(false);
-            if(nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
-//                Chuyen qua gd quan ly
-                new GD_TrangChu(nv).setVisible(true);
-            } else {
-//                Chuyen qua gd nhan vien
-                new GD_TrangChu(nv).setVisible(true);
-            }
-        }
+//        if(nv==null) {
+//            JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
+//        } else {
+//            setVisible(false);
+//            if(nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
+////                Chuyen qua gd quan ly
+//                new GD_TrangChu(nv).setVisible(true);
+//            } else {
+////                Chuyen qua gd nhan vien
+//                new GD_TrangChu(nv).setVisible(true);
+//            }
+//        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void matKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matKhauActionPerformed
