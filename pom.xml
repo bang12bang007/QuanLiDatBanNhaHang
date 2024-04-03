@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dhcn</groupId>
+  <artifactId>QuanLiNhaHang</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+	<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.10.1</version>
+</dependency>
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>6.4.4.Final</version>
+</dependency>
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-testing</artifactId>
+    <version>6.4.4.Final</version>
+</dependency>
+<dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>mssql-jdbc</artifactId>
+    <version>11.2.2.jre17</version>
+</dependency>
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-engine</artifactId>
+    <version>5.10.2</version>
+</dependency>
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.10.2</version>
+</dependency>
+    <dependency>
+      <groupId>LIB_IDETs</groupId>
+      <artifactId>LIB_IDETs</artifactId>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>AbsoluteLayout</groupId>
+      <artifactId>AbsoluteLayout</artifactId>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>jiconfont</groupId>
+      <artifactId>jiconfont</artifactId>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>jicon_swing</groupId>
+      <artifactId>jicon_swing</artifactId>
+      <version>1</version>
+    </dependency>
+  </dependencies>
+</project>
