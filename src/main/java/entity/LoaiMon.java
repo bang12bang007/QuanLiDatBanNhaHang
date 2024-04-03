@@ -4,14 +4,27 @@
  */
 package entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+
 /**
  *
  * @author dmx
  */
+@Entity
 public class LoaiMon {
+    @Id
+    @Column(name = "MaLoaiMon",length = 4)
     private String maLoaiMon;
+    @Column(name = "TenLoai",length = 50)
     private String tenLoai;
+    @Column(name = "ChuThich",length = 100)
     private String chuThich;
+    @OneToMany(mappedBy = "loaiMon")
+    private List<Mon> mon;
 
     public LoaiMon(String tenLoai, String chuThich) {
         this.tenLoai = tenLoai;

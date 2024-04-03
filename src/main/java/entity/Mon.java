@@ -4,17 +4,44 @@
  */
 package entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
+import utils.Enum.LoaiTrangThaiMon;
+
 /**
  *
  * @author Laptop
  */
+@Entity
+@Getter
+@Setter
 public class Mon {
+    @Id
+    @Column(name ="MaMon",length = 12)
     private String maMon;
+    @Column(name = "TenMon",length = 50)
     private String tenMon;
+    @Column(name = "Gia")
     private Double gia;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "KhuyenMaiID",nullable = true)
     private KhuyenMai khuyenMai;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="LoaiMon")
     private LoaiMon loaiMon;
+    @Column(name = "HinhAnh",length = 100)
     private String hinhAnh;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name="TrangThai")
+    private LoaiTrangThaiMon trangThai;
 
     public Mon(String tenMon, Double gia, LoaiMon loaiMon, String hinhAnh) {
         this.tenMon = tenMon;
@@ -24,50 +51,6 @@ public class Mon {
     }
 
     public Mon() {
-    }
-
-    public String getMaMon() {
-        return maMon;
-    }
-
-    public String getTenMon() {
-        return tenMon;
-    }
-
-    public void setTenMon(String tenMon) {
-        this.tenMon = tenMon;
-    }
-
-    public Double getGia() {
-        return gia;
-    }
-
-    public void setGia(Double gia) {
-        this.gia = gia;
-    }
-
-    public KhuyenMai getKhuyenMai() {
-        return khuyenMai;
-    }
-
-    public void setKhuyenMai(KhuyenMai khuyenMai) {
-        this.khuyenMai = khuyenMai;
-    }
-
-    public LoaiMon getLoaiMon() {
-        return loaiMon;
-    }
-
-    public void setLoaiMon(LoaiMon loaiMon) {
-        this.loaiMon = loaiMon;
-    }
-
-    public String getHinhAnh() {
-        return hinhAnh;
-    }
-
-    public void setHinhAnh(String hinhAnh) {
-        this.hinhAnh = hinhAnh;
     }
 
     @Override

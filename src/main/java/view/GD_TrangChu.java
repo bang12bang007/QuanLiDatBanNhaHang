@@ -40,6 +40,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
     private ArrayList<JButton> tabs = new ArrayList<>();
 
     public GD_TrangChu() {
+        Persistence.createEntityManagerFactory("QLNH_mssql");
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
 
