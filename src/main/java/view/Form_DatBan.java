@@ -4,8 +4,12 @@
  */
 package view;
 
+import LIB.FadeEffect;
+import icon.FontAwesome;
 import java.awt.Color;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.JFrame;
+import jiconfont.swing.IconFontSwing;
 
 /**
  *
@@ -17,10 +21,15 @@ public class Form_DatBan extends javax.swing.JPanel {
      * Creates new form Form_DatBan
      */
     private JFrame jFrame;
+
     public Form_DatBan(JFrame jFrame) {
         initComponents();
+        IconFontSwing.register(FontAwesome.getIconFont());
         this.jFrame = jFrame;
         this.setBackground(new Color(0, 0, 0, 0.7f));
+        btnPlus.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
+        btnMinus.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 20, Color.WHITE));
+        soLuong.setBackground(new Color(0, 0, 0, 0));
     }
 
     /**
@@ -37,8 +46,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         footer = new component.PanelRound();
-        btnDong = new component.MyButton();
-        btnDong1 = new component.MyButton();
+        btnConfirm = new component.MyButton();
+        btnHuy = new component.MyButton();
         jLabel2 = new javax.swing.JLabel();
         panelRound1 = new component.PanelRound();
         jLabel3 = new javax.swing.JLabel();
@@ -53,9 +62,10 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound6 = new component.PanelRound();
         jLabel8 = new javax.swing.JLabel();
         panelRound7 = new component.PanelRound();
-        btnDong2 = new component.MyButton();
-        btnDong3 = new component.MyButton();
-        btnDong4 = new component.MyButton();
+        soLuong = new javax.swing.JTextField();
+        btnPlus = new component.MyButton();
+        btnXemThucDon = new component.MyButton();
+        btnMinus = new component.MyButton();
 
         setForeground(new java.awt.Color(255, 255, 255));
 
@@ -100,27 +110,27 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         footer.setBackground(new java.awt.Color(31, 29, 43));
 
-        btnDong.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong.setText("CẤT");
-        btnDong.setColor(new java.awt.Color(83, 86, 99));
-        btnDong.setColorClick(new java.awt.Color(234, 124, 105));
-        btnDong.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDong.setRadius(8);
-        btnDong.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
+        btnConfirm.setText("CẤT");
+        btnConfirm.setColor(new java.awt.Color(83, 86, 99));
+        btnConfirm.setColorClick(new java.awt.Color(234, 124, 105));
+        btnConfirm.setColorOver(new java.awt.Color(234, 124, 105));
+        btnConfirm.setRadius(8);
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDongActionPerformed(evt);
+                btnConfirmActionPerformed(evt);
             }
         });
 
-        btnDong1.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong1.setText("HỦY BỎ");
-        btnDong1.setColor(new java.awt.Color(83, 86, 99));
-        btnDong1.setColorClick(new java.awt.Color(234, 124, 105));
-        btnDong1.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDong1.setRadius(8);
-        btnDong1.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuy.setText("HỦY BỎ");
+        btnHuy.setColor(new java.awt.Color(83, 86, 99));
+        btnHuy.setColorClick(new java.awt.Color(234, 124, 105));
+        btnHuy.setColorOver(new java.awt.Color(234, 124, 105));
+        btnHuy.setRadius(8);
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDong1ActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
 
@@ -130,9 +140,9 @@ public class Form_DatBan extends javax.swing.JPanel {
             footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, footerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDong1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         footerLayout.setVerticalGroup(
@@ -140,8 +150,8 @@ public class Form_DatBan extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, footerLayout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDong1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -274,53 +284,56 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound7.setRoundTopLeft(8);
         panelRound7.setRoundTopRight(8);
 
+        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        soLuong.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        soLuong.setText("1");
+        soLuong.setBorder(null);
+
         javax.swing.GroupLayout panelRound7Layout = new javax.swing.GroupLayout(panelRound7);
         panelRound7.setLayout(panelRound7Layout);
         panelRound7Layout.setHorizontalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addComponent(soLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
         panelRound7Layout.setVerticalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(soLuong)
         );
 
-        btnDong2.setBackground(new java.awt.Color(31, 29, 43));
-        btnDong2.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong2.setText("+");
-        btnDong2.setColor(new java.awt.Color(31, 29, 43));
-        btnDong2.setColorClick(new java.awt.Color(234, 124, 105));
-        btnDong2.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDong2.setRadius(8);
-        btnDong2.addActionListener(new java.awt.event.ActionListener() {
+        btnPlus.setBackground(new java.awt.Color(31, 29, 43));
+        btnPlus.setForeground(new java.awt.Color(255, 255, 255));
+        btnPlus.setColor(new java.awt.Color(31, 29, 43));
+        btnPlus.setColorClick(new java.awt.Color(234, 124, 105));
+        btnPlus.setColorOver(new java.awt.Color(234, 124, 105));
+        btnPlus.setRadius(8);
+        btnPlus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDong2ActionPerformed(evt);
+                btnPlusActionPerformed(evt);
             }
         });
 
-        btnDong3.setBackground(new java.awt.Color(31, 29, 43));
-        btnDong3.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong3.setText("Xem thực đơn");
-        btnDong3.setColor(new java.awt.Color(31, 29, 43));
-        btnDong3.setColorClick(new java.awt.Color(234, 124, 105));
-        btnDong3.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDong3.setRadius(8);
-        btnDong3.addActionListener(new java.awt.event.ActionListener() {
+        btnXemThucDon.setBackground(new java.awt.Color(31, 29, 43));
+        btnXemThucDon.setForeground(new java.awt.Color(255, 255, 255));
+        btnXemThucDon.setText("Xem thực đơn");
+        btnXemThucDon.setColor(new java.awt.Color(31, 29, 43));
+        btnXemThucDon.setColorClick(new java.awt.Color(234, 124, 105));
+        btnXemThucDon.setColorOver(new java.awt.Color(234, 124, 105));
+        btnXemThucDon.setRadius(8);
+        btnXemThucDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDong3ActionPerformed(evt);
+                btnXemThucDonActionPerformed(evt);
             }
         });
 
-        btnDong4.setBackground(new java.awt.Color(31, 29, 43));
-        btnDong4.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong4.setText("-");
-        btnDong4.setColor(new java.awt.Color(31, 29, 43));
-        btnDong4.setColorClick(new java.awt.Color(234, 124, 105));
-        btnDong4.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDong4.setRadius(8);
-        btnDong4.addActionListener(new java.awt.event.ActionListener() {
+        btnMinus.setBackground(new java.awt.Color(31, 29, 43));
+        btnMinus.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinus.setColor(new java.awt.Color(31, 29, 43));
+        btnMinus.setColorClick(new java.awt.Color(234, 124, 105));
+        btnMinus.setColorOver(new java.awt.Color(234, 124, 105));
+        btnMinus.setRadius(8);
+        btnMinus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDong4ActionPerformed(evt);
+                btnMinusActionPerformed(evt);
             }
         });
 
@@ -354,11 +367,11 @@ public class Form_DatBan extends javax.swing.JPanel {
                     .addGroup(wrapperLayout.createSequentialGroup()
                         .addComponent(panelRound7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDong2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(btnDong4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDong3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnXemThucDon, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         wrapperLayout.setVerticalGroup(
@@ -383,9 +396,9 @@ public class Form_DatBan extends javax.swing.JPanel {
                 .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelRound7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDong3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(btnDong4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDong2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnXemThucDon, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btnMinus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPlus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(16, 16, 16)
                 .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -422,33 +435,41 @@ public class Form_DatBan extends javax.swing.JPanel {
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel11MouseClicked
 
-    private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
 
-    }//GEN-LAST:event_btnDongActionPerformed
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
-    private void btnDong1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDong1ActionPerformed
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDong1ActionPerformed
+    }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void btnDong2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDong2ActionPerformed
+    private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDong2ActionPerformed
+    }//GEN-LAST:event_btnPlusActionPerformed
 
-    private void btnDong3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDong3ActionPerformed
+    private void btnXemThucDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemThucDonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDong3ActionPerformed
+        JFrame jFrame = new JFrame();
+        jFrame.setUndecorated(true);
+        jFrame.setExtendedState(MAXIMIZED_BOTH);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jFrame.add(new Form_XemThucDon(jFrame));
+        jFrame.setBackground(new Color(0, 0, 0, 0));
+        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+        jFrame.setVisible(true);
+    }//GEN-LAST:event_btnXemThucDonActionPerformed
 
-    private void btnDong4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDong4ActionPerformed
+    private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDong4ActionPerformed
+    }//GEN-LAST:event_btnMinusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private component.MyButton btnDong;
-    private component.MyButton btnDong1;
-    private component.MyButton btnDong2;
-    private component.MyButton btnDong3;
-    private component.MyButton btnDong4;
+    private component.MyButton btnConfirm;
+    private component.MyButton btnHuy;
+    private component.MyButton btnMinus;
+    private component.MyButton btnPlus;
+    private component.MyButton btnXemThucDon;
     private component.PanelRound footer;
     private component.PanelRound header;
     private javax.swing.JLabel jLabel1;
@@ -467,6 +488,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     private component.PanelRound panelRound5;
     private component.PanelRound panelRound6;
     private component.PanelRound panelRound7;
+    private javax.swing.JTextField soLuong;
     private javax.swing.JPanel wrapper;
     // End of variables declaration//GEN-END:variables
 }
