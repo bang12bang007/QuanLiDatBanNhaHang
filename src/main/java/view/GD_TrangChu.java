@@ -38,13 +38,13 @@ public class GD_TrangChu extends javax.swing.JFrame {
 //    NhanVien_Dao nv_dao = new NhanVien_Dao();
 //    NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
     //dùng cho run
-    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
+//    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
     private ArrayList<JButton> tabs = new ArrayList<>();
 
     public GD_TrangChu() {
         Persistence.createEntityManagerFactory("QLNH_mssql");
 //        nhanVienDAO.insert(new NhanVien());   
-        NhanVien nv = (NhanVien) nhanVienDAO.findById("123", NhanVien.class);
+//        NhanVien nv = (NhanVien) nhanVienDAO.findById("123", NhanVien.class);
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
 
@@ -95,6 +95,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         logOut.setIconTextGap(10);
         popupMenu.add(thongTin);
         popupMenu.add(logOut);
+        
 
         btnAVT.addMouseListener(new MouseAdapter() {
             @Override
@@ -164,7 +165,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonHome.setColorClick(new java.awt.Color(31, 29, 43));
         buttonHome.setColorOver(new java.awt.Color(31, 29, 43));
         buttonHome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonHome.setRadius(10);
         buttonHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHomeActionPerformed(evt);
@@ -180,7 +180,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatMon.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatMon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buttonDatMon.setIconTextGap(8);
-        buttonDatMon.setRadius(10);
         buttonDatMon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 buttonDatMonMouseEntered(evt);
@@ -201,7 +200,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatBan.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buttonDatBan.setIconTextGap(8);
-        buttonDatBan.setRadius(10);
         buttonDatBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDatBanActionPerformed(evt);
@@ -217,7 +215,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonThongKe.setColorOver(new java.awt.Color(31, 29, 43));
         buttonThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buttonThongKe.setIconTextGap(8);
-        buttonThongKe.setRadius(10);
         buttonThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonThongKeActionPerformed(evt);

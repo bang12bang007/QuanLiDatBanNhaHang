@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 
 /**
  *
@@ -74,6 +75,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
     public <T> T findById(String id, Class<T> claxx) {
         return em.find(claxx, id);
+    }
+
+    public <T> List<T> findAll(Class<T> t) {
+        String jpql = "SELECT t from " + t.getName() + " t";
+        return em.createQuery(jpql).getResultList();
     }
 
 }
