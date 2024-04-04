@@ -8,8 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import java.util.Date;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,22 +16,22 @@ import lombok.ToString;
 
 /**
  *
- * @author Laptop
+ * @author dmx
  */
 @Entity
-@Setter
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
-public class TaiKhoan {
+public class ChiTietHoaDon {
     @Id
-    @OneToOne
-    @JoinColumn(name = "MaNhanVien", unique = true, nullable = false)
-    private NhanVien nhanVien;
-    @Column(name="MatKhau")
-    private String matKhau;
-    @Column(name="NgayTaoTaiKhoan")
-    private Date ngayTao;
-    @Column(name="NgayKetThuc")
-    private Date ngayKetThuc;
+    @ManyToOne
+    @JoinColumn(name="MaMon",unique = true,nullable = false)
+    private Mon mon;
+    @Id
+    @ManyToOne
+    @JoinColumn(name="MaHoaDon",unique = true,nullable = false)
+    private HoaDon hoaDon;
+    @Column(name="SoLuong")
+    private int soLuong;
 }

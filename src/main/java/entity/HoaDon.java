@@ -4,19 +4,60 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.util.Date;
+import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
  *
  * @author Laptop
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@Entity
 public class HoaDon {
+    @Id
+    @Column(name="MaHoaDon")
     private String maHoaDon;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MaNhanVien")
     private NhanVien nhanVien;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MaKhachHang")
     private KhachHang khachHang;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MaKhuyenMai",nullable = true)
     private KhuyenMai khuyenMai;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MaDichVu",nullable = true)
     private DichVu dichVu;
+    @Column(name="NgayLapHoaDon")
     private Date ngayLapHoaDon;
+    @OneToOne
+    @JoinColumn(name = "MaBan", unique = true, nullable = false)
+    private Ban ban;
+    @Column(name="TrangThai")
+    @Enumerated(EnumType.ORDINAL)
+    private LoaiTrangThaiHoaDon trangThai;
+    @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL)
+    private List<ChiTietHoaDon> chiTietHoaDon;
 
     public HoaDon(NhanVien nhanVien, KhachHang khachHang, KhuyenMai khuyenMai, DichVu dichVu, Date ngayLapHoaDon) {
         this.nhanVien = nhanVien;
@@ -24,61 +65,5 @@ public class HoaDon {
         this.khuyenMai = khuyenMai;
         this.dichVu = dichVu;
         this.ngayLapHoaDon = ngayLapHoaDon;
-    }
-
-    public HoaDon() {
-    }
-
-    public String getMaHoaDon() {
-        return maHoaDon;
-    }
-    
-    public void setMaHoaDon(String maHoaDon) {
-        this.maHoaDon = maHoaDon;
-    }
-
-    public NhanVien getNhanVien() {
-        return nhanVien;
-    }
-
-    public void setNhanVien(NhanVien nhanVien) {
-        this.nhanVien = nhanVien;
-    }
-
-    public KhachHang getKhachHang() {
-        return khachHang;
-    }
-
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
-    }
-
-    public KhuyenMai getKhuyenMai() {
-        return khuyenMai;
-    }
-
-    public void setKhuyenMai(KhuyenMai khuyenMai) {
-        this.khuyenMai = khuyenMai;
-    }
-
-    public DichVu getDichVu() {
-        return dichVu;
-    }
-
-    public void setDichVu(DichVu dichVu) {
-        this.dichVu = dichVu;
-    }
-
-    public Date getNgayLapHoaDon() {
-        return ngayLapHoaDon;
-    }
-
-    public void setNgayLapHoaDon(Date ngayLapHoaDon) {
-        this.ngayLapHoaDon = ngayLapHoaDon;
-    }
-
-    @Override
-    public String toString() {
-        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", khuyenMai=" + khuyenMai + ", dichVu=" + dichVu + ", ngayLapHoaDon=" + ngayLapHoaDon + '}';
     }
 }

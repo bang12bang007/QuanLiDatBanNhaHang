@@ -21,7 +21,15 @@ public class Enum {
     };
     
     public static enum LoaiTrangThaiMon {
-        DANG_KINH_DOANH,NGUNG_KINH_DOANH;
+        DANG_KINH_DOANH,NGUNG_KINH_DOANH,TAM_DUNG_PHUC_VU;
+    };
+    
+    public static enum LoaiTrangThaiDichVu {
+        DANG_KINH_DOANH,NGUNG_KINH_DOANH,TAM_DUNG_PHUC_VU;
+    };
+    
+    public static enum LoaiTrangThaiHoaDon {
+        DA_THANH_TOAN,HUY_BO,CHO_THANH_TOAN;
     };
     
     public static enum LoaiVaiTro {

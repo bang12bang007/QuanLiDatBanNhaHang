@@ -4,23 +4,55 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.sql.Date;
 import utils.Enum.LoaiVaiTro;
-import java.lang.annotation.*;
+import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 /**
  *
  * @author Laptop
  */
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class NhanVien {
+    @Id
+    @Column(name="MaNhanVien")
     private String maNV;
+    @Column(name="HoTen",length = 50)
     private String hoTen;
+    @Column(name="DiaChi",length = 50)
     private String diaChi;
+    @Column(name="TrangThai")
     private boolean trangThai;
+    @Column(name="Tuoi")
     private int tuoi;
+    @Column(name="SoDienThoai")
     private String soDienThoai;
+    @Column(name="NgayBatDauLam")
     private Date ngayBatDauLam;
+    @Column(name="VaiTro")
+    @Enumerated(EnumType.ORDINAL)
     private LoaiVaiTro vaiTro;
+    @Column(name="GioiTinh")
     private boolean gioiTinh;
+    @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
+    private List<HoaDon> hoaDon;
+    @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL)
+    private TaiKhoan taiKhoan;
 
     public NhanVien(String hoTen, String diaChi, boolean trangThai, int tuoi, String soDienThoai, Date ngayBatDauLam, LoaiVaiTro vaiTro, boolean gioiTinh) {
         this.hoTen = hoTen;
@@ -31,87 +63,5 @@ public class NhanVien {
         this.ngayBatDauLam = ngayBatDauLam;
         this.vaiTro = vaiTro;
         this.gioiTinh = gioiTinh;
-    }
-
-    public NhanVien() {
-    }
-    
-    
-
-    public String getMaNV() {
-        return maNV;
-    }
-
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
-    }
-
-    public String getHoTen() {
-        return hoTen;
-    }
-
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
-    }
-
-    public String getDiaChi() {
-        return diaChi;
-    }
-
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
-
-    public boolean getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(boolean trangThai) {
-        this.trangThai = trangThai;
-    }
-
-    public int getTuoi() {
-        return tuoi;
-    }
-
-    public void setTuoi(int tuoi) {
-        this.tuoi = tuoi;
-    }
-
-    public String getSoDienThoai() {
-        return soDienThoai;
-    }
-
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
-    }
-
-    public Date getNgayBatDauLam() {
-        return ngayBatDauLam;
-    }
-
-    public void setNgayBatDauLam(Date ngayBatDauLam) {
-        this.ngayBatDauLam = ngayBatDauLam;
-    }
-
-    public LoaiVaiTro getVaiTro() {
-        return vaiTro;
-    }
-
-    public void setVaiTro(LoaiVaiTro vaiTro) {
-        this.vaiTro = vaiTro;
-    }
-    public boolean getGioiTinh() {
-        return gioiTinh;
-    }
-
-    public void setGioiTinh(boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
-    }
-
-    @Override
-    public String toString() {
-        return "NhanVien{" + "maNV=" + maNV + ", hoTen=" + hoTen + ", diaChi=" + diaChi + ", trangThai=" + trangThai + ", tuoi=" + tuoi + ", soDienThoai=" + soDienThoai + ", ngayBatDauLam=" + ngayBatDauLam + ", vaiTro=" + vaiTro + ", gioiTinh=" + gioiTinh + '}';
-    }
-       
+    }  
 }

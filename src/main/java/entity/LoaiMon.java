@@ -9,12 +9,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
  * @author dmx
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class LoaiMon {
     @Id
     @Column(name = "MaLoaiMon",length = 4)
@@ -26,36 +34,9 @@ public class LoaiMon {
     @OneToMany(mappedBy = "loaiMon")
     private List<Mon> mon;
 
-    public LoaiMon(String tenLoai, String chuThich) {
+    public LoaiMon(String tenLoai, String chuThich, List<Mon> mon) {
         this.tenLoai = tenLoai;
         this.chuThich = chuThich;
-    }
-
-    public LoaiMon() {
-    }
-
-    public String getMaLoaiMon() {
-        return maLoaiMon;
-    }
-
-    public String getTenLoai() {
-        return tenLoai;
-    }
-
-    public void setTenLoai(String tenLoai) {
-        this.tenLoai = tenLoai;
-    }
-
-    public String getChuThich() {
-        return chuThich;
-    }
-
-    public void setChuThich(String chuThich) {
-        this.chuThich = chuThich;
-    }
-
-    @Override
-    public String toString() {
-        return "LoaiMon{" + "maLoaiMon=" + maLoaiMon + ", tenLoai=" + tenLoai + ", chuThich=" + chuThich + '}';
+        this.mon = mon;
     }
 }

@@ -53,6 +53,7 @@ entity\KhachHang.class
 entity\HoaDon.class
 view\Form_ThuTien$6.class
 view\GD_QuanLyDatMon$4.class
+entity\ChiTietHoaDon.class
 view\GD_TrangChu$4.class
 component\BookingItem$2.class
 view\GD_ThanhToan$5.class
@@ -77,6 +78,7 @@ view\Form_ThuTien$3.class
 component\ModernScrollBarUI.class
 utils\AppUtils.class
 view\GD_ThanhToan$6.class
+utils\Enum$LoaiTrangThaiHoaDon.class
 view\GD_Ban$2.class
 view\GD_DangNhap.class
 dto\TaiKhoanDTO.class
@@ -97,6 +99,7 @@ view\GD_TrangChu$5.class
 view\GD_ThanhToan.class
 view\Form_XemThucDon$5.class
 view\GD_Ban$4.class
+utils\Enum$LoaiTrangThaiDichVu.class
 view\GD_ThanhToan$12.class
 entity\LoaiMon.class
 component\ScrollBarCustom.class

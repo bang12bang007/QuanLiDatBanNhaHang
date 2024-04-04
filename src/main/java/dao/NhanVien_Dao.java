@@ -32,7 +32,7 @@ public class NhanVien_Dao {
         String dd = date < 10 ? "0" + date : date + "";
         String yy = year.substring(year.length() - 2);
         String xxx = sdt.substring(sdt.length() - 3);
-        nv.setMaNV("NV" + nv.getGioiTinh() + nv.getTuoi() + dd + yy + xxx);
+        nv.setMaNV("NV" + nv.isGioiTinh() + nv.getTuoi() + dd + yy + xxx);
     }
     
     public boolean insertNhanVien(NhanVien nhanVien) {
