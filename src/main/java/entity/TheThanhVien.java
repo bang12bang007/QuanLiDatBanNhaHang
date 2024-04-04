@@ -4,57 +4,44 @@
  */
 package entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import utils.Enum.LoaiTheThanhVien;
 
 /**
  *
  * @author dmx
  */
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class TheThanhVien {
+    @Id
+    @Column(name="MaThe")
     private String maThe;
+    @Column(name="DiemTich")
     private Double diemTich;
+    @OneToOne
+    @JoinColumn(name="MaKhachHang",unique = true,nullable = false)
     private KhachHang khachHang;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name="LoaiThe")
     private LoaiTheThanhVien loaiThe;
 
     public TheThanhVien(Double diemTich, KhachHang khachHang, LoaiTheThanhVien loaiThe) {
         this.diemTich = diemTich;
         this.khachHang = khachHang;
         this.loaiThe = loaiThe;
-    }
-
-    public TheThanhVien() {
-    }
-
-    public String getMaThe() {
-        return maThe;
-    }
-
-    public Double getDiemTich() {
-        return diemTich;
-    }
-
-    public void setDiemTich(Double diemTich) {
-        this.diemTich = diemTich;
-    }
-
-    public KhachHang getKhachHang() {
-        return khachHang;
-    }
-
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
-    }
-
-    public LoaiTheThanhVien getLoaiThe() {
-        return loaiThe;
-    }
-
-    public void setLoaiThe(LoaiTheThanhVien loaiThe) {
-        this.loaiThe = loaiThe;
-    }
-
-    @Override
-    public String toString() {
-        return "TheThanhVien{" + "maThe=" + maThe + ", diemTich=" + diemTich + ", khachHang=" + khachHang + ", loaiThe=" + loaiThe + '}';
     }
 }

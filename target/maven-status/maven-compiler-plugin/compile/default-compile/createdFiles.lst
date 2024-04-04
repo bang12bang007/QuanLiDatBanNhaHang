@@ -34,6 +34,7 @@ view\GD_QuanLyDatMon$3.class
 component\BookingItem$1.class
 utils\Enum$LoaiVaiTro.class
 view\GD_TrangChu$8.class
+utils\Enum$LoaiTrangThaiDichVu.class
 view\GD_ThanhToan$12.class
 utils\Enum$LoaiTrangThaiMon.class
 component\BanItem.class
@@ -87,6 +88,7 @@ view\Form_ThuTien$6.class
 dao\imlp\AbstractDAO.class
 view\GD_TrangChu$1.class
 view\GD_QuanLyDatMon$4.class
+entity\ChiTietHoaDon.class
 view\GD_DatBan$3.class
 view\GD_TrangChu$4.class
 utils\Enum$LoaiKhuyenMai.class
@@ -140,6 +142,7 @@ view\Form_XemThucDon$4.class
 component\ModernScrollBarUI.class
 utils\AppUtils.class
 view\GD_ThanhToan$6.class
+utils\Enum$LoaiTrangThaiHoaDon.class
 view\GD_DatBan.class
 view\GD_Ban$2.class
 view\GD_DangNhap.class

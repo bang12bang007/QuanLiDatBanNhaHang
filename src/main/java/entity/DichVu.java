@@ -4,55 +4,49 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import utils.Enum.LoaiTrangThaiDichVu;
+
 /**
  *
  * @author dmx
  */
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class DichVu {
+    @Id
+    @Column(name="MaDichVu",length=11)
     private String maDichVu;
+    @Column(name="TenDichVu",length = 50)
     private String tenDichVu;
+    @Column(name="QuyMo",length = 50)
     private String quyMo;
+    @Column(name="Gia")
     private Double gia;
+    @Column(name="TrangThai")
+    @Enumerated(EnumType.ORDINAL)
+    private LoaiTrangThaiDichVu trangThai;
+    @OneToMany(mappedBy = "dichVu", cascade = CascadeType.ALL)
+    private List<HoaDon> hoaDon;
 
-    public DichVu(String tenDichVu, String quyMo, Double gia) {
+    public DichVu(String tenDichVu, String quyMo, Double gia, LoaiTrangThaiDichVu trangThai) {
         this.tenDichVu = tenDichVu;
         this.quyMo = quyMo;
         this.gia = gia;
-    }
-
-    public DichVu() {
-    }
-
-    public String getMaDichVu() {
-        return maDichVu;
-    }
-
-    public String getTenDichVu() {
-        return tenDichVu;
-    }
-
-    public void setTenDichVu(String tenDichVu) {
-        this.tenDichVu = tenDichVu;
-    }
-
-    public String getQuyMo() {
-        return quyMo;
-    }
-
-    public void setQuyMo(String quyMo) {
-        this.quyMo = quyMo;
-    }
-
-    public Double getGia() {
-        return gia;
-    }
-
-    public void setGia(Double gia) {
-        this.gia = gia;
-    }
-
-    @Override
-    public String toString() {
-        return "DichVu{" + "maDichVu=" + maDichVu + ", tenDichVu=" + tenDichVu + ", quyMo=" + quyMo + ", gia=" + gia + '}';
+        this.trangThai = trangThai;
     }
 }
