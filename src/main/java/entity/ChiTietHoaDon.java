@@ -32,6 +32,6 @@ public class ChiTietHoaDon {
     @ManyToOne
     @JoinColumn(name="MaHoaDon",unique = true,nullable = false)
     private HoaDon hoaDon;
-    @Column(name="SoLuong")
+    @Column(name="SoLuong",nullable = false)
     private int soLuong;
 }

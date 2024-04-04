@@ -32,22 +32,22 @@ import utils.Enum.LoaiTrangThaiMon;
 @NoArgsConstructor
 public class Mon {
     @Id
-    @Column(name ="MaMon",length = 12)
+    @Column(name ="MaMon",length = 12,nullable = false)
     private String maMon;
-    @Column(name = "TenMon",length = 50)
+    @Column(name = "TenMon",columnDefinition = "NVARCHAR(50)",nullable = false)
     private String tenMon;
-    @Column(name = "Gia")
+    @Column(name = "Gia",nullable = false)
     private Double gia;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhuyenMai",nullable = true)
     private KhuyenMai khuyenMai;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="MaLoaiMon")
+    @JoinColumn(name="MaLoaiMon",nullable = false)
     private LoaiMon loaiMon;
-    @Column(name = "HinhAnh",length = 100)
+    @Column(name = "HinhAnh",length = 255,nullable = true)
     private String hinhAnh;
     @Enumerated(EnumType.ORDINAL)
-    @Column(name="TrangThai")
+    @Column(name="TrangThai",nullable = false)
     private LoaiTrangThaiMon trangThai;
     @OneToMany(mappedBy = "mon",cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;

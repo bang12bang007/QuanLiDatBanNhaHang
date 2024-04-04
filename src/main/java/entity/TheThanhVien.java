@@ -28,9 +28,9 @@ import utils.Enum.LoaiTheThanhVien;
 @NoArgsConstructor
 public class TheThanhVien {
     @Id
-    @Column(name="MaThe")
+    @Column(name="MaThe",nullable = false)
     private String maThe;
-    @Column(name="DiemTich")
+    @Column(name="DiemTich",nullable = false)
     private Double diemTich;
     @OneToOne
     @JoinColumn(name="MaKhachHang",unique = true,nullable = false)

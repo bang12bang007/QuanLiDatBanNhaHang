@@ -27,15 +27,15 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PhieuDatBan {
     @Id
-    @Column(name="MaPhieuDatBan")
+    @Column(name="MaPhieuDatBan",nullable = false)
     private String maPhieuDatBan;
-    @Column(name="NgayGioDatBan")
+    @Column(name="NgayGioDatBan",nullable = false)
     private Date ngayGioDat;
-    @Column(name="SoLuongNguoi")
+    @Column(name="SoLuongNguoi",nullable = false)
     private int soLuongNguoi;
-    @Column(name="HoTenNguoiDat")
+    @Column(name="HoTenNguoiDat",columnDefinition = "NVARCHAR(50)",nullable = false)
     private String hoTen;
-    @Column(name="SoDienThoai")
+    @Column(name="SoDienThoai",nullable = false)
     private String sdt;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBan")

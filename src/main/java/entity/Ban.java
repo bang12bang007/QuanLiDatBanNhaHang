@@ -34,20 +34,20 @@ import utils.Enum.LoaiViTri;
 @ToString
 public class Ban {
     @Id
-    @Column(name="MaBan")
+    @Column(name="MaBan",nullable = false)
     private String maBan;
-    @Column(name="ViTri")
+    @Column(name="ViTri",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiViTri viTri;
-    @Column(name="SoGhe")
+    @Column(name="SoGhe",nullable = false)
     private int soGhe;
-    @Column(name="TrangThai")
+    @Column(name="TrangThai",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThai trangThai;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBanGop",nullable = true)
     private Ban banGop;
-    @Column(name="MaTang")
+    @Column(name="MaTang",nullable = false)
     private String maTang;
     @OneToOne(mappedBy = "ban", cascade = CascadeType.ALL)
     private HoaDon hoaDon;

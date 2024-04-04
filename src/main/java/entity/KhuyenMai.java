@@ -32,22 +32,22 @@ import utils.Enum.LoaiTrangThaiKhuyenMai;
 public class KhuyenMai {
 
     @Id
-    @Column(name = "MaKhuyenMai", length = 21)
+    @Column(name = "MaKhuyenMai", length = 21,nullable = false)
     private String maKhuyenMai;
-    @Column(name = "TenKhuyenMai", length = 100)
+    @Column(name = "TenKhuyenMai", columnDefinition = "NVARCHAR(100)",nullable = false)
     private String tenKhuyenMai;
-    @Column(name = "NgayBatDau")
+    @Column(name = "NgayBatDau",nullable = false)
     private Date ngayBatDau;
     @Column(name = "NgayKetThuc", nullable = true)
     private Date ngayKetThuc;
-    @Column(name = "ChietKhau")
+    @Column(name = "ChietKhau",nullable = false)
     private Double chietKhau;
-    @Column(name = "LoaiKhuyenMai")
+    @Column(name = "LoaiKhuyenMai",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiKhuyenMai loaiKhuyenMai;
-    @Column(name = "GhiChu", nullable = true, length = 100)
+    @Column(name = "GhiChu", nullable = true, columnDefinition = "NVARCHAR(255)")
     private String ghiChu;
-    @Column(name = "TrangThai")
+    @Column(name = "TrangThai",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiKhuyenMai trangThai;
     @OneToMany(mappedBy = "khuyenMai")

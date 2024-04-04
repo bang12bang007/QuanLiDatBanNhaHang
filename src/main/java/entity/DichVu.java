@@ -29,15 +29,15 @@ import utils.Enum.LoaiTrangThaiDichVu;
 @NoArgsConstructor
 public class DichVu {
     @Id
-    @Column(name="MaDichVu",length=11)
+    @Column(name="MaDichVu",length=11,nullable = false)
     private String maDichVu;
-    @Column(name="TenDichVu",length = 50)
+    @Column(name="TenDichVu",columnDefinition = "NVARCHAR(50)",nullable = false)
     private String tenDichVu;
-    @Column(name="QuyMo",length = 50)
+    @Column(name="QuyMo",columnDefinition = "NVARCHAR(100)",nullable = false)
     private String quyMo;
-    @Column(name="Gia")
+    @Column(name="Gia",nullable = false)
     private Double gia;
-    @Column(name="TrangThai")
+    @Column(name="TrangThai",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiDichVu trangThai;
     @OneToMany(mappedBy = "dichVu", cascade = CascadeType.ALL)

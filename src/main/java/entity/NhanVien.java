@@ -30,24 +30,24 @@ import lombok.ToString;
 @NoArgsConstructor
 public class NhanVien {
     @Id
-    @Column(name="MaNhanVien")
+    @Column(name="MaNhanVien",nullable = false)
     private String maNV;
-    @Column(name="HoTen",length = 50)
+    @Column(name="HoTen",columnDefinition = "NVARCHAR(50)",nullable = false)
     private String hoTen;
-    @Column(name="DiaChi",length = 50)
+    @Column(name="DiaChi",columnDefinition = "NVARCHAR(100)",nullable = false)
     private String diaChi;
-    @Column(name="TrangThai")
+    @Column(name="TrangThai",nullable = false)
     private boolean trangThai;
-    @Column(name="Tuoi")
+    @Column(name="Tuoi",nullable = false)
     private int tuoi;
-    @Column(name="SoDienThoai")
+    @Column(name="SoDienThoai",nullable = false)
     private String soDienThoai;
-    @Column(name="NgayBatDauLam")
+    @Column(name="NgayBatDauLam",nullable = false)
     private Date ngayBatDauLam;
-    @Column(name="VaiTro")
+    @Column(name="VaiTro",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiVaiTro vaiTro;
-    @Column(name="GioiTinh")
+    @Column(name="GioiTinh",nullable = false)
     private boolean gioiTinh;
     @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;

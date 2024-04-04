@@ -25,11 +25,11 @@ import lombok.ToString;
 @ToString
 public class LoaiMon {
     @Id
-    @Column(name = "MaLoaiMon",length = 4)
+    @Column(name = "MaLoaiMon",length = 4,nullable = false)
     private String maLoaiMon;
-    @Column(name = "TenLoai",length = 50)
+    @Column(name = "TenLoai",columnDefinition = "NVARCHAR(50)",nullable = false)
     private String tenLoai;
-    @Column(name = "ChuThich",length = 100)
+    @Column(name = "ChuThich",columnDefinition = "NVARCHAR(255)")
     private String chuThich;
     @OneToMany(mappedBy = "loaiMon")
     private List<Mon> mon;

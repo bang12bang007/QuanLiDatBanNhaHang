@@ -34,13 +34,13 @@ import utils.Enum.LoaiTrangThaiHoaDon;
 @Entity
 public class HoaDon {
     @Id
-    @Column(name="MaHoaDon")
+    @Column(name="MaHoaDon",nullable = false)
     private String maHoaDon;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaNhanVien")
+    @JoinColumn(name = "MaNhanVien",nullable = false)
     private NhanVien nhanVien;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaKhachHang")
+    @JoinColumn(name = "MaKhachHang",nullable = false)
     private KhachHang khachHang;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhuyenMai",nullable = true)
@@ -48,12 +48,12 @@ public class HoaDon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaDichVu",nullable = true)
     private DichVu dichVu;
-    @Column(name="NgayLapHoaDon")
+    @Column(name="NgayLapHoaDon",nullable = false)
     private Date ngayLapHoaDon;
     @OneToOne
     @JoinColumn(name = "MaBan", unique = true, nullable = false)
     private Ban ban;
-    @Column(name="TrangThai")
+    @Column(name="TrangThai",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiHoaDon trangThai;
     @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL)

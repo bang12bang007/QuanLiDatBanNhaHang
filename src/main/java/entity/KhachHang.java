@@ -27,13 +27,13 @@ import lombok.ToString;
 @NoArgsConstructor
 public class KhachHang {
     @Id
-    @Column(name="MaKhachHang")
+    @Column(name="MaKhachHang",nullable = false)
     private String maKH;
-    @Column(name="TenKhachHang")
+    @Column(name="TenKhachHang",columnDefinition = "NVARCHAR(50)",nullable = false)
     private String tenKH;
-    @Column(name="SoDienThoai")
+    @Column(name="SoDienThoai",nullable = false)
     private String sdt;
-    @Column(name="DiaChi")
+    @Column(name="DiaChi",columnDefinition = "NVARCHAR(255)",nullable = false)
     private String diaChi;
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;

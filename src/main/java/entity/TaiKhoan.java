@@ -29,10 +29,10 @@ public class TaiKhoan {
     @OneToOne
     @JoinColumn(name = "MaNhanVien", unique = true, nullable = false)
     private NhanVien nhanVien;
-    @Column(name="MatKhau")
+    @Column(name="MatKhau",nullable = false)
     private String matKhau;
-    @Column(name="NgayTaoTaiKhoan")
+    @Column(name="NgayTaoTaiKhoan",nullable = false)
     private Date ngayTao;
-    @Column(name="NgayKetThuc")
+    @Column(name="NgayKetThuc",nullable = true)
     private Date ngayKetThuc;
 }
