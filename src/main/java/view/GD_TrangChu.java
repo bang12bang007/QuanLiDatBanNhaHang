@@ -38,13 +38,13 @@ public class GD_TrangChu extends javax.swing.JFrame {
 //    NhanVien_Dao nv_dao = new NhanVien_Dao();
 //    NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
     //dùng cho run
-    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
+//    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
     private ArrayList<JButton> tabs = new ArrayList<>();
 
     public GD_TrangChu() {
         Persistence.createEntityManagerFactory("QLNH_mssql");
 //        nhanVienDAO.insert(new NhanVien());   
-        NhanVien nv = (NhanVien) nhanVienDAO.findById("123", NhanVien.class);
+//        NhanVien nv = (NhanVien) nhanVienDAO.findById("123", NhanVien.class);
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
 

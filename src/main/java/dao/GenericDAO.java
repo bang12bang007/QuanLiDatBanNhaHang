@@ -4,6 +4,8 @@
  */
 package dao;
 
+import java.util.List;
+
 /**
  *
  * @author Laptop
@@ -17,4 +19,6 @@ public interface GenericDAO<T> {
     <T> boolean delete(String id, Class<T> claxx);
 
     <T> T findById(String id, Class<T> t);
+
+    <T> List<T> findAll(Class<T> t);
 }
