@@ -7,7 +7,8 @@ package view;
 import component.MyButton;
 import component.MyJMenuItem;
 import component.TransparentPopupMenu;
-import dao.NhanVien_Dao;
+import dao.INhanVienDAO;
+import dao.imlp.NhanVienDAO;
 import entity.NhanVien;
 import icon.FontAwesome;
 import jakarta.persistence.Persistence;
@@ -37,10 +38,13 @@ public class GD_TrangChu extends javax.swing.JFrame {
 //    NhanVien_Dao nv_dao = new NhanVien_Dao();
 //    NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
     //dùng cho run
+    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
     private ArrayList<JButton> tabs = new ArrayList<>();
 
     public GD_TrangChu() {
         Persistence.createEntityManagerFactory("QLNH_mssql");
+//        nhanVienDAO.insert(new NhanVien());   
+        NhanVien nv = (NhanVien) nhanVienDAO.findById("123", NhanVien.class);
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
 
@@ -82,7 +86,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         MyJMenuItem thongTin = new MyJMenuItem("THÔNG TIN CÁ NHÂN");
         MyJMenuItem logOut = new MyJMenuItem("LOG OUT");
         logOut.setIcon(IconFontSwing.buildIcon(FontAwesome.SIGN_OUT, 25, Color.WHITE));
-        thongTin.setIcon(IconFontSwing.buildIcon(FontAwesome.ADDRESS_BOOK_O,25, Color.white));
+        thongTin.setIcon(IconFontSwing.buildIcon(FontAwesome.ADDRESS_BOOK_O, 25, Color.white));
         thongTin.setHorizontalAlignment(LEFT);
         thongTin.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         thongTin.setIconTextGap(10);
@@ -113,7 +117,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                popupMenu.setPreferredSize(new Dimension(btnAVT.getWidth() + buttonHelp.getWidth() + label_AVT.getWidth(), btnAVT.getHeight()*2));
+                popupMenu.setPreferredSize(new Dimension(btnAVT.getWidth() + buttonHelp.getWidth() + label_AVT.getWidth(), btnAVT.getHeight() * 2));
             }
         });
 
@@ -386,7 +390,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatMonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDatMonMouseEntered
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_buttonDatMonMouseEntered
 
     private void setUI(JComponent jComponent) {
