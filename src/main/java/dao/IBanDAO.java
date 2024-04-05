@@ -1,0 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package dao;
+
+import entity.Ban;
+import java.util.List;
+
+/**
+ *
+ * @author Laptop
+ */
+public interface IBanDAO<T> extends GenericDAO<T> {
+
+    List<Ban> findByFloor(int floor);
+
+    List<Ban> findTableByStateAndFloor(Enum state, int floor);
+
+    List<Ban> findTableByState(Enum state);
+
+    List<Object[]> groupByMaTang();
+}

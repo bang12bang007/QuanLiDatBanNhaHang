@@ -9,15 +9,30 @@ import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.JFrame;
 import component.BanItem;
+import component.Loading;
+import component.MyButton;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IBanDAO;
+import dao.imlp.BanDAO;
+import entity.Ban;
 import icon.FontAwesome;
 import jakarta.persistence.Entity;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 
 /**
  *
@@ -30,15 +45,45 @@ public class GD_Ban extends javax.swing.JPanel {
      */
     private JPanel main;
     private String type;
+    private IBanDAO banDAO = new BanDAO();
+    private List<JButton> floors = new ArrayList<>();
+
     public GD_Ban(JPanel main, String type) {
         this.type = type;
         this.main = main;
-        initComponents();
-        IconFontSwing.register(FontAwesome.getIconFont());
-        tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
-        ScrollListBan.setVerticalScrollBar(new ScrollBarCustom());
-        ScrollListBan.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        ListBan.setLayout(new WrapLayout(FlowLayout.CENTER,40,40));
+        run();
+    }
+
+    private void run() {
+        GD_Ban gd_ban = this;
+        Timer timer = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Loading loading = new Loading();
+                utils.AppUtils.setLoading(main, true, loading, gd_ban);
+
+                initComponents();
+                IconFontSwing.register(FontAwesome.getIconFont());
+                tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
+                ScrollListBan.setVerticalScrollBar(new ScrollBarCustom());
+                ScrollListBan.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                ListBan.setLayout(new WrapLayout(FlowLayout.CENTER, 40, 40));
+                containerFloors.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+                containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
+                loadData();
+
+                Timer hideTimer = new Timer(1500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        utils.AppUtils.setLoading(main, false, loading, gd_ban);
+                    }
+                });
+                hideTimer.setRepeats(false);
+                hideTimer.start();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     /**
@@ -49,6 +94,7 @@ public class GD_Ban extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         infoPanel = new component.PanelRound();
         RightInfo = new component.PanelRound();
         panelRound1 = new component.PanelRound();
@@ -63,11 +109,7 @@ public class GD_Ban extends javax.swing.JPanel {
         tabLabel = new javax.swing.JLabel();
         GheTrongTang = new javax.swing.JLabel();
         contentPanel = new component.PanelRound();
-        panelRound4 = new component.PanelRound();
-        myButton2 = new component.MyButton();
-        myButton3 = new component.MyButton();
-        myButton4 = new component.MyButton();
-        myButton5 = new component.MyButton();
+        containerFloors = new component.PanelRound();
         panelRound5 = new component.PanelRound();
         ScrollListBan = new javax.swing.JScrollPane();
         ListBan = new javax.swing.JPanel();
@@ -227,86 +269,18 @@ public class GD_Ban extends javax.swing.JPanel {
 
         contentPanel.setBackground(new java.awt.Color(83, 86, 99));
 
-        panelRound4.setBackground(new java.awt.Color(83, 86, 99));
-        panelRound4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.lightGray, null, null));
+        containerFloors.setBackground(new java.awt.Color(83, 86, 99));
+        containerFloors.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.lightGray, null, null));
 
-        myButton2.setForeground(new java.awt.Color(255, 255, 255));
-        myButton2.setText("TẦNG 1 (20)");
-        myButton2.setColor(new java.awt.Color(31, 29, 43));
-        myButton2.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton2.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        myButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        myButton2.setRadius(20);
-        myButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton2ActionPerformed(evt);
-            }
-        });
-
-        myButton3.setForeground(new java.awt.Color(255, 255, 255));
-        myButton3.setText("TẦNG 2 (20)");
-        myButton3.setColor(new java.awt.Color(31, 29, 43));
-        myButton3.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton3.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        myButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        myButton3.setRadius(20);
-        myButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton3ActionPerformed(evt);
-            }
-        });
-
-        myButton4.setForeground(new java.awt.Color(255, 255, 255));
-        myButton4.setText("TẦNG 3 (30)");
-        myButton4.setColor(new java.awt.Color(31, 29, 43));
-        myButton4.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton4.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        myButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        myButton4.setRadius(20);
-        myButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton4ActionPerformed(evt);
-            }
-        });
-
-        myButton5.setForeground(new java.awt.Color(255, 255, 255));
-        myButton5.setText("TẦNG 4 (40)");
-        myButton5.setColor(new java.awt.Color(31, 29, 43));
-        myButton5.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton5.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        myButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        myButton5.setRadius(20);
-        myButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton5ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
-        panelRound4.setLayout(panelRound4Layout);
-        panelRound4Layout.setHorizontalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(myButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(myButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-            .addComponent(myButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(myButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout containerFloorsLayout = new javax.swing.GroupLayout(containerFloors);
+        containerFloors.setLayout(containerFloorsLayout);
+        containerFloorsLayout.setHorizontalGroup(
+            containerFloorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 185, Short.MAX_VALUE)
         );
-        panelRound4Layout.setVerticalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound4Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(myButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        containerFloorsLayout.setVerticalGroup(
+            containerFloorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         panelRound5.setBackground(new java.awt.Color(83, 86, 99));
@@ -343,13 +317,13 @@ public class GD_Ban extends javax.swing.JPanel {
         contentPanelLayout.setHorizontalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelLayout.createSequentialGroup()
-                .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(containerFloors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(panelRound5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRound4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(containerFloors, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelRound5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -357,7 +331,6 @@ public class GD_Ban extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-
             .addComponent(infoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -367,34 +340,102 @@ public class GD_Ban extends javax.swing.JPanel {
                 .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
-        // TODO add your handling code here:
-        ListBan.add(new BanItem("200","/image/empty_table.png",main, type));
-        ListBan.add(new BanItem("150","/image/order_table.png",main, type));
-        ListBan.add(new BanItem("120","/image/pre_order_table.png",main, type));
-        ListBan.repaint();
-        ListBan.revalidate();
-    }//GEN-LAST:event_myButton2ActionPerformed
-
-    private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton3ActionPerformed
-
-    private void myButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton4ActionPerformed
-
-    private void myButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton5ActionPerformed
 
     private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBanActionPerformed
+
+    private void loadTables(int floor) {
+        List<Ban> bans = banDAO.findByFloor(floor);
+        List<Ban> dsBanTrong = banDAO.findTableByStateAndFloor(utils.Enum.LoaiTrangThai.BAN_TRONG, floor);
+        GheTrongTang.setText("Tầng " + floor + ": Trống " + dsBanTrong.size() + "/" + bans.size() + " bàn - " + dsBanTrong.size() * 6 + " ghế");
+        ListBan.removeAll();
+        for (Ban ban : bans) {
+            BanItem banItem = new BanItem(ban.getMaBan(), getTrangThai(ban.getTrangThai().ordinal()), main, type);
+            ListBan.add(banItem);
+        }
+        ListBan.repaint();
+        ListBan.revalidate();
+    }
+
+    private void loadFloors() {
+        List<Object[]> floors = banDAO.groupByMaTang();
+        for (Object[] floor : floors) {
+            JButton button = createButtonFloor(Integer.parseInt(floor[0] + ""), Integer.parseInt(floor[1] + ""));
+            containerFloors.add(button);
+            this.floors.add(button);
+        }
+        containerFloors.repaint();
+        containerFloors.revalidate();
+    }
+
+    private String getTrangThai(int trangThai) {
+        String res = "";
+        switch (trangThai) {
+            case 0: {
+                res = "/image/empty_table.png";
+                break;
+            }
+            case 1: {
+                res = "/image/order_table.png";
+                break;
+            }
+            case 2: {
+                res = "/image/pre_order_table.png";
+                break;
+            }
+        }
+        return res;
+    }
+
+    private MyButton createButtonFloor(int floor, int quantity) {
+        String text = "Tầng " + floor + " (" + quantity + ")";
+        MyButton button = new MyButton();
+        button.setRadius(20);
+        button.setColor(new Color(31, 29, 43));
+        button.setBackground(new Color(31, 29, 43));
+        button.setColorClick(new Color(234, 124, 105));
+        button.setColorOver(new Color(234, 124, 105));
+        button.setPreferredSize(new Dimension(200, 60));
+        button.setFont(new Font("", Font.BOLD, 16));
+        button.setForeground(Color.WHITE);
+        button.setText(text);
+        button.addActionListener(e -> {
+            loadTables(floor);
+            setActive(e);
+        });
+        return button;
+    }
+
+    private void setActive(ActionEvent e) {
+        Color transparent = new Color(31, 29, 43);
+        Color activeColor = new Color(234, 124, 105);
+        for (JButton button : this.floors) {
+            boolean isButton = ((JButton) e.getSource()).getText().equals(button.getText());
+            ((MyButton) button).setColor(isButton ? activeColor : transparent);
+        }
+    }
+
+    private void loadEmptyTableOfRestaurant() {
+        List<Ban> dsBan = banDAO.findAll(Ban.class);
+        List<Ban> dsBanTrong = banDAO.findTableByState(utils.Enum.LoaiTrangThai.BAN_TRONG);
+        GheTrongNhaHang.setText("Trống " + dsBanTrong.size() + "/" + dsBan.size() + " - " + dsBanTrong.size() * 6 + " ghế");
+    }
+
+    private void setInitActive(JButton button) {
+        ActionEvent fakeEvent = new ActionEvent(button, ActionEvent.ACTION_PERFORMED, "");
+        setActive(fakeEvent);
+    }
+
+    private void loadData() {
+//        utils.AppUtils.setUI(main, new Loading());
+        loadFloors();
+        loadTables(1);
+        setInitActive(this.floors.get(0));
+        loadEmptyTableOfRestaurant();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -404,21 +445,18 @@ public class GD_Ban extends javax.swing.JPanel {
     private javax.swing.JPanel ListBan;
     private component.PanelRound RightInfo;
     private javax.swing.JScrollPane ScrollListBan;
+    private component.PanelRound containerFloors;
     private component.PanelRound contentPanel;
     private component.PanelRound infoPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private component.MyButton myButton2;
-    private component.MyButton myButton3;
-    private component.MyButton myButton4;
-    private component.MyButton myButton5;
     private component.PanelRound panelRound1;
     private component.PanelRound panelRound2;
     private component.PanelRound panelRound3;
-    private component.PanelRound panelRound4;
     private component.PanelRound panelRound5;
     private javax.swing.JLabel tabLabel;
     // End of variables declaration//GEN-END:variables
+
 }

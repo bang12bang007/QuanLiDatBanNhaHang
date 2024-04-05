@@ -95,9 +95,11 @@ public class BanItem extends javax.swing.JPanel {
                 jFrame.setUndecorated(true);
                 jFrame.setExtendedState(MAXIMIZED_BOTH);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                jFrame.add(new Form_DatBan(jFrame));
+                Form_DatBan form_DatBan = new Form_DatBan(jFrame);
+                form_DatBan.setMainJpanel(main);
+                jFrame.add(form_DatBan);
                 jFrame.setBackground(new Color(0, 0, 0, 0));
-//                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
                 jFrame.setVisible(true);
                 break;
             }

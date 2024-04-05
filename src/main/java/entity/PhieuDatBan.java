@@ -26,26 +26,34 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class PhieuDatBan {
+
     @Id
-    @Column(name="MaPhieuDatBan",nullable = false)
+    @Column(name = "MaPhieuDatBan", nullable = false)
     private String maPhieuDatBan;
-    @Column(name="NgayGioDatBan",nullable = false)
+    @Column(name = "NgayGioDatBan", nullable = false)
     private Date ngayGioDat;
-    @Column(name="SoLuongNguoi",nullable = false)
+    @Column(name = "SoLuongNguoi", nullable = false)
     private int soLuongNguoi;
-    @Column(name="HoTenNguoiDat",columnDefinition = "NVARCHAR(50)",nullable = false)
+    @Column(name = "HoTenNguoiDat", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String hoTen;
-    @Column(name="SoDienThoai",nullable = false)
+    @Column(name = "SoDienThoai", nullable = false)
     private String sdt;
+    @Column(name = "TrangThai", nullable = false)
+    private int trangThai;
+    @Column(name = "TienDatCoc", nullable = false)
+    private double tienDatCoc;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBan")
     private Ban ban;
 
-    public PhieuDatBan(Date ngayGioDat, int soLuongNguoi, String hoTen, String sdt, Ban ban) {
+    public PhieuDatBan(Date ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, Ban ban) {
         this.ngayGioDat = ngayGioDat;
         this.soLuongNguoi = soLuongNguoi;
         this.hoTen = hoTen;
         this.sdt = sdt;
+        this.trangThai = trangThai;
+        this.tienDatCoc = tienDatCoc;
         this.ban = ban;
     }
+
 }

@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class AbstractDAO<T> implements GenericDAO<T> {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("QLNH_mssql");
-    private EntityManager em = emf.createEntityManager();
+    protected EntityManagerFactory emf = Persistence.createEntityManagerFactory("QLNH_mssql");
+    protected EntityManager em = emf.createEntityManager();
 
     public boolean insert(T t) {
         EntityTransaction tx = em.getTransaction();
