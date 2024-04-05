@@ -53,11 +53,11 @@ public class BanItem extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("101");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 40));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 300, 40));
 
         myButton1.setBackground(new java.awt.Color(83, 86, 99));
         myButton1.setBorder(null);
-        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/empty_table.png"))); // NOI18N
+        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/my_table.png"))); // NOI18N
         myButton1.setColor(new java.awt.Color(83, 86, 99));
         myButton1.setColorClick(new java.awt.Color(83, 86, 99));
         myButton1.setColorOver(new java.awt.Color(83, 86, 99));
@@ -74,12 +74,12 @@ public class BanItem extends javax.swing.JPanel {
                 myButton1ActionPerformed(evt);
             }
         });
-        add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 190));
+        add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 250));
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
         // TODO add your handling code here:
-        myButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(31, 29, 43), 2, true));
+        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
     }//GEN-LAST:event_myButton1MouseEntered
 
     private void myButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseExited
