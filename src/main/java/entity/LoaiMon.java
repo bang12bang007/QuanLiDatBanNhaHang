@@ -4,6 +4,7 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,7 +32,8 @@ public class LoaiMon {
     private String tenLoai;
     @Column(name = "ChuThich",columnDefinition = "NVARCHAR(255)")
     private String chuThich;
-    @OneToMany(mappedBy = "loaiMon")
+    @OneToMany(mappedBy = "loaiMon",cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Mon> mon;
 
     public LoaiMon(String tenLoai, String chuThich, List<Mon> mon) {

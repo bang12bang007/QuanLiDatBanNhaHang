@@ -13,8 +13,11 @@ public class Food extends javax.swing.JPanel {
     /**
      * Creates new form Food
      */
-    public Food() {
+    public Food(String ten,String gia,String image_link) {
         initComponents();
+        jLabelGia.setText(gia+"$");
+        jLabelTen.setText(ten);
+        btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_link)));
     }
 
     /**

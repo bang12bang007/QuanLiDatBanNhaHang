@@ -52,7 +52,7 @@ public class PanelGradient extends JPanel {
             int sy = 0; //  as Start y
             int ex = width; //  as End x
             int ey = 0; //  as End y
-            LinearGradientPaint g = new LinearGradientPaint(sy, sx, ey, ex, position, color);
+            LinearGradientPaint g = new LinearGradientPaint(sx, sy, ex, ey, position, color);
             g2.setPaint(g);
             g2.fillRect(0, 0, width, height);
         }

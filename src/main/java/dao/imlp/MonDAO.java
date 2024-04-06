@@ -5,12 +5,18 @@
 package dao.imlp;
 
 import dao.IMonDAO;
+import entity.LoaiMon;
 import entity.Mon;
+import java.util.List;
 
 /**
  *
  * @author Laptop
  */
 public class MonDAO extends AbstractDAO<Mon> implements IMonDAO<Mon>{
-    
+    public List<Mon> findService() {
+        return em.createNamedQuery("Mon.Service", Mon.class)
+                .setParameter("trangThai",utils.Enum.LoaiTrangThaiMon.DANG_KINH_DOANH)
+                .getResultList();
+    };
 }

@@ -352,7 +352,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        utils.AppUtils.setUI(mainJpanel, new GD_DatMon(mainJpanel));
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVTActionPerformed
@@ -437,7 +437,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         }
         //</editor-fold>
         Persistence.createEntityManagerFactory("QLNH_mssql");
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

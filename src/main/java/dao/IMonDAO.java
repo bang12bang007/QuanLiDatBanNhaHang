@@ -4,10 +4,14 @@
  */
 package dao;
 
+import entity.Mon;
+import jakarta.persistence.EntityManager;
+import java.util.List;
+
 /**
  *
  * @author Laptop
  */
 public interface IMonDAO<T> extends GenericDAO<T>{
-    
+    List<Mon> findService();
 }

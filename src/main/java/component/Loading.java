@@ -20,7 +20,7 @@ public class Loading extends javax.swing.JPanel {
         String imagePath = "./src/main/java/icon/loading_final.gif";
 
         // Tạo một ImageIcon từ đường dẫn ảnh
-        ImageIcon icon = new ImageIcon(imagePath);
+        ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource(imagePath));
         this.icon.setIcon(icon);
     }
 

@@ -24,12 +24,25 @@ public class BanItem extends javax.swing.JPanel {
      */
     private JPanel main;
     private String type;
+    private String image_type;
+    private String maBan;
 
-    public BanItem(String text, String image_type, JPanel main, String type) {
+    public BanItem(String maBan, int trangThai, JPanel main, String type) {
         this.main = main;
         this.type = type;
+        this.maBan = maBan;
         initComponents();
-        jLabel1.setText(text);
+        jLabel1.setText(maBan);
+        
+        if(trangThai==utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal())
+            image_type = "/images/my_table.png";
+        else
+            if(trangThai==utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal())
+                image_type = "/images/my_table_gray.png";
+            else
+                if(trangThai==utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal())
+                    image_type = "/images/my_table_blue.png";
+        
         myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_type)));
     }
 
@@ -53,11 +66,11 @@ public class BanItem extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("101");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 40));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 300, 40));
 
         myButton1.setBackground(new java.awt.Color(83, 86, 99));
         myButton1.setBorder(null);
-        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/empty_table.png"))); // NOI18N
+        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/my_table.png"))); // NOI18N
         myButton1.setColor(new java.awt.Color(83, 86, 99));
         myButton1.setColorClick(new java.awt.Color(83, 86, 99));
         myButton1.setColorOver(new java.awt.Color(83, 86, 99));
@@ -74,12 +87,12 @@ public class BanItem extends javax.swing.JPanel {
                 myButton1ActionPerformed(evt);
             }
         });
-        add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 190));
+        add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 250));
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
         // TODO add your handling code here:
-        myButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(31, 29, 43), 2, true));
+        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
     }//GEN-LAST:event_myButton1MouseEntered
 
     private void myButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseExited
@@ -104,7 +117,8 @@ public class BanItem extends javax.swing.JPanel {
                 break;
             }
             case "DAT_MON": {
-                AppUtils.setUI(main, new GD_DatMon(main));
+                if(!image_type.equals("/images/my_table_gray.png"))
+                    AppUtils.setUI(main, new GD_DatMon(main,maBan));
                 break;
             }
         }
