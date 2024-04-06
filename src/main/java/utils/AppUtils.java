@@ -18,6 +18,8 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.List;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +29,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import view.GD_Ban;
+import view.UIUpdatable;
 
 /**
  *
@@ -190,5 +194,28 @@ public class AppUtils {
         }
         mainJPanel.repaint();
         mainJPanel.revalidate();
+    }
+
+    public static <T extends JPanel & UIUpdatable> void run(JPanel mainJPanel, T jpanel) {
+        Timer timer = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Loading loading = new Loading();
+                utils.AppUtils.setLoading(mainJPanel, true, loading, jpanel);
+
+                jpanel.setUI();
+
+                Timer hideTimer = new Timer(1500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        utils.AppUtils.setLoading(mainJPanel, false, loading, jpanel);
+                    }
+                });
+                hideTimer.setRepeats(false);
+                hideTimer.start();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 }
