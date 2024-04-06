@@ -32,6 +32,7 @@ public class MenuItem extends javax.swing.JPanel {
         this.setBackground(Color.BLUE);
         wrapper.setBackground(new Color(83, 86, 99));
         right.setBackground(new Color(83, 86, 99));
+        soLuong.setBackground(new Color(0, 0, 0, 0));
 //        tenMon.setPreferredSize(new Dimension(200, 45));
         this.setPreferredSize(new Dimension(width, 45));
         push(data);
@@ -44,8 +45,10 @@ public class MenuItem extends javax.swing.JPanel {
 
     private Icon getIconByType() {
         if (type.equals("THEM_MON")) {
+            soLuong.setEditable(false);
             return IconFontSwing.buildIcon(FontAwesome.PLUS, 12, Color.WHITE);
         } else if (type.equals("HUY_MON")) {
+            soLuong.setEditable(true);
             return IconFontSwing.buildIcon(FontAwesome.XING, 12, Color.WHITE);
         }
         return null;
@@ -65,6 +68,13 @@ public class MenuItem extends javax.swing.JPanel {
         push(data);
     }
 
+    public int getSoLuong() {
+        if (type.equals("THEM_MON")) {
+            return 1;
+        }
+        return Integer.parseInt(soLuong.getText());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,18 +87,14 @@ public class MenuItem extends javax.swing.JPanel {
         wrapper = new javax.swing.JPanel();
         tenMon = new javax.swing.JLabel();
         right = new javax.swing.JPanel();
-        soLuong = new javax.swing.JLabel();
         myButton1 = new component.MyButton();
+        soLuong = new javax.swing.JTextField();
 
         wrapper.setLayout(new java.awt.GridLayout(1, 0));
 
         tenMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
         wrapper.add(tenMon);
-
-        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        soLuong.setForeground(new java.awt.Color(255, 255, 255));
-        soLuong.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         myButton1.setColor(new java.awt.Color(31, 29, 43));
         myButton1.setColorClick(new java.awt.Color(234, 124, 105));
@@ -102,26 +108,35 @@ public class MenuItem extends javax.swing.JPanel {
             }
         });
 
+        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        soLuong.setBorder(null);
+        soLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                soLuongKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soLuongKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout rightLayout = new javax.swing.GroupLayout(right);
         right.setLayout(rightLayout);
         rightLayout.setHorizontalGroup(
             rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(soLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(soLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         rightLayout.setVerticalGroup(
             rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightLayout.createSequentialGroup()
-                .addComponent(soLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(rightLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
+            .addComponent(soLuong)
         );
 
         wrapper.add(right);
@@ -149,11 +164,26 @@ public class MenuItem extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_myButton1ActionPerformed
 
+    private void soLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_soLuongKeyReleased
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
+            form.onChange();
+            soLuong.requestFocus();
+        }
+    }//GEN-LAST:event_soLuongKeyReleased
+
+    private void soLuongKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_soLuongKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c))
+            evt.consume();
+    }//GEN-LAST:event_soLuongKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton myButton1;
     private javax.swing.JPanel right;
-    private javax.swing.JLabel soLuong;
+    private javax.swing.JTextField soLuong;
     private javax.swing.JLabel tenMon;
     private javax.swing.JPanel wrapper;
     // End of variables declaration//GEN-END:variables

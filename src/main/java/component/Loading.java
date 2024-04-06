@@ -17,7 +17,7 @@ public class Loading extends javax.swing.JPanel {
      */
     public Loading() {
         initComponents();
-        String imagePath = "D:\\learning_university_IUH\\hoc_ky_6_(2023-2024)\\Phat_trien_ung_dung\\BaoCaoCK\\QuanLiDatBanNhaHang\\src\\main\\java\\icon\\loading_final.gif";
+        String imagePath = "./src/main/java/icon/loading_final.gif";
 
         // Tạo một ImageIcon từ đường dẫn ảnh
         ImageIcon icon = new ImageIcon(imagePath);

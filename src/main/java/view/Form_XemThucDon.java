@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
@@ -32,19 +34,25 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private JFrame jFrame;
     private ArrayList<MenuItem> listHuy = new ArrayList<>();
     private IMonDAO monDAO = new MonDAO();
+    private JTextArea yeuCauDatMon;
+    private List<Mon> dsMon;
 
-    public Form_XemThucDon(JFrame jFrame) {
+    public Form_XemThucDon(JFrame jFrame, JTextArea yeuCauDatMon) {
         this.jFrame = jFrame;
+        this.yeuCauDatMon = yeuCauDatMon;
         initComponents();
         setBackground(new Color(0, 0, 0, 0.8f));
         wrapper.setBackground(new Color(0, 0, 0, 0));
         tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableScrollLeft.setVerticalScrollBar(new ScrollBarCustom());
         tableScrollLeft.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
         tableBodyRight.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableScrollRight.setVerticalScrollBar(new ScrollBarCustom());
         tableScrollRight.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        txtYeuCauDatMon.setBackground(new Color(0, 0, 0, 0));
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        txtYeuCauDatMon.setText(yeuCauDatMon.getText());
         FirstTimeLoadItem();
     }
 
@@ -97,9 +105,11 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         btnUpTable1 = new component.MyButton();
         btnDownTable1 = new component.MyButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        tongTien = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         panelRound5 = new component.PanelRound();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtYeuCauDatMon = new javax.swing.JTextArea();
         footer = new component.PanelRound();
         btnDongY = new component.MyButton();
         btnHuy = new component.MyButton();
@@ -196,7 +206,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             .addGroup(tableLayout.createSequentialGroup()
                 .addComponent(headerTable, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(tableScrollLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                .addComponent(tableScrollLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
         );
 
         btnUpTable.setForeground(new java.awt.Color(255, 255, 255));
@@ -340,7 +350,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             .addGroup(tableRightLayout.createSequentialGroup()
                 .addComponent(headerTableRight, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(tableScrollRight, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                .addComponent(tableScrollRight, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
         );
 
         btnUpTable1.setForeground(new java.awt.Color(255, 255, 255));
@@ -368,8 +378,8 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Tổng tiền");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel6.setText("498.000");
+        tongTien.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        tongTien.setText("0");
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
         rightContainer.setLayout(rightContainerLayout);
@@ -382,7 +392,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightContainerLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
+                        .addComponent(tongTien)
                         .addGap(87, 87, 87)
                         .addComponent(btnUpTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -401,7 +411,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightContainerLayout.createSequentialGroup()
                         .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(tongTien))
                         .addGap(10, 10, 10)))
                 .addContainerGap())
         );
@@ -415,15 +425,29 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         panelRound5.setRoundTopLeft(8);
         panelRound5.setRoundTopRight(8);
 
+        jScrollPane1.setBorder(null);
+
+        txtYeuCauDatMon.setColumns(20);
+        txtYeuCauDatMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtYeuCauDatMon.setLineWrap(true);
+        txtYeuCauDatMon.setRows(5);
+        txtYeuCauDatMon.setBorder(null);
+        txtYeuCauDatMon.setOpaque(false);
+        jScrollPane1.setViewportView(txtYeuCauDatMon);
+
         javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
         panelRound5.setLayout(panelRound5Layout);
         panelRound5Layout.setHorizontalGroup(
             panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 968, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE))
         );
         panelRound5Layout.setVerticalGroup(
             panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+            .addGroup(panelRound5Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
@@ -449,8 +473,8 @@ public class Form_XemThucDon extends javax.swing.JPanel {
                     .addComponent(leftContainer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRound5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelRound5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -548,10 +572,15 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
         // TODO add your handling code here:
+        this.yeuCauDatMon.setText(txtYeuCauDatMon.getText());
+        jFrame.setVisible(false);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnDongYActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
+        jFrame.setVisible(false);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
@@ -572,9 +601,9 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
     private void loadData() {
         int width = tableBody.getWidth();
-        List<Mon> dsMon = monDAO.findAll(Mon.class);
-        for (int i = 0; i < dsMon.size(); i++) {
-            MenuItem menuItem = new MenuItem(width, getContents(dsMon.get(i)));
+        this.dsMon = monDAO.findAll(Mon.class);
+        for (int i = 0; i < this.dsMon.size(); i++) {
+            MenuItem menuItem = new MenuItem(width, getContents(this.dsMon.get(i)));
             menuItem.setForm(this);
             menuItem.setType("THEM_MON");
             tableBody.add(menuItem);
@@ -587,10 +616,12 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
     public void themMon(MenuItem menuItem) {
         int index = getIndex(menuItem);
+        double total = 0;
+        String dsMonString = "";
         if (index < 0) {
             listHuy.add(menuItem);
         } else {
-            String quatity = (Integer.parseInt(listHuy.get(index).getData()[1]) + 1) + "";
+            String quatity = listHuy.get(index).getSoLuong() + 1 + "";
             String[] dataAfterUpdateQuantity = new String[]{menuItem.getData()[0], quatity};
             listHuy.get(index).setData(dataAfterUpdateQuantity);
         }
@@ -599,7 +630,12 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             item.setType("HUY_MON");
             item.setForm(this);
             tableBodyRight.add(item);
+            String isQuote = item.equals(listHuy.get(listHuy.size() - 1)) ? "" : ", ";
+            dsMonString += item.getData()[0] + " (" + item.getData()[1] + " Suất)" + isQuote;
+            total += getPriceByName(item.getData()[0]) * Integer.parseInt(item.getData()[1]);
         }
+        tongTien.setText(total + "");
+        txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();
         tableBody.repaint();
@@ -607,11 +643,18 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     }
 
     public void huyMon(MenuItem menuItem) {
+        String dsMonString = "";
+        double total = 0;
         listHuy.remove(menuItem);
         tableBodyRight.removeAll();
         for (MenuItem item : listHuy) {
             tableBodyRight.add(item);
+            String isQuote = item.equals(listHuy.get(listHuy.size() - 1)) ? "" : ", ";
+            dsMonString += item.getData()[0] + " (" + item.getData()[1] + " Suất)" + isQuote;
+            total += getPriceByName(item.getData()[0]) * Integer.parseInt(item.getData()[1]);
         }
+        tongTien.setText(total + "");
+        txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();
     }
@@ -624,6 +667,32 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             }
         }
         return index;
+    }
+
+    public void onChange() {
+        String dsMonString = "";
+        double total = 0;
+        for (MenuItem item : listHuy) {
+            tableBodyRight.add(item);
+            String isQuote = item.equals(listHuy.get(listHuy.size() - 1)) ? "" : ", ";
+            dsMonString += item.getData()[0] + " (" + item.getSoLuong() + " Suất)" + isQuote;
+            total += getPriceByName(item.getData()[0]) * item.getSoLuong();
+        }
+        tongTien.setText(total + "");
+        txtYeuCauDatMon.setText(dsMonString);
+        tableBodyRight.repaint();
+        tableBodyRight.revalidate();
+    }
+
+    private double getPriceByName(String name) {
+        double price = 0;
+        for (Mon mon : dsMon) {
+            if (mon.getTenMon().equals(name)) {
+                price = mon.getGia();
+            }
+        }
+
+        return price;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -644,8 +713,8 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel leftContainer;
     private component.PanelRound panelRound1;
     private component.PanelRound panelRound2;
@@ -658,6 +727,9 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private javax.swing.JScrollPane tableScrollLeft;
     private javax.swing.JScrollPane tableScrollRight;
     private javax.swing.JLabel title;
+    private javax.swing.JLabel tongTien;
+    private javax.swing.JTextArea txtYeuCauDatMon;
     private javax.swing.JPanel wrapper;
     // End of variables declaration//GEN-END:variables
+
 }

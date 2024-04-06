@@ -5,12 +5,14 @@
 package view;
 
 import LIB.FadeEffect;
+import component.ScrollBarCustom;
 import icon.FontAwesome;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
 
 /**
@@ -24,7 +26,8 @@ public class Form_DatBan extends javax.swing.JPanel {
      */
     private JFrame jFrame;
     private JPanel mainJpanel;
-
+    private static final Color TRANSPERANT = new Color(0, 0, 0, 0);
+    
     public Form_DatBan(JFrame jFrame) {
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -32,7 +35,12 @@ public class Form_DatBan extends javax.swing.JPanel {
         this.setBackground(new Color(0, 0, 0, 0.7f));
         btnPlus.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
         btnMinus.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 20, Color.WHITE));
-//        soLuong.setBackground(new Color(0, 0, 0, 0));
+        txtSoNguoi.setBackground(TRANSPERANT);
+        txtYeuCau.setBackground(TRANSPERANT);
+        txtYeuCauDatMon.setBackground(TRANSPERANT);
+        scrollYCMD.setVerticalScrollBar(new ScrollBarCustom());
+        scrollYCMD.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        calendar.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
     }
 
     /**
@@ -53,6 +61,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnHuy = new component.MyButton();
         jLabel2 = new javax.swing.JLabel();
         panelRound1 = new component.PanelRound();
+        calendar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         panelRound2 = new component.PanelRound();
         panelRound3 = new component.PanelRound();
@@ -60,11 +69,15 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         panelRound4 = new component.PanelRound();
         jLabel6 = new javax.swing.JLabel();
-        panelRound5 = new component.PanelRound();
+        yeuCauDatMon = new component.PanelRound();
+        scrollYCMD = new javax.swing.JScrollPane();
+        txtYeuCauDatMon = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        panelRound6 = new component.PanelRound();
+        yeuCauKhac = new component.PanelRound();
+        txtYeuCau = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         panelRound7 = new component.PanelRound();
+        txtSoNguoi = new javax.swing.JTextField();
         btnPlus = new component.MyButton();
         btnXemThucDon = new component.MyButton();
         btnMinus = new component.MyButton();
@@ -170,11 +183,13 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                .addGap(0, 198, Short.MAX_VALUE)
+                .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(calendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -241,40 +256,62 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Yêu cầu đặt món");
 
-        panelRound5.setRoundBottomLeft(8);
-        panelRound5.setRoundBottomRight(8);
-        panelRound5.setRoundTopLeft(8);
-        panelRound5.setRoundTopRight(8);
+        yeuCauDatMon.setRoundBottomLeft(8);
+        yeuCauDatMon.setRoundBottomRight(8);
+        yeuCauDatMon.setRoundTopLeft(8);
+        yeuCauDatMon.setRoundTopRight(8);
 
-        javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
-        panelRound5.setLayout(panelRound5Layout);
-        panelRound5Layout.setHorizontalGroup(
-            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        scrollYCMD.setBorder(null);
+
+        txtYeuCauDatMon.setColumns(4);
+        txtYeuCauDatMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtYeuCauDatMon.setLineWrap(true);
+        txtYeuCauDatMon.setRows(5);
+        txtYeuCauDatMon.setBorder(null);
+        txtYeuCauDatMon.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtYeuCauDatMon.setOpaque(false);
+        scrollYCMD.setViewportView(txtYeuCauDatMon);
+
+        javax.swing.GroupLayout yeuCauDatMonLayout = new javax.swing.GroupLayout(yeuCauDatMon);
+        yeuCauDatMon.setLayout(yeuCauDatMonLayout);
+        yeuCauDatMonLayout.setHorizontalGroup(
+            yeuCauDatMonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, yeuCauDatMonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollYCMD))
         );
-        panelRound5Layout.setVerticalGroup(
-            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 87, Short.MAX_VALUE)
+        yeuCauDatMonLayout.setVerticalGroup(
+            yeuCauDatMonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, yeuCauDatMonLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(scrollYCMD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Yêu cầu khác");
 
-        panelRound6.setRoundBottomLeft(8);
-        panelRound6.setRoundBottomRight(8);
-        panelRound6.setRoundTopLeft(8);
-        panelRound6.setRoundTopRight(8);
+        yeuCauKhac.setRoundBottomLeft(8);
+        yeuCauKhac.setRoundBottomRight(8);
+        yeuCauKhac.setRoundTopLeft(8);
+        yeuCauKhac.setRoundTopRight(8);
 
-        javax.swing.GroupLayout panelRound6Layout = new javax.swing.GroupLayout(panelRound6);
-        panelRound6.setLayout(panelRound6Layout);
-        panelRound6Layout.setHorizontalGroup(
-            panelRound6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        txtYeuCau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtYeuCau.setText("Mua giùm cái bánh kem");
+        txtYeuCau.setBorder(null);
+        txtYeuCau.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        javax.swing.GroupLayout yeuCauKhacLayout = new javax.swing.GroupLayout(yeuCauKhac);
+        yeuCauKhac.setLayout(yeuCauKhacLayout);
+        yeuCauKhacLayout.setHorizontalGroup(
+            yeuCauKhacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, yeuCauKhacLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtYeuCau))
         );
-        panelRound6Layout.setVerticalGroup(
-            panelRound6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        yeuCauKhacLayout.setVerticalGroup(
+            yeuCauKhacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtYeuCau)
         );
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -286,15 +323,26 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound7.setRoundTopLeft(8);
         panelRound7.setRoundTopRight(8);
 
+        txtSoNguoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtSoNguoi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSoNguoi.setText("1");
+        txtSoNguoi.setBorder(null);
+        txtSoNguoi.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtSoNguoi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSoNguoiKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRound7Layout = new javax.swing.GroupLayout(panelRound7);
         panelRound7.setLayout(panelRound7Layout);
         panelRound7Layout.setHorizontalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addComponent(txtSoNguoi, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         panelRound7Layout.setVerticalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(txtSoNguoi)
         );
 
         btnPlus.setBackground(new java.awt.Color(31, 29, 43));
@@ -328,6 +376,11 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnMinus.setColorClick(new java.awt.Color(234, 124, 105));
         btnMinus.setColorOver(new java.awt.Color(234, 124, 105));
         btnMinus.setRadius(8);
+        btnMinus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout wrapperLayout = new javax.swing.GroupLayout(wrapper);
         wrapper.setLayout(wrapperLayout);
@@ -354,8 +407,8 @@ public class Form_DatBan extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelRound5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelRound6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(yeuCauDatMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(yeuCauKhac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(wrapperLayout.createSequentialGroup()
                         .addComponent(panelRound7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -394,10 +447,10 @@ public class Form_DatBan extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRound5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(yeuCauDatMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelRound6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(yeuCauKhac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -415,9 +468,9 @@ public class Form_DatBan extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+                .addContainerGap(91, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -433,6 +486,8 @@ public class Form_DatBan extends javax.swing.JPanel {
 
     private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
         // TODO add your handling code here:
+        int sl = Integer.parseInt(txtSoNguoi.getText());
+        txtSoNguoi.setText(++sl + "");
     }//GEN-LAST:event_btnPlusActionPerformed
 
     private void btnXemThucDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemThucDonActionPerformed
@@ -441,7 +496,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jFrame.setUndecorated(true);
         jFrame.setExtendedState(MAXIMIZED_BOTH);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jFrame.add(new Form_XemThucDon(jFrame));
+        jFrame.add(new Form_XemThucDon(jFrame, txtYeuCauDatMon));
         jFrame.setBackground(new Color(0, 0, 0, 0));
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
         jFrame.setVisible(true);
@@ -454,6 +509,19 @@ public class Form_DatBan extends javax.swing.JPanel {
         utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel));
     }//GEN-LAST:event_btnCatActionPerformed
 
+    private void txtSoNguoiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoNguoiKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c))
+            evt.consume();
+    }//GEN-LAST:event_txtSoNguoiKeyTyped
+
+    private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
+        // TODO add your handling code here:
+        int sl = Integer.parseInt(txtSoNguoi.getText());
+        txtSoNguoi.setText(sl - 1 > 0 ? --sl + "" : sl + "");
+    }//GEN-LAST:event_btnMinusActionPerformed
+    
     public void setMainJpanel(JPanel main) {
         this.mainJpanel = main;
     }
@@ -464,6 +532,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     private component.MyButton btnMinus;
     private component.MyButton btnPlus;
     private component.MyButton btnXemThucDon;
+    private javax.swing.JLabel calendar;
     private component.PanelRound footer;
     private component.PanelRound header;
     private javax.swing.JLabel jLabel1;
@@ -479,10 +548,14 @@ public class Form_DatBan extends javax.swing.JPanel {
     private component.PanelRound panelRound2;
     private component.PanelRound panelRound3;
     private component.PanelRound panelRound4;
-    private component.PanelRound panelRound5;
-    private component.PanelRound panelRound6;
     private component.PanelRound panelRound7;
+    private javax.swing.JScrollPane scrollYCMD;
+    private javax.swing.JTextField txtSoNguoi;
+    private javax.swing.JTextField txtYeuCau;
+    private javax.swing.JTextArea txtYeuCauDatMon;
     private javax.swing.JPanel wrapper;
+    private component.PanelRound yeuCauDatMon;
+    private component.PanelRound yeuCauKhac;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -5,6 +5,7 @@
 package view;
 
 import component.BookingItem;
+import component.Loading;
 import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IPhieuDatBanDAO;
@@ -12,6 +13,7 @@ import dao.imlp.PhieuDatBanDAO;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,27 +40,39 @@ public class GD_DatBan extends javax.swing.JPanel {
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
-        initComponents();
-        IconFontSwing.register(FontAwesome.getIconFont());
-        btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
-        btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
-        tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-        tableScroll.setVerticalScrollBar(new ScrollBarCustom());
-        tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        FirstTimeLoadItem();
+        run();
     }
 
-    private void FirstTimeLoadItem() {
-        Timer timer = new Timer(100, new ActionListener() {
+    private void run() {
+        GD_DatBan gD_DatBan = this;
+        Timer timer = new Timer(0, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Thêm mã để kích hoạt action listener tại đây
+                Loading loading = new Loading();
+                utils.AppUtils.setLoading(mainJPanel, true, loading, gD_DatBan);
+
+                initComponents();
+                IconFontSwing.register(FontAwesome.getIconFont());
+                btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
+                btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
+                tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+                tableScroll.setVerticalScrollBar(new ScrollBarCustom());
+                tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                 loadData();
                 tableBody.repaint();
                 tableBody.revalidate();
+
+                Timer hideTimer = new Timer(1500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        utils.AppUtils.setLoading(mainJPanel, false, loading, gD_DatBan);
+                    }
+                });
+                hideTimer.setRepeats(false);
+                hideTimer.start();
             }
         });
-        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
+        timer.setRepeats(false);
         timer.start();
     }
 
