@@ -4,8 +4,14 @@
  */
 package component;
 
+import dao.imlp.MonDAO;
+import entity.Mon;
 import java.awt.Color;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import view.GD_DatMon;
 
 /**
  *
@@ -17,16 +23,34 @@ public class Food extends javax.swing.JPanel {
      * Creates new form Food
      */
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
-    public Food(String ten,String gia,String image_link) {
+    private JPanel orderPanel;
+    private String ten;
+    private String gia;
+    private List<Mon> orders;
+    private List<Mon> mons;
+    private Mon mon;
+    private GD_DatMon datmon;
+    public Food(GD_DatMon datmon,Mon mon,JPanel panelOrder,List<Mon> mons,List<Mon> orders) {
         initComponents();
+        this.orderPanel = panelOrder;
+        this.ten = mon.getTenMon();
+        this.gia = mon.getGia().toString();
+        this.orders = new ArrayList<Mon>();
+        this.orders = orders;
+        this.mon = mon;
+        this.mons = mons;
+        this.datmon = datmon;
         try {
             Double giaTien = Double.parseDouble(gia);
             jLabelGia.setText(tien_format.format(giaTien));
             jLabelTen.setText(ten);
-            btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_link)));
+            btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource(mon.getHinhAnh())));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
+    }
+    public List<Mon> getOrders() {
+        return orders;
     }
 
     /**
@@ -127,8 +151,27 @@ public class Food extends javax.swing.JPanel {
     private void panelFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseClicked
         // TODO add your handling code here:
         panelFood.setBackground(new java.awt.Color(234,124,105));
+        if(orders.indexOf(mons.get(mons.indexOf(mon)))==-1){
+            orders.add(mons.get(mons.indexOf(mon)));
+            String[] title = new String[]{ten,"1",tien_format.format(Double.parseDouble(gia)),""};
+            OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datmon,mon,orderPanel.getWidth(),orders.size(),title,orders);
+            item.setType("BUTTON");
+            orderPanel.add(item);
+            orderPanel.revalidate();
+            datmon.setOrders(orders);
+            updateTongTien();
+        }
     }//GEN-LAST:event_panelFoodMouseClicked
-
+    public void updateTongTien(){
+        double tong = 0.0;
+        for(int i=0;i<orders.size();i++){
+            tong+= orders.get(i).getGia();
+        }
+        if(tong!=0)
+            datmon.setLabelTongTien(tien_format.format(tong));
+        else
+            datmon.setLabelTongTien("0,0 VNĐ");
+    }
     private void panelFoodMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseEntered
         // TODO add your handling code here:
         panelFood.setBackground(new java.awt.Color(234,124,105));

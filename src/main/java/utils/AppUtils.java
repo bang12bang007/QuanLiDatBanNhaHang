@@ -179,15 +179,15 @@ public class AppUtils {
         mainJPanel.revalidate();
     }
 
-    public static void setLoading(JPanel mainJPanel, boolean state, Loading loading, JPanel gD_Ban) {
+    public static void setLoading(JPanel mainJPanel, boolean state, Loading loading, JPanel jpanel) {
         if (state) {
-            mainJPanel.remove(gD_Ban);
+            mainJPanel.remove(jpanel);
             mainJPanel.add(loading);
             mainJPanel.repaint();
             mainJPanel.revalidate();
         } else {
             mainJPanel.remove(loading);
-            mainJPanel.add(gD_Ban);
+            mainJPanel.add(jpanel);
         }
         mainJPanel.repaint();
         mainJPanel.revalidate();

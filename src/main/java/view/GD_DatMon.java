@@ -40,13 +40,15 @@ public class GD_DatMon extends javax.swing.JPanel {
     private List<Mon> beverages;
     private List<Mon> popular;
     private String maBan;
-    
-    public GD_DatMon(JPanel main,String maBan) {
+    private List<Mon> orders;
+    private ArrayList<Integer> list_quantity = new ArrayList<Integer>();
+
+    public GD_DatMon(JPanel main, String maBan) {
         this.main = main;
         this.maBan = maBan;
         run();
     }
-    
+
     private void run() {
         GD_DatMon gd_datmon = this;
         Timer timer = new Timer(0, new ActionListener() {
@@ -54,17 +56,17 @@ public class GD_DatMon extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 Loading loading = new Loading();
                 utils.AppUtils.setLoading(main, true, loading, gd_datmon);
-                
+
                 initComponents();
                 setVisible(true);
                 IconFontSwing.register(FontAwesome.getIconFont());
                 btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 30, Color.WHITE));
-                FoodList.setLayout(new WrapLayout(FlowLayout.CENTER,20,20));
+                FoodList.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
                 scrollFoodList.setVerticalScrollBar(new ScrollBarCustom());
                 scrollFoodList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                 Scroll_Order.setVerticalScrollBar(new ScrollBarCustom());
                 Scroll_Order.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                panelGradient1.addColor(new ModelColor(new Color(31,29,43), 0f), new ModelColor(new Color(31,29,43,0), 0.5f), new ModelColor(new Color(31,29,43,0), 1f));
+                panelGradient1.addColor(new ModelColor(new Color(31, 29, 43), 0f), new ModelColor(new Color(31, 29, 43, 0), 0.5f), new ModelColor(new Color(31, 29, 43, 0), 1f));
                 IconFontSwing.register(FontAwesome.getIconFont());
                 btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
                 btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
@@ -76,12 +78,13 @@ public class GD_DatMon extends javax.swing.JPanel {
                 btnGhiChu.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 20, Color.WHITE));
                 btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
                 btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
-                PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER,0,0));
+                PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
                 banTextField.setText(maBan);
                 banTextField.setEditable(false);
-                
+                labelTongTien.setText("0,0 VNĐ");
+
                 First_LoadData();
-                
+
                 Timer hideTimer = new Timer(1500, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -138,7 +141,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         btnTinhTien = new component.MyButton();
         btnCat = new component.MyButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelTongTien = new javax.swing.JLabel();
         panelRound4 = new component.PanelRound();
         panelRound5 = new component.PanelRound();
         panelGradient1 = new component.PanelGradient();
@@ -303,6 +306,11 @@ public class GD_DatMon extends javax.swing.JPanel {
         scrollFoodList.setBackground(new java.awt.Color(83, 86, 99));
 
         FoodList.setBackground(new java.awt.Color(83, 86, 99));
+        FoodList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                FoodListMouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout FoodListLayout = new javax.swing.GroupLayout(FoodList);
         FoodList.setLayout(FoodListLayout);
@@ -534,10 +542,10 @@ public class GD_DatMon extends javax.swing.JPanel {
         jLabel1.setText("TỔNG TIỀN");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("5000000 VND");
+        labelTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelTongTien.setForeground(new java.awt.Color(255, 255, 255));
+        labelTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTongTien.setText("5000000 VND");
 
         panelRound4.setBackground(new java.awt.Color(83, 86, 99));
 
@@ -626,7 +634,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                     .addGroup(panelRound3Layout.createSequentialGroup()
                         .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, 0)
                         .addComponent(btnHelpCaculator, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
@@ -645,7 +653,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                             .addGroup(panelRound3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))))
+                                .addComponent(labelTongTien)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -766,19 +774,20 @@ public class GD_DatMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         FoodList.removeAll();
         beverages = new ArrayList<Mon>();
-        for(Mon mon:mons){
-            if(mon.getLoaiMon().getMaLoaiMon().equals("ML01")){
+        for (Mon mon : mons) {
+            if (mon.getLoaiMon().getMaLoaiMon().equals("ML01")) {
                 beverages.add(mon);
             }
         }
-        for(Mon mon:beverages){
-            FoodList.add(new Food(mon.getTenMon(),mon.getGia().toString(),mon.getHinhAnh()));
+        for (Mon mon : beverages) {
+            FoodList.add(new Food(this,mon,PanelOrder,mons,orders));
         }
         FoodList.revalidate();
     }//GEN-LAST:event_btnDoUongActionPerformed
 
     private void btnHayDungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHayDungActionPerformed
         // TODO add your handling code here:
+        GD_DatMon datmon = this;
         Timer timer = new Timer(0, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -790,7 +799,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                 popular = dao.findPopular();
                 FoodList.removeAll();
                 for(Mon mon:popular){
-                    FoodList.add(new Food(mon.getTenMon(),mon.getGia().toString(),mon.getHinhAnh()));
+                    FoodList.add(new Food(datmon,mon,PanelOrder,mons,orders));
                 }
                 FoodList.revalidate();
                 
@@ -844,7 +853,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         FoodList.removeAll();
         ArrayList<Mon> food = new ArrayList<Mon>();
         food.addAll(mons);
-        if(beverages!=null)
+        if (beverages != null)
             food.removeAll(beverages);
         else{
             beverages = new ArrayList<Mon>();
@@ -856,8 +865,8 @@ public class GD_DatMon extends javax.swing.JPanel {
             food.removeAll(beverages);
         }
         for(Mon mon : food){
-            FoodList.add(new Food(mon.getTenMon(),mon.getGia().toString(),mon.getHinhAnh()));
-        }
+            FoodList.add(new Food(this,mon,PanelOrder,mons,orders));
+        };
         FoodList.revalidate();
     }//GEN-LAST:event_btnMonAnActionPerformed
 
@@ -868,13 +877,38 @@ public class GD_DatMon extends javax.swing.JPanel {
     private void btnHelpCaculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpCaculatorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHelpCaculatorActionPerformed
-    public void First_LoadData(){
+
+    private void FoodListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FoodListMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FoodListMouseEntered
+    public void First_LoadData() {
         mons = new ArrayList<Mon>();
+        orders = new ArrayList<Mon>();
         IMonDAO dao = new MonDAO();
         mons = dao.findService();
-        for(Mon mon:mons){
-            FoodList.add(new Food(mon.getTenMon(),mon.getGia().toString(),mon.getHinhAnh()));
+        for (Mon mon : mons) {
+            FoodList.add(new Food(this,mon,PanelOrder,mons,orders));
         }
+    }
+
+    public void setOrders(List<Mon> orders) {
+        this.orders = orders;
+    }
+
+    public void setLabelTongTien(String text) {
+        this.labelTongTien.setText(text);
+    }
+
+    public JPanel getPanelOrder() {
+        return PanelOrder;
+    }
+
+    public void setList_quantity(ArrayList<Integer> list_quantity) {
+        this.list_quantity = list_quantity;
+    }
+
+    public ArrayList<Integer> getList_quantity() {
+        return list_quantity;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -905,7 +939,6 @@ public class GD_DatMon extends javax.swing.JPanel {
     private component.MyButton btnTinhTien;
     private component.MyButton btnUp;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -914,6 +947,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldSearch;
+    private javax.swing.JLabel labelTongTien;
     private java.awt.List list1;
     private component.MyButton myButton5;
     private component.PanelGradient panelGradient1;
