@@ -4,13 +4,17 @@
  */
 package component;
 
+import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.GapContent;
+import jiconfont.swing.IconFontSwing;
 
 /**
  *
@@ -21,24 +25,42 @@ public class OrderItem extends javax.swing.JPanel {
     /**
      * Creates new form OrderItem
      */
+//    Text or Button
+    private String type = "TEXT";
+    private String[] data;
+
     public OrderItem(int width, int index, String[] data) {
+        this.data = data;
         initComponents();
         setBackground(index % 2 != 0 ? new Color(83, 86, 99) : new Color(31, 29, 43));
-        setPreferredSize( new Dimension(width, 50));
+        setPreferredSize(new Dimension(width, 50));
         push(data);
     }
-    
-    public void push(String[] data) {
-        tenMon.setText("  "+data[0]);
-        soLuong.setText("  "+data[1]);
-        donGia.setText(" "+data[2]);
-        thanhTien.setText(" "+data[3]);
+
+    public void setType(String type) {
+        this.type = type;
+        push(data);
     }
-    
+
+    public void push(String[] data) {
+        tenMon.setText("  " + data[0]);
+        soLuong.setText("  " + data[1]);
+        donGia.setText(" " + data[2]);
+        setLastItem(data[3]);
+    }
+
+    private void setLastItem(String data) {
+        if (type.equals("BUTTON")) {
+            IconFontSwing.register(FontAwesome.getIconFont());
+            thanhTien.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
+        } else {
+            thanhTien.setText(" " + data);
+        }
+    }
+
 //    public OrderItem(int index) {
 //        initComponents();
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,8 +91,46 @@ public class OrderItem extends javax.swing.JPanel {
 
         thanhTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         thanhTien.setForeground(new java.awt.Color(255, 255, 255));
+        thanhTien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                thanhTienMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                thanhTienMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                thanhTienMouseExited(evt);
+            }
+        });
         add(thanhTien);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void thanhTienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thanhTienMouseClicked
+        // TODO add your handling code here:
+        if (type.equals("BUTTON")) {
+//            Handle....
+            System.out.println("Handling...");
+        }
+    }//GEN-LAST:event_thanhTienMouseClicked
+
+    private void thanhTienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thanhTienMouseEntered
+        // TODO add your handling code here:
+//        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 20));
+
+        if (type.equals("BUTTON")) {
+            IconFontSwing.register(FontAwesome.getIconFont());
+            thanhTien.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, new Color(234, 124, 105)));
+        }
+    }//GEN-LAST:event_thanhTienMouseEntered
+
+    private void thanhTienMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thanhTienMouseExited
+        // TODO add your handling code here:
+//        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 14));
+        if (type.equals("BUTTON")) {
+            IconFontSwing.register(FontAwesome.getIconFont());
+            thanhTien.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
+        }
+    }//GEN-LAST:event_thanhTienMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

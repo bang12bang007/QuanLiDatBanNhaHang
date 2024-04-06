@@ -18,6 +18,7 @@ import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 /**
  *
  * @author Laptop
@@ -29,7 +30,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
      */
 //    set width for first
     private HoaDon hoaDon;
-    
+
     public GD_ThanhToan(HoaDon hoaDon) {
         this.hoaDon = hoaDon;
         initComponents();
@@ -47,19 +48,19 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20));
         iconSearch_KM.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20));
         maHoaDon.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
-        txtMTV.setBackground(new Color(0,0,0,0));
-        txtMKM.setBackground(new Color(0,0,0,0));
-        tableContainer.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0)); 
+        txtMTV.setBackground(new Color(0, 0, 0, 0));
+        txtMKM.setBackground(new Color(0, 0, 0, 0));
+        tableContainer.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableBody.setVerticalScrollBar(new ScrollBarCustom());
         tableBody.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         FirstTimeLoadItem();
     }
-    
+
     private void FirstTimeLoadItem() {
         Timer timer = new Timer(100, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Thêm mã để kích hoạt action listener tại đây
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Thêm mã để kích hoạt action listener tại đây
                 loadData();
                 tableContainer.repaint();
                 tableContainer.revalidate();
@@ -771,7 +772,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         jFrame.setExtendedState(MAXIMIZED_BOTH);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.add(new Form_ThuTien(jFrame));
-        jFrame.setBackground(new Color(0,0,0,0));
+        jFrame.setBackground(new Color(0, 0, 0, 0));
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnThuTienActionPerformed
@@ -787,12 +788,13 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     public void loadData() {
         int width = tableContainer.getWidth();
-        tableContainer.add(new OrderItem(width, 1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(width,2, new String[]{"Cơm", "1", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(width,1, new String[]{"Bún Bò", "2", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(width,2, new String[]{"Phở Bò", "4", "400.000", "800.000"}));
+        OrderItem testOrderItemButton = new OrderItem(width, 1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"});
+        tableContainer.add(testOrderItemButton);
+        tableContainer.add(new OrderItem(width, 2, new String[]{"Cơm", "1", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width, 1, new String[]{"Bún Bò", "2", "400.000", "800.000"}));
+        tableContainer.add(new OrderItem(width, 2, new String[]{"Phở Bò", "4", "400.000", "800.000"}));
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnAddKM;

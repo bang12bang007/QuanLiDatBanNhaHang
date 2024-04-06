@@ -64,6 +64,7 @@ view\GD_QuanLyDatMon$4.class
 entity\ChiTietHoaDon.class
 view\GD_TrangChu$4.class
 component\BookingItem$2.class
+component\OrderItem$1.class
 datechooser\Dates.class
 view\GD_DatMon$12.class
 view\GD_ThanhToan$5.class
