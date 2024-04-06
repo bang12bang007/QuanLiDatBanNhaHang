@@ -4,6 +4,9 @@
  */
 package component;
 
+import java.awt.Color;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author dmx
@@ -13,11 +16,17 @@ public class Food extends javax.swing.JPanel {
     /**
      * Creates new form Food
      */
+    private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
     public Food(String ten,String gia,String image_link) {
         initComponents();
-        jLabelGia.setText(gia+"$");
-        jLabelTen.setText(ten);
-        btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_link)));
+        try {
+            Double giaTien = Double.parseDouble(gia);
+            jLabelGia.setText(tien_format.format(giaTien));
+            jLabelTen.setText(ten);
+            btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_link)));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -35,12 +44,23 @@ public class Food extends javax.swing.JPanel {
         jLabelGia = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(83, 86, 99));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/GaChienBo.png"))); // NOI18N
         btnFood.setColor(new java.awt.Color(31, 29, 43));
-        btnFood.setColorClick(new java.awt.Color(234, 124, 105));
-        btnFood.setColorOver(new java.awt.Color(234, 124, 105));
+        btnFood.setColorClick(new java.awt.Color(31, 29, 43));
+        btnFood.setColorOver(new java.awt.Color(31, 29, 43));
         btnFood.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnFood.setPreferredSize(new java.awt.Dimension(90, 90));
         btnFood.setRadius(210);
@@ -56,6 +76,17 @@ public class Food extends javax.swing.JPanel {
         panelFood.setRoundBottomRight(15);
         panelFood.setRoundTopLeft(15);
         panelFood.setRoundTopRight(15);
+        panelFood.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelFoodMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panelFoodMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panelFoodMouseExited(evt);
+            }
+        });
 
         jLabelTen.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelTen.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,6 +123,33 @@ public class Food extends javax.swing.JPanel {
     private void btnFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFoodActionPerformed
+
+    private void panelFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseClicked
+        // TODO add your handling code here:
+        panelFood.setBackground(new java.awt.Color(234,124,105));
+    }//GEN-LAST:event_panelFoodMouseClicked
+
+    private void panelFoodMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseEntered
+        // TODO add your handling code here:
+        panelFood.setBackground(new java.awt.Color(234,124,105));
+    }//GEN-LAST:event_panelFoodMouseEntered
+
+    private void panelFoodMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseExited
+        // TODO add your handling code here:
+        panelFood.setBackground(new java.awt.Color(31, 29, 43));
+    }//GEN-LAST:event_panelFoodMouseExited
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

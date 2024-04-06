@@ -6,6 +6,7 @@ package view;
 
 import component.Food;
 import component.Loading;
+import component.RoundJTextField;
 import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IMonDAO;
@@ -37,6 +38,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     private JPanel main;
     private List<Mon> mons;
     private List<Mon> beverages;
+    private List<Mon> popular;
     private String maBan;
     
     public GD_DatMon(JPanel main,String maBan) {
@@ -110,7 +112,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         btnMonAn = new component.MyButton();
         btnDoUong = new component.MyButton();
         btnKhac = new component.MyButton();
-        jTextFieldSearch = new javax.swing.JTextField();
+        jTextFieldSearch = new RoundJTextField(10);
         btnSearch = new component.MyButton();
         panelMenuMon = new component.PanelRound();
         panelRound1 = new component.PanelRound();
@@ -121,7 +123,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         panelOrder = new component.PanelRound();
         btnBack = new component.MyButton();
-        banTextField = new javax.swing.JTextField();
+        banTextField = new RoundJTextField(10);
         btnNV = new component.MyButton();
         btnGhiChu = new component.MyButton();
         panelRound2 = new component.PanelRound();
@@ -246,8 +248,8 @@ public class GD_DatMon extends javax.swing.JPanel {
                     .addComponent(btnKhac, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(panelMonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jTextFieldSearch))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -589,7 +591,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 
         btnHelpCaculator.setBackground(new java.awt.Color(31, 29, 43));
         btnHelpCaculator.setForeground(new java.awt.Color(255, 255, 255));
-        btnHelpCaculator.setColor(new java.awt.Color(83, 86, 99));
+        btnHelpCaculator.setColor(new java.awt.Color(31, 29, 43));
         btnHelpCaculator.setColorClick(new java.awt.Color(234, 124, 105));
         btnHelpCaculator.setColorOver(new java.awt.Color(234, 124, 105));
         btnHelpCaculator.setRadius(55);
@@ -614,8 +616,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                     .addGroup(panelRound3Layout.createSequentialGroup()
                         .addComponent(panelRound5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
-                        .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
+                        .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRound3Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
@@ -778,6 +779,33 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnHayDungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHayDungActionPerformed
         // TODO add your handling code here:
+        Timer timer = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Loading loading = new Loading();
+                utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
+                
+                popular = new ArrayList<Mon>();
+                IMonDAO dao = new MonDAO();
+                popular = dao.findPopular();
+                FoodList.removeAll();
+                for(Mon mon:popular){
+                    FoodList.add(new Food(mon.getTenMon(),mon.getGia().toString(),mon.getHinhAnh()));
+                }
+                FoodList.revalidate();
+                
+                Timer hideTimer = new Timer(500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        utils.AppUtils.setLoadingForTable(scrollFoodList, false, loading, FoodList);
+                    }
+                });
+                hideTimer.setRepeats(false);
+                hideTimer.start();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }//GEN-LAST:event_btnHayDungActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -818,6 +846,15 @@ public class GD_DatMon extends javax.swing.JPanel {
         food.addAll(mons);
         if(beverages!=null)
             food.removeAll(beverages);
+        else{
+            beverages = new ArrayList<Mon>();
+            for(Mon mon:mons){
+                if(mon.getLoaiMon().getMaLoaiMon().equals("ML01")){
+                    beverages.add(mon);
+                }
+            }
+            food.removeAll(beverages);
+        }
         for(Mon mon : food){
             FoodList.add(new Food(mon.getTenMon(),mon.getGia().toString(),mon.getHinhAnh()));
         }

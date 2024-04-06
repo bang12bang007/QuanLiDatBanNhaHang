@@ -27,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import view.GD_Ban;
 
 /**
@@ -187,6 +188,19 @@ public class AppUtils {
         } else {
             mainJPanel.remove(loading);
             mainJPanel.add(gD_Ban);
+        }
+        mainJPanel.repaint();
+        mainJPanel.revalidate();
+    }
+    
+    public static void setLoadingForTable(JScrollPane mainJPanel, boolean state, Loading loading, JPanel gD_Ban) {
+        if (state) {
+            loading.setPreferredSize(new Dimension(mainJPanel.getWidth(),mainJPanel.getHeight()));
+            mainJPanel.setViewportView(loading);
+            mainJPanel.repaint();
+            mainJPanel.revalidate();
+        } else {
+            mainJPanel.setViewportView(gD_Ban);
         }
         mainJPanel.repaint();
         mainJPanel.revalidate();
