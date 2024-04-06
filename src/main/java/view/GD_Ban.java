@@ -38,7 +38,7 @@ import utils.AppUtils;
  *
  * @author dmx
  */
-public class GD_Ban extends javax.swing.JPanel {
+public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
 
     /**
      * Creates new form GD_Ban
@@ -51,40 +51,19 @@ public class GD_Ban extends javax.swing.JPanel {
     public GD_Ban(JPanel main, String type) {
         this.type = type;
         this.main = main;
-        run();
+        AppUtils.run(main, this);
     }
 
-    private void run() {
-        GD_Ban gd_ban = this;
-        Timer timer = new Timer(0, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Loading loading = new Loading();
-                utils.AppUtils.setLoading(main, true, loading, gd_ban);
-                
-                initComponents();
-                IconFontSwing.register(FontAwesome.getIconFont());
-                tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
-                ScrollListBan.setVerticalScrollBar(new ScrollBarCustom());
-                ScrollListBan.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                ListBan.setLayout(new WrapLayout(FlowLayout.LEADING, 40, 40));
-                containerFloors.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-                containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
-                
-                loadData();
-                
-                Timer hideTimer = new Timer(1500, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        utils.AppUtils.setLoading(main, false, loading, gd_ban);
-                    }
-                });
-                hideTimer.setRepeats(false);
-                hideTimer.start();
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
+    public void setUI() {
+        initComponents();
+        IconFontSwing.register(FontAwesome.getIconFont());
+        tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
+        ScrollListBan.setVerticalScrollBar(new ScrollBarCustom());
+        ScrollListBan.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        ListBan.setLayout(new WrapLayout(FlowLayout.LEADING, 40, 40));
+        containerFloors.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
+        loadData();
     }
 
     /**

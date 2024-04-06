@@ -8,12 +8,16 @@ import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import jiconfont.swing.IconFontSwing;
 import view.GD_DatMon;
 
@@ -34,6 +38,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private Double gia;
     private List<Mon> orders;
     private GD_DatMon datMon;
+    private boolean initialized = false;
 
     public OrderItem_forUIDatMon(GD_DatMon datMon,Mon mon,int width, int index, String[] data,List<Mon> orders) {
         this.data = data;
@@ -44,6 +49,32 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         setBackground(index % 2 != 0 ? new Color(83, 86, 99) : new Color(31, 29, 43));
         setPreferredSize(new Dimension(width, 50));
         push(data);
+        
+        soLuong.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+               checkTextField();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkTextField();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Sự kiện này không được sử dụng cho JTextField
+                checkTextField();
+            }
+        });
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                initialized = true;
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
     
     public ArrayList<Integer> getListQuantity(){
@@ -294,32 +325,25 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     private void soLuongMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseExited
         // TODO add your handling code here:
+    }//GEN-LAST:event_soLuongMouseExited
+    public void checkTextField(){
         try {
-            if(!soLuong.getText().trim().equals("")){
-                Integer.parseInt(soLuong.getText().trim());
-                datMon.setList_quantity(getListQuantity());
-                updateTongTien();
+            if(initialized){
+                if(!soLuong.getText().trim().equals("")){
+                    Integer.parseInt(soLuong.getText().trim());
+                    datMon.setList_quantity(getListQuantity());
+                    updateTongTien();
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(datMon, "Số Lượng nhập phải vào phải là số");
             soLuong.requestFocus();
         }
-    }//GEN-LAST:event_soLuongMouseExited
-
+    };
     private void soLuongMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseEntered
         // TODO add your handling code here:
-        try {
-            if(!soLuong.getText().trim().equals("")){
-                Integer.parseInt(soLuong.getText().trim());
-                datMon.setList_quantity(getListQuantity());
-                updateTongTien();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(datMon, "Số Lượng nhập phải vào phải là số");
-            soLuong.requestFocus();
-        }
     }//GEN-LAST:event_soLuongMouseEntered
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel decrease;

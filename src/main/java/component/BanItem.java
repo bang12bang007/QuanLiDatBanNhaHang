@@ -6,7 +6,11 @@ package component;
 
 import LIB.FadeEffect;
 import java.awt.Color;
+import java.awt.Cursor;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.Point;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import utils.AppUtils;
@@ -33,16 +37,15 @@ public class BanItem extends javax.swing.JPanel {
         this.maBan = maBan;
         initComponents();
         jLabel1.setText(maBan);
-        
-        if(trangThai==utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal())
+
+        if (trangThai == utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal()) {
             image_type = "/images/my_table.png";
-        else
-            if(trangThai==utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal())
-                image_type = "/images/my_table_gray.png";
-            else
-                if(trangThai==utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal())
-                    image_type = "/images/my_table_blue.png";
-        
+        } else if (trangThai == utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
+            image_type = "/images/my_table_gray.png";
+        } else if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
+            image_type = "/images/my_table_blue.png";
+        }
+
         myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_type)));
     }
 
@@ -92,7 +95,14 @@ public class BanItem extends javax.swing.JPanel {
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
         // TODO add your handling code here:
-        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
+        // Load the image of the hand cursor
+        ImageIcon handIcon = new ImageIcon("./src/main/java/icon/icon_close.png"); // Thay đường dẫn này bằng đường dẫn thực sự của tệp hình ảnh của bạn
+
+        // Create a custom cursor with the hand image
+        Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                handIcon.getImage(), new Point(0, 0), "Hand Cursor");
+        myButton1.setCursor(handCursor);
+//        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
     }//GEN-LAST:event_myButton1MouseEntered
 
     private void myButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseExited
@@ -117,8 +127,9 @@ public class BanItem extends javax.swing.JPanel {
                 break;
             }
             case "DAT_MON": {
-                if(!image_type.equals("/images/my_table_gray.png"))
-                    AppUtils.setUI(main, new GD_DatMon(main,maBan));
+                if (!image_type.equals("/images/my_table_gray.png")) {
+                    AppUtils.setUI(main, new GD_DatMon(main, maBan));
+                }
                 break;
             }
         }

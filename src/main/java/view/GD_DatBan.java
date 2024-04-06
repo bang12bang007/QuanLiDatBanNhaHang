@@ -28,7 +28,7 @@ import jiconfont.swing.IconFontSwing;
  *
  * @author Laptop
  */
-public class GD_DatBan extends javax.swing.JPanel {
+public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     /**
      * Creates new form GD_DatBan
@@ -40,40 +40,20 @@ public class GD_DatBan extends javax.swing.JPanel {
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
-        run();
+        utils.AppUtils.run(mainJPanel, this);
     }
 
-    private void run() {
-        GD_DatBan gD_DatBan = this;
-        Timer timer = new Timer(0, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Loading loading = new Loading();
-                utils.AppUtils.setLoading(mainJPanel, true, loading, gD_DatBan);
-
-                initComponents();
-                IconFontSwing.register(FontAwesome.getIconFont());
-                btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
-                btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
-                tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-                tableScroll.setVerticalScrollBar(new ScrollBarCustom());
-                tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                loadData();
-                tableBody.repaint();
-                tableBody.revalidate();
-
-                Timer hideTimer = new Timer(1500, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        utils.AppUtils.setLoading(mainJPanel, false, loading, gD_DatBan);
-                    }
-                });
-                hideTimer.setRepeats(false);
-                hideTimer.start();
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
+    public void setUI() {
+        initComponents();
+        IconFontSwing.register(FontAwesome.getIconFont());
+        btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
+        btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
+        tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        tableScroll.setVerticalScrollBar(new ScrollBarCustom());
+        tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        loadData();
+        tableBody.repaint();
+        tableBody.revalidate();
     }
 
     /**
@@ -673,4 +653,5 @@ public class GD_DatBan extends javax.swing.JPanel {
     private javax.swing.JLabel yeuCauDatMon;
     private javax.swing.JLabel yeuCauKhac;
     // End of variables declaration//GEN-END:variables
+
 }
