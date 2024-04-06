@@ -4,34 +4,44 @@
  */
 package view;
 
+import component.Loading;
 import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IHoaDonDAO;
+import dao.imlp.HoaDonDAO;
 import entity.HoaDon;
 import icon.FontAwesome;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import jiconfont.swing.IconFontSwing;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import utils.AppUtils;
 
 /**
  *
  * @author Laptop
  */
-public class GD_QuanLyDatMon extends javax.swing.JPanel {
+public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     /**
      * Creates new form GD_Order
      */
     private JPanel mainPanel;
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
 
     public GD_QuanLyDatMon(JPanel main) {
         this.mainPanel = main;
+        AppUtils.run(mainPanel, this);
+    }
+
+    public void setUI() {
         initComponents();
         txtMaBan.setBackground(new Color(0, 0, 0, 1));
         this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
@@ -43,6 +53,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
         btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
         btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+
     }
 
     /**
@@ -342,21 +353,57 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
 
     private int count = 1;
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-        // TODO add your handling code here: 1 -> 4
-//        main.removeAll();
 
-//        main.setLayout(new GridLayout(row, orderNumbers++));
-        HoaDon hoaDon = new HoaDon(null, null, null, null, null);
-        hoaDon.setMaHoaDon("OKE" + count++);
-        OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
-        main.add(orderCard);
+        main.removeAll();
         main.repaint();
         main.revalidate();
 
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
-        // TODO add your handling code here:
+
+
+        main.removeAll();
+        // Hiển thị loading
+        Loading loading = new Loading();
+        main.setLayout(new BorderLayout());
+        main.add(loading, BorderLayout.CENTER);
+        main.repaint();
+        main.revalidate();
+
+        // Sử dụng SwingWorker để thực hiện công việc lâu dài trong luồng riêng
+        SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
+            @Override
+            protected List<OrderCard> doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
+                List<OrderCard> listOrderCard = new ArrayList<>();
+                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findAllBooking();
+                for (HoaDon hoaDon : dsHoaDonDatTruoc) {
+                    OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+                    listOrderCard.add(orderCard);
+                }
+                return listOrderCard;
+            }
+            @Override
+            protected void done() {
+                try {
+                    // Khi công việc lâu dài kết thúc, hiển thị kết quả ra giao diện
+                    List<OrderCard> listOrderCard = get();
+                    main.removeAll();
+                    main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
+                    for (OrderCard orderCard : listOrderCard) {
+                        main.add(orderCard);
+                    }
+                    main.repaint();
+                    main.revalidate();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+
+        // Thực hiện công việc trong luồng riêng biệt
+        worker.execute();
     }//GEN-LAST:event_btnReserveActionPerformed
 
     private void txtMaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaBanActionPerformed
@@ -412,4 +459,5 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTextField txtMaBan;
     // End of variables declaration//GEN-END:variables
+
 }

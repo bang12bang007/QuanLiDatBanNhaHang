@@ -98,6 +98,9 @@
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
                 <Property name="radius" type="int" value="12"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhanBanActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="gioDen">
               <Properties>

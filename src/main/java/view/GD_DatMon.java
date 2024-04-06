@@ -29,7 +29,7 @@ import utils.ModelColor;
  *
  * @author Laptop
  */
-public class GD_DatMon extends javax.swing.JPanel {
+public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     /**
      * Creates new form GD_DatMon
@@ -41,57 +41,36 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     public GD_DatMon(JPanel main, String maBan) {
         this.main = main;
-        this.maBan = maBan;
-        run();
+        this.maBan = maBan; 
+        utils.AppUtils.run(main, this);
     }
 
-    private void run() {
-        GD_DatMon gd_datmon = this;
-        Timer timer = new Timer(0, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Loading loading = new Loading();
-                utils.AppUtils.setLoading(main, true, loading, gd_datmon);
-
-                initComponents();
-                setVisible(true);
-                IconFontSwing.register(FontAwesome.getIconFont());
-                btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 30, Color.WHITE));
-                FoodList.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
-                scrollFoodList.setVerticalScrollBar(new ScrollBarCustom());
-                scrollFoodList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                Scroll_Order.setVerticalScrollBar(new ScrollBarCustom());
-                Scroll_Order.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                panelGradient1.addColor(new ModelColor(new Color(31, 29, 43), 0f), new ModelColor(new Color(31, 29, 43, 0), 0.5f), new ModelColor(new Color(31, 29, 43, 0), 1f));
-                IconFontSwing.register(FontAwesome.getIconFont());
-                btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
-                btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-                btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
-                btnHelpCaculator.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
-                btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-                btnBack.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_LEFT, 20, Color.WHITE));
-                btnNV.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
-                btnGhiChu.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 20, Color.WHITE));
-                btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
-                btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
-                PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
-                banTextField.setText(maBan);
-                banTextField.setEditable(false);
-
-                First_LoadData();
-
-                Timer hideTimer = new Timer(1500, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        utils.AppUtils.setLoading(main, false, loading, gd_datmon);
-                    }
-                });
-                hideTimer.setRepeats(false);
-                hideTimer.start();
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
+    public void setUI() {
+        initComponents();
+        setVisible(true);
+        IconFontSwing.register(FontAwesome.getIconFont());
+        btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 30, Color.WHITE));
+        FoodList.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
+        scrollFoodList.setVerticalScrollBar(new ScrollBarCustom());
+        scrollFoodList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        Scroll_Order.setVerticalScrollBar(new ScrollBarCustom());
+        Scroll_Order.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        panelGradient1.addColor(new ModelColor(new Color(31, 29, 43), 0f), new ModelColor(new Color(31, 29, 43, 0), 0.5f), new ModelColor(new Color(31, 29, 43, 0), 1f));
+        IconFontSwing.register(FontAwesome.getIconFont());
+        btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
+        btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+        btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
+        btnHelpCaculator.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
+        btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+        btnBack.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_LEFT, 20, Color.WHITE));
+        btnNV.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
+        btnGhiChu.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 20, Color.WHITE));
+        btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
+        btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
+        PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
+        banTextField.setText(maBan);
+        banTextField.setEditable(false);
+        First_LoadData();
     }
 
     /**

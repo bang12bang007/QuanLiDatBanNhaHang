@@ -4,12 +4,21 @@
  */
 package component;
 
+import dao.IChiTietHoaDonDAO;
+import dao.IMonDAO;
+import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.MonDAO;
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 import static utils.AppUtils.setUI;
+import view.GD_DatMon;
 import view.GD_ThanhToan;
 
 /**
@@ -21,19 +30,22 @@ public class OrderCard extends javax.swing.JPanel {
     /**
      * Creates new form OrderCard
      */
-    
     private JPanel mainPanel;
     private HoaDon hoaDon;
+    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private IMonDAO monDAO = new MonDAO();
+
     public OrderCard() {
         initComponents();
         setIconBtn();
     }
-    
+
     public OrderCard(HoaDon hoaDon, JPanel main) {
         mainPanel = main;
         this.hoaDon = hoaDon;
         initComponents();
         setIconBtn();
+        loadData();
     }
 
     /**
@@ -49,10 +61,10 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound2 = new component.PanelRound();
         soLuongNguoi = new javax.swing.JLabel();
         panelRound3 = new component.PanelRound();
-        jLabel2 = new javax.swing.JLabel();
+        maBan = new javax.swing.JLabel();
         panelRound8 = new component.PanelRound();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
+        tongTien = new javax.swing.JLabel();
         iconEadting = new javax.swing.JLabel();
         btnChinhSua = new component.MyButton();
         btnThanhToan = new component.MyButton();
@@ -97,11 +109,16 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound3.setRoundBottomRight(8);
         panelRound3.setRoundTopLeft(8);
         panelRound3.setRoundTopRight(8);
+        panelRound3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelRound3MouseClicked(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("01");
+        maBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        maBan.setForeground(new java.awt.Color(255, 255, 255));
+        maBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maBan.setText("01");
 
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
@@ -109,14 +126,14 @@ public class OrderCard extends javax.swing.JPanel {
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound3Layout.createSequentialGroup()
                 .addContainerGap(66, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(maBan)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(maBan)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -126,9 +143,9 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound8.setRoundTopLeft(8);
         panelRound8.setRoundTopRight(8);
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("0");
+        tongTien.setForeground(new java.awt.Color(255, 255, 255));
+        tongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tongTien.setText("0");
 
         iconEadting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/eating_icon.png"))); // NOI18N
 
@@ -139,7 +156,7 @@ public class OrderCard extends javax.swing.JPanel {
             .addComponent(jSeparator1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,7 +167,7 @@ public class OrderCard extends javax.swing.JPanel {
             panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
                 .addContainerGap(11, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(tongTien)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,7 +278,7 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainPanel, new GD_ThanhToan(hoaDon));
+        utils.AppUtils.setUI(mainPanel, new GD_ThanhToan(hoaDon, mainPanel));
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnTacVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTacVuActionPerformed
@@ -272,6 +289,11 @@ public class OrderCard extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCheckActionPerformed
 
+    private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
+        // TODO add your handling code here:
+        AppUtils.setUI(mainPanel, new GD_DatMon(mainPanel, hoaDon.getBan().getMaBan()));
+    }//GEN-LAST:event_panelRound3MouseClicked
+
     private void setIconBtn() {
         IconFontSwing.register(FontAwesome.getIconFont());
         btnThanhToan.setIcon(IconFontSwing.buildIcon(FontAwesome.CALCULATOR, 20, Color.WHITE));
@@ -281,19 +303,30 @@ public class OrderCard extends javax.swing.JPanel {
         soLuongNguoi.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
     }
 
+    private void loadData() {
+        List<ChiTietHoaDon> ds = chiTietHoaDonDAO.findByMaHoaDon(hoaDon);
+        double total = 0;
+        for (ChiTietHoaDon item : ds) {
+            Mon mon = (Mon) monDAO.findById(item.getMon().getMaMon(), Mon.class);
+            total += (item.getSoLuong() * mon.getGia());
+        }
+        tongTien.setText(total + "");
+        maBan.setText(hoaDon.getBan().getMaBan());
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheck;
     private component.MyButton btnChinhSua;
     private component.MyButton btnTacVu;
     private component.MyButton btnThanhToan;
     private javax.swing.JLabel iconEadting;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel maBan;
     private component.PanelRound panelRound1;
     private component.PanelRound panelRound2;
     private component.PanelRound panelRound3;
     private component.PanelRound panelRound8;
     private javax.swing.JLabel soLuongNguoi;
+    private javax.swing.JLabel tongTien;
     // End of variables declaration//GEN-END:variables
 }

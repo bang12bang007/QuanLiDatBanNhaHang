@@ -393,7 +393,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         GheTrongTang.setText("Tầng " + floor + ": Trống " + dsBanTrong.size() + "/" + bans.size() + " bàn - " + dsBanTrong.size() * 6 + " ghế");
         ListBan.removeAll();
         for (Ban ban : bans) {
-            BanItem banItem = new BanItem(ban.getMaBan(), ban.getTrangThai().ordinal(), main, type);
+            BanItem banItem = new BanItem(ban, ban.getTrangThai().ordinal(), main, type);
             ListBan.add(banItem);
         }
         ListBan.repaint();

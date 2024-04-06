@@ -5,6 +5,7 @@
 package component;
 
 import LIB.FadeEffect;
+import entity.Ban;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -29,14 +30,16 @@ public class BanItem extends javax.swing.JPanel {
     private JPanel main;
     private String type;
     private String image_type;
-    private String maBan;
+    private int trangThai;
+    private Ban ban;
 
-    public BanItem(String maBan, int trangThai, JPanel main, String type) {
+    public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
         this.type = type;
-        this.maBan = maBan;
+        this.ban = ban;
+        this.trangThai = trangThai;
         initComponents();
-        jLabel1.setText(maBan);
+        jLabel1.setText(ban.getMaBan());
 
         if (trangThai == utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal()) {
             image_type = "/images/my_table.png";
@@ -94,43 +97,43 @@ public class BanItem extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
-        // TODO add your handling code here:
-        // Load the image of the hand cursor
-        ImageIcon handIcon = new ImageIcon("D:\\learning_university_IUH\\hoc_ky_6_(2023-2024)\\Phat_trien_ung_dung\\BaoCaoCK\\QuanLiDatBanNhaHang\\src\\main\\java\\icon\\icon_close.png"); // Thay đường dẫn này bằng đường dẫn thực sự của tệp hình ảnh của bạn
-
-        // Create a custom cursor with the hand image
-        Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-                handIcon.getImage(), new Point(0, 0), "Hand Cursor");
-        myButton1.setCursor(handCursor);
+        if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
+            ImageIcon handIcon = new ImageIcon("./src/main/java/icon/icon_close.png");
+            Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                    handIcon.getImage(), new Point(0, 0), "Hand Cursor");
+            myButton1.setCursor(handCursor);
+        }
 //        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
     }//GEN-LAST:event_myButton1MouseEntered
 
     private void myButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseExited
         // TODO add your handling code here:
-        myButton1.setBorder(null);
+//        myButton1.setBorder(null);
     }//GEN-LAST:event_myButton1MouseExited
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        switch (type) {
-            case "DAT_BAN": {
-                JFrame jFrame = new JFrame();
-                jFrame.setUndecorated(true);
-                jFrame.setExtendedState(MAXIMIZED_BOTH);
-                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_DatBan form_DatBan = new Form_DatBan(jFrame);
-                form_DatBan.setMainJpanel(main);
-                jFrame.add(form_DatBan);
-                jFrame.setBackground(new Color(0, 0, 0, 0));
-                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-                jFrame.setVisible(true);
-                break;
-            }
-            case "DAT_MON": {
-                if (!image_type.equals("/images/my_table_gray.png")) {
-                    AppUtils.setUI(main, new GD_DatMon(main, maBan));
+        if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
+            switch (type) {
+                case "DAT_BAN": {
+                    JFrame jFrame = new JFrame();
+                    jFrame.setUndecorated(true);
+                    jFrame.setExtendedState(MAXIMIZED_BOTH);
+                    jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    Form_DatBan form_DatBan = new Form_DatBan(jFrame, ban);
+                    form_DatBan.setMainJpanel(main);
+                    jFrame.add(form_DatBan);
+                    jFrame.setBackground(new Color(0, 0, 0, 0));
+                    FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                    jFrame.setVisible(true);
+                    break;
                 }
-                break;
+                case "DAT_MON": {
+                    if (!image_type.equals("/images/my_table_gray.png")) {
+                        AppUtils.setUI(main, new GD_DatMon(main, ban.getMaBan()));
+                    }
+                    break;
+                }
             }
         }
     }//GEN-LAST:event_myButton1ActionPerformed

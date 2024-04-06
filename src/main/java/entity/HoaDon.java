@@ -13,6 +13,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.Date;
@@ -32,6 +34,9 @@ import utils.Enum.LoaiTrangThaiHoaDon;
 @ToString
 @NoArgsConstructor
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "HoaDon.findAllBooking", query = "SELECT h FROM HoaDon h JOIN PhieuDatBan p ON h.ban = p.ban"),
+})
 public class HoaDon {
     @Id
     @Column(name="MaHoaDon",nullable = false)

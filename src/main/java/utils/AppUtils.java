@@ -11,26 +11,21 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import component.Loading;
-import entity.NhanVien;
-import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.List;
-import java.awt.Toolkit;
+import component.OrderCard;
+import entity.HoaDon;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
-import view.GD_Ban;
 import view.UIUpdatable;
 
 /**
@@ -75,49 +70,8 @@ public class AppUtils {
         }
         return false;
     }
-    //mặc định columnStart = 1
 
-    /**
-     *
-     * @param <T>
-     * @param <K>
-     * @param clazz
-     * @param myRs
-     * @param columnStart
-     * @param enums
-     * @param enun
-     * @return
-     * @throws SQLException
-     */
-//    public static <T> T getEntity(Class<T> clazz, ResultSet myRs, int columnStart, ArrayList<String> enums,  Class<Enum> enumType) throws SQLException {
-//        Map<String, Object> properties = new LinkedHashMap<>();
-//        int columnCount = myRs.getMetaData().getColumnCount();
-//
-//        // Lấy dữ liệu từ ResultSet và đưa vào Map properties
-//        while (myRs.next()) {
-//            for (int i = columnStart; i <= columnCount; i++) {
-//                String columnName = myRs.getMetaData().getColumnName(i);
-//                Object value = myRs.getObject(i);
-//                if(enums.contains(columnName)) {
-//                    // Handle enum conversion here if necessary
-//                    // For example:
-//                   value = Enum.valueOf(enumType, (String)value);
-//                }
-//                properties.put(columnName, value);
-//            }
-//        }
-//        // Chuyển Map properties thành JSON
-//        String json = new Gson().toJson(properties);
-//        // Chuyển JSON thành đối tượng của lớp clazz
-//        try {
-//            T obj = new Gson().fromJson(json, clazz);
-//            return obj;
-//        } catch(Exception e) {
-//            // Handle deserialization exception properly
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+    //mặc định columnStart = 1
     public static <T> T getEntity(Class<T> clazz, ResultSet myRs, int columnStart) throws SQLException {
         Map<String, Object> properties = new LinkedHashMap<>();
         int columnCount = myRs.getMetaData().getColumnCount();
@@ -217,5 +171,35 @@ public class AppUtils {
         });
         timer.setRepeats(false);
         timer.start();
+//        Loading loading = new Loading();
+//
+//        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+//            @Override
+//            protected Void doInBackground() throws Exception {
+//                setLoading(mainJPanel, true, loading, jpanel);
+//                jpanel.setUI();
+//                return null;
+//            }
+//
+//            @Override
+//            protected void done() {
+//                try {
+//                    Timer hideTimer = new Timer(1000, new ActionListener() {
+//                        @Override
+//                        public void actionPerformed(ActionEvent e) {
+//                            setLoading(mainJPanel, false, loading, jpanel);
+//                        }
+//                    });
+//                    hideTimer.setRepeats(false);
+//                    hideTimer.start();
+//
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//        };
+//
+//        worker.execute();
+
     }
 }

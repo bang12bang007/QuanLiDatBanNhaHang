@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 /**
  *
  * @author Laptop
@@ -29,25 +30,26 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class NhanVien {
+
     @Id
-    @Column(name="MaNhanVien",nullable = false)
+    @Column(name = "MaNhanVien", nullable = false)
     private String maNV;
-    @Column(name="HoTen",columnDefinition = "NVARCHAR(50)",nullable = false)
+    @Column(name = "HoTen", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String hoTen;
-    @Column(name="DiaChi",columnDefinition = "NVARCHAR(100)",nullable = false)
+    @Column(name = "DiaChi", columnDefinition = "NVARCHAR(100)", nullable = false)
     private String diaChi;
-    @Column(name="TrangThai",nullable = false)
+    @Column(name = "TrangThai", nullable = false)
     private boolean trangThai;
-    @Column(name="Tuoi",nullable = false)
+    @Column(name = "Tuoi", nullable = false)
     private int tuoi;
-    @Column(name="SoDienThoai",nullable = false)
+    @Column(name = "SoDienThoai", nullable = false)
     private String soDienThoai;
-    @Column(name="NgayBatDauLam",nullable = false)
+    @Column(name = "NgayBatDauLam", nullable = false)
     private Date ngayBatDauLam;
-    @Column(name="VaiTro",nullable = false)
+    @Column(name = "VaiTro", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiVaiTro vaiTro;
-    @Column(name="GioiTinh",nullable = false)
+    @Column(name = "GioiTinh", nullable = false)
     private boolean gioiTinh;
     @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
@@ -63,5 +65,6 @@ public class NhanVien {
         this.ngayBatDauLam = ngayBatDauLam;
         this.vaiTro = vaiTro;
         this.gioiTinh = gioiTinh;
-    }  
+    }
+
 }

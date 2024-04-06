@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface IBanDAO<T> extends GenericDAO<T> {
 
+    boolean updateStateById(String id, Enum state);
+
     List<Ban> findByFloor(int floor);
 
     List<Ban> findTableByStateAndFloor(Enum state, int floor);

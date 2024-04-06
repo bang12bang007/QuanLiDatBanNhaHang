@@ -8,7 +8,9 @@ import component.BookingItem;
 import component.Loading;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IBanDAO;
 import dao.IPhieuDatBanDAO;
+import dao.imlp.BanDAO;
 import dao.imlp.PhieuDatBanDAO;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
@@ -37,6 +39,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private JPanel mainJPanel;
     private ArrayList<BookingItem> bookingItems = new ArrayList<>();
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
+    private IBanDAO banDAO = new BanDAO();
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
@@ -51,9 +54,21 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableScroll.setVerticalScrollBar(new ScrollBarCustom());
         tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        loadData();
-        tableBody.repaint();
-        tableBody.revalidate();
+        FirstTimeLoadItem();
+    }
+
+    private void FirstTimeLoadItem() {
+        Timer timer = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Thêm mã để kích hoạt action listener tại đây
+                loadData();
+                tableBody.repaint();
+                tableBody.revalidate();
+            }
+        });
+        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
+        timer.start();
     }
 
     /**
@@ -551,9 +566,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
         // TODO add your handling code here:
-        loadData();
-        tableBody.repaint();
-        tableBody.revalidate();
 
     }//GEN-LAST:event_btnUpTableActionPerformed
 
@@ -574,10 +586,16 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnHuyChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyChoMouseClicked
         // TODO add your handling code here:
+        banDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
+        this.deleteBooking();
+    }//GEN-LAST:event_btnHuyChoMouseClicked
+
+    public void deleteBooking() {
         if (active >= 0) {
+            phieuDatBanDAO.delete(bookingItems.get(active).getPhieuDatBan().getMaPhieuDatBan(), PhieuDatBan.class);
             bookingItems.remove(active);
             tableBody.removeAll();
-            if (bookingItems.size() > 0) {
+            if (!bookingItems.isEmpty()) {
                 for (int i = 0; i < bookingItems.size(); i++) {
                     bookingItems.get(i).setIndex(i);
                     tableBody.add(bookingItems.get(i));
@@ -585,16 +603,14 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             }
             setBookingActive(-1);
         }
-    }//GEN-LAST:event_btnHuyChoMouseClicked
+    }
 
     private void loadData() {
         int width = tableBody.getWidth();
         List<PhieuDatBan> dsPhieu = phieuDatBanDAO.findAll(PhieuDatBan.class);
-        ArrayList<String[]> list = new ArrayList<>();
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-
         for (int i = 0; i < dsPhieu.size(); i++) {
             BookingItem bookingItem = new BookingItem(i, getContents(dsPhieu.get(i)), width, this);
+            bookingItem.setPhieuDatBan(dsPhieu.get(i));
             bookingItems.add(bookingItem);
             tableBody.add(bookingItem);
         }
@@ -610,7 +626,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     }
 
     private String[] getContents(PhieuDatBan phieuDatBan) {
-        return new String[]{phieuDatBan.getNgayGioDat().toString(), phieuDatBan.getHoTen(), phieuDatBan.getSoLuongNguoi() + "", "Chưa nhận bàn", "0"};
+        return new String[]{phieuDatBan.getNgayGioDat().toString(), phieuDatBan.getHoTen(), phieuDatBan.getSoLuongNguoi() + "", phieuDatBan.getTrangThai() == 0 ? "Chưa nhận bàn" : "", phieuDatBan.getTienDatCoc() + ""};
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

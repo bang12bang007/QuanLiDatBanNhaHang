@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package component;
+
+import dao.IBanDAO;
+import dao.IPhieuDatBanDAO;
+import dao.imlp.BanDAO;
+import dao.imlp.PhieuDatBanDAO;
+import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,48 +27,58 @@ public class BookingItem extends javax.swing.JPanel {
      */
     private GD_DatBan GD;
     private int index;
-    
+    private PhieuDatBan phieuDatBan;
+    private IBanDAO banDAO = new BanDAO();
+
     public BookingItem() {
         initComponents();
-        wrapper.setPreferredSize( new Dimension(1076, 60));
+        wrapper.setPreferredSize(new Dimension(1076, 60));
 
     }
 
     public void setActive(int active) {
-        if(active == index) {
+        if (active == index) {
             this.setBorder(new LineBorder(new Color(234, 124, 105)));
         } else {
             this.setBorder(null);
         }
     }
-    
+
     public BookingItem(int index, String[] data, int width, GD_DatBan GD) {
         this.index = index;
         this.GD = GD;
         initComponents();
         setIndex(index);
-        wrapper.setPreferredSize( new Dimension(width, 65));
+        wrapper.setPreferredSize(new Dimension(width, 65));
         IconFontSwing.register(FontAwesome.getIconFont());
-        btnNhanBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 40,new Color(20, 174, 92)));
+        btnNhanBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 40, new Color(20, 174, 92)));
         btnGoiMon.setColor(new Color(0, 0, 0, 0));
         btnSapCho.setColor(new Color(0, 0, 0, 0));
         btnNhanBan.setColor(new Color(0, 0, 0, 0));
         push(data);
     }
-    
+
     public void setIndex(int index) {
         Color color = index % 2 == 0 ? new Color(83, 86, 99) : new Color(31, 29, 43);
         left.setBackground(color);
         right.setBackground(color);
         this.index = index;
     }
-    
+
     private void push(String[] data) {
         gioDen.setText("   " + data[0]);
         khachHang.setText(data[1]);
         soNguoi.setText(data[2]);
         trangThai.setText(data[3]);
         datCoc.setText(data[4] + "    ");
+    }
+
+    public PhieuDatBan getPhieuDatBan() {
+        return phieuDatBan;
+    }
+
+    public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
+        this.phieuDatBan = phieuDatBan;
     }
 
     /**
@@ -123,6 +139,11 @@ public class BookingItem extends javax.swing.JPanel {
         btnNhanBan.setMinimumSize(new java.awt.Dimension(30, 60));
         btnNhanBan.setName(""); // NOI18N
         btnNhanBan.setRadius(12);
+        btnNhanBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhanBanActionPerformed(evt);
+            }
+        });
         left.add(btnNhanBan);
 
         gioDen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -180,6 +201,13 @@ public class BookingItem extends javax.swing.JPanel {
         GD.setBookingActive(index);
     }//GEN-LAST:event_wrapperMouseClicked
 
+    private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
+        // TODO add your handling code here:
+        banDAO.updateStateById(phieuDatBan.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+        GD.setBookingActive(index);
+        GD.deleteBooking();
+    }//GEN-LAST:event_btnNhanBanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnGoiMon;
@@ -195,6 +223,5 @@ public class BookingItem extends javax.swing.JPanel {
     private javax.swing.JLabel trangThai;
     private javax.swing.JPanel wrapper;
     // End of variables declaration//GEN-END:variables
-
 
 }

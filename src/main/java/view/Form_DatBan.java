@@ -5,11 +5,38 @@
 package view;
 
 import LIB.FadeEffect;
+import component.MenuItem;
 import component.ScrollBarCustom;
+import dao.IBanDAO;
+import dao.IChiTietHoaDonDAO;
+import dao.IHoaDonDAO;
+import dao.IKhachHangDAO;
+import dao.INhanVienDAO;
+import dao.IPhieuDatBanDAO;
+import dao.imlp.BanDAO;
+import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.HoaDonDAO;
+import dao.imlp.KhachHangDAO;
+import dao.imlp.NhanVienDAO;
+import dao.imlp.PhieuDatBanDAO;
+import datechooser.EventDateChooser;
+import datechooser.SelectedAction;
+import datechooser.SelectedDate;
+import entity.Ban;
+import entity.ChiTietHoaDon;
+import entity.HoaDon;
+import entity.KhachHang;
+import entity.Mon;
+import entity.NhanVien;
+import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,12 +53,18 @@ public class Form_DatBan extends javax.swing.JPanel {
      */
     private JFrame jFrame;
     private JPanel mainJpanel;
+    private Ban ban;
+    private HoaDon hoaDon = null;
+    private List<MenuItem> dsMon = new ArrayList<MenuItem>();
     private static final Color TRANSPERANT = new Color(0, 0, 0, 0);
+    private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
+    private IBanDAO banDAO = new BanDAO();
 
-    public Form_DatBan(JFrame jFrame) {
+    public Form_DatBan(JFrame jFrame, Ban ban) {
+        this.jFrame = jFrame;
+        this.ban = ban;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
-        this.jFrame = jFrame;
         this.setBackground(new Color(0, 0, 0, 0.7f));
         btnPlus.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
         btnMinus.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 20, Color.WHITE));
@@ -39,9 +72,26 @@ public class Form_DatBan extends javax.swing.JPanel {
         txtYeuCau.setBackground(TRANSPERANT);
         txtYeuCauDatMon.setBackground(TRANSPERANT);
         txtDate.setBackground(TRANSPERANT);
+        txtGioDen.setBackground(TRANSPERANT);
+        txtKhachHang.setBackground(TRANSPERANT);
+        txtSoDienThoai.setBackground(TRANSPERANT);
         scrollYCMD.setVerticalScrollBar(new ScrollBarCustom());
         scrollYCMD.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         calendar.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
+        iconClock.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 24, new Color(31, 29, 43)));
+        dateChooser.addEventDateChooser(new EventDateChooser() {
+            public void dateSelected(SelectedAction action, SelectedDate date) {
+                LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+                if (localDate.isBefore(LocalDate.now())) {
+                    System.out.println("Trước ngay hiện tại");
+                    dateChooser.toDay();
+                }
+                if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
+                    dateChooser.hidePopup();
+                }
+            }
+
+        });
     }
 
     /**
@@ -67,10 +117,14 @@ public class Form_DatBan extends javax.swing.JPanel {
         txtDate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         panelRound2 = new component.PanelRound();
+        iconClock = new javax.swing.JLabel();
+        txtGioDen = new javax.swing.JTextField();
         panelRound3 = new component.PanelRound();
+        txtKhachHang = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         panelRound4 = new component.PanelRound();
+        txtSoDienThoai = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         yeuCauDatMon = new component.PanelRound();
         scrollYCMD = new javax.swing.JScrollPane();
@@ -200,7 +254,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -219,15 +274,25 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound2.setRoundTopLeft(8);
         panelRound2.setRoundTopRight(8);
 
+        iconClock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        txtGioDen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtGioDen.setBorder(null);
+
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
         panelRound2Layout.setHorizontalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtGioDen, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(iconClock, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(iconClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtGioDen)
         );
 
         panelRound3.setRoundBottomLeft(8);
@@ -235,15 +300,20 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound3.setRoundTopLeft(8);
         panelRound3.setRoundTopRight(8);
 
+        txtKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtKhachHang.setBorder(null);
+
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
         panelRound3Layout.setHorizontalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelRound3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtKhachHang))
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(txtKhachHang)
         );
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -259,15 +329,20 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound4.setRoundTopLeft(8);
         panelRound4.setRoundTopRight(8);
 
+        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtSoDienThoai.setBorder(null);
+
         javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
         panelRound4.setLayout(panelRound4Layout);
         panelRound4Layout.setHorizontalGroup(
             panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelRound4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtSoDienThoai))
         );
         panelRound4Layout.setVerticalGroup(
             panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(txtSoDienThoai)
         );
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -513,7 +588,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jFrame.setUndecorated(true);
         jFrame.setExtendedState(MAXIMIZED_BOTH);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jFrame.add(new Form_XemThucDon(jFrame, txtYeuCauDatMon));
+        jFrame.add(new Form_XemThucDon(jFrame, txtYeuCauDatMon, hoaDon, dsMon));
         jFrame.setBackground(new Color(0, 0, 0, 0));
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
         jFrame.setVisible(true);
@@ -521,8 +596,39 @@ public class Form_DatBan extends javax.swing.JPanel {
 
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         // TODO add your handling code here:
-        jFrame.setVisible(false);
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        SelectedDate date = dateChooser.getSelectedDate();
+        Date ngay = new Date(date.getYear(), date.getMonth(), date.getDay());
+        String khachHang = txtKhachHang.getText();
+        String sdt = txtSoDienThoai.getText();
+        int soLuong = Integer.parseInt(txtSoNguoi.getText());
+        int trangThai = 0;
+        double tienDatCoc = 0;
+        PhieuDatBan phieuDatBan = new PhieuDatBan(ngay, soLuong, khachHang, sdt, 0, tienDatCoc, ban);
+        phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
+        if (!dsMon.isEmpty()) {
+            IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+            INhanVienDAO nhanVienDAO = new NhanVienDAO();
+            IKhachHangDAO khachHangDAO = new KhachHangDAO();
+            IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+            NhanVien nv = (NhanVien) nhanVienDAO.findById("NV120060424290", NhanVien.class);
+            KhachHang kh = (KhachHang) khachHangDAO.findById("KH384851291", KhachHang.class);
+            hoaDon = new HoaDon(nv, kh, null, null, new Date());
+            hoaDon.setBan(ban);
+            hoaDon.setMaHoaDon("HD240406082");
+            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN);
+            hoaDonDAO.insert(hoaDon);
+            for (MenuItem item : dsMon) {
+                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+                chiTietHoaDon.setHoaDon(hoaDon);
+                chiTietHoaDon.setMon(item.getMon());
+                chiTietHoaDon.setSoLuong(item.getSoLuong());
+                chiTietHoaDonDAO.insert(chiTietHoaDon);
+            }
+        }
+        phieuDatBanDAO.insert(phieuDatBan);
+        banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
+        this.jFrame.setVisible(false);
+        this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel));
     }//GEN-LAST:event_btnCatActionPerformed
 
@@ -558,6 +664,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     private datechooser.DateChooser dateChooser;
     private component.PanelRound footer;
     private component.PanelRound header;
+    private javax.swing.JLabel iconClock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -574,6 +681,9 @@ public class Form_DatBan extends javax.swing.JPanel {
     private component.PanelRound panelRound7;
     private javax.swing.JScrollPane scrollYCMD;
     private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtGioDen;
+    private javax.swing.JTextField txtKhachHang;
+    private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtSoNguoi;
     private javax.swing.JTextField txtYeuCau;
     private javax.swing.JTextArea txtYeuCauDatMon;

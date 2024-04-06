@@ -4,6 +4,7 @@
  */
 package component;
 
+import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,10 +25,12 @@ public class MenuItem extends javax.swing.JPanel {
     private String type;
     private int width;
     private String[] data;
+    private Mon mon;
 
-    public MenuItem(int width, String[] data) {
+    public MenuItem(int width, String[] data, Mon mon) {
         initComponents();
         this.width = width;
+        this.mon = mon;
         this.data = data;
         this.setBackground(Color.BLUE);
         wrapper.setBackground(new Color(83, 86, 99));
@@ -73,6 +76,14 @@ public class MenuItem extends javax.swing.JPanel {
             return 1;
         }
         return Integer.parseInt(soLuong.getText());
+    }
+
+    public Mon getMon() {
+        return mon;
+    }
+
+    public void setMon(Mon mon) {
+        this.mon = mon;
     }
 
     /**
@@ -158,7 +169,7 @@ public class MenuItem extends javax.swing.JPanel {
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
         if (type.equals("THEM_MON")) {
-            form.themMon(new MenuItem(width, new String[]{data[0], "1"}));
+            form.themMon(new MenuItem(width, new String[]{data[0], 1 + ""}, mon));
         } else if (type.equals("HUY_MON")) {
             form.huyMon(this);
         }

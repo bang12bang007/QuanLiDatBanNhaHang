@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.util.Date;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,6 +43,8 @@ public class PhieuDatBan {
     private int trangThai;
     @Column(name = "TienDatCoc", nullable = false)
     private double tienDatCoc;
+    @Column(name = "YeuCauKhac", columnDefinition = "NVARCHAR(255)", nullable = true)
+    private String yeuCauKhach;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBan")
     private Ban ban;
