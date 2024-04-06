@@ -24,12 +24,25 @@ public class BanItem extends javax.swing.JPanel {
      */
     private JPanel main;
     private String type;
+    private String image_type;
+    private String maBan;
 
-    public BanItem(String text, String image_type, JPanel main, String type) {
+    public BanItem(String maBan, int trangThai, JPanel main, String type) {
         this.main = main;
         this.type = type;
+        this.maBan = maBan;
         initComponents();
-        jLabel1.setText(text);
+        jLabel1.setText(maBan);
+        
+        if(trangThai==utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal())
+            image_type = "/images/my_table.png";
+        else
+            if(trangThai==utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal())
+                image_type = "/images/my_table_gray.png";
+            else
+                if(trangThai==utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal())
+                    image_type = "/images/my_table_blue.png";
+        
         myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_type)));
     }
 
@@ -95,14 +108,17 @@ public class BanItem extends javax.swing.JPanel {
                 jFrame.setUndecorated(true);
                 jFrame.setExtendedState(MAXIMIZED_BOTH);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                jFrame.add(new Form_DatBan(jFrame));
+                Form_DatBan form_DatBan = new Form_DatBan(jFrame);
+                form_DatBan.setMainJpanel(main);
+                jFrame.add(form_DatBan);
                 jFrame.setBackground(new Color(0, 0, 0, 0));
-//                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
                 jFrame.setVisible(true);
                 break;
             }
             case "DAT_MON": {
-                AppUtils.setUI(main, new GD_DatMon(main));
+                if(!image_type.equals("/images/my_table_gray.png"))
+                    AppUtils.setUI(main, new GD_DatMon(main,maBan));
                 break;
             }
         }

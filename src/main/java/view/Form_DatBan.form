@@ -77,11 +77,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="panelRound7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnDong2" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btnPlus" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="btnDong4" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btnMinus" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnDong3" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="btnXemThucDon" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -113,9 +113,9 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="panelRound7" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnDong3" alignment="0" pref="38" max="32767" attributes="0"/>
-                      <Component id="btnDong4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnDong2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnXemThucDon" alignment="0" pref="38" max="32767" attributes="0"/>
+                      <Component id="btnMinus" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnPlus" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -207,9 +207,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnDong" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnCat" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnDong1" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnHuy" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -219,8 +219,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="17" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnDong1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="btnDong" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="btnHuy" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="btnCat" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -228,7 +228,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="component.MyButton" name="btnDong">
+            <Component class="component.MyButton" name="btnCat">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -246,10 +246,10 @@
                 <Property name="radius" type="int" value="8"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDongActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCatActionPerformed"/>
               </Events>
             </Component>
-            <Component class="component.MyButton" name="btnDong1">
+            <Component class="component.MyButton" name="btnHuy">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -267,7 +267,7 @@
                 <Property name="radius" type="int" value="8"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDong1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfirmActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -496,7 +496,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="component.MyButton" name="btnDong2">
+        <Component class="component.MyButton" name="btnPlus">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="1d" red="1f" type="rgb"/>
@@ -504,7 +504,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="+"/>
             <Property name="color" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="1d" red="1f" type="rgb"/>
             </Property>
@@ -517,10 +516,10 @@
             <Property name="radius" type="int" value="8"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDong2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPlusActionPerformed"/>
           </Events>
         </Component>
-        <Component class="component.MyButton" name="btnDong3">
+        <Component class="component.MyButton" name="btnXemThucDon">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="1d" red="1f" type="rgb"/>
@@ -541,10 +540,10 @@
             <Property name="radius" type="int" value="8"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDong3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXemThucDonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="component.MyButton" name="btnDong4">
+        <Component class="component.MyButton" name="btnMinus">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="1d" red="1f" type="rgb"/>
@@ -552,7 +551,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="-"/>
             <Property name="color" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="1d" red="1f" type="rgb"/>
             </Property>
@@ -564,9 +562,6 @@
             </Property>
             <Property name="radius" type="int" value="8"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDong4ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

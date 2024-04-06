@@ -7,12 +7,16 @@ package view;
 import component.BookingItem;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IPhieuDatBanDAO;
+import dao.imlp.PhieuDatBanDAO;
+import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
@@ -30,6 +34,7 @@ public class GD_DatBan extends javax.swing.JPanel {
     private int active = -1;
     private JPanel mainJPanel;
     private ArrayList<BookingItem> bookingItems = new ArrayList<>();
+    private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
@@ -590,25 +595,12 @@ public class GD_DatBan extends javax.swing.JPanel {
 
     private void loadData() {
         int width = tableBody.getWidth();
+        List<PhieuDatBan> dsPhieu = phieuDatBanDAO.findAll(PhieuDatBan.class);
         ArrayList<String[]> list = new ArrayList<>();
         list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        list.add(new String[]{"6:00 CH", "Ngô Đăng Khoa", "4", "Chưa nhận bàn", "0"});
-        
 
-        for (int i = 0; i < list.size(); i++) {
-            BookingItem bookingItem = new BookingItem(i, list.get(i), width, this);
+        for (int i = 0; i < dsPhieu.size(); i++) {
+            BookingItem bookingItem = new BookingItem(i, getContents(dsPhieu.get(i)), width, this);
             bookingItems.add(bookingItem);
             tableBody.add(bookingItem);
         }
@@ -621,6 +613,10 @@ public class GD_DatBan extends javax.swing.JPanel {
         }
         tableBody.repaint();
         tableBody.revalidate();
+    }
+
+    private String[] getContents(PhieuDatBan phieuDatBan) {
+        return new String[]{phieuDatBan.getNgayGioDat().toString(), phieuDatBan.getHoTen(), phieuDatBan.getSoLuongNguoi() + "", "Chưa nhận bàn", "0"};
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

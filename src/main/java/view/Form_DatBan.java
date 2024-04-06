@@ -8,7 +8,9 @@ import LIB.FadeEffect;
 import icon.FontAwesome;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
 
 /**
@@ -21,6 +23,7 @@ public class Form_DatBan extends javax.swing.JPanel {
      * Creates new form Form_DatBan
      */
     private JFrame jFrame;
+    private JPanel mainJpanel;
 
     public Form_DatBan(JFrame jFrame) {
         initComponents();
@@ -29,7 +32,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         this.setBackground(new Color(0, 0, 0, 0.7f));
         btnPlus.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
         btnMinus.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 20, Color.WHITE));
-        soLuong.setBackground(new Color(0, 0, 0, 0));
+//        soLuong.setBackground(new Color(0, 0, 0, 0));
     }
 
     /**
@@ -46,7 +49,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         footer = new component.PanelRound();
-        btnConfirm = new component.MyButton();
+        btnCat = new component.MyButton();
         btnHuy = new component.MyButton();
         jLabel2 = new javax.swing.JLabel();
         panelRound1 = new component.PanelRound();
@@ -62,7 +65,6 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound6 = new component.PanelRound();
         jLabel8 = new javax.swing.JLabel();
         panelRound7 = new component.PanelRound();
-        soLuong = new javax.swing.JTextField();
         btnPlus = new component.MyButton();
         btnXemThucDon = new component.MyButton();
         btnMinus = new component.MyButton();
@@ -110,15 +112,15 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         footer.setBackground(new java.awt.Color(31, 29, 43));
 
-        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirm.setText("CẤT");
-        btnConfirm.setColor(new java.awt.Color(83, 86, 99));
-        btnConfirm.setColorClick(new java.awt.Color(234, 124, 105));
-        btnConfirm.setColorOver(new java.awt.Color(234, 124, 105));
-        btnConfirm.setRadius(8);
-        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+        btnCat.setForeground(new java.awt.Color(255, 255, 255));
+        btnCat.setText("CẤT");
+        btnCat.setColor(new java.awt.Color(83, 86, 99));
+        btnCat.setColorClick(new java.awt.Color(234, 124, 105));
+        btnCat.setColorOver(new java.awt.Color(234, 124, 105));
+        btnCat.setRadius(8);
+        btnCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmActionPerformed(evt);
+                btnCatActionPerformed(evt);
             }
         });
 
@@ -130,7 +132,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnHuy.setRadius(8);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHuyActionPerformed(evt);
+                btnConfirmActionPerformed(evt);
             }
         });
 
@@ -140,7 +142,7 @@ public class Form_DatBan extends javax.swing.JPanel {
             footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, footerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCat, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -151,7 +153,7 @@ public class Form_DatBan extends javax.swing.JPanel {
                 .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCat, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -284,20 +286,15 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound7.setRoundTopLeft(8);
         panelRound7.setRoundTopRight(8);
 
-        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        soLuong.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        soLuong.setText("1");
-        soLuong.setBorder(null);
-
         javax.swing.GroupLayout panelRound7Layout = new javax.swing.GroupLayout(panelRound7);
         panelRound7.setLayout(panelRound7Layout);
         panelRound7Layout.setHorizontalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(soLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
         panelRound7Layout.setVerticalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(soLuong)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         btnPlus.setBackground(new java.awt.Color(31, 29, 43));
@@ -331,11 +328,6 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnMinus.setColorClick(new java.awt.Color(234, 124, 105));
         btnMinus.setColorOver(new java.awt.Color(234, 124, 105));
         btnMinus.setRadius(8);
-        btnMinus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMinusActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout wrapperLayout = new javax.swing.GroupLayout(wrapper);
         wrapper.setLayout(wrapperLayout);
@@ -436,12 +428,8 @@ public class Form_DatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-
-    }//GEN-LAST:event_btnConfirmActionPerformed
-
-    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnHuyActionPerformed
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
         // TODO add your handling code here:
@@ -459,13 +447,19 @@ public class Form_DatBan extends javax.swing.JPanel {
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnXemThucDonActionPerformed
 
-    private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
+    private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnMinusActionPerformed
+        jFrame.setVisible(false);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel));
+    }//GEN-LAST:event_btnCatActionPerformed
 
+    public void setMainJpanel(JPanel main) {
+        this.mainJpanel = main;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private component.MyButton btnConfirm;
+    private component.MyButton btnCat;
     private component.MyButton btnHuy;
     private component.MyButton btnMinus;
     private component.MyButton btnPlus;
@@ -488,7 +482,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     private component.PanelRound panelRound5;
     private component.PanelRound panelRound6;
     private component.PanelRound panelRound7;
-    private javax.swing.JTextField soLuong;
     private javax.swing.JPanel wrapper;
     // End of variables declaration//GEN-END:variables
+
 }

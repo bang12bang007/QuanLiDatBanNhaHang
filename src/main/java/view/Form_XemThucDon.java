@@ -7,11 +7,15 @@ package view;
 import component.MenuItem;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IMonDAO;
+import dao.imlp.MonDAO;
+import entity.Mon;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
@@ -27,6 +31,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
      */
     private JFrame jFrame;
     private ArrayList<MenuItem> listHuy = new ArrayList<>();
+    private IMonDAO monDAO = new MonDAO();
 
     public Form_XemThucDon(JFrame jFrame) {
         this.jFrame = jFrame;
@@ -170,7 +175,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         tableBody.setLayout(tableBodyLayout);
         tableBodyLayout.setHorizontalGroup(
             tableBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGap(0, 538, Short.MAX_VALUE)
         );
         tableBodyLayout.setVerticalGroup(
             tableBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +189,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         tableLayout.setHorizontalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tableScrollLeft)
+            .addComponent(tableScrollLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
         tableLayout.setVerticalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +319,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         tableBodyRight.setLayout(tableBodyRightLayout);
         tableBodyRightLayout.setHorizontalGroup(
             tableBodyRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
+            .addGap(0, 524, Short.MAX_VALUE)
         );
         tableBodyRightLayout.setVerticalGroup(
             tableBodyRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,7 +333,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         tableRightLayout.setHorizontalGroup(
             tableRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerTableRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tableScrollRight)
+            .addComponent(tableScrollRight, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
         tableRightLayout.setVerticalGroup(
             tableRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,7 +419,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         panelRound5.setLayout(panelRound5Layout);
         panelRound5Layout.setHorizontalGroup(
             panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addGap(0, 968, Short.MAX_VALUE)
         );
         panelRound5Layout.setVerticalGroup(
             panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,9 +527,9 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(68, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,25 +572,17 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
     private void loadData() {
         int width = tableBody.getWidth();
-        ArrayList<String[]> list = new ArrayList<>();
-        list.add(new String[]{"Cơm sườn", "100.000"});
-        list.add(new String[]{"Phở bò", "85.000"});
-        list.add(new String[]{"Gà nướng", "120.000"});
-        list.add(new String[]{"Bánh mì thịt", "25.000"});
-        list.add(new String[]{"Bún chả", "90.000"});
-        list.add(new String[]{"Bò né", "150.000"});
-        list.add(new String[]{"Hủ tiếu", "70.000"});
-        list.add(new String[]{"Bánh xèo", "110.000"});
-        list.add(new String[]{"Bún riêu", "80.000"});
-        list.add(new String[]{"Cơm chiên dương châu", "95.000"});
-        list.add(new String[]{"Hamburger", "70.000"});
-
-        for (int i = 0; i < list.size(); i++) {
-            MenuItem menuItem = new MenuItem(width, list.get(i));
+        List<Mon> dsMon = monDAO.findAll(Mon.class);
+        for (int i = 0; i < dsMon.size(); i++) {
+            MenuItem menuItem = new MenuItem(width, getContents(dsMon.get(i)));
             menuItem.setForm(this);
             menuItem.setType("THEM_MON");
             tableBody.add(menuItem);
         }
+    }
+
+    private String[] getContents(Mon mon) {
+        return new String[]{mon.getTenMon(), mon.getGia() + ""};
     }
 
     public void themMon(MenuItem menuItem) {

@@ -29,9 +29,11 @@ public class MenuItem extends javax.swing.JPanel {
         initComponents();
         this.width = width;
         this.data = data;
+        this.setBackground(Color.BLUE);
         wrapper.setBackground(new Color(83, 86, 99));
         right.setBackground(new Color(83, 86, 99));
-        setPreferredSize(new Dimension(width - 2, 45));
+//        tenMon.setPreferredSize(new Dimension(200, 45));
+        this.setPreferredSize(new Dimension(width, 45));
         push(data);
     }
 
@@ -86,10 +88,12 @@ public class MenuItem extends javax.swing.JPanel {
 
         soLuong.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         soLuong.setForeground(new java.awt.Color(255, 255, 255));
+        soLuong.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         myButton1.setColor(new java.awt.Color(31, 29, 43));
         myButton1.setColorClick(new java.awt.Color(234, 124, 105));
         myButton1.setColorOver(new java.awt.Color(234, 124, 105));
+        myButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         myButton1.setMinimumSize(new java.awt.Dimension(25, 25));
         myButton1.setRadius(8);
         myButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,22 +107,21 @@ public class MenuItem extends javax.swing.JPanel {
         rightLayout.setHorizontalGroup(
             rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(soLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(soLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         rightLayout.setVerticalGroup(
             rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightLayout.createSequentialGroup()
-                .addGroup(rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(rightLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(myButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(9, 9, 9))
-                    .addComponent(soLuong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(soLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(rightLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         wrapper.add(right);

@@ -7,9 +7,10 @@ package utils;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import com.google.gson.Gson; 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import component.Loading;
 import entity.NhanVien;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
@@ -26,38 +27,42 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import view.GD_Ban;
+
 /**
  *
  * @author Laptop
  */
 public class AppUtils {
-    public final static Font FONT = new Font("name",1,1);
+
+    public final static Font FONT = new Font("name", 1, 1);
     private final static Gson GSON = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-    
+
     public static Connection connect() {
         Connection con = null;
         try {
-                String url = "jdbc:sqlserver://localhost:1433;databaseName=qlnhDB;encrypt=false";
-                String user = "sa";
-                String password = "123";
-                con = DriverManager.getConnection(url, user, password);
-                if(con != null) {
-                    System.out.println("connect successfully!");
-                }
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=qlnhDB;encrypt=false";
+            String user = "sa";
+            String password = "123";
+            con = DriverManager.getConnection(url, user, password);
+            if (con != null) {
+                System.out.println("connect successfully!");
+            }
         } catch (Exception e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
         return con;
     }
-    
+
     public static <T> boolean insert(T t, String SQL) {
         Connection con = connect();
         String json = GSON.toJson(t);
-	try {
-            Map<String, Object> map = GSON.fromJson(json, new TypeToken<Map<String, Object>>() {}.getType());
+        try {
+            Map<String, Object> map = GSON.fromJson(json, new TypeToken<Map<String, Object>>() {
+            }.getType());
             int parameterIndex = 1;
             PreparedStatement pstms = con.prepareStatement(SQL);
-            for(Map.Entry<String, Object> entry : map.entrySet()) {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
                 pstms.setObject(parameterIndex++, entry.getValue());
             }
             return pstms.execute();
@@ -109,7 +114,6 @@ public class AppUtils {
 //        }
 //        return null;
 //    }
-    
     public static <T> T getEntity(Class<T> clazz, ResultSet myRs, int columnStart) throws SQLException {
         Map<String, Object> properties = new LinkedHashMap<>();
         int columnCount = myRs.getMetaData().getColumnCount();
@@ -118,7 +122,7 @@ public class AppUtils {
         while (myRs.next()) {
             for (int i = columnStart; i <= columnCount; i++) {
                 String columnName = myRs.getMetaData().getColumnName(i);
-                columnName = columnName.substring(0,1).toLowerCase() + columnName.substring(1);
+                columnName = columnName.substring(0, 1).toLowerCase() + columnName.substring(1);
                 Object value = myRs.getObject(i);
                 properties.put(columnName, value);
             }
@@ -129,21 +133,23 @@ public class AppUtils {
         try {
             T obj = new Gson().fromJson(json, clazz);
             return obj;
-        } catch(Exception e) {
+        } catch (Exception e) {
             // Handle deserialization exception properly
             e.printStackTrace();
         }
         return null;
     }
+
     public static <T> boolean updateById(T t, String SQL, String id) {
         Connection con = connect();
         String json = GSON.toJson(t);
-        Map<String, Object> map = GSON.fromJson(json, new TypeToken<Map<String, Object>>() {}.getType());
+        Map<String, Object> map = GSON.fromJson(json, new TypeToken<Map<String, Object>>() {
+        }.getType());
         int parameterIndex = 1;
-	try {
+        try {
             PreparedStatement pstms = con.prepareStatement(SQL);
-            for(Map.Entry<String, Object> entry : map.entrySet()) {
-                if(!id.equals(entry.getValue())) {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (!id.equals(entry.getValue())) {
                     pstms.setObject(parameterIndex++, entry.getValue());
                 }
             }
@@ -153,7 +159,7 @@ public class AppUtils {
         }
         return false;
     }
-    
+
     public static boolean deleteOneById(String id, String SQL) {
         Connection con = connect();
         try {
@@ -164,12 +170,25 @@ public class AppUtils {
         }
         return false;
     }
-    
+
     public static void setUI(JPanel mainJPanel, JPanel jComponent) {
         mainJPanel.removeAll();
         mainJPanel.add(jComponent);
         mainJPanel.repaint();
         mainJPanel.revalidate();
     }
-    
+
+    public static void setLoading(JPanel mainJPanel, boolean state, Loading loading, JPanel gD_Ban) {
+        if (state) {
+            mainJPanel.remove(gD_Ban);
+            mainJPanel.add(loading);
+            mainJPanel.repaint();
+            mainJPanel.revalidate();
+        } else {
+            mainJPanel.remove(loading);
+            mainJPanel.add(gD_Ban);
+        }
+        mainJPanel.repaint();
+        mainJPanel.revalidate();
+    }
 }

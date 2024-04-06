@@ -164,7 +164,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonHome.setColor(new java.awt.Color(83, 86, 99));
         buttonHome.setColorClick(new java.awt.Color(31, 29, 43));
         buttonHome.setColorOver(new java.awt.Color(31, 29, 43));
-        buttonHome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonHome.setFocusable(false);
+        buttonHome.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
         buttonHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHomeActionPerformed(evt);
@@ -178,7 +179,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatMon.setColor(new java.awt.Color(83, 86, 99));
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatMon.setColorOver(new java.awt.Color(31, 29, 43));
-        buttonDatMon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonDatMon.setFocusable(false);
+        buttonDatMon.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
         buttonDatMon.setIconTextGap(8);
         buttonDatMon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -198,7 +200,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatBan.setColor(new java.awt.Color(83, 86, 99));
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatBan.setColorOver(new java.awt.Color(31, 29, 43));
-        buttonDatBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonDatBan.setFocusable(false);
+        buttonDatBan.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
         buttonDatBan.setIconTextGap(8);
         buttonDatBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +216,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonThongKe.setColor(new java.awt.Color(83, 86, 99));
         buttonThongKe.setColorClick(new java.awt.Color(31, 29, 43));
         buttonThongKe.setColorOver(new java.awt.Color(31, 29, 43));
-        buttonThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonThongKe.setFocusable(false);
+        buttonThongKe.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
         buttonThongKe.setIconTextGap(8);
         buttonThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,17 +235,17 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        label_AVT.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        label_AVT.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
         label_AVT.setForeground(new java.awt.Color(255, 255, 255));
         label_AVT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_AVT.setText("Nguyễn Đức Cường");
 
-        label_week_day.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        label_week_day.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
         label_week_day.setForeground(new java.awt.Color(255, 255, 255));
         label_week_day.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_week_day.setText("MONDAY");
 
-        label_day_month_year.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        label_day_month_year.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
         label_day_month_year.setForeground(new java.awt.Color(255, 255, 255));
         label_day_month_year.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_day_month_year.setText("16/09/2003");
@@ -348,7 +352,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        utils.AppUtils.setUI(mainJpanel, new GD_DatMon(mainJpanel));
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVTActionPerformed
@@ -433,7 +437,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         }
         //</editor-fold>
         Persistence.createEntityManagerFactory("QLNH_mssql");
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

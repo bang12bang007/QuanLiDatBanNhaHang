@@ -13,6 +13,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import java.util.List;
 import lombok.Getter;
@@ -30,6 +32,9 @@ import utils.Enum.LoaiTrangThaiMon;
 @Setter
 @ToString
 @NoArgsConstructor
+@NamedQueries({
+    @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m WHERE m.trangThai = :trangThai")
+})
 public class Mon {
     @Id
     @Column(name ="MaMon",length = 12,nullable = false)
