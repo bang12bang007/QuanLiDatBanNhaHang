@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import component.Loading;
-import component.OrderCard;
 import entity.HoaDon;
 import entity.NhanVien;
 import java.awt.BorderLayout;
@@ -38,7 +37,24 @@ import view.UIUpdatable;
 public class AppUtils {
 
     public final static Font FONT = new Font("name", 1, 1);
+    private final static Gson GSON = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     public static NhanVien NHANVIEN = null;
+
+    public static Connection connect() {
+        Connection con = null;
+        try {
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=qlnhDB;encrypt=false";
+            String user = "sa";
+            String password = "123";
+            con = DriverManager.getConnection(url, user, password);
+            if (con != null) {
+                System.out.println("connect successfully!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return con;
+    }
 
     public static void setUI(JPanel mainJPanel, JPanel jComponent) {
         mainJPanel.removeAll();

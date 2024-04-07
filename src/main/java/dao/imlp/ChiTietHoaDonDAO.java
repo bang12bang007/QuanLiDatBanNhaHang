@@ -5,22 +5,29 @@
 package dao.imlp;
 
 import dao.IChiTietHoaDonDAO;
-import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
-import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 /**
  *
- * @author Laptop
- */
-public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChiTietHoaDonDAO<ChiTietHoaDon> {
-    
-    public List<ChiTietHoaDon> findByMaHoaDon(HoaDon hoaDon) {
-        TypedQuery<ChiTietHoaDon> query = em.createNamedQuery("ChiTietHoaDon.findByMaHoaDon", ChiTietHoaDon.class);
-        query.setParameter("hoaDon", hoaDon);
-        return query.getResultList();
-    }
 
+ * @author dmx
+ */
+public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChiTietHoaDonDAO<ChiTietHoaDon>{
+
+    public Double TotalFoodCurrency(HoaDon hoaDon) {
+        List<ChiTietHoaDon> details = getListByHoaDon(hoaDon);
+        Double total = 0.0;
+        for(int i=0;i<details.size();i++){
+            total+= details.get(i).getSoLuong()*details.get(i).getMon().getGia();
+        }
+        return total;
+    };
+
+    public List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon) {
+      return em.createNamedQuery("ChiTietHoaDon.HoaDon", ChiTietHoaDon.class)
+              .setParameter("hoaDon", hoaDon)
+              .getResultList();  
+    };
 }

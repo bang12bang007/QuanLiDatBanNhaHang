@@ -6,22 +6,28 @@ package view;
 
 import component.Food;
 import component.Loading;
-import component.OrderItem_forUIDatMon;
 import component.RoundJTextField;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
+import dao.IHoaDonDAO;
 import dao.IMonDAO;
+import dao.imlp.BanDAO;
 import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
+import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Mon;
+import entity.NhanVien;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -29,13 +35,14 @@ import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
+import utils.Enum.DatMon_ThemMon;
 import utils.ModelColor;
 
 /**
  *
  * @author Laptop
  */
-public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
+public class GD_DatMon extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_DatMon
@@ -44,46 +51,69 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private List<Mon> mons;
     private List<Mon> beverages;
     private List<Mon> popular;
-    private String maBan;
+    private Ban ban;
     private List<Mon> orders;
     private ArrayList<Integer> list_quantity = new ArrayList<Integer>();
-    private HoaDon hoaDon;
-    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
-    private IMonDAO monDAO = new MonDAO();
+    private NhanVien nv;
+    private String type_datMon;
+    private DatMon_ThemMon loai;
 
-    public GD_DatMon(JPanel main, String maBan) {
+    public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
+        this.nv = AppUtils.NHANVIEN;
         this.main = main;
-        this.maBan = maBan;
-        utils.AppUtils.run(main, this);
+        this.ban = ban;
+        this.loai = loai;
+        run();
     }
 
-    public void setUI() {
-        initComponents();
-        setVisible(true);
-        IconFontSwing.register(FontAwesome.getIconFont());
-        btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 30, Color.WHITE));
-        FoodList.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
-        scrollFoodList.setVerticalScrollBar(new ScrollBarCustom());
-        scrollFoodList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        Scroll_Order.setVerticalScrollBar(new ScrollBarCustom());
-        Scroll_Order.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        panelGradient1.addColor(new ModelColor(new Color(31, 29, 43), 0f), new ModelColor(new Color(31, 29, 43, 0), 0.5f), new ModelColor(new Color(31, 29, 43, 0), 1f));
-        IconFontSwing.register(FontAwesome.getIconFont());
-        btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
-        btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-        btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
-        btnHelpCaculator.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
-        btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-        btnBack.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_LEFT, 20, Color.WHITE));
-        btnNV.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
-        btnGhiChu.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 20, Color.WHITE));
-        btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
-        btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
-        PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
-        banTextField.setText(maBan);
-        banTextField.setEditable(false);
-        First_LoadData();
+    private void run() {
+        GD_DatMon gd_datmon = this;
+        Timer timer = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Loading loading = new Loading();
+                utils.AppUtils.setLoading(main, true, loading, gd_datmon);
 
+                initComponents();
+                setVisible(true);
+                IconFontSwing.register(FontAwesome.getIconFont());
+                btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 30, Color.WHITE));
+                FoodList.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
+                scrollFoodList.setVerticalScrollBar(new ScrollBarCustom());
+                scrollFoodList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                Scroll_Order.setVerticalScrollBar(new ScrollBarCustom());
+                Scroll_Order.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                panelGradient1.addColor(new ModelColor(new Color(31, 29, 43), 0f), new ModelColor(new Color(31, 29, 43, 0), 0.5f), new ModelColor(new Color(31, 29, 43, 0), 1f));
+                IconFontSwing.register(FontAwesome.getIconFont());
+                btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
+                btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+                btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
+                btnHelpCaculator.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
+                btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+                btnBack.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_LEFT, 20, Color.WHITE));
+                btnNV.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
+                btnGhiChu.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 20, Color.WHITE));
+                btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
+                btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
+                PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
+                banTextField.setText(ban.getMaBan());
+                banTextField.setEditable(false);
+                labelTongTien.setText("0,0 VNĐ");
+                nhanVienName.setText(nv.getHoTen());
+                First_LoadData();
+
+                Timer hideTimer = new Timer(1500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        utils.AppUtils.setLoading(main, false, loading, gd_datmon);
+                    }
+                });
+                hideTimer.setRepeats(false);
+                hideTimer.start();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     /**
@@ -132,7 +162,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         panelRound4 = new component.PanelRound();
         panelRound5 = new component.PanelRound();
         panelGradient1 = new component.PanelGradient();
-        jLabel3 = new javax.swing.JLabel();
+        nhanVienName = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnHelpCaculator = new component.MyButton();
         TABLE_ORDER = new component.PanelRound();
@@ -488,6 +518,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnGuiBep.setColorOver(new java.awt.Color(234, 124, 105));
         btnGuiBep.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuiBep.setRadius(20);
+        btnGuiBep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuiBepActionPerformed(evt);
+            }
+        });
 
         btnHuyBo.setForeground(new java.awt.Color(255, 255, 255));
         btnHuyBo.setText("HỦY BỎ");
@@ -553,9 +588,9 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         panelGradient1.setBackground(new java.awt.Color(83, 86, 99));
         panelGradient1.setBorder(null);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("NGUYỄN ĐỨC CƯỜNG");
+        nhanVienName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nhanVienName.setForeground(new java.awt.Color(255, 255, 255));
+        nhanVienName.setText("NGUYỄN ĐỨC CƯỜNG");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -568,7 +603,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             .addGroup(panelGradient1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nhanVienName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -578,7 +613,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(nhanVienName)
                 .addGap(23, 23, 23))
         );
 
@@ -762,7 +797,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         FoodList.removeAll();
         beverages = new ArrayList<Mon>();
         for (Mon mon : mons) {
-            if (mon.getLoaiMon().equals("ML01")) {
+            if (mon.getLoaiMon().getMaLoaiMon().equals("ML01")) {
                 beverages.add(mon);
             }
         }
@@ -831,7 +866,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(main, new GD_QuanLyDatMon(main));
+        AppUtils.setUI(main, new GD_QuanLyDatMon(main, nv));
     }//GEN-LAST:event_btnCatActionPerformed
 
     int index = 1;
@@ -845,7 +880,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         } else {
             beverages = new ArrayList<Mon>();
             for (Mon mon : mons) {
-                if (mon.getLoaiMon().equals("ML01")) {
+                if (mon.getLoaiMon().getMaLoaiMon().equals("ML01")) {
                     beverages.add(mon);
                 }
             }
@@ -868,6 +903,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private void FoodListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FoodListMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_FoodListMouseEntered
+
+    private void btnGuiBepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiBepActionPerformed
+        // TODO add your handling code here:
+        Create_OrUpdate_Order();
+    }//GEN-LAST:event_btnGuiBepActionPerformed
     public void First_LoadData() {
         mons = new ArrayList<Mon>();
         orders = new ArrayList<Mon>();
@@ -876,7 +916,22 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         for (Mon mon : mons) {
             FoodList.add(new Food(this, mon, PanelOrder, mons, orders));
         }
-        loadData();
+    }
+
+    public void Create_OrUpdate_Order() {
+        IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+        IBanDAO banDAO = new BanDAO();
+        IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
+        Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
+        HoaDon hoaDon = new HoaDon(nv, LocalDate.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        if (loai.equals(DatMon_ThemMon.DATMON)) {
+            hoaDonDAO.insertHoaDon(hoaDon);
+            for (int i = 0; i < orders.size(); i++) {
+                ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
+                chitietDAO.insert(chiTiet);
+            }
+        }
+        AppUtils.setUI(main, new GD_QuanLyDatMon(main, nv));
     }
 
     public void setOrders(List<Mon> orders) {
@@ -892,6 +947,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     }
 
     public void setList_quantity(ArrayList<Integer> list_quantity) {
+        this.list_quantity = new ArrayList<Integer>();
         this.list_quantity = list_quantity;
     }
 
@@ -899,26 +955,9 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         return list_quantity;
     }
 
-    public HoaDon getHoaDon() {
-        return hoaDon;
+    public NhanVien getNv() {
+        return nv;
     }
-
-    public void setHoaDon(HoaDon hoaDon) {
-        this.hoaDon = hoaDon;
-    }
-
-    private void loadData() {
-        for (Object chiTietHoaDon : chiTietHoaDonDAO.findByMaHoaDon(hoaDon)) {
-            ChiTietHoaDon chiTiet = (ChiTietHoaDon) chiTietHoaDon;
-            Mon mon = (Mon) monDAO.findById(chiTiet.getMon().getMaMon(), Mon.class);
-            String[] title = new String[]{mon.getMaMon(), "1", mon.getGia() + "", ""};
-            OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(this, mon, PanelOrder.getWidth(), orders.size(), title, orders);
-            PanelOrder.add(item);
-        }
-        PanelOrder.repaint();
-        PanelOrder.revalidate();
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FoodList;
@@ -948,7 +987,6 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private component.MyButton btnTinhTien;
     private component.MyButton btnUp;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -959,6 +997,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel labelTongTien;
     private java.awt.List list1;
     private component.MyButton myButton5;
+    private javax.swing.JLabel nhanVienName;
     private component.PanelGradient panelGradient1;
     private component.PanelRound panelMenuMon;
     private component.PanelRound panelMon;

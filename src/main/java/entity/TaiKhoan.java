@@ -25,14 +25,15 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class TaiKhoan {
+
     @Id
     @OneToOne
     @JoinColumn(name = "MaNhanVien", unique = true, nullable = false)
     private NhanVien nhanVien;
-    @Column(name="MatKhau",nullable = false)
+    @Column(name = "MatKhau", nullable = false)
     private String matKhau;
-    @Column(name="NgayTaoTaiKhoan",nullable = false)
+    @Column(name = "NgayTaoTaiKhoan", nullable = false)
     private Date ngayTao;
-    @Column(name="NgayKetThuc",nullable = true)
+    @Column(name = "NgayKetThuc", nullable = true)
     private Date ngayKetThuc;
 }

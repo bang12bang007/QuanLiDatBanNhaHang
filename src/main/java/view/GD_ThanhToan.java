@@ -801,7 +801,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     public void loadData() {
         int width = tableContainer.getWidth();
         int index = 1;
-        for (Object item : chiTietHoaDonDAO.findByMaHoaDon(hoaDon)) {
+        for (Object item : chiTietHoaDonDAO.getListByHoaDon(hoaDon)) {
             ChiTietHoaDon chiTiet = (ChiTietHoaDon) item;
             Mon mon = (Mon) monDAO.findById(chiTiet.getMon().getMaMon(), Mon.class);
             tableContainer.add(new OrderItem(width, index, new String[]{mon.getTenMon(), chiTiet.getSoLuong() + "", mon.getGia() + "", chiTiet.getSoLuong() * mon.getGia() + ""}));

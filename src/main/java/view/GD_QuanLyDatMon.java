@@ -8,9 +8,15 @@ import component.Loading;
 import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+
 import dao.IHoaDonDAO;
+
+import dao.IChiTietHoaDonDAO;
+import dao.IHoaDonDAO;
+import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import entity.HoaDon;
+import entity.NhanVien;
 import icon.FontAwesome;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,7 +28,12 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
 import javax.swing.*;
-import utils.AppUtils;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import static utils.AppUtils.*;
+import java.util.List;
 
 /**
  *
@@ -34,14 +45,20 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
      * Creates new form GD_Order
      */
     private JPanel mainPanel;
+    private NhanVien nv;
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private List<HoaDon> hoadons;
 
-    public GD_QuanLyDatMon(JPanel main) {
+    public GD_QuanLyDatMon(JPanel main, NhanVien nv) {
         this.mainPanel = main;
-        AppUtils.run(mainPanel, this);
+
+        run(mainPanel, this);
     }
 
     public void setUI() {
+
+        this.nv = nv;
+
         initComponents();
         txtMaBan.setBackground(new Color(0, 0, 0, 1));
         this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
@@ -53,6 +70,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
         btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+
+        loadOrdering();
 
     }
 
@@ -352,16 +371,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     }// </editor-fold>//GEN-END:initComponents
 
     private int count = 1;
+
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-
-        main.removeAll();
-        main.repaint();
-        main.revalidate();
-
-    }//GEN-LAST:event_btnCheckoutActionPerformed
-
-    private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
-
 
         main.removeAll();
         // Hiển thị loading
@@ -377,13 +388,60 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
             protected List<OrderCard> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<OrderCard> listOrderCard = new ArrayList<>();
-                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findAllBooking();
+                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
                 for (HoaDon hoaDon : dsHoaDonDatTruoc) {
                     OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
                     listOrderCard.add(orderCard);
                 }
                 return listOrderCard;
             }
+
+            @Override
+            protected void done() {
+                try {
+                    // Khi công việc lâu dài kết thúc, hiển thị kết quả ra giao diện
+                    List<OrderCard> listOrderCard = get();
+                    main.removeAll();
+                    main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
+                    for (OrderCard orderCard : listOrderCard) {
+                        main.add(orderCard);
+                    }
+                    main.repaint();
+                    main.revalidate();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+
+        // Thực hiện công việc trong luồng riêng biệt
+        worker.execute();
+    }//GEN-LAST:event_btnCheckoutActionPerformed
+
+    private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
+
+        main.removeAll();
+        // Hiển thị loading
+        Loading loading = new Loading();
+        main.setLayout(new BorderLayout());
+        main.add(loading, BorderLayout.CENTER);
+        main.repaint();
+        main.revalidate();
+
+        // Sử dụng SwingWorker để thực hiện công việc lâu dài trong luồng riêng
+        SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
+            @Override
+            protected List<OrderCard> doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
+                List<OrderCard> listOrderCard = new ArrayList<>();
+                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+                for (HoaDon hoaDon : dsHoaDonDatTruoc) {
+                    OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+                    listOrderCard.add(orderCard);
+                }
+                return listOrderCard;
+            }
+
             @Override
             protected void done() {
                 try {
@@ -433,11 +491,26 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON"));
+        utils.AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON"));
 //        repaint();
 //        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed
 
+    public void loadOrdering() {
+        IHoaDonDAO dao = new HoaDonDAO();
+        IChiTietHoaDonDAO chiTietDAO = new ChiTietHoaDonDAO();
+        hoadons = dao.findOnOrder();
+
+        for (HoaDon h : hoadons) {
+            Double total = chiTietDAO.TotalFoodCurrency(h);
+//          NDK chỗ này mà mainPanel not main
+            main.add(new OrderCard(h, mainPanel));
+        }
+    }
+
+    public void setNv(NhanVien nv) {
+        this.nv = nv;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheckout;

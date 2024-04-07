@@ -9,5 +9,6 @@ package dao;
  * @author Laptop
  */
 public interface IPhieuDatBanDAO<T> extends GenericDAO<T> {
-    
+
+    boolean updateStateById(String id, int trangThai);
 }

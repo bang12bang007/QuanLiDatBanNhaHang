@@ -5,9 +5,12 @@
 package component;
 
 import dao.IBanDAO;
+import dao.IHoaDonDAO;
 import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
+import dao.imlp.HoaDonDAO;
 import dao.imlp.PhieuDatBanDAO;
+import entity.HoaDon;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
@@ -17,6 +20,7 @@ import java.util.Date;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
 import view.GD_DatBan;
+import view.GD_DatMon;
 
 /**
  *
@@ -31,6 +35,7 @@ public class BookingItem extends javax.swing.JPanel {
     private int index;
     private PhieuDatBan phieuDatBan;
     private IBanDAO banDAO = new BanDAO();
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
 
     public BookingItem() {
         initComponents();
@@ -81,6 +86,10 @@ public class BookingItem extends javax.swing.JPanel {
 
     public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
         this.phieuDatBan = phieuDatBan;
+    }
+
+    public void setData(String[] data) {
+        push(data);
     }
 
     /**
@@ -134,6 +143,11 @@ public class BookingItem extends javax.swing.JPanel {
         btnGoiMon.setMinimumSize(new java.awt.Dimension(30, 60));
         btnGoiMon.setName(""); // NOI18N
         btnGoiMon.setRadius(12);
+        btnGoiMon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoiMonActionPerformed(evt);
+            }
+        });
         left.add(btnGoiMon);
 
         btnNhanBan.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -206,10 +220,24 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
         // TODO add your handling code here:
+        HoaDon hoaDon = null;
+        for (HoaDon hd : phieuDatBan.getBan().getHoaDon()) {
+            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+                hoaDon = hd;
+                break;
+            }
+        }
         banDAO.updateStateById(phieuDatBan.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+        hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         GD.setBookingActive(index);
-        GD.deleteBooking();
+        GD.received();
+//        utils.AppUtils.run(GD.getMainJpanel(), GD);
     }//GEN-LAST:event_btnNhanBanActionPerformed
+
+    private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
+        // TODO add your handling code here:
+        utils.AppUtils.setUI(GD.getMainJpanel(), new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON));
+    }//GEN-LAST:event_btnGoiMonActionPerformed
 
     private String forrmater(String date) {
         String dateTimeString = date;
@@ -224,6 +252,10 @@ public class BookingItem extends javax.swing.JPanel {
         }
 
         return formattedTime;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai.setText(trangThai);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

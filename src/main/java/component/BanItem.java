@@ -6,6 +6,7 @@ package component;
 
 import LIB.FadeEffect;
 import entity.Ban;
+import entity.NhanVien;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -14,7 +15,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import utils.AppUtils;
+import static utils.AppUtils.*;
 import view.Form_DatBan;
 import view.GD_DatMon;
 
@@ -30,13 +31,15 @@ public class BanItem extends javax.swing.JPanel {
     private JPanel main;
     private String type;
     private String image_type;
-    private int trangThai;
     private Ban ban;
+    private NhanVien nv;
+    private int trangThai;
 
     public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
         this.type = type;
         this.ban = ban;
+        this.nv = NHANVIEN;
         this.trangThai = trangThai;
         initComponents();
         jLabel1.setText(ban.getMaBan());
@@ -114,26 +117,24 @@ public class BanItem extends javax.swing.JPanel {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
-            switch (type) {
-                case "DAT_BAN": {
-                    JFrame jFrame = new JFrame();
-                    jFrame.setUndecorated(true);
-                    jFrame.setExtendedState(MAXIMIZED_BOTH);
-                    jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    Form_DatBan form_DatBan = new Form_DatBan(jFrame, ban);
-                    form_DatBan.setMainJpanel(main);
-                    jFrame.add(form_DatBan);
-                    jFrame.setBackground(new Color(0, 0, 0, 0));
-                    FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-                    jFrame.setVisible(true);
-                    break;
-                }
-                case "DAT_MON": {
-                    if (!image_type.equals("/images/my_table_gray.png")) {
-                        AppUtils.setUI(main, new GD_DatMon(main, ban.getMaBan()));
-                    }
-                    break;
+
+        switch (type) {
+            case "DAT_BAN": {
+                JFrame jFrame = new JFrame();
+                jFrame.setUndecorated(true);
+                jFrame.setExtendedState(MAXIMIZED_BOTH);
+                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                Form_DatBan form_DatBan = new Form_DatBan(jFrame, ban);
+                form_DatBan.setMainJpanel(main);
+                jFrame.add(form_DatBan);
+                jFrame.setBackground(new Color(0, 0, 0, 0));
+                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                jFrame.setVisible(true);
+                break;
+            }
+            case "DAT_MON": {
+                if (image_type.equals("/images/my_table_blue.png")) {
+                    utils.AppUtils.setUI(main, new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON));
                 }
             }
         }
@@ -144,4 +145,5 @@ public class BanItem extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private component.MyButton myButton1;
     // End of variables declaration//GEN-END:variables
+
 }

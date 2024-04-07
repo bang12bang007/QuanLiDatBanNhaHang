@@ -10,8 +10,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import java.util.Date;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+//NDK created
+@NamedQueries({
+    @NamedQuery(name = "PhieuDatBan.updateState", query = "UPDATE PhieuDatBan SET trangThai = :trangThai WHERE maPhieuDatBan = :maPhieuDatBan")
+})
 public class PhieuDatBan {
 
     @Id

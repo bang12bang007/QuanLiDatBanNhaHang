@@ -19,6 +19,9 @@ import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 import static utils.AppUtils.setUI;
 import view.GD_DatMon;
+import java.text.DecimalFormat;
+import javax.swing.JPanel;
+import jiconfont.swing.IconFontSwing;
 import view.GD_ThanhToan;
 
 /**
@@ -32,6 +35,8 @@ public class OrderCard extends javax.swing.JPanel {
      */
     private JPanel mainPanel;
     private HoaDon hoaDon;
+    private Double total = 0.0;
+    private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private IMonDAO monDAO = new MonDAO();
 
@@ -45,6 +50,8 @@ public class OrderCard extends javax.swing.JPanel {
         this.hoaDon = hoaDon;
         initComponents();
         setIconBtn();
+//        jLabel2.setText(hoaDon.getBan().getMaBan());
+//        jLabel3.setText(tien_format.format(total));
         loadData();
     }
 
@@ -291,8 +298,8 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
         // TODO add your handling code here:
-        GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan().getMaBan());
-        gD_DatMon.setHoaDon(hoaDon);
+        GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+//        gD_DatMon.setHoaDon(hoaDon);
         AppUtils.setUI(mainPanel, gD_DatMon);
     }//GEN-LAST:event_panelRound3MouseClicked
 
@@ -305,8 +312,9 @@ public class OrderCard extends javax.swing.JPanel {
         soLuongNguoi.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
     }
 
+//    NDK: T tính trong orderCard luôn á
     private void loadData() {
-        List<ChiTietHoaDon> ds = chiTietHoaDonDAO.findByMaHoaDon(hoaDon);
+        List<ChiTietHoaDon> ds = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
         double total = 0;
         for (ChiTietHoaDon item : ds) {
             Mon mon = (Mon) monDAO.findById(item.getMon().getMaMon(), Mon.class);

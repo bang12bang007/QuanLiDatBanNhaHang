@@ -11,7 +11,6 @@ import dao.INhanVienDAO;
 import dao.imlp.NhanVienDAO;
 import entity.NhanVien;
 import icon.FontAwesome;
-import jakarta.persistence.Persistence;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -24,6 +23,7 @@ import javax.swing.JComponent;
 import static javax.swing.SwingConstants.LEFT;
 import javax.swing.SwingUtilities;
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 
 /**
  *
@@ -35,21 +35,16 @@ public class GD_TrangChu extends javax.swing.JFrame {
      * Creates new form GD_TrangChu
      */
     //default test //sau này xóa
-//    NhanVien_Dao nv_dao = new NhanVien_Dao();
-//    NhanVien nhanVien = nv_dao.getNhanVien("NV1181524049", "12345678");
-    //dùng cho run
-//    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
+    private NhanVien nhanVien;
     private ArrayList<JButton> tabs = new ArrayList<>();
 
     public GD_TrangChu() {
-//        Test thử và oke
-//        System.out.println(utils.AppUtils.NHANVIEN.getHoTen());
-        Persistence.createEntityManagerFactory("QLNH_mssql");
-//        nhanVienDAO.insert(new NhanVien());   
-//        NhanVien nv = (NhanVien) nhanVienDAO.findById("123", NhanVien.class);
+
+        INhanVienDAO nv_dao = new NhanVienDAO();
+        nhanVien = (NhanVien) nv_dao.findById("NV120060424290", NhanVien.class);
+        AppUtils.saveStorage(nhanVien);
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
-
 //        setResizable(false);
 //        label_AVT.setText(nhanVien.getHoTen());
 //        UIManager.put( "Menu.selectionBackground", Color.cyan );
@@ -59,11 +54,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
     //dùng cho đi từ login vào
     public GD_TrangChu(NhanVien nv) {
         set_up_UI();
-//        setUI(new GD_Order());
-//        nhanVien = nv;
-//        NhanVien_Dao nvd = new NhanVien_Dao();
-//        label_AVT.setText(nv.getHoTen());
-
+        nhanVien = nv;
+        label_AVT.setText(nv.getHoTen());
     }
 
     private void set_up_UI() {
@@ -83,6 +75,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         tabs.add(buttonDatMon);
         tabs.add(buttonHome);
         tabs.add(buttonThongKe);
+        label_AVT.setText(nhanVien.getHoTen());
         ///////////////////////////////////////////////////////////////////////////////////////////////
         TransparentPopupMenu popupMenu = new TransparentPopupMenu();
         popupMenu.setBackground(new Color(1, 1, 1, 0));
@@ -381,7 +374,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatMonActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, new GD_QuanLyDatMon(mainJpanel));
+        utils.AppUtils.setUI(mainJpanel, new GD_QuanLyDatMon(mainJpanel, nhanVien));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatMonActionPerformed
 
@@ -439,13 +432,15 @@ public class GD_TrangChu extends javax.swing.JFrame {
         }
         //</editor-fold>
 //        Persistence.createEntityManagerFactory("QLNH_mssql");
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GD_TrangChu().setVisible(true);
             }
         });
+    }
+
+    public NhanVien getNhanVien() {
+        return nhanVien;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

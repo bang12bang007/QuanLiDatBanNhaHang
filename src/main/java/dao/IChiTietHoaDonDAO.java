@@ -4,16 +4,16 @@
  */
 package dao;
 
-import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import java.util.List;
 
 /**
- *
- * @author Laptop
+ * @author dmx
  */
 public interface IChiTietHoaDonDAO<T> extends GenericDAO<T> {
 
-    List<T> findByMaHoaDon(HoaDon hoaDon);
+    Double TotalFoodCurrency(HoaDon hoaDon);
+
+    List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon);
 }
