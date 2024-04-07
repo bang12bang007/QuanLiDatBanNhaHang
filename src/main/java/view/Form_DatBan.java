@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 
 /**
  *
@@ -30,8 +31,8 @@ public class Form_DatBan extends javax.swing.JPanel {
     private JPanel mainJpanel;
     private static final Color TRANSPERANT = new Color(0, 0, 0, 0);
 
-    public Form_DatBan(JFrame jFrame,NhanVien nv) {
-        this.nv = nv;
+    public Form_DatBan(JFrame jFrame) {
+        this.nv = AppUtils.NHANVIEN;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         this.jFrame = jFrame;

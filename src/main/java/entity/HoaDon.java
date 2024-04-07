@@ -65,15 +65,7 @@ public class HoaDon {
     private LoaiTrangThaiHoaDon trangThai;
     @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
-
-    public HoaDon(NhanVien nhanVien, KhachHang khachHang, KhuyenMai khuyenMai, DichVu dichVu, LocalDate ngayLapHoaDon) {
-        this.nhanVien = nhanVien;
-        this.khachHang = khachHang;
-        this.khuyenMai = khuyenMai;
-        this.dichVu = dichVu;
-        this.ngayLapHoaDon = ngayLapHoaDon;
-    }
-
+    
     public HoaDon(NhanVien nhanVien, LocalDate ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
         this.nhanVien = nhanVien;
         this.ngayLapHoaDon = ngayLapHoaDon;

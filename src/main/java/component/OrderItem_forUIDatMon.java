@@ -4,21 +4,27 @@
  */
 package component;
 
+import LIB.FadeEffect;
 import entity.Mon;
 import icon.FontAwesome;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import jiconfont.swing.IconFontSwing;
+import view.Form_DatBan;
+import view.Form_HuyMon;
 import view.GD_DatMon;
 
 /**
@@ -233,15 +239,18 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private void huyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseClicked
         // TODO add your handling code here:
         if (type.equals("BUTTON")) {
-            int quantity = 0;
-            soLuong.setText(" "+Integer.toString(quantity));
-            tongTien = quantity*gia;
-            donGia.setText("  0,0VNĐ");
-            datMon.setList_quantity(getListQuantity());
-            updateTongTien();
+            JFrame jFrame = new JFrame();
+            jFrame.setUndecorated(true);
+            jFrame.setExtendedState(MAXIMIZED_BOTH);
+            jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_HuyMon form_HuyMon = new Form_HuyMon(jFrame,this);
+            jFrame.add(form_HuyMon,BorderLayout.CENTER);
+            jFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+            jFrame.setVisible(true);
         }
     }//GEN-LAST:event_huyMouseClicked
-
+    
     private void huyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseEntered
         // TODO add your handling code here:
 //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 20));
@@ -340,6 +349,14 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             soLuong.requestFocus();
         }
     };
+    public void updateForDelete(){
+        int quantity = 0;
+        soLuong.setText(" "+Integer.toString(quantity));
+        tongTien = quantity*gia;
+        donGia.setText("  0,0VNĐ");
+        datMon.setList_quantity(getListQuantity());
+        updateTongTien();
+    }
     private void soLuongMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_soLuongMouseEntered

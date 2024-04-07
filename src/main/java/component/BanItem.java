@@ -5,6 +5,7 @@
 package component;
 
 import LIB.FadeEffect;
+import entity.Ban;
 import entity.NhanVien;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -33,10 +34,10 @@ public class BanItem extends javax.swing.JPanel {
     private String maBan;
     private NhanVien nv;
 
-    public BanItem(String maBan, int trangThai, JPanel main, String type) {
+    public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
         this.type = type;
-        this.maBan = maBan;
+        this.maBan = ban.getMaBan();
         this.nv = AppUtils.NHANVIEN;
         initComponents();
         jLabel1.setText(maBan);
@@ -121,7 +122,7 @@ public class BanItem extends javax.swing.JPanel {
                 jFrame.setUndecorated(true);
                 jFrame.setExtendedState(MAXIMIZED_BOTH);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_DatBan form_DatBan = new Form_DatBan(jFrame,nv);
+                Form_DatBan form_DatBan = new Form_DatBan(jFrame);
                 form_DatBan.setMainJpanel(main);
                 jFrame.add(form_DatBan);
                 jFrame.setBackground(new Color(0, 0, 0, 0));
