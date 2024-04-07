@@ -25,8 +25,11 @@ utils\Enum$LoaiVaiTro.class
 view\GD_TrangChu$8.class
 utils\Enum$LoaiTrangThaiMon.class
 view\Form_DatBan$8.class
+component\ComboSuggestionUI.class
 component\BanItem.class
+component\ComboSuggestionUI$ComboSuggestionPopup.class
 component\ModernScrollBarUI$ScrollBarButton.class
+component\ComboSuggestionUI$1.class
 utils\ModelColor.class
 view\Form_ThuTien$1.class
 view\GD_DatMon$9.class
@@ -67,6 +70,7 @@ entity\HoaDon.class
 view\Form_ThuTien$6.class
 view\Form_DatBan$9.class
 view\GD_QuanLyDatMon$4.class
+view\Form_DatBan$10.class
 entity\ChiTietHoaDon.class
 view\GD_TrangChu$4.class
 component\BookingItem$2.class
@@ -121,6 +125,7 @@ entity\Ban.class
 component\Food.class
 component\OrderCard$3.class
 datechooser\DateChooser.class
+component\ComboSuggestionUI$ArrowButton.class
 view\GD_DatMon$7.class
 component\MenuItem$1.class
 datechooser\DateChooser$7.class
@@ -167,6 +172,7 @@ view\UIUpdatable.class
 view\GD_DatBan$3.class
 utils\Enum$LoaiKhuyenMai.class
 view\Form_XemThucDon$6.class
+component\ComboSuggestionUI$2.class
 view\GD_DatBan$6.class
 component\OrderCard$1.class
 view\Form_ThuTien.class
@@ -204,6 +210,7 @@ component\BanItem$2.class
 dao\imlp\MonDAO.class
 entity\DichVu.class
 view\Form_XemThucDon$4.class
+component\ComboBoxSuggestion.class
 dao\imlp\PhieuDatBanDAO.class
 view\GD_DatBan.class
 view\GD_QuanLyDatMon$8.class

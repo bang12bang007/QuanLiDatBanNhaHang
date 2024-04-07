@@ -39,19 +39,7 @@ public class ComboSuggestionUI extends BasicComboBoxUI {
     @Override
     public void installUI(JComponent jc) {
         super.installUI(jc);
-        Border border = new Border();
         JTextField txt = (JTextField) comboBox.getEditor().getEditorComponent();
-        txt.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-                border.setColor(new Color(128, 189, 255));
-            }
-
-            @Override
-            public void focusLost(FocusEvent fe) {
-                border.setColor(new Color(206, 212, 218));
-            }
-        });
         comboBox.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent pme) {
@@ -69,10 +57,9 @@ public class ComboSuggestionUI extends BasicComboBoxUI {
             }
         });
         AutoCompleteDecorator.decorate(comboBox);
-        txt.setSelectionColor(new Color(54, 189, 248));
+        txt.setSelectionColor(new Color(234, 124, 105));
         txt.setBorder(new EmptyBorder(0, 4, 0, 4));
         comboBox.setBackground(Color.WHITE);
-        comboBox.setBorder(border);
     }
 
     @Override
@@ -100,8 +87,8 @@ public class ComboSuggestionUI extends BasicComboBoxUI {
                 }
                 if (bln) {
                     label.setOpaque(true);
-                    label.setBackground(new Color(240, 240, 240));
-                    label.setForeground(new Color(17, 155, 215));
+                    label.setBackground(new Color(234, 124, 105));
+                    label.setForeground(Color.WHITE);
                 }
                 return label;
             }
@@ -116,7 +103,6 @@ public class ComboSuggestionUI extends BasicComboBoxUI {
 
         public ComboSuggestionPopup(JComboBox combo) {
             super(combo);
-            setBorder(new Border(1));
         }
 
         @Override
@@ -157,49 +143,6 @@ public class ComboSuggestionUI extends BasicComboBoxUI {
             int py[] = {y, y, y + sizeY};
             g2.setColor(getBackground());
             g2.fillPolygon(px, py, px.length);
-            g2.dispose();
-        }
-    }
-
-    private class Border extends EmptyBorder {
-
-        public Color getFocusColor() {
-            return focusColor;
-        }
-
-        public void setFocusColor(Color focusColor) {
-            this.focusColor = focusColor;
-        }
-
-        public Color getColor() {
-            return color;
-        }
-
-        public void setColor(Color color) {
-            this.color = color;
-        }
-
-        private Color focusColor = new Color(128, 189, 255);
-        private Color color = new Color(206, 212, 218);
-
-        public Border(int border) {
-            super(border, border, border, border);
-        }
-
-        public Border() {
-            this(5);
-        }
-
-        @Override
-        public void paintBorder(Component cmpnt, Graphics grphcs, int x, int y, int width, int height) {
-            Graphics2D g2 = (Graphics2D) grphcs.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            if (cmpnt.isFocusOwner()) {
-                g2.setColor(focusColor);
-            } else {
-                g2.setColor(color);
-            }
-            g2.drawRect(x, y, width - 1, height - 1);
             g2.dispose();
         }
     }

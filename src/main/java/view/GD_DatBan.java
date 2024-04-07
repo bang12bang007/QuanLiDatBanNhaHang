@@ -5,17 +5,18 @@
 package view;
 
 import component.BookingItem;
-import component.Loading;
 import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IBanDAO;
+import dao.IChiTietHoaDonDAO;
 import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
+import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.PhieuDatBanDAO;
+import entity.ChiTietHoaDon;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +41,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private ArrayList<BookingItem> bookingItems = new ArrayList<>();
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
     private IBanDAO banDAO = new BanDAO();
+    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
@@ -84,8 +86,10 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         date = new component.PanelRound();
+        calender = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         state = new component.PanelRound();
+        comboBoxSuggestion1 = new component.ComboBoxSuggestion();
         jLabel3 = new javax.swing.JLabel();
         txtTKKH = new component.PanelRound();
         btnSearch = new component.MyButton();
@@ -143,11 +147,13 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         date.setLayout(dateLayout);
         dateLayout.setHorizontalGroup(
             dateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dateLayout.createSequentialGroup()
+                .addGap(0, 135, Short.MAX_VALUE)
+                .addComponent(calender, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         dateLayout.setVerticalGroup(
             dateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addComponent(calender, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -164,11 +170,11 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         state.setLayout(stateLayout);
         stateLayout.setHorizontalGroup(
             stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
+            .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
         );
         stateLayout.setVerticalGroup(
             stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -185,7 +191,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         txtTKKH.setLayout(txtTKKHLayout);
         txtTKKHLayout.setHorizontalGroup(
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
         );
         txtTKKHLayout.setVerticalGroup(
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +406,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         table.setLayout(tableLayout);
         tableLayout.setHorizontalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 1126, Short.MAX_VALUE)
+            .addComponent(tableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(tableService, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tableHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -448,14 +454,12 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
         yeuCauDatMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         yeuCauDatMon.setForeground(new java.awt.Color(255, 255, 255));
-        yeuCauDatMon.setText("Sushi cá hồi");
 
         yeuCauKhac.setForeground(new java.awt.Color(255, 255, 255));
         yeuCauKhac.setText("    ");
 
         ban.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         ban.setForeground(new java.awt.Color(255, 255, 255));
-        ban.setText("#3 - Tầng 1");
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
@@ -469,26 +473,30 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ban)
-                    .addComponent(yeuCauDatMon)
-                    .addComponent(yeuCauKhac))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(footerLayout.createSequentialGroup()
+                        .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(yeuCauDatMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(yeuCauKhac, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         footerLayout.setVerticalGroup(
             footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(footerLayout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
-                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(ban))
+                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4))
                 .addGap(14, 14, 14)
                 .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(yeuCauDatMon))
+                    .addComponent(yeuCauDatMon, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(yeuCauKhac))
+                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(yeuCauKhac))
+                .addGap(22, 22, 22))
         );
 
         btnDownTable.setBackground(new java.awt.Color(83, 86, 99));
@@ -625,6 +633,18 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.revalidate();
     }
 
+    public void setInfoForActiveItem(PhieuDatBan phieuDatBan) {
+        String yeuCauDatMon = "";
+        List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.findByMaHoaDon(phieuDatBan.getBan().getHoaDon());
+        for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
+            String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
+            yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
+        }
+        ban.setText(phieuDatBan.getBan().getMaBan() + " - Tầng " + phieuDatBan.getBan().getMaTang());
+        this.yeuCauDatMon.setText(yeuCauDatMon);
+        yeuCauKhac.setText(phieuDatBan.getYeuCauKhac());
+    }
+
     private String[] getContents(PhieuDatBan phieuDatBan) {
         return new String[]{phieuDatBan.getNgayGioDat().toString(), phieuDatBan.getHoTen(), phieuDatBan.getSoLuongNguoi() + "", phieuDatBan.getTrangThai() == 0 ? "Chưa nhận bàn" : "", phieuDatBan.getTienDatCoc() + ""};
     }
@@ -637,6 +657,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private component.MyButton btnSearch;
     private javax.swing.JLabel btnThayDoi;
     private component.MyButton btnUpTable;
+    private javax.swing.JLabel calender;
+    private component.ComboBoxSuggestion comboBoxSuggestion1;
     private component.PanelRound container;
     private component.PanelRound date;
     private javax.swing.JPanel footer;

@@ -18,7 +18,7 @@ public class Enum {
     };
 
     public static enum LoaiTrangThai {
-        BAN_CO_KHACH, BAN_TRONG, BAN_DA_DUOC_DAT, DAT_TRUOC;
+        BAN_CO_KHACH, BAN_TRONG, BAN_DA_DUOC_DAT;
     };
 
     public static enum LoaiTrangThaiMon {
@@ -30,7 +30,7 @@ public class Enum {
     };
 
     public static enum LoaiTrangThaiHoaDon {
-        DA_THANH_TOAN, HUY_BO, CHO_THANH_TOAN,CHUA_THANH_TOAN;
+        DA_THANH_TOAN, HUY_BO, CHO_THANH_TOAN, CHUA_THANH_TOAN, DAT_TRUOC;
     };
 
     public static enum LoaiVaiTro {

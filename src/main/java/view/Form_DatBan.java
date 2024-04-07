@@ -31,14 +31,19 @@ import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -57,7 +62,12 @@ public class Form_DatBan extends javax.swing.JPanel {
     private static final Color TRANSPERANT = new Color(0, 0, 0, 0);
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
     private IBanDAO banDAO = new BanDAO();
-    
+    private IKhachHangDAO khachHangDAO = new KhachHangDAO();
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private List<String> items = new ArrayList<String>();
+    private List<KhachHang> khachHangs = new ArrayList<KhachHang>();
+    private final static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy hh:mm a", Locale.ENGLISH);
+
     public Form_DatBan(JFrame jFrame, Ban ban) {
         this.jFrame = jFrame;
         this.ban = ban;
@@ -68,7 +78,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnMinus.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 20, Color.WHITE));
         txtSoNguoi.setBackground(TRANSPERANT);
         txtYeuCau.setBackground(TRANSPERANT);
-        txtYeuCauDatMon.setBackground(TRANSPERANT);
+        txtYeuCauDatMon.setBackground(Color.WHITE);
         txtDate.setBackground(TRANSPERANT);
 //        txtGioDen.setBackground(TRANSPERANT);
         txtKhachHang.setBackground(TRANSPERANT);
@@ -88,8 +98,9 @@ public class Form_DatBan extends javax.swing.JPanel {
                     dateChooser.hidePopup();
                 }
             }
-            
+
         });
+        autoComplete();
     }
 
     /**
@@ -116,6 +127,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         panelRound2 = new component.PanelRound();
         iconClock = new javax.swing.JLabel();
+        txtGioDen = new component.ComboBoxSuggestion();
         panelRound3 = new component.PanelRound();
         txtKhachHang = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -231,6 +243,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ngày");
 
+        panelRound1.setBackground(java.awt.Color.white);
         panelRound1.setRoundBottomLeft(8);
         panelRound1.setRoundBottomRight(8);
         panelRound1.setRoundTopLeft(8);
@@ -266,6 +279,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Giờ đến");
 
+        panelRound2.setBackground(java.awt.Color.white);
         panelRound2.setRoundBottomLeft(8);
         panelRound2.setRoundBottomRight(8);
         panelRound2.setRoundTopLeft(8);
@@ -273,19 +287,27 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         iconClock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        txtGioDen.setBorder(null);
+        txtGioDen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12:00 AM", "12:15 AM", "12:30 AM", "12:45 AM", "1:00 AM", "1:15 AM", "1:30 AM", "1:45 AM", "2:00 AM", "2:15 AM", "2:30 AM", "2:45 AM", "3:00 AM", "3:15 AM", "3:30 AM", "3:45 AM", "4:00 AM", "4:15 AM", "4:30 AM", "4:45 AM", "5:00 AM", "5:15 AM", "5:30 AM", "5:45 AM", "6:00 AM", "6:15 AM", "6:30 AM", "6:45 AM", "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM", "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM", "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "1:00 PM", "1:15 PM", "1:30 PM", "1:45 PM", "2:00 PM", "2:15 PM", "2:30 PM", "2:45 PM", "3:00 PM", "3:15 PM", "3:30 PM", "3:45 PM", "4:00 PM", "4:15 PM", "4:30 PM", "4:45 PM", "5:00 PM", "5:15 PM", "5:30 PM", "5:45 PM", "6:00 PM", "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", "7:30 PM", "7:45 PM", "8:00 PM", "8:15 PM", "8:30 PM", "8:45 PM", "9:00 PM", "9:15 PM", "9:30 PM", "9:45 PM", "10:00 PM", "10:15 PM", "10:30 PM", "10:45 PM", "11:00 PM", "11:15 PM", "11:30 PM", "11:45 PM" }));
+        txtGioDen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
         panelRound2Layout.setHorizontalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
-                .addContainerGap(205, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(txtGioDen, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(iconClock, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(iconClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtGioDen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        panelRound3.setBackground(java.awt.Color.white);
         panelRound3.setRoundBottomLeft(8);
         panelRound3.setRoundBottomRight(8);
         panelRound3.setRoundTopLeft(8);
@@ -293,6 +315,11 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         txtKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtKhachHang.setBorder(null);
+        txtKhachHang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKhachHangKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
@@ -315,6 +342,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Số điện thoại");
 
+        panelRound4.setBackground(java.awt.Color.white);
         panelRound4.setRoundBottomLeft(8);
         panelRound4.setRoundBottomRight(8);
         panelRound4.setRoundTopLeft(8);
@@ -340,13 +368,17 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Yêu cầu đặt món");
 
+        yeuCauDatMon.setBackground(java.awt.Color.white);
         yeuCauDatMon.setRoundBottomLeft(8);
         yeuCauDatMon.setRoundBottomRight(8);
         yeuCauDatMon.setRoundTopLeft(8);
         yeuCauDatMon.setRoundTopRight(8);
 
+        scrollYCMD.setBackground(new java.awt.Color(255, 255, 255));
         scrollYCMD.setBorder(null);
 
+        txtYeuCauDatMon.setEditable(false);
+        txtYeuCauDatMon.setBackground(java.awt.Color.white);
         txtYeuCauDatMon.setColumns(4);
         txtYeuCauDatMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtYeuCauDatMon.setLineWrap(true);
@@ -375,6 +407,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Yêu cầu khác");
 
+        yeuCauKhac.setBackground(java.awt.Color.white);
         yeuCauKhac.setRoundBottomLeft(8);
         yeuCauKhac.setRoundBottomRight(8);
         yeuCauKhac.setRoundTopLeft(8);
@@ -401,11 +434,13 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Số người");
 
+        panelRound7.setBackground(new java.awt.Color(255, 255, 255));
         panelRound7.setRoundBottomLeft(8);
         panelRound7.setRoundBottomRight(8);
         panelRound7.setRoundTopLeft(8);
         panelRound7.setRoundTopRight(8);
 
+        txtSoNguoi.setBackground(java.awt.Color.white);
         txtSoNguoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtSoNguoi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSoNguoi.setText("1");
@@ -586,16 +621,25 @@ public class Form_DatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXemThucDonActionPerformed
 
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
-        // TODO add your handling code here:
+
         SelectedDate date = dateChooser.getSelectedDate();
         Date ngay = new Date(date.getYear(), date.getMonth(), date.getDay());
+        String gioDen = txtGioDen.getSelectedItem() + "";
         String khachHang = txtKhachHang.getText();
         String sdt = txtSoDienThoai.getText();
         int soLuong = Integer.parseInt(txtSoNguoi.getText());
         int trangThai = 0;
         double tienDatCoc = 0;
         String yeuCauKhac = txtYeuCau.getText();
-        PhieuDatBan phieuDatBan = new PhieuDatBan(ngay, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
+        String dateString = ngay + " " + gioDen;
+        Date ngayGio = null;
+        try {
+            ngayGio = FORMATTER.parse(dateString);
+            System.out.println("Date: " + ngayGio);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        PhieuDatBan phieuDatBan = new PhieuDatBan(ngayGio, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
         phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
         if (!dsMon.isEmpty()) {
             IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
@@ -605,9 +649,9 @@ public class Form_DatBan extends javax.swing.JPanel {
             NhanVien nv = (NhanVien) nhanVienDAO.findById("NV120060424290", NhanVien.class);
             KhachHang kh = (KhachHang) khachHangDAO.findById("KH384851291", KhachHang.class);
             hoaDon = new HoaDon(nv, kh, null, null, new Date());
+            hoaDon.setMaHoaDon(createMaHoaDon(ngayGio));
             hoaDon.setBan(ban);
-            hoaDon.setMaHoaDon("HD240406082");
-            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN);
+            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
             hoaDonDAO.insert(hoaDon);
             for (MenuItem item : dsMon) {
                 ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
@@ -623,6 +667,19 @@ public class Form_DatBan extends javax.swing.JPanel {
         this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel));
     }//GEN-LAST:event_btnCatActionPerformed
+
+    private String createMaHoaDon(Date date) {
+        int count = hoaDonDAO.findAll(HoaDon.class).size();
+        String stt = "";
+        if (count + 1 < 10) {
+            stt += "00" + ++count;
+        } else if (count + 1 < 100) {
+            stt += "0" + ++count;
+        } else {
+            stt += ++count;
+        }
+        return "HD" + date.getYear() % 100 + date.getMonth() + 1 + date.getDate() + date.getHours() + stt;
+    }
 
     private void txtSoNguoiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoNguoiKeyTyped
         // TODO add your handling code here:
@@ -641,7 +698,29 @@ public class Form_DatBan extends javax.swing.JPanel {
         // TODO add your handling code here:
         dateChooser.showPopup();
     }//GEN-LAST:event_calendarMouseClicked
-    
+
+    private void autoComplete() {
+        khachHangs = khachHangDAO.findAll(KhachHang.class);
+        for (KhachHang khachHang : khachHangs) {
+            items.add((khachHang).getTenKH());
+        }
+        AutoCompleteDecorator.decorate(txtKhachHang, items, false);
+
+    }
+
+    private void txtKhachHangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachHangKeyReleased
+        String value = txtKhachHang.getText();
+        if (items.contains(value)) {
+            for (KhachHang kh : khachHangs) {
+                if (kh.getTenKH().equals(value)) {
+                    txtSoDienThoai.setText(kh.getSdt());
+                    break;
+                }
+
+            }
+        }
+    }//GEN-LAST:event_txtKhachHangKeyReleased
+
     public void setMainJpanel(JPanel main) {
         this.mainJpanel = main;
     }
@@ -673,6 +752,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     private component.PanelRound panelRound7;
     private javax.swing.JScrollPane scrollYCMD;
     private javax.swing.JTextField txtDate;
+    private component.ComboBoxSuggestion txtGioDen;
     private javax.swing.JTextField txtKhachHang;
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtSoNguoi;

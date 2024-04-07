@@ -12,6 +12,8 @@ import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
 import view.GD_DatBan;
@@ -66,7 +68,7 @@ public class BookingItem extends javax.swing.JPanel {
     }
 
     private void push(String[] data) {
-        gioDen.setText("   " + data[0]);
+        gioDen.setText("   " + forrmater(data[0]));
         khachHang.setText(data[1]);
         soNguoi.setText(data[2]);
         trangThai.setText(data[3]);
@@ -199,6 +201,7 @@ public class BookingItem extends javax.swing.JPanel {
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
         // TODO add your handling code here:
         GD.setBookingActive(index);
+        GD.setInfoForActiveItem(phieuDatBan);
     }//GEN-LAST:event_wrapperMouseClicked
 
     private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
@@ -208,6 +211,20 @@ public class BookingItem extends javax.swing.JPanel {
         GD.deleteBooking();
     }//GEN-LAST:event_btnNhanBanActionPerformed
 
+    private String forrmater(String date) {
+        String dateTimeString = date;
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a");
+        String formattedTime = "";
+        try {
+            Date dateTime = inputFormat.parse(dateTimeString);
+            formattedTime = outputFormat.format(dateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return formattedTime;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnGoiMon;
