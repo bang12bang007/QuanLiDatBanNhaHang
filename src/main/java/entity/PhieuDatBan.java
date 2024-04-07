@@ -44,18 +44,19 @@ public class PhieuDatBan {
     @Column(name = "TienDatCoc", nullable = false)
     private double tienDatCoc;
     @Column(name = "YeuCauKhac", columnDefinition = "NVARCHAR(255)", nullable = true)
-    private String yeuCauKhach;
+    private String yeuCauKhac;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBan")
     private Ban ban;
 
-    public PhieuDatBan(Date ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, Ban ban) {
+    public PhieuDatBan(Date ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, String yeuCauKhac, Ban ban) {
         this.ngayGioDat = ngayGioDat;
         this.soLuongNguoi = soLuongNguoi;
         this.hoTen = hoTen;
         this.sdt = sdt;
         this.trangThai = trangThai;
         this.tienDatCoc = tienDatCoc;
+        this.yeuCauKhac = yeuCauKhac;
         this.ban = ban;
     }
 

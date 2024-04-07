@@ -5,7 +5,6 @@
 package dao.imlp;
 
 import dao.IMonDAO;
-import entity.LoaiMon;
 import entity.Mon;
 import java.util.List;
 
@@ -18,5 +17,9 @@ public class MonDAO extends AbstractDAO<Mon> implements IMonDAO<Mon>{
         return em.createNamedQuery("Mon.Service", Mon.class)
                 .setParameter("trangThai",utils.Enum.LoaiTrangThaiMon.DANG_KINH_DOANH)
                 .getResultList();
+    };
+
+    public List<Mon> findPopular() {
+        return em.createNamedQuery("Mon.Popular").getResultList();
     };
 }

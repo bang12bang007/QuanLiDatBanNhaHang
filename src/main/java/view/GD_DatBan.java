@@ -58,7 +58,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     }
 
     private void FirstTimeLoadItem() {
-        Timer timer = new Timer(100, new ActionListener() {
+        Timer timer = new Timer(1520, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Thêm mã để kích hoạt action listener tại đây

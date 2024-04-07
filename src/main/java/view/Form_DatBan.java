@@ -26,13 +26,11 @@ import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
-import entity.Mon;
 import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +57,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     private static final Color TRANSPERANT = new Color(0, 0, 0, 0);
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
     private IBanDAO banDAO = new BanDAO();
-
+    
     public Form_DatBan(JFrame jFrame, Ban ban) {
         this.jFrame = jFrame;
         this.ban = ban;
@@ -72,7 +70,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         txtYeuCau.setBackground(TRANSPERANT);
         txtYeuCauDatMon.setBackground(TRANSPERANT);
         txtDate.setBackground(TRANSPERANT);
-        txtGioDen.setBackground(TRANSPERANT);
+//        txtGioDen.setBackground(TRANSPERANT);
         txtKhachHang.setBackground(TRANSPERANT);
         txtSoDienThoai.setBackground(TRANSPERANT);
         scrollYCMD.setVerticalScrollBar(new ScrollBarCustom());
@@ -90,7 +88,7 @@ public class Form_DatBan extends javax.swing.JPanel {
                     dateChooser.hidePopup();
                 }
             }
-
+            
         });
     }
 
@@ -118,7 +116,6 @@ public class Form_DatBan extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         panelRound2 = new component.PanelRound();
         iconClock = new javax.swing.JLabel();
-        txtGioDen = new javax.swing.JTextField();
         panelRound3 = new component.PanelRound();
         txtKhachHang = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -276,23 +273,17 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         iconClock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        txtGioDen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtGioDen.setBorder(null);
-
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
         panelRound2Layout.setHorizontalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtGioDen, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(205, Short.MAX_VALUE)
                 .addComponent(iconClock, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(iconClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(txtGioDen)
         );
 
         panelRound3.setRoundBottomLeft(8);
@@ -603,7 +594,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         int soLuong = Integer.parseInt(txtSoNguoi.getText());
         int trangThai = 0;
         double tienDatCoc = 0;
-        PhieuDatBan phieuDatBan = new PhieuDatBan(ngay, soLuong, khachHang, sdt, 0, tienDatCoc, ban);
+        String yeuCauKhac = txtYeuCau.getText();
+        PhieuDatBan phieuDatBan = new PhieuDatBan(ngay, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
         phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
         if (!dsMon.isEmpty()) {
             IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
@@ -649,7 +641,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         // TODO add your handling code here:
         dateChooser.showPopup();
     }//GEN-LAST:event_calendarMouseClicked
-
+    
     public void setMainJpanel(JPanel main) {
         this.mainJpanel = main;
     }
@@ -681,7 +673,6 @@ public class Form_DatBan extends javax.swing.JPanel {
     private component.PanelRound panelRound7;
     private javax.swing.JScrollPane scrollYCMD;
     private javax.swing.JTextField txtDate;
-    private javax.swing.JTextField txtGioDen;
     private javax.swing.JTextField txtKhachHang;
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtSoNguoi;

@@ -291,7 +291,9 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
         // TODO add your handling code here:
-        AppUtils.setUI(mainPanel, new GD_DatMon(mainPanel, hoaDon.getBan().getMaBan()));
+        GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan().getMaBan());
+        gD_DatMon.setHoaDon(hoaDon);
+        AppUtils.setUI(mainPanel, gD_DatMon);
     }//GEN-LAST:event_panelRound3MouseClicked
 
     private void setIconBtn() {

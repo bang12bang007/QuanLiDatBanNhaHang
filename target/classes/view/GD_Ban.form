@@ -97,7 +97,7 @@
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel5" max="32767" attributes="0"/>
-                          <Component id="panelRound6" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="panelRound6" alignment="0" pref="32" max="32767" attributes="0"/>
                           <Component id="panelRound3" alignment="0" pref="32" max="32767" attributes="0"/>
                           <Component id="panelRound2" alignment="0" pref="32" max="32767" attributes="0"/>
                           <Component id="panelRound1" alignment="0" pref="32" max="32767" attributes="0"/>

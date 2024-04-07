@@ -97,6 +97,7 @@ public class BanItem extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
+
         if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
             ImageIcon handIcon = new ImageIcon("./src/main/java/icon/icon_close.png");
             Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(

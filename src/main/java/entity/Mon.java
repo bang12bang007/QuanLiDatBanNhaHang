@@ -33,7 +33,8 @@ import utils.Enum.LoaiTrangThaiMon;
 @ToString
 @NoArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m WHERE m.trangThai = :trangThai")
+    @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m WHERE m.trangThai = :trangThai"),
+    @NamedQuery(name = "Mon.Popular", query = "SELECT m FROM Mon m WHERE m.soLuongDaDat = (SELECT MAX(m2.soLuongDaDat) from Mon m2)")
 })
 public class Mon {
 

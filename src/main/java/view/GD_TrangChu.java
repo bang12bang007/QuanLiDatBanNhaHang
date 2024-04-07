@@ -436,7 +436,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        Persistence.createEntityManagerFactory("QLNH_mssql");
+//        Persistence.createEntityManagerFactory("QLNH_mssql");
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

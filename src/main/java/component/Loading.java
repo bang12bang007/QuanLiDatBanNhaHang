@@ -23,6 +23,8 @@ public class Loading extends javax.swing.JPanel {
         ImageIcon icon = new javax.swing.ImageIcon(imagePath);
         this.icon.setIcon(icon);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

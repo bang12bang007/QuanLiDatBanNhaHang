@@ -14,6 +14,7 @@ import component.Loading;
 import component.OrderCard;
 import entity.HoaDon;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
+import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import view.UIUpdatable;
 
@@ -150,6 +152,25 @@ public class AppUtils {
         mainJPanel.revalidate();
     }
 
+    public static void setLoadingForTable(JScrollPane mainJPanel, boolean state, Loading loading, JPanel gD_Ban) {
+        if (state) {
+            loading.setPreferredSize(new Dimension(mainJPanel.getWidth(), mainJPanel.getHeight()));
+            mainJPanel.setViewportView(loading);
+            mainJPanel.repaint();
+            mainJPanel.revalidate();
+        } else {
+            mainJPanel.setViewportView(gD_Ban);
+        }
+        mainJPanel.repaint();
+        mainJPanel.revalidate();
+    }
+
+    /**
+     *
+     * @param <T>
+     * @param mainJPanel
+     * @param jpanel
+     */
     public static <T extends JPanel & UIUpdatable> void run(JPanel mainJPanel, T jpanel) {
         Timer timer = new Timer(0, new ActionListener() {
             @Override
@@ -171,35 +192,6 @@ public class AppUtils {
         });
         timer.setRepeats(false);
         timer.start();
-//        Loading loading = new Loading();
-//
-//        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-//            @Override
-//            protected Void doInBackground() throws Exception {
-//                setLoading(mainJPanel, true, loading, jpanel);
-//                jpanel.setUI();
-//                return null;
-//            }
-//
-//            @Override
-//            protected void done() {
-//                try {
-//                    Timer hideTimer = new Timer(1000, new ActionListener() {
-//                        @Override
-//                        public void actionPerformed(ActionEvent e) {
-//                            setLoading(mainJPanel, false, loading, jpanel);
-//                        }
-//                    });
-//                    hideTimer.setRepeats(false);
-//                    hideTimer.start();
-//
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        };
-//
-//        worker.execute();
-
     }
+;
 }
