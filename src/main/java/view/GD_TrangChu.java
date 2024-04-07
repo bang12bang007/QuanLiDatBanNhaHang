@@ -42,6 +42,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
     private ArrayList<JButton> tabs = new ArrayList<>();
 
     public GD_TrangChu() {
+//        Test thử và oke
+//        System.out.println(utils.AppUtils.NHANVIEN.getHoTen());
         Persistence.createEntityManagerFactory("QLNH_mssql");
 //        nhanVienDAO.insert(new NhanVien());   
 //        NhanVien nv = (NhanVien) nhanVienDAO.findById("123", NhanVien.class);
@@ -61,6 +63,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 //        nhanVien = nv;
 //        NhanVien_Dao nvd = new NhanVien_Dao();
 //        label_AVT.setText(nv.getHoTen());
+
     }
 
     private void set_up_UI() {
@@ -95,7 +98,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         logOut.setIconTextGap(10);
         popupMenu.add(thongTin);
         popupMenu.add(logOut);
-        
 
         btnAVT.addMouseListener(new MouseAdapter() {
             @Override
@@ -437,7 +439,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         }
         //</editor-fold>
 //        Persistence.createEntityManagerFactory("QLNH_mssql");
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

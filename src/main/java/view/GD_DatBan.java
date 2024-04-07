@@ -56,6 +56,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableScroll.setVerticalScrollBar(new ScrollBarCustom());
         tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, Color.WHITE));
+        btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 24, Color.WHITE));
         FirstTimeLoadItem();
     }
 
@@ -92,6 +94,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         comboBoxSuggestion1 = new component.ComboBoxSuggestion();
         jLabel3 = new javax.swing.JLabel();
         txtTKKH = new component.PanelRound();
+        jTextField1 = new javax.swing.JTextField();
         btnSearch = new component.MyButton();
         container = new component.PanelRound();
         table = new component.PanelRound();
@@ -137,11 +140,13 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Lọc theo ngày");
 
-        date.setBackground(new java.awt.Color(83, 86, 99));
+        date.setBackground(new java.awt.Color(255, 255, 255));
         date.setRoundBottomLeft(8);
         date.setRoundBottomRight(8);
         date.setRoundTopLeft(8);
         date.setRoundTopRight(8);
+
+        calender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout dateLayout = new javax.swing.GroupLayout(date);
         date.setLayout(dateLayout);
@@ -160,17 +165,24 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Trạng thái");
 
-        state.setBackground(new java.awt.Color(83, 86, 99));
+        state.setBackground(new java.awt.Color(255, 255, 255));
         state.setRoundBottomLeft(8);
         state.setRoundBottomRight(8);
         state.setRoundTopLeft(8);
         state.setRoundTopRight(8);
 
+        comboBoxSuggestion1.setBorder(null);
+        comboBoxSuggestion1.setEditable(false);
+        comboBoxSuggestion1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chưa nhận bàn", "Đã nhận bàn" }));
+
         javax.swing.GroupLayout stateLayout = new javax.swing.GroupLayout(state);
         state.setLayout(stateLayout);
         stateLayout.setHorizontalGroup(
             stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stateLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addContainerGap())
         );
         stateLayout.setVerticalGroup(
             stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,21 +193,28 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Khách hàng/SĐT");
 
-        txtTKKH.setBackground(new java.awt.Color(83, 86, 99));
+        txtTKKH.setBackground(new java.awt.Color(255, 255, 255));
         txtTKKH.setRoundBottomLeft(8);
         txtTKKH.setRoundBottomRight(8);
         txtTKKH.setRoundTopLeft(8);
         txtTKKH.setRoundTopRight(8);
 
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jTextField1.setText("jTextField1");
+        jTextField1.setBorder(null);
+
         javax.swing.GroupLayout txtTKKHLayout = new javax.swing.GroupLayout(txtTKKH);
         txtTKKH.setLayout(txtTKKHLayout);
         txtTKKHLayout.setHorizontalGroup(
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtTKKHLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
         );
         txtTKKHLayout.setVerticalGroup(
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         btnSearch.setBorder(null);
@@ -489,9 +508,9 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
                     .addComponent(ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4))
                 .addGap(14, 14, 14)
-                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(yeuCauDatMon, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(yeuCauDatMon, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(14, 14, 14)
                 .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -678,6 +697,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jTextField1;
     private component.PanelRound state;
     private component.PanelRound table;
     private javax.swing.JPanel tableBody;

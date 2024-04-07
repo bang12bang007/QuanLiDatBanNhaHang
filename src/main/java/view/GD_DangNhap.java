@@ -4,6 +4,8 @@
  */
 package view;
 
+import dao.INhanVienDAO;
+import dao.imlp.NhanVienDAO;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import icon.FontAwesome;
@@ -12,6 +14,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import jiconfont.swing.IconFontSwing;
 import static utils.AppUtils.FONT;
+import static utils.AppUtils.*;
 
 /**
  *
@@ -22,6 +25,9 @@ public class GD_DangNhap extends javax.swing.JFrame {
     /**
      * Creates new form GD_DangNhap
      */
+//    T test nhân viên bằng cách tìm nhân viên
+    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
+
     public GD_DangNhap() {
         initComponents();
 //        nhanVien_Dao.insertNhanVien(new NhanVien("Ngo Dang Khoa", "QN", 1, 18, "0796798049", new Date(), 0, 1));
@@ -206,6 +212,8 @@ public class GD_DangNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tenDangNhap = this.tenDangNhap.getText();
         String matKhau = this.matKhau.getText();
+        saveStorage((NhanVien) nhanVienDAO.findById("NV120060424290", NhanVien.class));
+        new GD_TrangChu().setVisible(true);
 //        if(nv==null) {
 //            JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
 //        } else {
