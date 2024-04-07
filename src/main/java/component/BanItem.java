@@ -5,6 +5,7 @@
 package component;
 
 import LIB.FadeEffect;
+import entity.NhanVien;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -30,11 +31,13 @@ public class BanItem extends javax.swing.JPanel {
     private String type;
     private String image_type;
     private String maBan;
+    private NhanVien nv;
 
-    public BanItem(String maBan, int trangThai, JPanel main, String type) {
+    public BanItem(String maBan, int trangThai, JPanel main, String type,NhanVien nv) {
         this.main = main;
         this.type = type;
         this.maBan = maBan;
+        this.nv = nv;
         initComponents();
         jLabel1.setText(maBan);
 
@@ -118,7 +121,7 @@ public class BanItem extends javax.swing.JPanel {
                 jFrame.setUndecorated(true);
                 jFrame.setExtendedState(MAXIMIZED_BOTH);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_DatBan form_DatBan = new Form_DatBan(jFrame);
+                Form_DatBan form_DatBan = new Form_DatBan(jFrame,nv);
                 form_DatBan.setMainJpanel(main);
                 jFrame.add(form_DatBan);
                 jFrame.setBackground(new Color(0, 0, 0, 0));
@@ -127,8 +130,8 @@ public class BanItem extends javax.swing.JPanel {
                 break;
             }
             case "DAT_MON": {
-                if (!image_type.equals("/images/my_table_gray.png")) {
-                    AppUtils.setUI(main, new GD_DatMon(main, maBan));
+                if (image_type.equals("/images/my_table_blue.png")) {
+                    AppUtils.setUI(main, new GD_DatMon(main, maBan,nv,utils.Enum.DatMon_ThemMon.DATMON));
                 }
                 break;
             }

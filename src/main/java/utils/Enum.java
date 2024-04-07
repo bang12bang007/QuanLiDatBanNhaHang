@@ -48,4 +48,8 @@ public class Enum {
     public static enum LoaiTrangThaiKhuyenMai {
         HET_HAN, CON_AP_DUNG, TAM_NGUNG;
     };
+
+    public static enum DatMon_ThemMon {
+        DATMON,THEMMON;
+    };
 }

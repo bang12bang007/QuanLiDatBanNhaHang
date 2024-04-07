@@ -7,9 +7,9 @@ package component;
 import entity.HoaDon;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.text.DecimalFormat;
 import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
-import static utils.AppUtils.setUI;
 import view.GD_ThanhToan;
 
 /**
@@ -24,16 +24,21 @@ public class OrderCard extends javax.swing.JPanel {
     
     private JPanel mainPanel;
     private HoaDon hoaDon;
+    private Double total = 0.0;
+    private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
     public OrderCard() {
         initComponents();
         setIconBtn();
     }
     
-    public OrderCard(HoaDon hoaDon, JPanel main) {
+    public OrderCard(HoaDon hoaDon, JPanel main,Double total) {
         mainPanel = main;
         this.hoaDon = hoaDon;
+        this.total = total;
         initComponents();
         setIconBtn();
+        jLabel2.setText(hoaDon.getBan().getMaBan());
+        jLabel3.setText(tien_format.format(total));
     }
 
     /**

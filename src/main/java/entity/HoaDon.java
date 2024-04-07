@@ -13,8 +13,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
@@ -32,6 +35,10 @@ import utils.Enum.LoaiTrangThaiHoaDon;
 @ToString
 @NoArgsConstructor
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "HoaDon.Last", query = "SELECT h FROM HoaDon h ORDER BY h.maHoaDon DESC"),
+    @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai")
+})
 public class HoaDon {
     @Id
     @Column(name="MaHoaDon",nullable = false)
@@ -49,9 +56,9 @@ public class HoaDon {
     @JoinColumn(name = "MaDichVu",nullable = true)
     private DichVu dichVu;
     @Column(name="NgayLapHoaDon",nullable = false)
-    private Date ngayLapHoaDon;
-    @OneToOne
-    @JoinColumn(name = "MaBan", unique = true, nullable = false)
+    private LocalDate ngayLapHoaDon;
+    @ManyToOne
+    @JoinColumn(name = "MaBan", nullable = false)
     private Ban ban;
     @Column(name="TrangThai",nullable = false)
     @Enumerated(EnumType.ORDINAL)
@@ -59,11 +66,18 @@ public class HoaDon {
     @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
 
-    public HoaDon(NhanVien nhanVien, KhachHang khachHang, KhuyenMai khuyenMai, DichVu dichVu, Date ngayLapHoaDon) {
+    public HoaDon(NhanVien nhanVien, KhachHang khachHang, KhuyenMai khuyenMai, DichVu dichVu, LocalDate ngayLapHoaDon) {
         this.nhanVien = nhanVien;
         this.khachHang = khachHang;
         this.khuyenMai = khuyenMai;
         this.dichVu = dichVu;
         this.ngayLapHoaDon = ngayLapHoaDon;
+    }
+
+    public HoaDon(NhanVien nhanVien, LocalDate ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
+        this.nhanVien = nhanVien;
+        this.ngayLapHoaDon = ngayLapHoaDon;
+        this.ban = ban;
+        this.trangThai = trangThai;
     }
 }

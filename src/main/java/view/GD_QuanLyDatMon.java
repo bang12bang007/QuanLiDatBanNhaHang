@@ -7,7 +7,12 @@ package view;
 import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IChiTietHoaDonDAO;
+import dao.IHoaDonDAO;
+import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.HoaDonDAO;
 import entity.HoaDon;
+import entity.NhanVien;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -17,7 +22,9 @@ import jiconfont.swing.IconFontSwing;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import utils.AppUtils;
+import java.util.List;
 
 /**
  *
@@ -29,9 +36,12 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
      * Creates new form GD_Order
      */
     private JPanel mainPanel;
+    private NhanVien nv;
+    private List<HoaDon> hoadons;
 
-    public GD_QuanLyDatMon(JPanel main) {
+    public GD_QuanLyDatMon(JPanel main,NhanVien nv) {
         this.mainPanel = main;
+        this.nv = nv;
         initComponents();
         txtMaBan.setBackground(new Color(0, 0, 0, 1));
         this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
@@ -43,6 +53,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
         btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
         btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+        loadOrdering();
     }
 
     /**
@@ -348,7 +359,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
 //        main.setLayout(new GridLayout(row, orderNumbers++));
         HoaDon hoaDon = new HoaDon(null, null, null, null, null);
         hoaDon.setMaHoaDon("OKE" + count++);
-        OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+        OrderCard orderCard = new OrderCard(hoaDon, mainPanel,0.0);
         main.add(orderCard);
         main.repaint();
         main.revalidate();
@@ -386,12 +397,26 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON"));
+        AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON",nv));
 //        repaint();
 //        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed
-
-
+    
+    public void loadOrdering(){
+        IHoaDonDAO dao = new HoaDonDAO();
+        IChiTietHoaDonDAO chiTietDAO = new ChiTietHoaDonDAO();
+        hoadons = dao.findOnOrder();
+        
+        for(HoaDon h:hoadons){
+            Double total = chiTietDAO.TotalFoodCurrency(h);
+            main.add(new OrderCard(h,main,total));
+        }
+    }
+    
+    public void setNv(NhanVien nv) {
+        this.nv = nv;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheckout;
     private component.MyButton btnDD;

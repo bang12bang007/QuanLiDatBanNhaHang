@@ -16,6 +16,7 @@ import component.WrapLayout;
 import dao.IBanDAO;
 import dao.imlp.BanDAO;
 import entity.Ban;
+import entity.NhanVien;
 import icon.FontAwesome;
 import jakarta.persistence.Entity;
 import java.awt.Color;
@@ -47,10 +48,12 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private String type;
     private IBanDAO banDAO = new BanDAO();
     private List<JButton> floors = new ArrayList<>();
+    private NhanVien nv;
 
-    public GD_Ban(JPanel main, String type) {
+    public GD_Ban(JPanel main, String type,NhanVien nv) {
         this.type = type;
         this.main = main;
+        this.nv = nv;
         AppUtils.run(main, this);
     }
 
@@ -393,7 +396,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         GheTrongTang.setText("Tầng " + floor + ": Trống " + dsBanTrong.size() + "/" + bans.size() + " bàn - " + dsBanTrong.size() * 6 + " ghế");
         ListBan.removeAll();
         for (Ban ban : bans) {
-            BanItem banItem = new BanItem(ban.getMaBan(), ban.getTrangThai().ordinal(), main, type);
+            BanItem banItem = new BanItem(ban.getMaBan(), ban.getTrangThai().ordinal(), main, type,nv);
             ListBan.add(banItem);
         }
         ListBan.repaint();

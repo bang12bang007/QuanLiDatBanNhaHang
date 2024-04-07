@@ -52,6 +52,7 @@ public class NhanVien {
     @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
     @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private TaiKhoan taiKhoan;
 
     public NhanVien(String hoTen, String diaChi, boolean trangThai, int tuoi, String soDienThoai, Date ngayBatDauLam, LoaiVaiTro vaiTro, boolean gioiTinh) {

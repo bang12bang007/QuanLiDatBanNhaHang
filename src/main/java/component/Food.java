@@ -4,9 +4,7 @@
  */
 package component;
 
-import dao.imlp.MonDAO;
 import entity.Mon;
-import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ public class Food extends javax.swing.JPanel {
     private String gia;
     private List<Mon> orders;
     private List<Mon> mons;
+    private ArrayList<Integer> list_Quantity;
     private Mon mon;
     private GD_DatMon datmon;
     public Food(GD_DatMon datmon,Mon mon,JPanel panelOrder,List<Mon> mons,List<Mon> orders) {
@@ -40,6 +39,7 @@ public class Food extends javax.swing.JPanel {
         this.mon = mon;
         this.mons = mons;
         this.datmon = datmon;
+        this.list_Quantity = datmon.getList_quantity();
         try {
             Double giaTien = Double.parseDouble(gia);
             jLabelGia.setText(tien_format.format(giaTien));
@@ -153,19 +153,22 @@ public class Food extends javax.swing.JPanel {
         panelFood.setBackground(new java.awt.Color(234,124,105));
         if(orders.indexOf(mons.get(mons.indexOf(mon)))==-1){
             orders.add(mons.get(mons.indexOf(mon)));
+            list_Quantity = datmon.getList_quantity();
+            list_Quantity.add(1);
             String[] title = new String[]{ten,"1",tien_format.format(Double.parseDouble(gia)),""};
             OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datmon,mon,orderPanel.getWidth(),orders.size(),title,orders);
             item.setType("BUTTON");
             orderPanel.add(item);
             orderPanel.revalidate();
             datmon.setOrders(orders);
+            datmon.setList_quantity(list_Quantity);
             updateTongTien();
         }
     }//GEN-LAST:event_panelFoodMouseClicked
     public void updateTongTien(){
         double tong = 0.0;
         for(int i=0;i<orders.size();i++){
-            tong+= orders.get(i).getGia();
+            tong+= orders.get(i).getGia()*datmon.getList_quantity().get(i);
         }
         if(tong!=0)
             datmon.setLabelTongTien(tien_format.format(tong));

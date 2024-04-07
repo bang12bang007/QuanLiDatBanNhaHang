@@ -10,6 +10,7 @@ import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IPhieuDatBanDAO;
 import dao.imlp.PhieuDatBanDAO;
+import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
@@ -37,8 +38,10 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private JPanel mainJPanel;
     private ArrayList<BookingItem> bookingItems = new ArrayList<>();
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
+    private NhanVien nv;
 
-    public GD_DatBan(JPanel jPanel) {
+    public GD_DatBan(JPanel jPanel,NhanVien nv) {
+        this.nv = nv;
         this.mainJPanel = jPanel;
         utils.AppUtils.run(mainJPanel, this);
     }
@@ -559,7 +562,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnDatChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatChoMouseClicked
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN"));
+        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN",nv));
     }//GEN-LAST:event_btnDatChoMouseClicked
 
     private void tableBodyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBodyMouseClicked

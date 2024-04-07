@@ -58,8 +58,8 @@ public class Ban {
     private Ban banGop;
     @Column(name = "MaTang", nullable = false)
     private String maTang;
-    @OneToOne(mappedBy = "ban", cascade = CascadeType.ALL)
-    private HoaDon hoaDon;
+    @OneToMany(mappedBy = "ban", cascade = CascadeType.ALL)
+    private List<HoaDon> hoaDon;
     @OneToMany(mappedBy = "ban", cascade = CascadeType.ALL)
     private List<PhieuDatBan> phieuDatBan;
 }

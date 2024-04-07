@@ -6,6 +6,7 @@ package view;
 
 import LIB.FadeEffect;
 import component.ScrollBarCustom;
+import entity.NhanVien;
 import icon.FontAwesome;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -25,10 +26,12 @@ public class Form_DatBan extends javax.swing.JPanel {
      * Creates new form Form_DatBan
      */
     private JFrame jFrame;
+    private NhanVien nv;
     private JPanel mainJpanel;
     private static final Color TRANSPERANT = new Color(0, 0, 0, 0);
 
-    public Form_DatBan(JFrame jFrame) {
+    public Form_DatBan(JFrame jFrame,NhanVien nv) {
+        this.nv = nv;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         this.jFrame = jFrame;
@@ -523,7 +526,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         // TODO add your handling code here:
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel));
+        utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel,nv));
     }//GEN-LAST:event_btnCatActionPerformed
 
     private void txtSoNguoiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoNguoiKeyTyped
