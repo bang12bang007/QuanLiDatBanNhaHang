@@ -42,6 +42,7 @@ public class AppUtils {
 
     public final static Font FONT = new Font("name", 1, 1);
     private final static Gson GSON = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+    public static NhanVien NHANVIEN = null;
 
     public static Connection connect() {
         Connection con = null;
@@ -58,7 +59,7 @@ public class AppUtils {
         }
         return con;
     }
-
+    
     public static <T> boolean insert(T t, String SQL) {
         Connection con = connect();
         String json = GSON.toJson(t);
@@ -174,6 +175,10 @@ public class AppUtils {
         } catch (Exception e) {
         }
         return false;
+    }
+    
+    public static void saveStorage(NhanVien nhanVien) {
+        NHANVIEN = nhanVien;
     }
 
     public static void setUI(JPanel mainJPanel, JPanel jComponent) {

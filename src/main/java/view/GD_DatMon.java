@@ -58,8 +58,8 @@ public class GD_DatMon extends javax.swing.JPanel {
     private String type_datMon;
     private DatMon_ThemMon loai;
 
-    public GD_DatMon(JPanel main, String maBan,NhanVien nv,utils.Enum.DatMon_ThemMon loai) {
-        this.nv = nv;
+    public GD_DatMon(JPanel main, String maBan,utils.Enum.DatMon_ThemMon loai) {
+        this.nv = AppUtils.NHANVIEN;
         this.main = main;
         this.maBan = maBan;
         this.loai = loai;
@@ -841,7 +841,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(main, new GD_Ban(main, "DAT_MON",nv));
+        AppUtils.setUI(main, new GD_Ban(main, "DAT_MON"));
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed

@@ -11,7 +11,6 @@ import dao.INhanVienDAO;
 import dao.imlp.NhanVienDAO;
 import entity.NhanVien;
 import icon.FontAwesome;
-import jakarta.persistence.Persistence;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -24,6 +23,7 @@ import javax.swing.JComponent;
 import static javax.swing.SwingConstants.LEFT;
 import javax.swing.SwingUtilities;
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 
 /**
  *
@@ -42,7 +42,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         
         INhanVienDAO nv_dao = new NhanVienDAO();
         nhanVien = (NhanVien) nv_dao.findById("NV120060424290", NhanVien.class);
-        
+        AppUtils.saveStorage(nhanVien);
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
 //        setResizable(false);
@@ -121,7 +121,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         thongTin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel, "DAT_MON",nhanVien));
+                utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel, "DAT_MON"));
             }
         });
     }

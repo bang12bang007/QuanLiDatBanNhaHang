@@ -397,7 +397,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON",nv));
+        AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON"));
 //        repaint();
 //        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed

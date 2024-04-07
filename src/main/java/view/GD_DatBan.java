@@ -562,7 +562,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnDatChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatChoMouseClicked
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN",nv));
+        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN"));
     }//GEN-LAST:event_btnDatChoMouseClicked
 
     private void tableBodyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBodyMouseClicked

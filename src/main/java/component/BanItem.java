@@ -33,11 +33,11 @@ public class BanItem extends javax.swing.JPanel {
     private String maBan;
     private NhanVien nv;
 
-    public BanItem(String maBan, int trangThai, JPanel main, String type,NhanVien nv) {
+    public BanItem(String maBan, int trangThai, JPanel main, String type) {
         this.main = main;
         this.type = type;
         this.maBan = maBan;
-        this.nv = nv;
+        this.nv = AppUtils.NHANVIEN;
         initComponents();
         jLabel1.setText(maBan);
 
@@ -131,7 +131,7 @@ public class BanItem extends javax.swing.JPanel {
             }
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    AppUtils.setUI(main, new GD_DatMon(main, maBan,nv,utils.Enum.DatMon_ThemMon.DATMON));
+                    AppUtils.setUI(main, new GD_DatMon(main, maBan,utils.Enum.DatMon_ThemMon.DATMON));
                 }
                 break;
             }

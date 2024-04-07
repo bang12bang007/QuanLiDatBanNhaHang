@@ -50,10 +50,10 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private List<JButton> floors = new ArrayList<>();
     private NhanVien nv;
 
-    public GD_Ban(JPanel main, String type,NhanVien nv) {
+    public GD_Ban(JPanel main, String type) {
         this.type = type;
         this.main = main;
-        this.nv = nv;
+        this.nv = AppUtils.NHANVIEN;
         AppUtils.run(main, this);
     }
 
@@ -396,7 +396,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         GheTrongTang.setText("Tầng " + floor + ": Trống " + dsBanTrong.size() + "/" + bans.size() + " bàn - " + dsBanTrong.size() * 6 + " ghế");
         ListBan.removeAll();
         for (Ban ban : bans) {
-            BanItem banItem = new BanItem(ban.getMaBan(), ban.getTrangThai().ordinal(), main, type,nv);
+            BanItem banItem = new BanItem(ban.getMaBan(), ban.getTrangThai().ordinal(), main, type);
             ListBan.add(banItem);
         }
         ListBan.repaint();
