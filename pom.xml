@@ -69,6 +69,21 @@
             <artifactId>jcalendar</artifactId>
             <version>1.4</version>
         </dependency>
+        <dependency>
+            <groupId>TimingFramework</groupId>
+            <artifactId>TimingFramework</artifactId>
+            <version>0.55</version>
+        </dependency>
+        <dependency>
+            <groupId>swing-worker</groupId>
+            <artifactId>swing-worker</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>swingx</groupId>
+            <artifactId>swingx</artifactId>
+            <version>1.6.1</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

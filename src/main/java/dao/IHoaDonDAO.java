@@ -5,15 +5,25 @@
 package dao;
 
 import entity.HoaDon;
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 /**
  *
  * @author dmx
  */
-public interface IHoaDonDAO<T> extends GenericDAO<T>{
+public interface IHoaDonDAO<T> extends GenericDAO<T> {
+
     HoaDon findLast();
+
     boolean insertHoaDon(HoaDon hoadon);
+
     List<HoaDon> findOnOrder();
+
+//    find by state (NDK)
+    List<HoaDon> findByState(Enum state);
+
+    boolean updateStateById(String id, Enum state);
 }

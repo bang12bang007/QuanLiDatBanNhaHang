@@ -37,9 +37,9 @@ public class GD_TrangChu extends javax.swing.JFrame {
     //default test //sau này xóa
     private NhanVien nhanVien;
     private ArrayList<JButton> tabs = new ArrayList<>();
-    
+
     public GD_TrangChu() {
-        
+
         INhanVienDAO nv_dao = new NhanVienDAO();
         nhanVien = (NhanVien) nv_dao.findById("NV120060424290", NhanVien.class);
         AppUtils.saveStorage(nhanVien);
@@ -91,7 +91,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         logOut.setIconTextGap(10);
         popupMenu.add(thongTin);
         popupMenu.add(logOut);
-        
 
         btnAVT.addMouseListener(new MouseAdapter() {
             @Override
@@ -375,13 +374,13 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatMonActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, new GD_QuanLyDatMon(mainJpanel,nhanVien));
+        utils.AppUtils.setUI(mainJpanel, new GD_QuanLyDatMon(mainJpanel, nhanVien));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatMonActionPerformed
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, new GD_DatBan(mainJpanel,nhanVien));
+        utils.AppUtils.setUI(mainJpanel, new GD_DatBan(mainJpanel));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatBanActionPerformed
 
@@ -433,7 +432,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         }
         //</editor-fold>
 //        Persistence.createEntityManagerFactory("QLNH_mssql");
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GD_TrangChu().setVisible(true);

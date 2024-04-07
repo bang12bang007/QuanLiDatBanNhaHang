@@ -9,6 +9,7 @@ import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IMonDAO;
 import dao.imlp.MonDAO;
+import entity.HoaDon;
 import entity.Mon;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -19,7 +20,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
@@ -36,10 +36,14 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private IMonDAO monDAO = new MonDAO();
     private JTextArea yeuCauDatMon;
     private List<Mon> dsMon;
+    private HoaDon hoaDon = null;
+    private List<MenuItem> dsMonDaDat = null;
 
-    public Form_XemThucDon(JFrame jFrame, JTextArea yeuCauDatMon) {
+    public Form_XemThucDon(JFrame jFrame, JTextArea yeuCauDatMon, HoaDon hoaDon, List<MenuItem> dsMon) {
         this.jFrame = jFrame;
+        this.hoaDon = hoaDon;
         this.yeuCauDatMon = yeuCauDatMon;
+        this.dsMonDaDat = dsMon;
         initComponents();
         setBackground(new Color(0, 0, 0, 0.8f));
         wrapper.setBackground(new Color(0, 0, 0, 0));
@@ -572,6 +576,11 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
         // TODO add your handling code here:
+        if (!listHuy.isEmpty()) {
+            for (MenuItem item : listHuy) {
+                dsMonDaDat.add(item);
+            }
+        }
         this.yeuCauDatMon.setText(txtYeuCauDatMon.getText());
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -603,7 +612,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         int width = tableBody.getWidth();
         this.dsMon = monDAO.findAll(Mon.class);
         for (int i = 0; i < this.dsMon.size(); i++) {
-            MenuItem menuItem = new MenuItem(width, getContents(this.dsMon.get(i)));
+            MenuItem menuItem = new MenuItem(width, getContents(dsMon.get(i)), dsMon.get(i));
             menuItem.setForm(this);
             menuItem.setType("THEM_MON");
             tableBody.add(menuItem);

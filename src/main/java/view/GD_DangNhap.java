@@ -16,6 +16,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import jiconfont.swing.IconFontSwing;
 import static utils.AppUtils.FONT;
+import static utils.AppUtils.*;
 
 /**
  *
@@ -26,6 +27,9 @@ public class GD_DangNhap extends javax.swing.JFrame {
     /**
      * Creates new form GD_DangNhap
      */
+//    T test nhân viên bằng cách tìm nhân viên
+    private INhanVienDAO nhanVienDAO = new NhanVienDAO();
+
     public GD_DangNhap() {
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -208,27 +212,26 @@ public class GD_DangNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tenDangNhap = this.tenDangNhap.getText().trim();
         String matKhau = this.matKhau.getText().trim();
-        
+
         ITaiKhoanDAO tk_dao = new TaiKhoanDAO();
         TaiKhoan tk = (TaiKhoan) tk_dao.findById(tenDangNhap, TaiKhoan.class);
-        
-        if(tk==null) {
+
+        if (tk == null) {
             JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
-        } else{
-            if(tk.getMatKhau().equals(matKhau)) {
+        } else {
+            if (tk.getMatKhau().equals(matKhau)) {
                 INhanVienDAO dao = new NhanVienDAO();
                 NhanVien nv = (NhanVien) dao.findById(tenDangNhap, NhanVien.class);
                 setVisible(false);
-                if(nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
-    //                Chuyen qua gd quan ly
+                if (nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
+                    //                Chuyen qua gd quan ly
                     new GD_TrangChu(nv).setVisible(true);
                 } else {
-    //                Chuyen qua gd nhan vien
+                    //                Chuyen qua gd nhan vien
                     new GD_TrangChu(nv).setVisible(true);
                 }
-            }
-            else{
-               JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại"); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
             }
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed

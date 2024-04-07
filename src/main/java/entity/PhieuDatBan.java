@@ -10,6 +10,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+//NDK created
+@NamedQueries({
+    @NamedQuery(name = "PhieuDatBan.updateState", query = "UPDATE PhieuDatBan SET trangThai = :trangThai WHERE maPhieuDatBan = :maPhieuDatBan")
+})
 public class PhieuDatBan {
 
     @Id
@@ -42,17 +48,20 @@ public class PhieuDatBan {
     private int trangThai;
     @Column(name = "TienDatCoc", nullable = false)
     private double tienDatCoc;
+    @Column(name = "YeuCauKhac", columnDefinition = "NVARCHAR(255)", nullable = true)
+    private String yeuCauKhac;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBan")
     private Ban ban;
 
-    public PhieuDatBan(Date ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, Ban ban) {
+    public PhieuDatBan(Date ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, String yeuCauKhac, Ban ban) {
         this.ngayGioDat = ngayGioDat;
         this.soLuongNguoi = soLuongNguoi;
         this.hoTen = hoTen;
         this.sdt = sdt;
         this.trangThai = trangThai;
         this.tienDatCoc = tienDatCoc;
+        this.yeuCauKhac = yeuCauKhac;
         this.ban = ban;
     }
 

@@ -51,17 +51,17 @@ public class GD_DatMon extends javax.swing.JPanel {
     private List<Mon> mons;
     private List<Mon> beverages;
     private List<Mon> popular;
-    private String maBan;
+    private Ban ban;
     private List<Mon> orders;
     private ArrayList<Integer> list_quantity = new ArrayList<Integer>();
     private NhanVien nv;
     private String type_datMon;
     private DatMon_ThemMon loai;
 
-    public GD_DatMon(JPanel main, String maBan,utils.Enum.DatMon_ThemMon loai) {
+    public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
         this.main = main;
-        this.maBan = maBan;
+        this.ban = ban;
         this.loai = loai;
         run();
     }
@@ -96,7 +96,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                 btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
                 btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
                 PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
-                banTextField.setText(maBan);
+                banTextField.setText(ban.getMaBan());
                 banTextField.setEditable(false);
                 labelTongTien.setText("0,0 VNĐ");
                 nhanVienName.setText(nv.getHoTen());
@@ -802,7 +802,7 @@ public class GD_DatMon extends javax.swing.JPanel {
             }
         }
         for (Mon mon : beverages) {
-            FoodList.add(new Food(this,mon,PanelOrder,mons,orders));
+            FoodList.add(new Food(this, mon, PanelOrder, mons, orders));
         }
         FoodList.revalidate();
     }//GEN-LAST:event_btnDoUongActionPerformed
@@ -815,16 +815,16 @@ public class GD_DatMon extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 Loading loading = new Loading();
                 utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
-                
+
                 popular = new ArrayList<Mon>();
                 IMonDAO dao = new MonDAO();
                 popular = dao.findPopular();
                 FoodList.removeAll();
-                for(Mon mon:popular){
-                    FoodList.add(new Food(datmon,mon,PanelOrder,mons,orders));
+                for (Mon mon : popular) {
+                    FoodList.add(new Food(datmon, mon, PanelOrder, mons, orders));
                 }
                 FoodList.revalidate();
-                
+
                 Timer hideTimer = new Timer(500, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -866,7 +866,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(main, new GD_QuanLyDatMon(main,nv));
+        AppUtils.setUI(main, new GD_QuanLyDatMon(main, nv));
     }//GEN-LAST:event_btnCatActionPerformed
 
     int index = 1;
@@ -875,19 +875,19 @@ public class GD_DatMon extends javax.swing.JPanel {
         FoodList.removeAll();
         ArrayList<Mon> food = new ArrayList<Mon>();
         food.addAll(mons);
-        if (beverages != null)
+        if (beverages != null) {
             food.removeAll(beverages);
-        else{
+        } else {
             beverages = new ArrayList<Mon>();
-            for(Mon mon:mons){
-                if(mon.getLoaiMon().getMaLoaiMon().equals("ML01")){
+            for (Mon mon : mons) {
+                if (mon.getLoaiMon().getMaLoaiMon().equals("ML01")) {
                     beverages.add(mon);
                 }
             }
             food.removeAll(beverages);
         }
-        for(Mon mon : food){
-            FoodList.add(new Food(this,mon,PanelOrder,mons,orders));
+        for (Mon mon : food) {
+            FoodList.add(new Food(this, mon, PanelOrder, mons, orders));
         };
         FoodList.revalidate();
     }//GEN-LAST:event_btnMonAnActionPerformed
@@ -914,19 +914,19 @@ public class GD_DatMon extends javax.swing.JPanel {
         IMonDAO dao = new MonDAO();
         mons = dao.findService();
         for (Mon mon : mons) {
-            FoodList.add(new Food(this,mon,PanelOrder,mons,orders));
+            FoodList.add(new Food(this, mon, PanelOrder, mons, orders));
         }
     }
-    
-    public void Create_OrUpdate_Order(){
+
+    public void Create_OrUpdate_Order() {
         IHoaDonDAO hoaDonDAO = new HoaDonDAO();
         IBanDAO banDAO = new BanDAO();
         IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
-        Ban ban = (Ban) banDAO.findById(maBan, Ban.class);
-        HoaDon hoaDon = new HoaDon(nv,LocalDate.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-        if(loai.equals(DatMon_ThemMon.DATMON)){
+        Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
+        HoaDon hoaDon = new HoaDon(nv, LocalDate.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        if (loai.equals(DatMon_ThemMon.DATMON)) {
             hoaDonDAO.insertHoaDon(hoaDon);
-            for(int i=0;i<orders.size();i++){
+            for (int i = 0; i < orders.size(); i++) {
                 ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
                 chitietDAO.insert(chiTiet);
             }

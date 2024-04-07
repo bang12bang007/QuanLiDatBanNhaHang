@@ -3,12 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package component;
+
+import dao.IBanDAO;
+import dao.IHoaDonDAO;
+import dao.IPhieuDatBanDAO;
+import dao.imlp.BanDAO;
+import dao.imlp.HoaDonDAO;
+import dao.imlp.PhieuDatBanDAO;
+import entity.HoaDon;
+import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
 import view.GD_DatBan;
+import view.GD_DatMon;
 
 /**
  *
@@ -21,48 +33,63 @@ public class BookingItem extends javax.swing.JPanel {
      */
     private GD_DatBan GD;
     private int index;
-    
+    private PhieuDatBan phieuDatBan;
+    private IBanDAO banDAO = new BanDAO();
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+
     public BookingItem() {
         initComponents();
-        wrapper.setPreferredSize( new Dimension(1076, 60));
+        wrapper.setPreferredSize(new Dimension(1076, 60));
 
     }
 
     public void setActive(int active) {
-        if(active == index) {
+        if (active == index) {
             this.setBorder(new LineBorder(new Color(234, 124, 105)));
         } else {
             this.setBorder(null);
         }
     }
-    
+
     public BookingItem(int index, String[] data, int width, GD_DatBan GD) {
         this.index = index;
         this.GD = GD;
         initComponents();
         setIndex(index);
-        wrapper.setPreferredSize( new Dimension(width, 65));
+        wrapper.setPreferredSize(new Dimension(width, 65));
         IconFontSwing.register(FontAwesome.getIconFont());
-        btnNhanBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 40,new Color(20, 174, 92)));
+        btnNhanBan.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 40, new Color(20, 174, 92)));
         btnGoiMon.setColor(new Color(0, 0, 0, 0));
         btnSapCho.setColor(new Color(0, 0, 0, 0));
         btnNhanBan.setColor(new Color(0, 0, 0, 0));
         push(data);
     }
-    
+
     public void setIndex(int index) {
         Color color = index % 2 == 0 ? new Color(83, 86, 99) : new Color(31, 29, 43);
         left.setBackground(color);
         right.setBackground(color);
         this.index = index;
     }
-    
+
     private void push(String[] data) {
-        gioDen.setText("   " + data[0]);
+        gioDen.setText("   " + forrmater(data[0]));
         khachHang.setText(data[1]);
         soNguoi.setText(data[2]);
         trangThai.setText(data[3]);
         datCoc.setText(data[4] + "    ");
+    }
+
+    public PhieuDatBan getPhieuDatBan() {
+        return phieuDatBan;
+    }
+
+    public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
+        this.phieuDatBan = phieuDatBan;
+    }
+
+    public void setData(String[] data) {
+        push(data);
     }
 
     /**
@@ -116,6 +143,11 @@ public class BookingItem extends javax.swing.JPanel {
         btnGoiMon.setMinimumSize(new java.awt.Dimension(30, 60));
         btnGoiMon.setName(""); // NOI18N
         btnGoiMon.setRadius(12);
+        btnGoiMon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoiMonActionPerformed(evt);
+            }
+        });
         left.add(btnGoiMon);
 
         btnNhanBan.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -123,6 +155,11 @@ public class BookingItem extends javax.swing.JPanel {
         btnNhanBan.setMinimumSize(new java.awt.Dimension(30, 60));
         btnNhanBan.setName(""); // NOI18N
         btnNhanBan.setRadius(12);
+        btnNhanBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhanBanActionPerformed(evt);
+            }
+        });
         left.add(btnNhanBan);
 
         gioDen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -178,8 +215,48 @@ public class BookingItem extends javax.swing.JPanel {
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
         // TODO add your handling code here:
         GD.setBookingActive(index);
+        GD.setInfoForActiveItem(phieuDatBan);
     }//GEN-LAST:event_wrapperMouseClicked
 
+    private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
+        // TODO add your handling code here:
+        HoaDon hoaDon = null;
+        for (HoaDon hd : phieuDatBan.getBan().getHoaDon()) {
+            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+                hoaDon = hd;
+                break;
+            }
+        }
+        banDAO.updateStateById(phieuDatBan.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+        hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        GD.setBookingActive(index);
+        GD.received();
+//        utils.AppUtils.run(GD.getMainJpanel(), GD);
+    }//GEN-LAST:event_btnNhanBanActionPerformed
+
+    private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
+        // TODO add your handling code here:
+        utils.AppUtils.setUI(GD.getMainJpanel(), new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON));
+    }//GEN-LAST:event_btnGoiMonActionPerformed
+
+    private String forrmater(String date) {
+        String dateTimeString = date;
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a");
+        String formattedTime = "";
+        try {
+            Date dateTime = inputFormat.parse(dateTimeString);
+            formattedTime = outputFormat.format(dateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return formattedTime;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai.setText(trangThai);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnGoiMon;
@@ -195,6 +272,5 @@ public class BookingItem extends javax.swing.JPanel {
     private javax.swing.JLabel trangThai;
     private javax.swing.JPanel wrapper;
     // End of variables declaration//GEN-END:variables
-
 
 }

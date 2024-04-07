@@ -2,12 +2,14 @@ T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\RoundJTextField.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\imlp\MonDAO.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\INhanVienDAO.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\imlp\PhieuDatBanDAO.java
+T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\ComboBoxSuggestion.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\GenericDAO.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\view\GD_Ban.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\view\UIUpdatable.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\entity\PhieuDatBan.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\entity\KhuyenMai.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\TransparentPopupMenu.java
+T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\imlp\KhachHangDAO.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\imlp\AbstractDAO.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\datechooser\DateChooser.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\entity\NhanVien.java
@@ -33,6 +35,7 @@ T:\PTUD_Projects\QuanLiNhaHang\src\main\java\view\Form_ThuTien.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\WrapGridLayout.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\PanelRound.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\entity\TaiKhoan.java
+T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\ComboSuggestionUI.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\datechooser\Months.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\datechooser\Event.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\view\GD_DangNhap.java
@@ -53,6 +56,7 @@ T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\ScrollBarCustom.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\imlp\TaiKhoanDAO.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\datechooser\Slider.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\PanelGradient.java
+T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\IKhachHangDAO.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\MenuItem.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\component\MyButton.java
 T:\PTUD_Projects\QuanLiNhaHang\src\main\java\dao\IBanDAO.java

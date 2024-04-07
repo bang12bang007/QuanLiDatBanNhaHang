@@ -39,6 +39,7 @@ import utils.Enum.LoaiViTri;
     @NamedQuery(name = "Ban.findByFloor", query = "SELECT b FROM Ban b WHERE b.maTang = :maTang"),
     @NamedQuery(name = "Ban.findTableByStateAndFloor", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai AND b.maTang = :maTang"),
     @NamedQuery(name = "Ban.findTableByState", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai"),
+    @NamedQuery(name = "Ban.updateStateById", query = "UPDATE Ban SET trangThai = :trangThai WHERE maBan = :maBan")
 })
 public class Ban {
 

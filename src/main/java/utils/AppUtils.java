@@ -11,27 +11,23 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import component.Loading;
+import entity.HoaDon;
 import entity.NhanVien;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.List;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
-import view.GD_Ban;
 import view.UIUpdatable;
 
 /**
@@ -59,127 +55,6 @@ public class AppUtils {
         }
         return con;
     }
-    
-    public static <T> boolean insert(T t, String SQL) {
-        Connection con = connect();
-        String json = GSON.toJson(t);
-        try {
-            Map<String, Object> map = GSON.fromJson(json, new TypeToken<Map<String, Object>>() {
-            }.getType());
-            int parameterIndex = 1;
-            PreparedStatement pstms = con.prepareStatement(SQL);
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                pstms.setObject(parameterIndex++, entry.getValue());
-            }
-            return pstms.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    //mặc định columnStart = 1
-
-    /**
-     *
-     * @param <T>
-     * @param <K>
-     * @param clazz
-     * @param myRs
-     * @param columnStart
-     * @param enums
-     * @param enun
-     * @return
-     * @throws SQLException
-     */
-//    public static <T> T getEntity(Class<T> clazz, ResultSet myRs, int columnStart, ArrayList<String> enums,  Class<Enum> enumType) throws SQLException {
-//        Map<String, Object> properties = new LinkedHashMap<>();
-//        int columnCount = myRs.getMetaData().getColumnCount();
-//
-//        // Lấy dữ liệu từ ResultSet và đưa vào Map properties
-//        while (myRs.next()) {
-//            for (int i = columnStart; i <= columnCount; i++) {
-//                String columnName = myRs.getMetaData().getColumnName(i);
-//                Object value = myRs.getObject(i);
-//                if(enums.contains(columnName)) {
-//                    // Handle enum conversion here if necessary
-//                    // For example:
-//                   value = Enum.valueOf(enumType, (String)value);
-//                }
-//                properties.put(columnName, value);
-//            }
-//        }
-//        // Chuyển Map properties thành JSON
-//        String json = new Gson().toJson(properties);
-//        // Chuyển JSON thành đối tượng của lớp clazz
-//        try {
-//            T obj = new Gson().fromJson(json, clazz);
-//            return obj;
-//        } catch(Exception e) {
-//            // Handle deserialization exception properly
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-    public static <T> T getEntity(Class<T> clazz, ResultSet myRs, int columnStart) throws SQLException {
-        Map<String, Object> properties = new LinkedHashMap<>();
-        int columnCount = myRs.getMetaData().getColumnCount();
-
-        // Lấy dữ liệu từ ResultSet và đưa vào Map properties
-        while (myRs.next()) {
-            for (int i = columnStart; i <= columnCount; i++) {
-                String columnName = myRs.getMetaData().getColumnName(i);
-                columnName = columnName.substring(0, 1).toLowerCase() + columnName.substring(1);
-                Object value = myRs.getObject(i);
-                properties.put(columnName, value);
-            }
-        }
-        // Chuyển Map properties thành JSON
-        String json = new Gson().toJson(properties);
-        // Chuyển JSON thành đối tượng của lớp clazz
-        try {
-            T obj = new Gson().fromJson(json, clazz);
-            return obj;
-        } catch (Exception e) {
-            // Handle deserialization exception properly
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static <T> boolean updateById(T t, String SQL, String id) {
-        Connection con = connect();
-        String json = GSON.toJson(t);
-        Map<String, Object> map = GSON.fromJson(json, new TypeToken<Map<String, Object>>() {
-        }.getType());
-        int parameterIndex = 1;
-        try {
-            PreparedStatement pstms = con.prepareStatement(SQL);
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                if (!id.equals(entry.getValue())) {
-                    pstms.setObject(parameterIndex++, entry.getValue());
-                }
-            }
-            pstms.setString(parameterIndex, id);
-            return pstms.execute();
-        } catch (Exception e) {
-        }
-        return false;
-    }
-
-    public static boolean deleteOneById(String id, String SQL) {
-        Connection con = connect();
-        try {
-            PreparedStatement pstms = con.prepareStatement(SQL);
-            pstms.setString(1, id);
-            return pstms.execute();
-        } catch (Exception e) {
-        }
-        return false;
-    }
-    
-    public static void saveStorage(NhanVien nhanVien) {
-        NHANVIEN = nhanVien;
-    }
 
     public static void setUI(JPanel mainJPanel, JPanel jComponent) {
         mainJPanel.removeAll();
@@ -201,9 +76,10 @@ public class AppUtils {
         mainJPanel.repaint();
         mainJPanel.revalidate();
     }
+
     public static void setLoadingForTable(JScrollPane mainJPanel, boolean state, Loading loading, JPanel gD_Ban) {
         if (state) {
-            loading.setPreferredSize(new Dimension(mainJPanel.getWidth(),mainJPanel.getHeight()));
+            loading.setPreferredSize(new Dimension(mainJPanel.getWidth(), mainJPanel.getHeight()));
             mainJPanel.setViewportView(loading);
             mainJPanel.repaint();
             mainJPanel.revalidate();
@@ -213,13 +89,13 @@ public class AppUtils {
         mainJPanel.repaint();
         mainJPanel.revalidate();
     }
+
     /**
      *
      * @param <T>
      * @param mainJPanel
      * @param jpanel
      */
-    
     public static <T extends JPanel & UIUpdatable> void run(JPanel mainJPanel, T jpanel) {
         Timer timer = new Timer(0, new ActionListener() {
             @Override
@@ -241,5 +117,9 @@ public class AppUtils {
         });
         timer.setRepeats(false);
         timer.start();
-        };
     }
+
+    public static void saveStorage(NhanVien nhanVien) {
+        NHANVIEN = nhanVien;
+    }
+}

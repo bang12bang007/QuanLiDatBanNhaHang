@@ -15,7 +15,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import utils.AppUtils;
+import static utils.AppUtils.*;
 import view.Form_DatBan;
 import view.GD_DatMon;
 
@@ -31,16 +31,18 @@ public class BanItem extends javax.swing.JPanel {
     private JPanel main;
     private String type;
     private String image_type;
-    private String maBan;
+    private Ban ban;
     private NhanVien nv;
+    private int trangThai;
 
     public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
         this.type = type;
-        this.maBan = ban.getMaBan();
-        this.nv = AppUtils.NHANVIEN;
+        this.ban = ban;
+        this.nv = NHANVIEN;
+        this.trangThai = trangThai;
         initComponents();
-        jLabel1.setText(maBan);
+        jLabel1.setText(ban.getMaBan());
 
         if (trangThai == utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal()) {
             image_type = "/images/my_table.png";
@@ -98,31 +100,31 @@ public class BanItem extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
-        // TODO add your handling code here:
-        // Load the image of the hand cursor
-        ImageIcon handIcon = new ImageIcon("./src/main/java/icon/icon_close.png"); // Thay đường dẫn này bằng đường dẫn thực sự của tệp hình ảnh của bạn
 
-        // Create a custom cursor with the hand image
-        Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-                handIcon.getImage(), new Point(0, 0), "Hand Cursor");
-        myButton1.setCursor(handCursor);
+        if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
+            ImageIcon handIcon = new ImageIcon("./src/main/java/icon/icon_close.png");
+            Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                    handIcon.getImage(), new Point(0, 0), "Hand Cursor");
+            myButton1.setCursor(handCursor);
+        }
 //        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
     }//GEN-LAST:event_myButton1MouseEntered
 
     private void myButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseExited
         // TODO add your handling code here:
-        myButton1.setBorder(null);
+//        myButton1.setBorder(null);
     }//GEN-LAST:event_myButton1MouseExited
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
+
         switch (type) {
             case "DAT_BAN": {
                 JFrame jFrame = new JFrame();
                 jFrame.setUndecorated(true);
                 jFrame.setExtendedState(MAXIMIZED_BOTH);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_DatBan form_DatBan = new Form_DatBan(jFrame);
+                Form_DatBan form_DatBan = new Form_DatBan(jFrame, ban);
                 form_DatBan.setMainJpanel(main);
                 jFrame.add(form_DatBan);
                 jFrame.setBackground(new Color(0, 0, 0, 0));
@@ -132,9 +134,8 @@ public class BanItem extends javax.swing.JPanel {
             }
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    AppUtils.setUI(main, new GD_DatMon(main, maBan,utils.Enum.DatMon_ThemMon.DATMON));
+                    utils.AppUtils.setUI(main, new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON));
                 }
-                break;
             }
         }
     }//GEN-LAST:event_myButton1ActionPerformed
@@ -144,4 +145,5 @@ public class BanItem extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private component.MyButton myButton1;
     // End of variables declaration//GEN-END:variables
+
 }

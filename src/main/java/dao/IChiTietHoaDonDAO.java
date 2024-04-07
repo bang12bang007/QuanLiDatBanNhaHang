@@ -9,10 +9,11 @@ import entity.HoaDon;
 import java.util.List;
 
 /**
- *
  * @author dmx
  */
-public interface IChiTietHoaDonDAO<T> extends GenericDAO<T>{
+public interface IChiTietHoaDonDAO<T> extends GenericDAO<T> {
+
     Double TotalFoodCurrency(HoaDon hoaDon);
+
     List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon);
 }

@@ -46,7 +46,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private GD_DatMon datMon;
     private boolean initialized = false;
 
-    public OrderItem_forUIDatMon(GD_DatMon datMon,Mon mon,int width, int index, String[] data,List<Mon> orders) {
+    public OrderItem_forUIDatMon(GD_DatMon datMon, Mon mon, int width, int index, String[] data, List<Mon> orders) {
         this.data = data;
         this.gia = mon.getGia();
         this.orders = orders;
@@ -55,11 +55,11 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         setBackground(index % 2 != 0 ? new Color(83, 86, 99) : new Color(31, 29, 43));
         setPreferredSize(new Dimension(width, 50));
         push(data);
-        
+
         soLuong.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-               checkTextField();
+                checkTextField();
             }
 
             @Override
@@ -82,10 +82,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         timer.setRepeats(false);
         timer.start();
     }
-    
-    public ArrayList<Integer> getListQuantity(){
+
+    public ArrayList<Integer> getListQuantity() {
         ArrayList<Integer> listQuantity = new ArrayList<Integer>();
-        for(int i =0;i<datMon.getPanelOrder().getComponentCount();i++){
+        for (int i = 0; i < datMon.getPanelOrder().getComponentCount(); i++) {
             OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) datMon.getPanelOrder().getComponent(i);
             JTextField quantity = (JTextField) item.panelRound1.getComponent(0);
             try {
@@ -96,17 +96,20 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             }
         }
         return listQuantity;
-    };
+    }
+
+    ;
     
-    public void updateTongTien(){
+    public void updateTongTien() {
         double tong = 0.0;
-        for(int i=0;i<orders.size();i++){
-            tong+= orders.get(i).getGia()*datMon.getList_quantity().get(i);
+        for (int i = 0; i < orders.size(); i++) {
+            tong += orders.get(i).getGia() * datMon.getList_quantity().get(i);
         }
-        if(tong!=0)
+        if (tong != 0) {
             datMon.setLabelTongTien(tien_format.format(tong));
-        else
+        } else {
             datMon.setLabelTongTien("0,0 VNĐ");
+        }
     }
 
     public void setType(String type) {
@@ -116,7 +119,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     public void push(String[] data) {
         tenMon.setText("  " + data[0]);
-        soLuong.setText(" "+data[1]);
+        soLuong.setText(" " + data[1]);
         donGia.setText(" " + data[2]);
         setLastItem(data[3]);
     }
@@ -279,11 +282,11 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, new Color(234, 124, 105)));
         try {
-            int quantity =  Integer.parseInt(soLuong.getText().trim());
+            int quantity = Integer.parseInt(soLuong.getText().trim());
             quantity++;
-            soLuong.setText(" "+Integer.toString(quantity));
-            tongTien = quantity*gia;
-            donGia.setText("  "+tien_format.format(tongTien));
+            soLuong.setText(" " + Integer.toString(quantity));
+            tongTien = quantity * gia;
+            donGia.setText("  " + tien_format.format(tongTien));
             datMon.setList_quantity(getListQuantity());
             updateTongTien();
         } catch (Exception e) {
@@ -300,13 +303,13 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, new Color(234, 124, 105)));
         try {
-            int quantity =  Integer.parseInt(soLuong.getText().trim());
-            if(quantity >1){
+            int quantity = Integer.parseInt(soLuong.getText().trim());
+            if (quantity > 1) {
                 quantity--;
             }
-            soLuong.setText(" "+Integer.toString(quantity));
-            tongTien = quantity*gia;
-            donGia.setText("  "+tien_format.format(tongTien));
+            soLuong.setText(" " + Integer.toString(quantity));
+            tongTien = quantity * gia;
+            donGia.setText("  " + tien_format.format(tongTien));
             datMon.setList_quantity(getListQuantity());
             updateTongTien();
         } catch (Exception e) {
@@ -335,10 +338,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private void soLuongMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_soLuongMouseExited
-    public void checkTextField(){
+    public void checkTextField() {
         try {
-            if(initialized){
-                if(!soLuong.getText().trim().equals("")){
+            if (initialized) {
+                if (!soLuong.getText().trim().equals("")) {
                     Integer.parseInt(soLuong.getText().trim());
                     datMon.setList_quantity(getListQuantity());
                     updateTongTien();
@@ -360,7 +363,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private void soLuongMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_soLuongMouseEntered
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel decrease;

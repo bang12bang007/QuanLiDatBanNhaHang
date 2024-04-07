@@ -9,7 +9,13 @@ import component.OrderItem;
 import component.ScrollBarCustom;
 import component.WrapGridLayout;
 import component.WrapLayout;
+import dao.IChiTietHoaDonDAO;
+import dao.IMonDAO;
+import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.MonDAO;
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
 import jiconfont.swing.IconFontSwing;
@@ -23,16 +29,36 @@ import java.awt.event.ActionListener;
  *
  * @author Laptop
  */
-public class GD_ThanhToan extends javax.swing.JPanel {
+public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
     /**
      * Creates new form GD_ThanhToan
      */
 //    set width for first
     private HoaDon hoaDon;
+    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private IMonDAO monDAO = new MonDAO();
 
-    public GD_ThanhToan(HoaDon hoaDon) {
+    public GD_ThanhToan(HoaDon hoaDon, JPanel mJPanel) {
         this.hoaDon = hoaDon;
+        utils.AppUtils.run(mJPanel, this);
+    }
+
+    private void FirstTimeLoadItem() {
+        Timer timer = new Timer(1520, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Thêm mã để kích hoạt action listener tại đây
+                loadData();
+                tableContainer.repaint();
+                tableContainer.revalidate();
+            }
+        });
+        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
+        timer.start();
+    }
+
+    public void setUI() {
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         theThanhVienLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CREDIT_CARD, 20, Color.WHITE));
@@ -54,20 +80,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         tableBody.setVerticalScrollBar(new ScrollBarCustom());
         tableBody.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         FirstTimeLoadItem();
-    }
-
-    private void FirstTimeLoadItem() {
-        Timer timer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Thêm mã để kích hoạt action listener tại đây
-                loadData();
-                tableContainer.repaint();
-                tableContainer.revalidate();
-            }
-        });
-        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
-        timer.start();
     }
 
     /**
@@ -788,11 +800,13 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     public void loadData() {
         int width = tableContainer.getWidth();
-        OrderItem testOrderItemButton = new OrderItem(width, 1, new String[]{"Gỏi cuốn", "2", "400.000", "800.000"});
-        tableContainer.add(testOrderItemButton);
-        tableContainer.add(new OrderItem(width, 2, new String[]{"Cơm", "1", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(width, 1, new String[]{"Bún Bò", "2", "400.000", "800.000"}));
-        tableContainer.add(new OrderItem(width, 2, new String[]{"Phở Bò", "4", "400.000", "800.000"}));
+        int index = 1;
+        for (Object item : chiTietHoaDonDAO.getListByHoaDon(hoaDon)) {
+            ChiTietHoaDon chiTiet = (ChiTietHoaDon) item;
+            Mon mon = (Mon) monDAO.findById(chiTiet.getMon().getMaMon(), Mon.class);
+            tableContainer.add(new OrderItem(width, index, new String[]{mon.getTenMon(), chiTiet.getSoLuong() + "", mon.getGia() + "", chiTiet.getSoLuong() * mon.getGia() + ""}));
+            index = index == 1 ? 2 : 1;
+        }
     }
 
 

@@ -37,33 +37,35 @@ import utils.Enum.LoaiTrangThaiHoaDon;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "HoaDon.Last", query = "SELECT h FROM HoaDon h ORDER BY h.maHoaDon DESC"),
-    @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai")
+    @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai"),
+    @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maBan")
 })
 public class HoaDon {
+
     @Id
-    @Column(name="MaHoaDon",nullable = false)
+    @Column(name = "MaHoaDon", nullable = false)
     private String maHoaDon;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaNhanVien",nullable = false)
+    @JoinColumn(name = "MaNhanVien", nullable = false)
     private NhanVien nhanVien;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaKhachHang",nullable = true)
+    @JoinColumn(name = "MaKhachHang", nullable = true)
     private KhachHang khachHang;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaKhuyenMai",nullable = true)
+    @JoinColumn(name = "MaKhuyenMai", nullable = true)
     private KhuyenMai khuyenMai;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaDichVu",nullable = true)
+    @JoinColumn(name = "MaDichVu", nullable = true)
     private DichVu dichVu;
-    @Column(name="NgayLapHoaDon",nullable = false)
+    @Column(name = "NgayLapHoaDon", nullable = false)
     private LocalDate ngayLapHoaDon;
     @ManyToOne
     @JoinColumn(name = "MaBan", nullable = false)
     private Ban ban;
-    @Column(name="TrangThai",nullable = false)
+    @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiHoaDon trangThai;
-    @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
     
     public HoaDon(NhanVien nhanVien, LocalDate ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
@@ -71,5 +73,11 @@ public class HoaDon {
         this.ngayLapHoaDon = ngayLapHoaDon;
         this.ban = ban;
         this.trangThai = trangThai;
+    }
+
+    public HoaDon(NhanVien nhanVien, KhachHang khachHang, LocalDate ngayLapHoaDon) {
+        this.nhanVien = nhanVien;
+        this.khachHang = khachHang;
+        this.ngayLapHoaDon = ngayLapHoaDon;
     }
 }

@@ -6,8 +6,8 @@ package dao.imlp;
 
 import dao.IBanDAO;
 import entity.Ban;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 
@@ -39,4 +39,24 @@ public class BanDAO extends AbstractDAO<Ban> implements IBanDAO<Ban> {
         query.setParameter("trangThai", state);
         return query.getResultList();
     }
+
+    public boolean updateStateById(String id, Enum state) {
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            Query query = em.createNamedQuery("Ban.updateStateById");
+            query.setParameter("maBan", id);
+            query.setParameter("trangThai", state);
+            int rowsUpdated = query.executeUpdate();
+            transaction.commit();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,14 +32,15 @@ import lombok.ToString;
     @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon")
 })
 public class ChiTietHoaDon {
+
     @Id
     @ManyToOne
-    @JoinColumn(name="MaMon",nullable = false)
+    @JoinColumn(name = "MaMon", nullable = false)
     private Mon mon;
     @Id
     @ManyToOne
-    @JoinColumn(name="MaHoaDon",nullable = false)
+    @JoinColumn(name = "MaHoaDon", nullable = false)
     private HoaDon hoaDon;
-    @Column(name="SoLuong",nullable = false)
+    @Column(name = "SoLuong", nullable = false)
     private int soLuong;
 }
