@@ -62,14 +62,14 @@ public class Form_DatBan extends javax.swing.JPanel {
     private HoaDon hoaDon = null;
     private List<MenuItem> dsMon = new ArrayList<MenuItem>();
     private static final Color TRANSPERANT = new Color(0, 0, 0, 0);
-    private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
-    private IBanDAO banDAO = new BanDAO();
-    private IKhachHangDAO khachHangDAO = new KhachHangDAO();
-    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private List<String> items = new ArrayList<String>();
     private List<KhachHang> khachHangs = new ArrayList<KhachHang>();
+    private IBanDAO banDAO = new BanDAO();
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
+    private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     private final static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy hh:mm a", Locale.ENGLISH);
-    
+
     public Form_DatBan(JFrame jFrame, Ban ban) {
         this.jFrame = jFrame;
         this.ban = ban;
@@ -100,7 +100,7 @@ public class Form_DatBan extends javax.swing.JPanel {
                     dateChooser.hidePopup();
                 }
             }
-            
+
         });
         autoComplete();
     }
@@ -642,18 +642,13 @@ public class Form_DatBan extends javax.swing.JPanel {
         }
         PhieuDatBan phieuDatBan = new PhieuDatBan(ngayGio, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
         phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
+        KhachHang kh = (KhachHang) khachHangDAO.findById("KH384851291", KhachHang.class);
         if (!dsMon.isEmpty()) {
             IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
-            INhanVienDAO nhanVienDAO = new NhanVienDAO();
-            IKhachHangDAO khachHangDAO = new KhachHangDAO();
-            IHoaDonDAO hoaDonDAO = new HoaDonDAO();
-            NhanVien nv = (NhanVien) nhanVienDAO.findById("NV120060424290", NhanVien.class);
-            KhachHang kh = (KhachHang) khachHangDAO.findById("KH384851291", KhachHang.class);
-            hoaDon = new HoaDon(nv, kh,LocalDate.now());
+            hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDate.now());
             hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
             hoaDon.setBan(ban);
             hoaDonDAO.insertHoaDon(hoaDon);
-//            hoaDon.setMaHoaDon(createMaHoaDon(ngayGio));
             for (MenuItem item : dsMon) {
                 ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
                 chiTietHoaDon.setHoaDon(hoaDon);
@@ -668,7 +663,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel));
     }//GEN-LAST:event_btnCatActionPerformed
-    
+
     private String createMaHoaDon(Date date) {
         int count = hoaDonDAO.findAll(HoaDon.class).size();
         String stt = "";
@@ -699,14 +694,14 @@ public class Form_DatBan extends javax.swing.JPanel {
         // TODO add your handling code here:
         dateChooser.showPopup();
     }//GEN-LAST:event_calendarMouseClicked
-    
+
     private void autoComplete() {
         khachHangs = khachHangDAO.findAll(KhachHang.class);
         for (KhachHang khachHang : khachHangs) {
             items.add((khachHang).getTenKH());
         }
         AutoCompleteDecorator.decorate(txtKhachHang, items, false);
-        
+
     }
 
     private void txtKhachHangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachHangKeyReleased
@@ -717,11 +712,11 @@ public class Form_DatBan extends javax.swing.JPanel {
                     txtSoDienThoai.setText(kh.getSdt());
                     break;
                 }
-                
+
             }
         }
     }//GEN-LAST:event_txtKhachHangKeyReleased
-    
+
     public void setMainJpanel(JPanel main) {
         this.mainJpanel = main;
     }

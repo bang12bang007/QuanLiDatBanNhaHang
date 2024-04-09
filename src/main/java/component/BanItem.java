@@ -49,9 +49,6 @@ public class BanItem extends javax.swing.JPanel {
     private NhanVien nv;
     private int trangThai;
     private GD_Ban gD_Ban;
-    private IPhieuDatBanDAO phieuDatBanDAO;
-    private IHoaDonDAO hoaDonDAO;
-    private IBanDAO banDAO;
 
     public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
@@ -59,16 +56,6 @@ public class BanItem extends javax.swing.JPanel {
         this.ban = ban;
         this.nv = NHANVIEN;
         this.trangThai = trangThai;
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                phieuDatBanDAO = new PhieuDatBanDAO();
-                hoaDonDAO = new HoaDonDAO();
-                banDAO = new BanDAO();
-                return null;
-            }
-        };
-        worker.execute();
         initComponents();
         jLabel1.setText(ban.getMaBan());
 
@@ -206,36 +193,7 @@ public class BanItem extends javax.swing.JPanel {
     }//GEN-LAST:event_myButton1ActionPerformed
 
     public void move() {
-
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                HoaDon hoaDon = null;
-                for (HoaDon hd : gD_Ban.getPhieuDatBan().getBan().getHoaDon()) {
-                    if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-                        hoaDon = hd;
-                        break;
-                    }
-                }
-                phieuDatBanDAO.updateBanById(gD_Ban.getPhieuDatBan().getMaPhieuDatBan(), ban);
-                hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
-                banDAO.updateStateById(ban.getMaBan(), gD_Ban.getBanActive().getTrangThai());
-                banDAO.updateStateById(gD_Ban.getBanActive().getMaBan(), ban.getTrangThai());
-                return null;
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    // Khi công việc lâu dài kết thúc, hiển thị kết quả ra giao diện
-                    utils.AppUtils.setUI(main, new GD_DatBan(main));
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        };
-        worker.execute();
-
+        gD_Ban.moveTable(this.ban);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

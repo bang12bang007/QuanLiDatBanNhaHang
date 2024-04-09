@@ -14,8 +14,13 @@ import component.MyButton;
 import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IBanDAO;
+import dao.IHoaDonDAO;
+import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
+import dao.imlp.HoaDonDAO;
+import dao.imlp.PhieuDatBanDAO;
 import entity.Ban;
+import entity.HoaDon;
 import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
@@ -52,6 +57,8 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private NhanVien nv;
     private PhieuDatBan phieuDatBan;
     private Ban ban;
+    private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
 
 //    NDK: Them phieu dat ban de chuyen ban
 //    NDK: Bi do GD_DatBan, DatMon, QuanLyDatMon, TrangChu
@@ -483,6 +490,20 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
 
     public PhieuDatBan getPhieuDatBan() {
         return this.phieuDatBan;
+    }
+
+    public void moveTable(Ban ban) {
+        HoaDon hoaDon = null;
+        for (HoaDon hd : this.phieuDatBan.getBan().getHoaDon()) {
+            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                hoaDon = hd;
+                break;
+            }
+        }
+        phieuDatBanDAO.updateBanById(this.phieuDatBan.getMaPhieuDatBan(), ban);
+        hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
+        banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
+        banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

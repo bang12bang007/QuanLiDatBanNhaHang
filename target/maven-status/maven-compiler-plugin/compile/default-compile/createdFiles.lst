@@ -1,4 +1,3 @@
-component\BanItem$3.class
 view\GD_ThanhToan$1.class
 view\Form_XemThucDon$2.class
 component\OrderItem_forUIDatMon$6.class
@@ -46,14 +45,12 @@ component\OrderItem_forUIDatMon$1.class
 datechooser\EventDateChooser.class
 view\GD_DatMon$13.class
 view\GD_ThanhToan$2.class
-component\BanItem$4.class
 datechooser\DateChooser$4.class
 view\Form_XemThucDon$1.class
 view\GD_DatMon$14.class
 component\Message$2.class
 component\WrapGridLayout.class
 component\PanelGradient.class
-view\GD_QuanLyDatMon$10.class
 view\GD_ThanhToan$10.class
 view\Form_DatBan$3.class
 component\MenuItem.class

@@ -6,17 +6,23 @@ package component;
 
 import dao.IBanDAO;
 import dao.IHoaDonDAO;
+import dao.IKhachHangDAO;
 import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.HoaDonDAO;
+import dao.imlp.KhachHangDAO;
 import dao.imlp.PhieuDatBanDAO;
 import entity.HoaDon;
+import entity.KhachHang;
+import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
 import view.GD_Ban;
@@ -35,13 +41,10 @@ public class BookingItem extends javax.swing.JPanel {
     private GD_DatBan GD;
     private int index;
     private PhieuDatBan phieuDatBan;
-    private IBanDAO banDAO = new BanDAO();
-    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
 
     public BookingItem() {
         initComponents();
         wrapper.setPreferredSize(new Dimension(1076, 60));
-
     }
 
     public void setActive(int active) {
@@ -221,19 +224,8 @@ public class BookingItem extends javax.swing.JPanel {
     }//GEN-LAST:event_wrapperMouseClicked
 
     private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
-        // TODO add your handling code here:
-        HoaDon hoaDon = null;
-        for (HoaDon hd : phieuDatBan.getBan().getHoaDon()) {
-            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-                hoaDon = hd;
-                break;
-            }
-        }
-        banDAO.updateStateById(phieuDatBan.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
-        hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         GD.setBookingActive(index);
         GD.received();
-//        utils.AppUtils.run(GD.getMainJpanel(), GD);
     }//GEN-LAST:event_btnNhanBanActionPerformed
 
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
