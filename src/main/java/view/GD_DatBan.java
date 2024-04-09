@@ -65,7 +65,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     }
 
     private void FirstTimeLoadItem() {
-        Timer timer = new Timer(1520, new ActionListener() {
+        Timer timer = new Timer(1550, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Thêm mã để kích hoạt action listener tại đây
@@ -613,7 +613,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnDatChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatChoMouseClicked
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN"));
+        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN", null));
     }//GEN-LAST:event_btnDatChoMouseClicked
 
     private void tableBodyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBodyMouseClicked

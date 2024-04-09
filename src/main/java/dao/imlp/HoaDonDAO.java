@@ -5,6 +5,7 @@
 package dao.imlp;
 
 import dao.IHoaDonDAO;
+import entity.Ban;
 import entity.HoaDon;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
@@ -77,8 +78,27 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         try {
             transaction.begin();
             Query query = em.createNamedQuery("HoaDon.updateStateById");
-            query.setParameter("maBan", id);
+            query.setParameter("maHoaDon", id);
             query.setParameter("trangThai", state);
+            int rowsUpdated = query.executeUpdate();
+            transaction.commit();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateBanById(String id, Ban ban) {
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            Query query = em.createNamedQuery("HoaDon.updateBanById");
+            query.setParameter("maHoaDon", id);
+            query.setParameter("ban", ban);
             int rowsUpdated = query.executeUpdate();
             transaction.commit();
             return rowsUpdated > 0;

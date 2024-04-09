@@ -17,6 +17,7 @@ import dao.IBanDAO;
 import dao.imlp.BanDAO;
 import entity.Ban;
 import entity.NhanVien;
+import entity.PhieuDatBan;
 import icon.FontAwesome;
 import jakarta.persistence.Entity;
 import java.awt.Color;
@@ -49,11 +50,17 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private IBanDAO banDAO = new BanDAO();
     private List<JButton> floors = new ArrayList<>();
     private NhanVien nv;
+    private PhieuDatBan phieuDatBan;
+    private Ban ban;
 
-    public GD_Ban(JPanel main, String type) {
+//    NDK: Them phieu dat ban de chuyen ban
+//    NDK: Bi do GD_DatBan, DatMon, QuanLyDatMon, TrangChu
+    public GD_Ban(JPanel main, String type, PhieuDatBan phieuDatBan) {
         this.type = type;
         this.main = main;
         this.nv = AppUtils.NHANVIEN;
+        this.phieuDatBan = phieuDatBan;
+        this.ban = phieuDatBan != null ? phieuDatBan.getBan() : null;
         AppUtils.run(main, this);
     }
 
@@ -397,6 +404,11 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         ListBan.removeAll();
         for (Ban ban : bans) {
             BanItem banItem = new BanItem(ban, ban.getTrangThai().ordinal(), main, type);
+            banItem.setGDBan(this);
+            if (this.ban != null && this.ban.getMaBan().equals(ban.getMaBan())) {
+                banItem.setActive();
+                setBanActive(ban);
+            }
             ListBan.add(banItem);
         }
         ListBan.repaint();
@@ -459,6 +471,18 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         loadTables(1);
         setInitActive(this.floors.get(0));
         loadEmptyTableOfRestaurant();
+    }
+
+    private void setBanActive(Ban ban) {
+        this.ban = ban;
+    }
+
+    public Ban getBanActive() {
+        return this.ban;
+    }
+
+    public PhieuDatBan getPhieuDatBan() {
+        return this.phieuDatBan;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -841,7 +841,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(main, new GD_Ban(main, "DAT_MON"));
+        AppUtils.setUI(main, new GD_Ban(main, "DAT_MON", null));
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed

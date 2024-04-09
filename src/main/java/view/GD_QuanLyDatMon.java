@@ -490,7 +490,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON"));
+        utils.AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON", null));
 //        repaint();
 //        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed

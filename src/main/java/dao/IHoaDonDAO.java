@@ -4,6 +4,7 @@
  */
 package dao;
 
+import entity.Ban;
 import entity.HoaDon;
 
 import java.util.ArrayList;
@@ -26,4 +27,7 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
     List<HoaDon> findByState(Enum state);
 
     boolean updateStateById(String id, Enum state);
+
+//    use to move from this table to other table
+    boolean updateBanById(String id, Ban ban);
 }

@@ -29,7 +29,8 @@ import lombok.ToString;
 @NoArgsConstructor
 //NDK created
 @NamedQueries({
-    @NamedQuery(name = "PhieuDatBan.updateState", query = "UPDATE PhieuDatBan SET trangThai = :trangThai WHERE maPhieuDatBan = :maPhieuDatBan")
+    @NamedQuery(name = "PhieuDatBan.updateState", query = "UPDATE PhieuDatBan SET trangThai = :trangThai WHERE maPhieuDatBan = :maPhieuDatBan"),
+    @NamedQuery(name = "PhieuDatBan.updateBanById", query = "UPDATE PhieuDatBan SET ban = :ban WHERE maPhieuDatBan = :maPhieuDatBan")
 })
 public class PhieuDatBan {
 

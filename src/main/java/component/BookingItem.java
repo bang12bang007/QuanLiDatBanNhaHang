@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
+import view.GD_Ban;
 import view.GD_DatBan;
 import view.GD_DatMon;
 
@@ -210,6 +211,7 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnSapChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapChoActionPerformed
         // TODO add your handling code here:
+        utils.AppUtils.setUI(GD.getMainJpanel(), new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN", phieuDatBan));
     }//GEN-LAST:event_btnSapChoActionPerformed
 
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
@@ -222,7 +224,7 @@ public class BookingItem extends javax.swing.JPanel {
         // TODO add your handling code here:
         HoaDon hoaDon = null;
         for (HoaDon hd : phieuDatBan.getBan().getHoaDon()) {
-            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
                 hoaDon = hd;
                 break;
             }

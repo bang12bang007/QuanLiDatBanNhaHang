@@ -4,6 +4,8 @@
  */
 package dao;
 
+import entity.Ban;
+
 /**
  *
  * @author Laptop
@@ -11,4 +13,6 @@ package dao;
 public interface IPhieuDatBanDAO<T> extends GenericDAO<T> {
 
     boolean updateStateById(String id, int trangThai);
+
+    boolean updateBanById(String id, Ban ban);
 }
