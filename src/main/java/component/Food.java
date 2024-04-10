@@ -24,13 +24,13 @@ public class Food extends javax.swing.JPanel {
     private JPanel orderPanel;
     private String ten;
     private String gia;
-    private List<Mon> orders;
+    private ArrayList<Mon> orders;
     private List<Mon> mons;
     private ArrayList<Integer> list_Quantity;
     private Mon mon;
     private GD_DatMon datmon;
 
-    public Food(GD_DatMon datmon, Mon mon, JPanel panelOrder, List<Mon> mons, List<Mon> orders) {
+    public Food(GD_DatMon datmon, Mon mon, JPanel panelOrder, List<Mon> mons, ArrayList<Mon> orders) {
         initComponents();
         this.orderPanel = panelOrder;
         this.ten = mon.getTenMon();
@@ -200,6 +200,13 @@ public class Food extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseExited
 
+    public void setOrders(ArrayList<Mon> orders) {
+        this.orders = orders;
+    }
+
+    public void setList_Quantity(ArrayList<Integer> list_Quantity) {
+        this.list_Quantity = list_Quantity;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnFood;

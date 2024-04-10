@@ -56,6 +56,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
+    private List<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
@@ -745,7 +746,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
                 break;
             }
         }
-        List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);
+        dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);
         System.out.println("Danh sach chi tiet hoa don: " + dsChiTietHoaDon.size());
         for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
             String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";

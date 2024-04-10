@@ -9,11 +9,14 @@ import dao.IHoaDonDAO;
 import dao.IKhachHangDAO;
 import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
+import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.KhachHangDAO;
 import dao.imlp.PhieuDatBanDAO;
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
+import entity.Mon;
 import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
@@ -21,7 +24,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
@@ -230,8 +235,11 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
         // TODO add your handling code here:
-        System.out.println(GD.getChiTietHoaDonByBan(phieuDatBan.getBan()).size());
-        utils.AppUtils.setUI(GD.getMainJpanel(), new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON));
+        GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+        ArrayList<Mon> mons = new ArrayList<Mon>();
+        ArrayList<Integer> quantity = new ArrayList<Integer>();
+
+        utils.AppUtils.setUI(GD.getMainJpanel(), datMon);
     }//GEN-LAST:event_btnGoiMonActionPerformed
 
     private String forrmater(String date) {

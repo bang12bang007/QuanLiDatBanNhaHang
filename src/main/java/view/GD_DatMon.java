@@ -4,8 +4,10 @@
  */
 package view;
 
+import LIB.FadeEffect;
 import component.Food;
 import component.Loading;
+import component.OrderItem_forUIDatMon;
 import component.RoundJTextField;
 import component.ScrollBarCustom;
 import component.WrapLayout;
@@ -23,19 +25,24 @@ import entity.HoaDon;
 import entity.Mon;
 import entity.NhanVien;
 import icon.FontAwesome;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 import utils.Enum.DatMon_ThemMon;
+import utils.Enum.TypeDatMon_Branch;
 import utils.ModelColor;
 
 /**
@@ -52,11 +59,13 @@ public class GD_DatMon extends javax.swing.JPanel {
     private List<Mon> beverages;
     private List<Mon> popular;
     private Ban ban;
-    private List<Mon> orders;
+    private ArrayList<Mon> orders;
     private ArrayList<Integer> list_quantity = new ArrayList<Integer>();
     private NhanVien nv;
     private String type_datMon;
     private DatMon_ThemMon loai;
+    private TypeDatMon_Branch branch = TypeDatMon_Branch.KHAC_DATMON;//duccuong1609 : phân loại luồng đi vào (đặt món,sửa món)
+    private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
@@ -442,6 +451,11 @@ public class GD_DatMon extends javax.swing.JPanel {
         btnThem.setColorOver(new java.awt.Color(234, 124, 105));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThem.setRadius(10);
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnKhuyenMai.setBackground(new java.awt.Color(83, 86, 99));
         btnKhuyenMai.setForeground(new java.awt.Color(255, 255, 255));
@@ -841,7 +855,10 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(main, new GD_Ban(main, "DAT_MON", null));
+        if(branch==TypeDatMon_Branch.DATMON)
+            AppUtils.setUI(main, new GD_Ban(main, "DAT_MON",null));
+        else
+            AppUtils.setUI(main, new GD_QuanLyDatMon(main, AppUtils.NHANVIEN));
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed
@@ -908,13 +925,35 @@ public class GD_DatMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         Create_OrUpdate_Order();
     }//GEN-LAST:event_btnGuiBepActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        JFrame jFrame = new JFrame();
+        jFrame.setUndecorated(true);
+        jFrame.setExtendedState(MAXIMIZED_BOTH);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Form_ThemMonKhac form = new Form_ThemMonKhac(jFrame);
+        jFrame.add(form,BorderLayout.CENTER);
+        jFrame.setBackground(new Color(0, 0, 0, 0));
+        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+        jFrame.setVisible(true);
+    }//GEN-LAST:event_btnThemActionPerformed
     public void First_LoadData() {
+        if(branch.equals(TypeDatMon_Branch.DATMON)){
+            orders = new ArrayList<Mon>();
+            }
         mons = new ArrayList<Mon>();
-        orders = new ArrayList<Mon>();
         IMonDAO dao = new MonDAO();
         mons = dao.findService();
         for (Mon mon : mons) {
             FoodList.add(new Food(this, mon, PanelOrder, mons, orders));
+        }
+        if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){
+            System.out.println(list_quantity);
+            for(int i=0;i<orders.size();i++){
+                    String[] title = new String[]{orders.get(i).getTenMon(), "1", tien_format.format(orders.get(i).getGia()*this.getList_quantity().get(i)), ""};
+                    this.getPanelOrder().add(new OrderItem_forUIDatMon(this, orders.get(i), this.getPanelOrder().getWidth(), i+1, title, orders));
+                }
         }
     }
 
@@ -934,7 +973,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         AppUtils.setUI(main, new GD_QuanLyDatMon(main, nv));
     }
 
-    public void setOrders(List<Mon> orders) {
+    public void setOrders(ArrayList<Mon> orders) {
         this.orders = orders;
     }
 
@@ -959,6 +998,19 @@ public class GD_DatMon extends javax.swing.JPanel {
         return nv;
     }
 
+    public TypeDatMon_Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(TypeDatMon_Branch branch) {
+        this.branch = branch;
+    }
+
+    public JPanel getFoodList() {
+        return FoodList;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FoodList;
     private component.PanelRound HEADER_ORDER;

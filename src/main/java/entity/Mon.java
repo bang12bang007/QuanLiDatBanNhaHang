@@ -30,7 +30,6 @@ import utils.Enum.LoaiTrangThaiMon;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @NamedQueries({
     @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m WHERE m.trangThai = :trangThai"),

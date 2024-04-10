@@ -19,11 +19,12 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import jiconfont.swing.IconFontSwing;
-import view.Form_DatBan;
+import utils.Enum.TypeDatMon_Branch;
 import view.Form_HuyMon;
 import view.GD_DatMon;
 
@@ -42,11 +43,11 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
     private Double tongTien = 0.0;
     private Double gia;
-    private List<Mon> orders;
+    private ArrayList<Mon> orders;
     private GD_DatMon datMon;
     private boolean initialized = false;
 
-    public OrderItem_forUIDatMon(GD_DatMon datMon, Mon mon, int width, int index, String[] data, List<Mon> orders) {
+    public OrderItem_forUIDatMon(GD_DatMon datMon, Mon mon, int width, int index, String[] data, ArrayList<Mon> orders) {
         this.data = data;
         this.gia = mon.getGia();
         this.orders = orders;
@@ -85,7 +86,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     public ArrayList<Integer> getListQuantity() {
         ArrayList<Integer> listQuantity = new ArrayList<Integer>();
-        for (int i = 0; i < datMon.getPanelOrder().getComponentCount(); i++) {
+        if(datMon.getPanelOrder().getComponentCount()!=0){
+            for (int i = 0; i < datMon.getPanelOrder().getComponentCount(); i++) {
             OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) datMon.getPanelOrder().getComponent(i);
             JTextField quantity = (JTextField) item.panelRound1.getComponent(0);
             try {
@@ -94,6 +96,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
         }
         return listQuantity;
     }
@@ -118,21 +121,17 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     }
 
     public void push(String[] data) {
-        tenMon.setText("  " + data[0]);
-        soLuong.setText(" " + data[1]);
-        donGia.setText(" " + data[2]);
+        tenMon.setText(data[0]);
+        soLuong.setText(data[1]);
+        donGia.setText(data[2]);
         setLastItem(data[3]);
     }
 
     private void setLastItem(String data) {
-        if (type.equals("BUTTON")) {
             IconFontSwing.register(FontAwesome.getIconFont());
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
             increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, Color.white));
             decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, Color.white));
-        } else {
-            huy.setText(" " + data);
-        }
     }
 
 //    public OrderItem(int index) {
@@ -159,6 +158,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
         tenMon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
+        tenMon.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0));
         add(tenMon);
 
         panelRound1.setBackground(new java.awt.Color(255, 255, 255,0));
@@ -168,7 +168,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         soLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         soLuong.setForeground(new java.awt.Color(255, 255, 255));
         soLuong.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        soLuong.setBorder(null);
+        soLuong.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
         soLuong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 soLuongMouseEntered(evt);
@@ -221,6 +221,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
         donGia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         donGia.setForeground(new java.awt.Color(255, 255, 255));
+        donGia.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
         add(donGia);
 
         huy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -241,7 +242,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     private void huyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseClicked
         // TODO add your handling code here:
-        if (type.equals("BUTTON")) {
+        if (!datMon.getBranch().equals(TypeDatMon_Branch.DATMON)) {
             JFrame jFrame = new JFrame();
             jFrame.setUndecorated(true);
             jFrame.setExtendedState(MAXIMIZED_BOTH);
@@ -252,25 +253,48 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
             jFrame.setVisible(true);
         }
+        else{
+                ArrayList<Mon> replace_orders = new ArrayList<Mon>();
+                for(int i=0;i<orders.size();i++){
+                    if(!orders.get(i).getTenMon().equals(tenMon.getText())){
+                        replace_orders.add((Mon)orders.get(i));
+                    }
+                }
+                orders = replace_orders;
+                datMon.setOrders(replace_orders);
+                
+                datMon.getPanelOrder().removeAll();
+                
+                for(int i=0;i<orders.size();i++){
+                    String[] title = new String[]{orders.get(i).getTenMon(), "1", tien_format.format(orders.get(i).getGia()*datMon.getList_quantity().get(i)), ""};
+                    datMon.getPanelOrder().add(new OrderItem_forUIDatMon(datMon, orders.get(i), datMon.getPanelOrder().getWidth(), i+1, title, orders));
+                }
+                
+                datMon.setList_quantity(getListQuantity());
+                
+                for(int i=0;i<datMon.getFoodList().getComponentCount();i++){
+                    Food item = (Food)datMon.getFoodList().getComponent(i);
+                    item.setOrders(replace_orders);
+                    item.setList_Quantity(getListQuantity());
+                }
+                updateTongTien();
+                datMon.getPanelOrder().revalidate();
+                datMon.getPanelOrder().repaint();
+        }
     }//GEN-LAST:event_huyMouseClicked
     
     private void huyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseEntered
         // TODO add your handling code here:
 //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 20));
-
-        if (type.equals("BUTTON")) {
             IconFontSwing.register(FontAwesome.getIconFont());
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, new Color(234, 124, 105)));
-        }
     }//GEN-LAST:event_huyMouseEntered
 
     private void huyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseExited
         // TODO add your handling code here:
 //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 14));
-        if (type.equals("BUTTON")) {
             IconFontSwing.register(FontAwesome.getIconFont());
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
-        }
     }//GEN-LAST:event_huyMouseExited
 
     private void increaseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_increaseMouseEntered
@@ -284,9 +308,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         try {
             int quantity = Integer.parseInt(soLuong.getText().trim());
             quantity++;
-            soLuong.setText(" " + Integer.toString(quantity));
+            soLuong.setText(Integer.toString(quantity));
             tongTien = quantity * gia;
-            donGia.setText("  " + tien_format.format(tongTien));
+            donGia.setText(tien_format.format(tongTien));
             datMon.setList_quantity(getListQuantity());
             updateTongTien();
         } catch (Exception e) {
@@ -307,9 +331,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             if (quantity > 1) {
                 quantity--;
             }
-            soLuong.setText(" " + Integer.toString(quantity));
+            soLuong.setText(Integer.toString(quantity));
             tongTien = quantity * gia;
-            donGia.setText("  " + tien_format.format(tongTien));
+            donGia.setText(tien_format.format(tongTien));
             datMon.setList_quantity(getListQuantity());
             updateTongTien();
         } catch (Exception e) {
@@ -342,8 +366,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         try {
             if (initialized) {
                 if (!soLuong.getText().trim().equals("")) {
-                    Integer.parseInt(soLuong.getText().trim());
+                    int quantity = Integer.parseInt(soLuong.getText().trim());
                     datMon.setList_quantity(getListQuantity());
+                    donGia.setText(tien_format.format(gia*quantity));
                     updateTongTien();
                 }
             }
@@ -354,9 +379,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     };
     public void updateForDelete(){
         int quantity = 0;
-        soLuong.setText(" "+Integer.toString(quantity));
+        soLuong.setText(Integer.toString(quantity));
         tongTien = quantity*gia;
-        donGia.setText("  0,0VNĐ");
+        donGia.setText("0,0VNĐ");
         datMon.setList_quantity(getListQuantity());
         updateTongTien();
     }
