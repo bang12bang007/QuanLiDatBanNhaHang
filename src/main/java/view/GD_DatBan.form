@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
-    <Component class="datechooser.DateChooser" name="dateChooser1">
+    <Component class="datechooser.DateChooser" name="dateChooser">
       <Properties>
         <Property name="dateFormat" type="java.lang.String" value="dd/MM/yyyy"/>
         <Property name="inheritsPopupMenu" type="boolean" value="true"/>

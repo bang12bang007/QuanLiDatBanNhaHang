@@ -8,6 +8,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.List;
@@ -25,6 +27,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@NamedQueries({
+    @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.sdt = :sdt")
+})
 public class KhachHang {
     @Id
     @Column(name="MaKhachHang",nullable = false)
@@ -33,7 +38,7 @@ public class KhachHang {
     private String tenKH;
     @Column(name="SoDienThoai",nullable = false)
     private String sdt;
-    @Column(name="DiaChi",columnDefinition = "NVARCHAR(255)",nullable = false)
+    @Column(name="DiaChi",columnDefinition = "NVARCHAR(255)",nullable = true)
     private String diaChi;
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;

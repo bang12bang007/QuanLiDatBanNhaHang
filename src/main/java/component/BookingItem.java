@@ -230,6 +230,7 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
         // TODO add your handling code here:
+        System.out.println(GD.getChiTietHoaDonByBan(phieuDatBan.getBan()).size());
         utils.AppUtils.setUI(GD.getMainJpanel(), new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON));
     }//GEN-LAST:event_btnGoiMonActionPerformed
 

@@ -40,6 +40,7 @@ component\OrderCard$5.class
 view\GD_DangNhap$1.class
 view\GD_TrangChu$10.class
 view\GD_TrangChu$9.class
+view\GD_DatBan$9.class
 view\Form_ThuTien$7.class
 component\OrderItem_forUIDatMon$1.class
 datechooser\EventDateChooser.class

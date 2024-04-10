@@ -148,6 +148,10 @@ public class BanItem extends javax.swing.JPanel {
     public Ban getBan() {
         return this.ban;
     }
+    
+    public JPanel getMain() {
+        return this.main;
+    }
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
@@ -173,6 +177,7 @@ public class BanItem extends javax.swing.JPanel {
                 if (image_type.equals("/images/my_table_blue.png")) {
                     utils.AppUtils.setUI(main, new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON));
                 }
+                break;
             }
             case "CHUYEN_BAN": {
                 if (image_type.equals("/images/my_table_blue.png")) {
