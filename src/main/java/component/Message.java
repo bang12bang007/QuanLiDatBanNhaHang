@@ -217,7 +217,7 @@ public class Message extends javax.swing.JPanel {
         banItem.move();
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        utils.AppUtils.setUI(banItem.getMain(), new GD_DatBan(banItem.getMain()));
+        utils.AppUtils.setUI(banItem.getMain(), () -> new GD_DatBan(banItem.getMain()));
     }//GEN-LAST:event_btnDongYActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed

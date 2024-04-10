@@ -71,10 +71,12 @@ public class Form_DatBan extends javax.swing.JPanel {
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private final static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy hh:mm a", Locale.ENGLISH);
-
+    private boolean isTurnOn;
+//  Cho nhấn một lần sửa lại giao diện truyền 1 JFrame không new mới khi click vào
     public Form_DatBan(JFrame jFrame, Ban ban) {
         this.jFrame = jFrame;
         this.ban = ban;
+        this.isTurnOn = true;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         this.setBackground(new Color(0, 0, 0, 0.7f));
@@ -711,22 +713,9 @@ public class Form_DatBan extends javax.swing.JPanel {
             banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
             this.jFrame.setVisible(false);
             this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            utils.AppUtils.setUI(this.mainJpanel, new GD_DatBan(this.mainJpanel));
+            utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
         }
     }//GEN-LAST:event_btnCatActionPerformed
-
-    private String createMaHoaDon(Date date) {
-        int count = hoaDonDAO.findAll(HoaDon.class).size();
-        String stt = "";
-        if (count + 1 < 10) {
-            stt += "00" + ++count;
-        } else if (count + 1 < 100) {
-            stt += "0" + ++count;
-        } else {
-            stt += ++count;
-        }
-        return "HD" + date.getYear() % 100 + date.getMonth() + 1 + date.getDate() + date.getHours() + stt;
-    }
 
     public void setMonDaDat(List<MenuItem> ds) {
         this.dsMon = ds;
@@ -735,12 +724,14 @@ public class Form_DatBan extends javax.swing.JPanel {
     private boolean isValidate() {
         String khachHang = txtKhachHang.getText();
         String sdt = txtSoDienThoai.getText();
-        if (khachHang.isEmpty() || sdt.isEmpty()) {
-            errorSDT.setText("Không được rỗng");
+        if (khachHang.isEmpty()) {
             errorKH.setText("Không được rỗng");
             return false;
         }
-        if (!sdt.matches("/(84|0[3|5|7|8|9])+([0-9]{8})\b/g")) {
+        if (sdt.isEmpty()) {
+            errorSDT.setText("Không được rỗng");
+        }
+        if (!sdt.matches("(84|0[3|5|7|8|9])+([0-9]{8})\\b")) {
             errorSDT.setText("Số điện thoại không hợp lệ");
             return false;
         }
@@ -776,8 +767,9 @@ public class Form_DatBan extends javax.swing.JPanel {
 
     private KhachHang createKhachHang() {
         String hoTen = txtKhachHang.getText();
-        String sdt = txtSoDienThoai.getText().substring(1, txtSoDienThoai.getText().length());
+        String sdt = txtSoDienThoai.getText();
         KhachHang kh = new KhachHang(hoTen, sdt, null);
+        sdt = txtSoDienThoai.getText().substring(1, txtSoDienThoai.getText().length());
         kh.setMaKH("KH" + sdt);
         return kh;
     }
@@ -836,6 +828,14 @@ public class Form_DatBan extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_txtKhachHangKeyReleased
+
+    void setData(PhieuDatBan phieuDatBan) {
+        txtKhachHang.setText(phieuDatBan.getHoTen());
+        txtSoDienThoai.setText(phieuDatBan.getSdt());
+        txtYeuCau.setText(phieuDatBan.getYeuCauKhac());
+        txtSoNguoi.setText(phieuDatBan.getSoLuongNguoi() + "");
+
+    }
 
     public void setMainJpanel(JPanel main) {
         this.mainJpanel = main;

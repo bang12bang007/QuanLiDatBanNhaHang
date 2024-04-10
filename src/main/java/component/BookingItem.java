@@ -88,6 +88,7 @@ public class BookingItem extends javax.swing.JPanel {
         soNguoi.setText(data[2]);
         trangThai.setText(data[3]);
         datCoc.setText(data[4] + "    ");
+
     }
 
     public PhieuDatBan getPhieuDatBan() {
@@ -96,6 +97,9 @@ public class BookingItem extends javax.swing.JPanel {
 
     public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
         this.phieuDatBan = phieuDatBan;
+        if (phieuDatBan.getTrangThai() == 1) {
+            hideButton();
+        }
     }
 
     public void setData(String[] data) {
@@ -220,7 +224,7 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnSapChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapChoActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(GD.getMainJpanel(), new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN", phieuDatBan));
+        utils.AppUtils.setUI(GD.getMainJpanel(), () -> new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN", phieuDatBan));
     }//GEN-LAST:event_btnSapChoActionPerformed
 
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
@@ -256,10 +260,9 @@ public class BookingItem extends javax.swing.JPanel {
 //                datMon.setLabelTongTien(AppUtils.tien_format.format(total));
                 return null;
             }
-
             @Override
-            protected void done() {
-                utils.AppUtils.setUI(GD.getMainJpanel(), datMon);
+            protected void done(){
+                utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
             }
         };
         worker.execute();
@@ -282,6 +285,14 @@ public class BookingItem extends javax.swing.JPanel {
 
     public void setTrangThai(String trangThai) {
         this.trangThai.setText(trangThai);
+        hideButton();
+
+    }
+
+    private void hideButton() {
+        btnNhanBan.setVisible(false);
+        btnGoiMon.setVisible(false);
+        btnSapCho.setVisible(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

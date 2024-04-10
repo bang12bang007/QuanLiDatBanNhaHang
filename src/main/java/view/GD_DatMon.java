@@ -55,7 +55,7 @@ import utils.ModelColor;
  *
  * @author Laptop
  */
-public class GD_DatMon extends javax.swing.JPanel {
+public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     /**
      * Creates new form GD_DatMon
@@ -72,15 +72,43 @@ public class GD_DatMon extends javax.swing.JPanel {
     private DatMon_ThemMon loai;
     private TypeDatMon_Branch branch = TypeDatMon_Branch.KHAC_DATMON;//duccuong1609 : phân loại luồng đi vào (đặt món,sửa món)
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
+    private GD_Ban gD_Ban;
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
         this.main = main;
         this.ban = ban;
         this.loai = loai;
-        run();
+        initComponents();
+        setVisible(true);
+        IconFontSwing.register(FontAwesome.getIconFont());
+        btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 30, Color.WHITE));
+        FoodList.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
+        scrollFoodList.setVerticalScrollBar(new ScrollBarCustom());
+        scrollFoodList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        Scroll_Order.setVerticalScrollBar(new ScrollBarCustom());
+        Scroll_Order.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        panelGradient1.addColor(new ModelColor(new Color(31, 29, 43), 0f), new ModelColor(new Color(31, 29, 43, 0), 0.5f), new ModelColor(new Color(31, 29, 43, 0), 1f));
+        IconFontSwing.register(FontAwesome.getIconFont());
+        btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
+        btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+        btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
+        btnHelpCaculator.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
+        btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+        btnBack.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_LEFT, 20, Color.WHITE));
+        btnNV.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
+        btnGhiChu.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 20, Color.WHITE));
+        btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
+        btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
+        PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
+        banTextField.setText(ban.getMaBan());
+        banTextField.setEditable(false);
+        labelTongTien.setText("0,0 VNĐ");
+        nhanVienName.setText(nv.getHoTen());
+        First_LoadData();
     }
 
+//    NDK: t di len contructor luon nghe
     private void run() {
         GD_DatMon gd_datmon = this;
         Timer timer = new Timer(0, new ActionListener() {
@@ -88,34 +116,6 @@ public class GD_DatMon extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 Loading loading = new Loading();
                 utils.AppUtils.setLoading(main, true, loading, gd_datmon);
-
-                initComponents();
-                setVisible(true);
-                IconFontSwing.register(FontAwesome.getIconFont());
-                btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 30, Color.WHITE));
-                FoodList.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
-                scrollFoodList.setVerticalScrollBar(new ScrollBarCustom());
-                scrollFoodList.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                Scroll_Order.setVerticalScrollBar(new ScrollBarCustom());
-                Scroll_Order.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                panelGradient1.addColor(new ModelColor(new Color(31, 29, 43), 0f), new ModelColor(new Color(31, 29, 43, 0), 0.5f), new ModelColor(new Color(31, 29, 43, 0), 1f));
-                IconFontSwing.register(FontAwesome.getIconFont());
-                btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
-                btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-                btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
-                btnHelpCaculator.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
-                btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-                btnBack.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_LEFT, 20, Color.WHITE));
-                btnNV.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
-                btnGhiChu.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOK, 20, Color.WHITE));
-                btnKhuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.GIFT, 20, Color.WHITE));
-                btnTime.setIcon(IconFontSwing.buildIcon(FontAwesome.CLOCK_O, 20, Color.WHITE));
-                PanelOrder.setLayout(new WrapLayout(FlowLayout.CENTER, 0, 0));
-                banTextField.setText(ban.getMaBan());
-                banTextField.setEditable(false);
-                labelTongTien.setText("0,0 VNĐ");
-                nhanVienName.setText(nv.getHoTen());
-                First_LoadData();
 
                 Timer hideTimer = new Timer(1500, new ActionListener() {
                     @Override
@@ -866,10 +866,11 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        if (branch == TypeDatMon_Branch.DATMON)
-            AppUtils.setUI(main, new GD_Ban(main, "DAT_MON", null));
+        if (branch == TypeDatMon_Branch.DATMON){
+            AppUtils.setUI(main, () -> gD_Ban);
+        }
         else
-            AppUtils.setUI(main, new GD_QuanLyDatMon(main, AppUtils.NHANVIEN));
+            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, AppUtils.NHANVIEN));
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed
@@ -894,7 +895,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(main, new GD_QuanLyDatMon(main, nv));
+        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
     }//GEN-LAST:event_btnCatActionPerformed
 
     int index = 1;
@@ -955,12 +956,6 @@ public class GD_DatMon extends javax.swing.JPanel {
         GD_DatMon datMon = this;
         String input = jTextFieldSearch.getText().trim();
         FoodList.removeAll();
-        for (Mon mon : mons) {
-            if (AppUtils.CheckContainsAbbreviation(mon.getTenMon(), input)) {
-                System.out.println(mon.getTenMon());
-                FoodList.add(new Food(datMon, mon, PanelOrder, mons, orders));
-            }
-        }
         FoodList.repaint();
         FoodList.revalidate();
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
@@ -1030,7 +1025,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                 chitietDAO.insert(chiTiet);
             }
         }
-        AppUtils.setUI(main, new GD_QuanLyDatMon(main, nv));
+        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
     }
 
     public void setOrders(ArrayList<Mon> orders) {
@@ -1070,6 +1065,13 @@ public class GD_DatMon extends javax.swing.JPanel {
         return FoodList;
     }
 
+    public GD_Ban getgD_Ban() {
+        return gD_Ban;
+    }
+
+    public void setgD_Ban(GD_Ban gD_Ban) {
+        this.gD_Ban = gD_Ban;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FoodList;
@@ -1121,4 +1123,8 @@ public class GD_DatMon extends javax.swing.JPanel {
     private component.PanelRound panelRound5;
     private javax.swing.JScrollPane scrollFoodList;
     // End of variables declaration//GEN-END:variables
+
+    public void setUI() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

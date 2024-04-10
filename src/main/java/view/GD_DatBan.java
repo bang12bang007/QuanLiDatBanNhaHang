@@ -4,6 +4,7 @@
  */
 package view;
 
+import LIB.FadeEffect;
 import datechooser.EventDateChooser;
 import datechooser.SelectedAction;
 import datechooser.SelectedDate;
@@ -32,12 +33,16 @@ import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
@@ -65,7 +70,33 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
-        utils.AppUtils.run(mainJPanel, this);
+        initComponents();
+        IconFontSwing.register(FontAwesome.getIconFont());
+        btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
+        btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
+        tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        tableScroll.setVerticalScrollBar(new ScrollBarCustom());
+        tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
+        btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 24, Color.WHITE));
+        dateChooser.addEventDateChooser(new EventDateChooser() {
+            public void dateSelected(SelectedAction action, SelectedDate date) {
+                if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
+                    filterByDate(date.getDay(), date.getMonth(), date.getYear());
+                }
+            }
+        });
+        tableBody.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                if (tableBody.getWidth() != 0 && tableBody.getHeight() != 0) {
+                    loadData();
+                    // Loại bỏ lắng nghe sự kiện sau khi đã được kích hoạt một lần
+                    tableBody.removeComponentListener(this);
+                }
+            }
+        });
+
     }
 
     public void setUI() {
@@ -194,7 +225,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
         calender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        txtNgay.setBackground(new java.awt.Color(255, 255, 255));
         txtNgay.setBorder(null);
 
         javax.swing.GroupLayout dateLayout = new javax.swing.GroupLayout(date);
@@ -251,7 +281,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         txtTKKH.setRoundTopLeft(8);
         txtTKKH.setRoundTopRight(8);
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jTextField1.setBorder(null);
 
@@ -371,6 +400,11 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         btnThayDoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThayDoi.setForeground(new java.awt.Color(255, 255, 255));
         btnThayDoi.setText("Thay đổi");
+        btnThayDoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThayDoiMouseClicked(evt);
+            }
+        });
 
         btnHuyCho.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHuyCho.setForeground(new java.awt.Color(255, 255, 255));
@@ -650,7 +684,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnDatChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatChoMouseClicked
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJPanel, new GD_Ban(mainJPanel, "DAT_BAN", null));
+        utils.AppUtils.setUI(mainJPanel, () -> new GD_Ban(mainJPanel, "DAT_BAN", null));
     }//GEN-LAST:event_btnDatChoMouseClicked
 
     private void tableBodyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBodyMouseClicked
@@ -668,6 +702,23 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         banDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
         this.deleteBooking();
     }//GEN-LAST:event_btnHuyChoMouseClicked
+
+    private void btnThayDoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThayDoiMouseClicked
+        // TODO add your handling code here:
+        if (active >= 0) {
+            JFrame jFrame = new JFrame();
+            jFrame.setUndecorated(true);
+            jFrame.setExtendedState(MAXIMIZED_BOTH);
+            jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_DatBan form_DatBan = new Form_DatBan(jFrame, bookingItems.get(active).getPhieuDatBan().getBan());
+            form_DatBan.setMainJpanel(mainJPanel);
+            form_DatBan.setData(bookingItems.get(active).getPhieuDatBan());
+            jFrame.add(form_DatBan);
+            jFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+            jFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_btnThayDoiMouseClicked
 
     public void deleteBooking() {
         if (active >= 0) {
