@@ -5,21 +5,26 @@
 package view;
 
 import component.BookingItem;
+import component.Food;
+import component.OrderItem_forUIDatMon;
 import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
 import dao.IKhachHangDAO;
+import dao.IMonDAO;
 import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.KhachHangDAO;
+import dao.imlp.MonDAO;
 import dao.imlp.PhieuDatBanDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
+import entity.Mon;
 import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
@@ -32,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 
@@ -73,17 +79,21 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     }
 
     private void FirstTimeLoadItem() {
-        Timer timer = new Timer(1520, new ActionListener() {
+//        GD_DatBan dat_ban = this;
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // Thêm mã để kích hoạt action listener tại đây
+            protected Void doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
                 loadData();
                 tableBody.repaint();
                 tableBody.revalidate();
+                return null;
             }
-        });
-        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
-        timer.start();
+            @Override
+            protected void done() {
+            }
+        };
+        worker.execute();
     }
 
     /**

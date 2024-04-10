@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.JScrollPane;
@@ -58,14 +60,38 @@ public class AppUtils {
 
     public static void setUI(JPanel mainJPanel, JPanel jComponent) {
         mainJPanel.removeAll();
-        mainJPanel.add(jComponent);
+
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
+                mainJPanel.add(jComponent);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+            }
+        };
+        worker.execute();
         mainJPanel.repaint();
         mainJPanel.revalidate();
     }
 
     public static void setLoading(JPanel mainJPanel, boolean state, Loading loading, JPanel jpanel) {
         if (state) {
-            mainJPanel.remove(jpanel);
+            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    // Thực hiện công việc lâu dài ở đây
+                    mainJPanel.remove(jpanel);
+                    return null;
+                }
+                @Override
+                protected void done() {
+                }
+            };
+            worker.execute();
             mainJPanel.add(loading);
             mainJPanel.repaint();
             mainJPanel.revalidate();
@@ -121,5 +147,22 @@ public class AppUtils {
 
     public static void saveStorage(NhanVien nhanVien) {
         NHANVIEN = nhanVien;
+    }
+
+    //duccuong1609 : Kiểm tra có chuỗi nhập. Truyền 2 giá trị (chuỗi trong dữ liệu <tên,..>, chuỗi viết tắt/viết tên..)
+    public static boolean CheckContainsAbbreviation(String input, String abbreviation) {
+        String replace = input.replaceAll("[^a-zA-Z ]", "");
+        Pattern pattern = Pattern.compile("\\b(\\w)");
+        Matcher matcher = pattern.matcher(replace);
+
+        StringBuilder result = new StringBuilder();
+        while (matcher.find()) {
+            result.append(matcher.group(1).toLowerCase());
+        }
+        if (result.toString().contains(abbreviation.toLowerCase()) || input.toLowerCase().contains(abbreviation.toLowerCase())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

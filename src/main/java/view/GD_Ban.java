@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import component.BanItem;
 import component.Loading;
 import component.MyButton;
+import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IBanDAO;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
@@ -473,11 +475,22 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     }
 
     private void loadData() {
-//        utils.AppUtils.setUI(main, new Loading());
-        loadFloors();
-        loadTables(1);
-        setInitActive(this.floors.get(0));
-        loadEmptyTableOfRestaurant();
+        GD_Ban gd_ban = this;
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
+                loadFloors();
+                loadTables(1);
+                setInitActive(gd_ban.floors.get(0));
+                loadEmptyTableOfRestaurant();
+                return null;
+            }
+            @Override
+            protected void done() {
+            }
+        };
+        worker.execute();
     }
 
     private void setBanActive(Ban ban) {

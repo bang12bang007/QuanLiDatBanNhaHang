@@ -38,7 +38,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 import utils.Enum.DatMon_ThemMon;
@@ -237,6 +240,11 @@ public class GD_DatMon extends javax.swing.JPanel {
         btnKhac.setRadius(10);
 
         jTextFieldSearch.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyReleased(evt);
+            }
+        });
 
         btnSearch.setBackground(new java.awt.Color(83, 86, 99));
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
@@ -938,23 +946,50 @@ public class GD_DatMon extends javax.swing.JPanel {
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
-    public void First_LoadData() {
-        if(branch.equals(TypeDatMon_Branch.DATMON)){
-            orders = new ArrayList<Mon>();
+
+    private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
+        // TODO add your handling code here:
+        GD_DatMon datMon = this;
+        String input = jTextFieldSearch.getText().trim();
+        FoodList.removeAll();
+        for(Mon mon:mons){
+            if(AppUtils.CheckContainsAbbreviation(mon.getTenMon(), input)){
+                System.out.println(mon.getTenMon());
+                FoodList.add(new Food(datMon,mon,PanelOrder,mons,orders));
             }
-        mons = new ArrayList<Mon>();
-        IMonDAO dao = new MonDAO();
-        mons = dao.findService();
-        for (Mon mon : mons) {
-            FoodList.add(new Food(this, mon, PanelOrder, mons, orders));
         }
-        if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){
-            System.out.println(list_quantity);
-            for(int i=0;i<orders.size();i++){
-                    String[] title = new String[]{orders.get(i).getTenMon(), "1", tien_format.format(orders.get(i).getGia()*this.getList_quantity().get(i)), ""};
-                    this.getPanelOrder().add(new OrderItem_forUIDatMon(this, orders.get(i), this.getPanelOrder().getWidth(), i+1, title, orders));
+        FoodList.repaint();
+        FoodList.revalidate();
+    }//GEN-LAST:event_jTextFieldSearchKeyReleased
+    public void First_LoadData() {
+        GD_DatMon gd_mon = this;
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
+                if(branch.equals(TypeDatMon_Branch.DATMON)){
+                    orders = new ArrayList<Mon>();
                 }
-        }
+                mons = new ArrayList<Mon>();
+                IMonDAO dao = new MonDAO();
+                mons = dao.findService();
+                for (Mon mon : mons) {
+                    FoodList.add(new Food(gd_mon, mon, PanelOrder, mons, orders));
+                }
+                if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){
+                    System.out.println(list_quantity);
+                    for(int i=0;i<orders.size();i++){
+                            String[] title = new String[]{orders.get(i).getTenMon(), "1", tien_format.format(orders.get(i).getGia()*gd_mon.getList_quantity().get(i)), ""};
+                            gd_mon.getPanelOrder().add(new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i+1, title, orders));
+                        }
+                }
+                return null;
+            }
+            @Override
+            protected void done() {
+            }
+        };
+        worker.execute();
     }
 
     public void Create_OrUpdate_Order() {

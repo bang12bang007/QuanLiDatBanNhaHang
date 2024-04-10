@@ -175,6 +175,7 @@ public class BanItem extends javax.swing.JPanel {
                     gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
                     utils.AppUtils.setUI(main, gd);
                 }
+                break;
             }
             case "CHUYEN_BAN": {
                 if (image_type.equals("/images/my_table_blue.png")) {
@@ -190,6 +191,7 @@ public class BanItem extends javax.swing.JPanel {
                     FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
                     jFrame.setVisible(true);
                 }
+                break;
             }
         }
     }//GEN-LAST:event_myButton1ActionPerformed
