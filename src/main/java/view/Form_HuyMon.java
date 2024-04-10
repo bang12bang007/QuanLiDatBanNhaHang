@@ -5,8 +5,10 @@
 package view;
 
 import component.OrderItem_forUIDatMon;
+import icon.FontAwesome;
 import java.awt.Color;
 import javax.swing.JFrame;
+import jiconfont.swing.IconFontSwing;
 
 /**
  *
@@ -24,6 +26,9 @@ public class Form_HuyMon extends javax.swing.JPanel {
         this.main = frame;
         this.parent = parent;
         this.setBackground(new Color(0, 0, 0, 0.7f));
+        IconFontSwing.register(FontAwesome.getIconFont());
+        btnHelp.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
+        btnClose.setIcon(IconFontSwing.buildIcon(FontAwesome.WINDOW_CLOSE, 20, Color.WHITE));
     }
 
     /**
@@ -38,8 +43,8 @@ public class Form_HuyMon extends javax.swing.JPanel {
         panelRound1 = new component.PanelRound();
         panelRound2 = new component.PanelRound();
         jLabel1 = new javax.swing.JLabel();
-        myButton1 = new component.MyButton();
-        myButton2 = new component.MyButton();
+        btnHelp = new component.MyButton();
+        btnClose = new component.MyButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -62,25 +67,26 @@ public class Form_HuyMon extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Hủy Món");
 
-        myButton1.setBackground(new java.awt.Color(31, 29, 43));
-        myButton1.setColor(new java.awt.Color(31, 29, 43));
-        myButton1.setColorClick(new java.awt.Color(31, 29, 43));
-        myButton1.setColorOver(new java.awt.Color(31, 29, 43));
-        myButton1.setRadius(60);
-        myButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnHelp.setBackground(new java.awt.Color(31, 29, 43));
+        btnHelp.setColor(new java.awt.Color(31, 29, 43));
+        btnHelp.setColorClick(new java.awt.Color(31, 29, 43));
+        btnHelp.setColorOver(new java.awt.Color(31, 29, 43));
+        btnHelp.setRadius(60);
+        btnHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton1ActionPerformed(evt);
+                btnHelpActionPerformed(evt);
             }
         });
 
-        myButton2.setBackground(new java.awt.Color(31, 29, 43));
-        myButton2.setColor(new java.awt.Color(31, 29, 43));
-        myButton2.setColorClick(new java.awt.Color(31, 29, 43));
-        myButton2.setColorOver(new java.awt.Color(31, 29, 43));
-        myButton2.setRadius(60);
-        myButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnClose.setBackground(new java.awt.Color(31, 29, 43));
+        btnClose.setColor(new java.awt.Color(31, 29, 43));
+        btnClose.setColorClick(new java.awt.Color(31, 29, 43));
+        btnClose.setColorOver(new java.awt.Color(31, 29, 43));
+        btnClose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnClose.setRadius(60);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton2ActionPerformed(evt);
+                btnCloseActionPerformed(evt);
             }
         });
 
@@ -92,9 +98,9 @@ public class Form_HuyMon extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(325, 325, 325)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
         panelRound2Layout.setVerticalGroup(
@@ -102,9 +108,9 @@ public class Form_HuyMon extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(myButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(myButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnClose, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
 
@@ -226,13 +232,14 @@ public class Form_HuyMon extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton1ActionPerformed
+    }//GEN-LAST:event_btnHelpActionPerformed
 
-    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton2ActionPerformed
+        main.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     private void myButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton4ActionPerformed
         // TODO add your handling code here:
@@ -247,13 +254,13 @@ public class Form_HuyMon extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private component.MyButton btnClose;
+    private component.MyButton btnHelp;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private component.MyButton myButton1;
-    private component.MyButton myButton2;
     private component.MyButton myButton3;
     private component.MyButton myButton4;
     private component.PanelRound panelRound1;
