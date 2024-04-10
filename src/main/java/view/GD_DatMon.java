@@ -35,6 +35,9 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -863,8 +866,8 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        if(branch==TypeDatMon_Branch.DATMON)
-            AppUtils.setUI(main, new GD_Ban(main, "DAT_MON",null));
+        if (branch == TypeDatMon_Branch.DATMON)
+            AppUtils.setUI(main, new GD_Ban(main, "DAT_MON", null));
         else
             AppUtils.setUI(main, new GD_QuanLyDatMon(main, AppUtils.NHANVIEN));
     }//GEN-LAST:event_btnBackActionPerformed
@@ -941,7 +944,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         jFrame.setExtendedState(MAXIMIZED_BOTH);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Form_ThemMonKhac form = new Form_ThemMonKhac(jFrame);
-        jFrame.add(form,BorderLayout.CENTER);
+        jFrame.add(form, BorderLayout.CENTER);
         jFrame.setBackground(new Color(0, 0, 0, 0));
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
         jFrame.setVisible(true);
@@ -952,10 +955,10 @@ public class GD_DatMon extends javax.swing.JPanel {
         GD_DatMon datMon = this;
         String input = jTextFieldSearch.getText().trim();
         FoodList.removeAll();
-        for(Mon mon:mons){
-            if(AppUtils.CheckContainsAbbreviation(mon.getTenMon(), input)){
+        for (Mon mon : mons) {
+            if (AppUtils.CheckContainsAbbreviation(mon.getTenMon(), input)) {
                 System.out.println(mon.getTenMon());
-                FoodList.add(new Food(datMon,mon,PanelOrder,mons,orders));
+                FoodList.add(new Food(datMon, mon, PanelOrder, mons, orders));
             }
         }
         FoodList.repaint();
@@ -963,30 +966,52 @@ public class GD_DatMon extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
     public void First_LoadData() {
         GD_DatMon gd_mon = this;
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+        FoodList.removeAll();
+        Loading loading = new Loading();
+        utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
+        FoodList.repaint();
+        FoodList.revalidate();
+        SwingWorker<List<Food>, Void> worker = new SwingWorker<List<Food>, Void>() {
             @Override
-            protected Void doInBackground() throws Exception {
+            protected List<Food> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
-                if(branch.equals(TypeDatMon_Branch.DATMON)){
+                List<Food> list = new ArrayList<>();
+                if (branch.equals(TypeDatMon_Branch.DATMON)) {
                     orders = new ArrayList<Mon>();
                 }
                 mons = new ArrayList<Mon>();
                 IMonDAO dao = new MonDAO();
                 mons = dao.findService();
                 for (Mon mon : mons) {
-                    FoodList.add(new Food(gd_mon, mon, PanelOrder, mons, orders));
+                    list.add(new Food(gd_mon, mon, PanelOrder, mons, orders));
                 }
-                if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){
-                    System.out.println(list_quantity);
-                    for(int i=0;i<orders.size();i++){
-                            String[] title = new String[]{orders.get(i).getTenMon(), "1", tien_format.format(orders.get(i).getGia()*gd_mon.getList_quantity().get(i)), ""};
-                            gd_mon.getPanelOrder().add(new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i+1, title, orders));
-                        }
-                }
-                return null;
+                return list;
             }
+
             @Override
             protected void done() {
+                FoodList.removeAll();
+                List<Food> list;
+                try {
+                    list = get();
+                    for (Food f : list) {
+                        FoodList.add(f);
+                    }
+                    utils.AppUtils.setLoadingForTable(scrollFoodList, false, loading, FoodList);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GD_DatMon.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ExecutionException ex) {
+                    Logger.getLogger(GD_DatMon.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+                    Double total = 0.0;
+                    for (int i = 0; i < orders.size(); i++) {
+                        String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGia() * gd_mon.getList_quantity().get(i)), ""};
+                        gd_mon.getPanelOrder().add(new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders));
+                        total += orders.get(i).getGia()*list_quantity.get(i);
+                    }
+                    labelTongTien.setText(tien_format.format(total));
+                }
             }
         };
         worker.execute();
@@ -1044,8 +1069,8 @@ public class GD_DatMon extends javax.swing.JPanel {
     public JPanel getFoodList() {
         return FoodList;
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FoodList;
     private component.PanelRound HEADER_ORDER;

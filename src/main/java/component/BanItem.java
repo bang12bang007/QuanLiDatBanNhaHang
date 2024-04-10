@@ -148,6 +148,10 @@ public class BanItem extends javax.swing.JPanel {
     public Ban getBan() {
         return this.ban;
     }
+    
+    public JPanel getMain() {
+        return this.main;
+    }
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:

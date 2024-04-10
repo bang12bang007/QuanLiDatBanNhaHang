@@ -4,6 +4,7 @@
  */
 package dao;
 
+import entity.KhachHang;
 import entity.NhanVien;
 
 /**
@@ -11,5 +12,5 @@ import entity.NhanVien;
  * @author Laptop
  */
 public interface IKhachHangDAO<T> extends GenericDAO<T> {
-    
+    KhachHang findByPhoneNumber(String phoneNumber);
 }

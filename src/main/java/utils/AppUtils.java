@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,6 +42,7 @@ public class AppUtils {
     public final static Font FONT = new Font("name", 1, 1);
     private final static Gson GSON = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     public static NhanVien NHANVIEN = null;
+    public static DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
 
     public static Connection connect() {
         Connection con = null;
@@ -60,38 +62,14 @@ public class AppUtils {
 
     public static void setUI(JPanel mainJPanel, JPanel jComponent) {
         mainJPanel.removeAll();
-
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây
-                mainJPanel.add(jComponent);
-                return null;
-            }
-
-            @Override
-            protected void done() {
-            }
-        };
-        worker.execute();
+        mainJPanel.add(jComponent);
         mainJPanel.repaint();
         mainJPanel.revalidate();
     }
 
     public static void setLoading(JPanel mainJPanel, boolean state, Loading loading, JPanel jpanel) {
         if (state) {
-            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-                @Override
-                protected Void doInBackground() throws Exception {
-                    // Thực hiện công việc lâu dài ở đây
-                    mainJPanel.remove(jpanel);
-                    return null;
-                }
-                @Override
-                protected void done() {
-                }
-            };
-            worker.execute();
+            mainJPanel.remove(jpanel);
             mainJPanel.add(loading);
             mainJPanel.repaint();
             mainJPanel.revalidate();

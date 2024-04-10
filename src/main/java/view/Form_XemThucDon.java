@@ -36,14 +36,11 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private IMonDAO monDAO = new MonDAO();
     private JTextArea yeuCauDatMon;
     private List<Mon> dsMon;
-    private HoaDon hoaDon = null;
-    private List<MenuItem> dsMonDaDat = null;
+    private Form_DatBan form_DatBan;
 
-    public Form_XemThucDon(JFrame jFrame, JTextArea yeuCauDatMon, HoaDon hoaDon, List<MenuItem> dsMon) {
+    public Form_XemThucDon(JFrame jFrame, JTextArea yeuCauDatMon, HoaDon hoaDon) {
         this.jFrame = jFrame;
-        this.hoaDon = hoaDon;
         this.yeuCauDatMon = yeuCauDatMon;
-        this.dsMonDaDat = dsMon;
         initComponents();
         setBackground(new Color(0, 0, 0, 0.8f));
         wrapper.setBackground(new Color(0, 0, 0, 0));
@@ -576,11 +573,13 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
         // TODO add your handling code here:
+        List<MenuItem> dsMonDaDat = new ArrayList<MenuItem>();
         if (!listHuy.isEmpty()) {
             for (MenuItem item : listHuy) {
                 dsMonDaDat.add(item);
             }
         }
+        form_DatBan.setMonDaDat(dsMonDaDat);
         this.yeuCauDatMon.setText(txtYeuCauDatMon.getText());
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -608,10 +607,15 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDownTable1ActionPerformed
 
+    public void setFormDB(Form_DatBan form_DatBan) {
+        this.form_DatBan = form_DatBan;
+    }
+
     private void loadData() {
         int width = tableBody.getWidth();
         this.dsMon = monDAO.findAll(Mon.class);
         for (int i = 0; i < this.dsMon.size(); i++) {
+            System.out.println(dsMon.get(i).getTenMon());
             MenuItem menuItem = new MenuItem(width, getContents(dsMon.get(i)), dsMon.get(i));
             menuItem.setForm(this);
             menuItem.setType("THEM_MON");

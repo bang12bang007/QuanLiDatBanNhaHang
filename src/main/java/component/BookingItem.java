@@ -30,6 +30,7 @@ import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 import view.GD_Ban;
 import view.GD_DatBan;
 import view.GD_DatMon;
@@ -46,7 +47,7 @@ public class BookingItem extends javax.swing.JPanel {
     private GD_DatBan GD;
     private int index;
     private PhieuDatBan phieuDatBan;
-    
+
     public BookingItem() {
         initComponents();
         wrapper.setPreferredSize(new Dimension(1076, 60));
@@ -235,11 +236,33 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
         // TODO add your handling code here:
-        GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-        ArrayList<Mon> mons = new ArrayList<Mon>();
-        ArrayList<Integer> quantity = new ArrayList<Integer>();
-        
-        utils.AppUtils.setUI(GD.getMainJpanel(), datMon);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
+                List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
+                ArrayList<Mon> mons = new ArrayList<Mon>();
+                ArrayList<Integer> quantity = new ArrayList<Integer>();
+//                Double total = 0.0;
+                for (ChiTietHoaDon chitiet : list) {
+                    mons.add(chitiet.getMon());
+                    quantity.add(chitiet.getSoLuong());
+//                    total = chitiet.getMon().getGia()*chitiet.getSoLuong();
+                }
+                datMon.setList_quantity(quantity);
+                datMon.setOrders(mons);
+                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+//                datMon.setLabelTongTien(AppUtils.tien_format.format(total));
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                utils.AppUtils.setUI(GD.getMainJpanel(), datMon);
+            }
+        };
+        worker.execute();
     }//GEN-LAST:event_btnGoiMonActionPerformed
 
     private String forrmater(String date) {

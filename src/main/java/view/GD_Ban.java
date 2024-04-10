@@ -517,6 +517,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
         banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
         banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

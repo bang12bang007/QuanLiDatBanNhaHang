@@ -4,6 +4,9 @@
  */
 package view;
 
+import datechooser.EventDateChooser;
+import datechooser.SelectedAction;
+import datechooser.SelectedDate;
 import component.BookingItem;
 import component.Food;
 import component.OrderItem_forUIDatMon;
@@ -21,11 +24,10 @@ import dao.imlp.HoaDonDAO;
 import dao.imlp.KhachHangDAO;
 import dao.imlp.MonDAO;
 import dao.imlp.PhieuDatBanDAO;
+import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
-import entity.Mon;
-import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
@@ -34,6 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -73,8 +76,16 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableScroll.setVerticalScrollBar(new ScrollBarCustom());
         tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, Color.WHITE));
+        calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
         btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 24, Color.WHITE));
+        dateChooser.addEventDateChooser(new EventDateChooser() {
+            public void dateSelected(SelectedAction action, SelectedDate date) {
+                if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
+                    filterByDate(date.getDay(), date.getMonth(), date.getYear());
+                }
+            }
+
+        });
         FirstTimeLoadItem();
     }
 
@@ -84,9 +95,17 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             @Override
             protected Void doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
-                loadData();
-                tableBody.repaint();
-                tableBody.revalidate();
+                Timer hideTimer = new Timer(1520, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        loadData();
+                        tableBody.repaint();
+                        tableBody.revalidate();
+                    }
+                });
+                hideTimer.setRepeats(false);
+                hideTimer.start();
+                
                 return null;
             }
             @Override
@@ -105,7 +124,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateChooser1 = new datechooser.DateChooser();
+        dateChooser = new datechooser.DateChooser();
         wrapper = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -149,9 +168,9 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         btnDownTable = new component.MyButton();
         btnUpTable = new component.MyButton();
 
-        dateChooser1.setDateFormat("dd/MM/yyyy");
-        dateChooser1.setInheritsPopupMenu(true);
-        dateChooser1.setTextRefernce(txtNgay);
+        dateChooser.setDateFormat("dd/MM/yyyy");
+        dateChooser.setInheritsPopupMenu(true);
+        dateChooser.setTextRefernce(txtNgay);
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -692,7 +711,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
                 hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
                 hoaDon.setBan(bookingItems.get(active).getPhieuDatBan().getBan());
                 boolean result = hoaDonDAO.insertHoaDon(hoaDon);
-                System.out.println(result);
             } else {
                 hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
             }
@@ -724,6 +742,18 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.revalidate();
     }
 
+    public List<ChiTietHoaDon> getChiTietHoaDonByBan(Ban ban) {
+        HoaDon _hoaDon = null;
+        for (HoaDon hoaDon : ban.getHoaDon()) {
+            if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                _hoaDon = hoaDon;
+                break;
+            }
+        }
+        List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);
+        return dsChiTietHoaDon;
+    }
+
     public void setInfoForActiveItem(PhieuDatBan phieuDatBan) {
         String yeuCauDatMon = "";
         HoaDon _hoaDon = null;
@@ -753,6 +783,21 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         return mainJPanel;
     }
 
+    private void filterByDate(int day, int month, int year) {
+        int width = tableBody.getWidth();
+        tableBody.removeAll();
+        int stt = 0;
+        for (int i = 0; i < bookingItems.size(); i++) {
+            Date date = bookingItems.get(i).getPhieuDatBan().getNgayGioDat();
+            if (date.getDate() == day && date.getMonth() == month && date.getYear() == year) {
+                bookingItems.get(i).setIndex(stt++);
+                tableBody.add(bookingItems.get(i));
+            }
+        }
+        tableBody.repaint();
+        tableBody.revalidate();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ban;
     private javax.swing.JLabel btnDatCho;
@@ -765,7 +810,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private component.ComboBoxSuggestion comboBoxSuggestion1;
     private component.PanelRound container;
     private component.PanelRound date;
-    private datechooser.DateChooser dateChooser1;
+    private datechooser.DateChooser dateChooser;
     private javax.swing.JPanel footer;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
