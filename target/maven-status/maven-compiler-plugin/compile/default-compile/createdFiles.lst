@@ -13,6 +13,7 @@ entity\NhanVien.class
 dao\INhanVienDAO.class
 view\GD_ThanhToan$7.class
 datechooser\SelectedAction.class
+component\Message.class
 view\Form_XemThucDon$8.class
 view\GD_DatMon$1$1.class
 view\GD_DatBan$4.class
@@ -33,6 +34,7 @@ component\ModernScrollBarUI$ScrollBarButton.class
 component\ComboSuggestionUI$1.class
 utils\ModelColor.class
 view\Form_ThuTien$1.class
+component\Message$3.class
 view\GD_DatMon$9.class
 component\OrderCard$5.class
 view\GD_DangNhap$1.class
@@ -46,9 +48,9 @@ view\GD_ThanhToan$2.class
 datechooser\DateChooser$4.class
 view\Form_XemThucDon$1.class
 view\GD_DatMon$14.class
+component\Message$2.class
 component\WrapGridLayout.class
 component\PanelGradient.class
-view\GD_QuanLyDatMon$10.class
 view\GD_ThanhToan$10.class
 view\Form_DatBan$3.class
 component\MenuItem.class
@@ -82,6 +84,7 @@ dao\imlp\HoaDonDAO.class
 datechooser\Dates.class
 view\GD_DatMon$12.class
 view\GD_ThanhToan$5.class
+component\Message$4.class
 dao\imlp\BanDAO.class
 datechooser\DateChooser$3.class
 datechooser\Slider$1.class
@@ -197,6 +200,7 @@ view\GD_DatMon$17$1.class
 dao\IKhachHangDAO.class
 component\OrderItem_forUIDatMon.class
 component\OrderCard$4.class
+component\Message$1.class
 view\Form_HuyMon$2.class
 datechooser\Slider$5.class
 datechooser\DateChooser$8.class

@@ -6,19 +6,31 @@ package component;
 
 import dao.IBanDAO;
 import dao.IHoaDonDAO;
+import dao.IKhachHangDAO;
 import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
+import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
+import dao.imlp.KhachHangDAO;
 import dao.imlp.PhieuDatBanDAO;
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.KhachHang;
+import entity.Mon;
+import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
+import view.GD_Ban;
 import view.GD_DatBan;
 import view.GD_DatMon;
 
@@ -34,13 +46,10 @@ public class BookingItem extends javax.swing.JPanel {
     private GD_DatBan GD;
     private int index;
     private PhieuDatBan phieuDatBan;
-    private IBanDAO banDAO = new BanDAO();
-    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
-
+    
     public BookingItem() {
         initComponents();
         wrapper.setPreferredSize(new Dimension(1076, 60));
-
     }
 
     public void setActive(int active) {
@@ -210,6 +219,7 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnSapChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapChoActionPerformed
         // TODO add your handling code here:
+        utils.AppUtils.setUI(GD.getMainJpanel(), new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN", phieuDatBan));
     }//GEN-LAST:event_btnSapChoActionPerformed
 
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
@@ -219,24 +229,17 @@ public class BookingItem extends javax.swing.JPanel {
     }//GEN-LAST:event_wrapperMouseClicked
 
     private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
-        // TODO add your handling code here:
-        HoaDon hoaDon = null;
-        for (HoaDon hd : phieuDatBan.getBan().getHoaDon()) {
-            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
-                hoaDon = hd;
-                break;
-            }
-        }
-        banDAO.updateStateById(phieuDatBan.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
-        hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         GD.setBookingActive(index);
         GD.received();
-//        utils.AppUtils.run(GD.getMainJpanel(), GD);
     }//GEN-LAST:event_btnNhanBanActionPerformed
 
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(GD.getMainJpanel(), new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON));
+        GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+        ArrayList<Mon> mons = new ArrayList<Mon>();
+        ArrayList<Integer> quantity = new ArrayList<Integer>();
+        
+        utils.AppUtils.setUI(GD.getMainJpanel(), datMon);
     }//GEN-LAST:event_btnGoiMonActionPerformed
 
     private String forrmater(String date) {

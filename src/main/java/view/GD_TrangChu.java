@@ -120,7 +120,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         thongTin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel, "DAT_MON"));
+                utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel, "DAT_MON", null));
             }
         });
     }

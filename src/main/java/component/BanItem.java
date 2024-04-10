@@ -5,18 +5,32 @@
 package component;
 
 import LIB.FadeEffect;
+import dao.IBanDAO;
+import dao.IHoaDonDAO;
+import dao.IPhieuDatBanDAO;
+import dao.imlp.BanDAO;
+import dao.imlp.HoaDonDAO;
+import dao.imlp.PhieuDatBanDAO;
 import entity.Ban;
+import entity.HoaDon;
 import entity.NhanVien;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 import static utils.AppUtils.*;
 import view.Form_DatBan;
+import view.GD_Ban;
+import view.GD_DatBan;
 import view.GD_DatMon;
 
 /**
@@ -34,6 +48,7 @@ public class BanItem extends javax.swing.JPanel {
     private Ban ban;
     private NhanVien nv;
     private int trangThai;
+    private GD_Ban gD_Ban;
 
     public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
@@ -113,23 +128,45 @@ public class BanItem extends javax.swing.JPanel {
     private void myButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseExited
         // TODO add your handling code here:
 //        myButton1.setBorder(null);
+
     }//GEN-LAST:event_myButton1MouseExited
+
+    public void setActive() {
+//       Hien thi de test
+        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
+
+    }
+
+    public void setGDBan(GD_Ban gD_Ban) {
+        this.gD_Ban = gD_Ban;
+    }
+
+    public GD_Ban getGDBan() {
+        return this.gD_Ban;
+    }
+
+    public Ban getBan() {
+        return this.ban;
+    }
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
 
         switch (type) {
             case "DAT_BAN": {
-                JFrame jFrame = new JFrame();
-                jFrame.setUndecorated(true);
-                jFrame.setExtendedState(MAXIMIZED_BOTH);
-                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_DatBan form_DatBan = new Form_DatBan(jFrame, ban);
-                form_DatBan.setMainJpanel(main);
-                jFrame.add(form_DatBan);
-                jFrame.setBackground(new Color(0, 0, 0, 0));
-                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-                jFrame.setVisible(true);
+                if (image_type.equals("/images/my_table_blue.png")) {
+                    JFrame jFrame = new JFrame();
+                    jFrame.setUndecorated(true);
+                    jFrame.setExtendedState(MAXIMIZED_BOTH);
+                    jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    Form_DatBan form_DatBan = new Form_DatBan(jFrame, ban);
+                    form_DatBan.setMainJpanel(main);
+                    jFrame.add(form_DatBan);
+                    jFrame.setBackground(new Color(0, 0, 0, 0));
+                    FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                    jFrame.setVisible(true);
+                }
+
                 break;
             }
             case "DAT_MON": {
@@ -139,9 +176,27 @@ public class BanItem extends javax.swing.JPanel {
                     utils.AppUtils.setUI(main, gd);
                 }
             }
+            case "CHUYEN_BAN": {
+                if (image_type.equals("/images/my_table_blue.png")) {
+                    String fromBan = this.gD_Ban.getBanActive().getMaBan();
+                    String toBan = this.ban.getMaBan();
+                    JFrame jFrame = new JFrame();
+                    jFrame.setUndecorated(true);
+                    jFrame.setExtendedState(MAXIMIZED_BOTH);
+                    jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    Message message = new Message(jFrame, this);
+                    jFrame.add(message);
+                    jFrame.setBackground(new Color(0, 0, 0, 0));
+                    FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                    jFrame.setVisible(true);
+                }
+            }
         }
     }//GEN-LAST:event_myButton1ActionPerformed
 
+    public void move() {
+        gD_Ban.moveTable(this.ban);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

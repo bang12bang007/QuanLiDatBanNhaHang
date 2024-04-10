@@ -7,6 +7,7 @@ package view;
 import LIB.FadeEffect;
 import component.Food;
 import component.Loading;
+import component.OrderItem_forUIDatMon;
 import component.RoundJTextField;
 import component.ScrollBarCustom;
 import component.WrapLayout;
@@ -30,6 +31,7 @@ import java.awt.FlowLayout;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     private String type_datMon;
     private DatMon_ThemMon loai;
     private TypeDatMon_Branch branch = TypeDatMon_Branch.KHAC_DATMON;//duccuong1609 : phân loại luồng đi vào (đặt món,sửa món)
+    private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
@@ -853,7 +856,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         if(branch==TypeDatMon_Branch.DATMON)
-            AppUtils.setUI(main, new GD_Ban(main, "DAT_MON"));
+            AppUtils.setUI(main, new GD_Ban(main, "DAT_MON",null));
         else
             AppUtils.setUI(main, new GD_QuanLyDatMon(main, AppUtils.NHANVIEN));
     }//GEN-LAST:event_btnBackActionPerformed
@@ -936,12 +939,21 @@ public class GD_DatMon extends javax.swing.JPanel {
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
     public void First_LoadData() {
+        if(branch.equals(TypeDatMon_Branch.DATMON)){
+            orders = new ArrayList<Mon>();
+            }
         mons = new ArrayList<Mon>();
-        orders = new ArrayList<Mon>();
         IMonDAO dao = new MonDAO();
         mons = dao.findService();
         for (Mon mon : mons) {
             FoodList.add(new Food(this, mon, PanelOrder, mons, orders));
+        }
+        if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){
+            System.out.println(list_quantity);
+            for(int i=0;i<orders.size();i++){
+                    String[] title = new String[]{orders.get(i).getTenMon(), "1", tien_format.format(orders.get(i).getGia()*this.getList_quantity().get(i)), ""};
+                    this.getPanelOrder().add(new OrderItem_forUIDatMon(this, orders.get(i), this.getPanelOrder().getWidth(), i+1, title, orders));
+                }
         }
     }
 

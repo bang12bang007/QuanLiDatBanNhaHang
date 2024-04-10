@@ -11,8 +11,10 @@ import component.WrapLayout;
 import dao.IHoaDonDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
+import dao.IMonDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
+import dao.imlp.MonDAO;
 import entity.HoaDon;
 import entity.NhanVien;
 import icon.FontAwesome;
@@ -46,10 +48,23 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private NhanVien nv;
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private List<HoaDon> hoadons;
+    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
 
     public GD_QuanLyDatMon(JPanel main, NhanVien nv) {
         this.mainPanel = main;
-        run(mainPanel, this);
+        initComponents();
+        txtMaBan.setBackground(new Color(0, 0, 0, 1));
+        this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
+        scroll.setVerticalScrollBar(new ScrollBarCustom());
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        IconFontSwing.register(FontAwesome.getIconFont());
+        iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20, Color.WHITE));
+        btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
+        btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
+        btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
+        btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
+        showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+//        run(mainPanel, this);
     }
 
     public void setUI() {
@@ -371,94 +386,12 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
 
-        main.removeAll();
-        // Hiển thị loading
-        Loading loading = new Loading();
-        main.setLayout(new BorderLayout());
-        main.add(loading, BorderLayout.CENTER);
-        main.repaint();
-        main.revalidate();
-
-        // Sử dụng SwingWorker để thực hiện công việc lâu dài trong luồng riêng
-        SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
-            @Override
-            protected List<OrderCard> doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây
-                List<OrderCard> listOrderCard = new ArrayList<>();
-                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-                for (HoaDon hoaDon : dsHoaDonDatTruoc) {
-                    OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
-                    listOrderCard.add(orderCard);
-                }
-                return listOrderCard;
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    // Khi công việc lâu dài kết thúc, hiển thị kết quả ra giao diện
-                    List<OrderCard> listOrderCard = get();
-                    main.removeAll();
-                    main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
-                    for (OrderCard orderCard : listOrderCard) {
-                        main.add(orderCard);
-                    }
-                    main.repaint();
-                    main.revalidate();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        };
-
-        // Thực hiện công việc trong luồng riêng biệt
-        worker.execute();
+        showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
+        showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
 
-        main.removeAll();
-        // Hiển thị loading
-        Loading loading = new Loading();
-        main.setLayout(new BorderLayout());
-        main.add(loading, BorderLayout.CENTER);
-        main.repaint();
-        main.revalidate();
-
-        // Sử dụng SwingWorker để thực hiện công việc lâu dài trong luồng riêng
-        SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
-            @Override
-            protected List<OrderCard> doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây
-                List<OrderCard> listOrderCard = new ArrayList<>();
-                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-                for (HoaDon hoaDon : dsHoaDonDatTruoc) {
-                    OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
-                    listOrderCard.add(orderCard);
-                }
-                return listOrderCard;
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    // Khi công việc lâu dài kết thúc, hiển thị kết quả ra giao diện
-                    List<OrderCard> listOrderCard = get();
-                    main.removeAll();
-                    main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
-                    for (OrderCard orderCard : listOrderCard) {
-                        main.add(orderCard);
-                    }
-                    main.repaint();
-                    main.revalidate();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        };
-
-        // Thực hiện công việc trong luồng riêng biệt
-        worker.execute();
     }//GEN-LAST:event_btnReserveActionPerformed
 
     private void txtMaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaBanActionPerformed
@@ -488,7 +421,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON"));
+        utils.AppUtils.setUI(mainPanel, new GD_Ban(mainPanel, "DAT_MON", null));
 //        repaint();
 //        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed
@@ -503,6 +436,46 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 //          NDK chỗ này mà mainPanel not main
             main.add(new OrderCard(h, mainPanel));
         }
+    }
+
+    private void showOrderByState(Enum e) {
+        main.removeAll();
+        Loading loading = new Loading();
+        main.setLayout(new BorderLayout());
+        main.add(loading, BorderLayout.CENTER);
+        main.repaint();
+        main.revalidate();
+        SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
+            @Override
+            protected List<OrderCard> doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây
+                List<OrderCard> listOrderCard = new ArrayList<>();
+                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findByState(e);
+                for (HoaDon hoaDon : dsHoaDonDatTruoc) {
+                    OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+                    orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+                    listOrderCard.add(orderCard);
+                }
+                return listOrderCard;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<OrderCard> listOrderCard = get();
+                    main.removeAll();
+                    main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
+                    for (OrderCard orderCard : listOrderCard) {
+                        main.add(orderCard);
+                    }
+                    main.repaint();
+                    main.revalidate();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
     }
 
     public void setNv(NhanVien nv) {

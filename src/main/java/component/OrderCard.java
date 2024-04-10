@@ -37,14 +37,12 @@ public class OrderCard extends javax.swing.JPanel {
     private HoaDon hoaDon;
     private Double total = 0.0;
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
-    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
-    private IMonDAO monDAO = new MonDAO();
-
+    
     public OrderCard() {
         initComponents();
         setIconBtn();
     }
-
+    
     public OrderCard(HoaDon hoaDon, JPanel main) {
         mainPanel = main;
         this.hoaDon = hoaDon;
@@ -52,7 +50,7 @@ public class OrderCard extends javax.swing.JPanel {
         setIconBtn();
 //        jLabel2.setText(hoaDon.getBan().getMaBan());
 //        jLabel3.setText(tien_format.format(total));
-        loadData();
+//        loadData();
     }
 
     /**
@@ -302,7 +300,7 @@ public class OrderCard extends javax.swing.JPanel {
 //        gD_DatMon.setHoaDon(hoaDon);
         AppUtils.setUI(mainPanel, gD_DatMon);
     }//GEN-LAST:event_panelRound3MouseClicked
-
+    
     private void setIconBtn() {
         IconFontSwing.register(FontAwesome.getIconFont());
         btnThanhToan.setIcon(IconFontSwing.buildIcon(FontAwesome.CALCULATOR, 20, Color.WHITE));
@@ -311,18 +309,13 @@ public class OrderCard extends javax.swing.JPanel {
         btnCheck.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 20, Color.WHITE));
         soLuongNguoi.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
     }
-
-//    NDK: T tính trong orderCard luôn á
-    private void loadData() {
-        List<ChiTietHoaDon> ds = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
-        double total = 0;
-        for (ChiTietHoaDon item : ds) {
-            Mon mon = (Mon) monDAO.findById(item.getMon().getMaMon(), Mon.class);
-            total += (item.getSoLuong() * mon.getGia());
-        }
-        tongTien.setText(total + "");
-        maBan.setText(hoaDon.getBan().getMaBan());
+    
+    public void setToTal(double total) {
+        tongTien.setText(tien_format.format(total));
     }
+
+//    NDK: T tính trong orderCard luôn á 
+//    NDK: xóa luôn đi
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheck;
