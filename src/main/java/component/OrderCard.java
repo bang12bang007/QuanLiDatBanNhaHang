@@ -37,17 +37,18 @@ public class OrderCard extends javax.swing.JPanel {
     private HoaDon hoaDon;
     private Double total = 0.0;
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
-    
+
     public OrderCard() {
         initComponents();
         setIconBtn();
     }
-    
+
     public OrderCard(HoaDon hoaDon, JPanel main) {
         mainPanel = main;
         this.hoaDon = hoaDon;
         initComponents();
         setIconBtn();
+        maBan.setText(hoaDon.getBan().getMaBan());
 //        jLabel2.setText(hoaDon.getBan().getMaBan());
 //        jLabel3.setText(tien_format.format(total));
 //        loadData();
@@ -123,16 +124,16 @@ public class OrderCard extends javax.swing.JPanel {
         maBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         maBan.setForeground(new java.awt.Color(255, 255, 255));
         maBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        maBan.setText("01");
+        maBan.setText("BAN0110");
 
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
         panelRound3Layout.setHorizontalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound3Layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(maBan)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,12 +231,12 @@ public class OrderCard extends javax.swing.JPanel {
             .addComponent(panelRound2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRound1Layout.createSequentialGroup()
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRound1Layout.createSequentialGroup()
                         .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnChinhSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(8, 8, 8)
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRound1Layout.createSequentialGroup()
@@ -283,7 +284,7 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainPanel, new GD_ThanhToan(hoaDon, mainPanel));
+        utils.AppUtils.setUI(mainPanel, () -> new GD_ThanhToan(hoaDon, mainPanel));
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnTacVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTacVuActionPerformed
@@ -298,9 +299,9 @@ public class OrderCard extends javax.swing.JPanel {
         // TODO add your handling code here:
         GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
 //        gD_DatMon.setHoaDon(hoaDon);
-        AppUtils.setUI(mainPanel, gD_DatMon);
+        AppUtils.setUI(mainPanel, () -> gD_DatMon);
     }//GEN-LAST:event_panelRound3MouseClicked
-    
+
     private void setIconBtn() {
         IconFontSwing.register(FontAwesome.getIconFont());
         btnThanhToan.setIcon(IconFontSwing.buildIcon(FontAwesome.CALCULATOR, 20, Color.WHITE));
@@ -309,7 +310,7 @@ public class OrderCard extends javax.swing.JPanel {
         btnCheck.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 20, Color.WHITE));
         soLuongNguoi.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
     }
-    
+
     public void setToTal(double total) {
         tongTien.setText(tien_format.format(total));
     }

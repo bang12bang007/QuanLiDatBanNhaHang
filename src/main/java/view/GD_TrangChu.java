@@ -4,24 +4,32 @@
  */
 package view;
 
+import component.Loading;
 import component.MyButton;
 import component.MyJMenuItem;
+import component.OrderCard;
 import component.TransparentPopupMenu;
+import component.WrapLayout;
 import dao.INhanVienDAO;
 import dao.imlp.NhanVienDAO;
+import entity.HoaDon;
 import entity.NhanVien;
 import icon.FontAwesome;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import static javax.swing.SwingConstants.LEFT;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 
@@ -106,7 +114,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
                     }
                     if (SwingUtilities.isLeftMouseButton(e)) {
-                        utils.AppUtils.setUI(mainJpanel, jPanel1);
+                        utils.AppUtils.setUI(mainJpanel, () -> jPanel1);
                     }
                 }
             }
@@ -120,7 +128,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         thongTin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                utils.AppUtils.setUI(mainJpanel, new GD_Ban(mainJpanel, "DAT_MON", null));
+                utils.AppUtils.setUI(mainJpanel, () -> new GD_Ban(mainJpanel, "DAT_MON", null));
             }
         });
     }
@@ -374,13 +382,42 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatMonActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, new GD_QuanLyDatMon(mainJpanel, nhanVien));
+        utils.AppUtils.setUI(mainJpanel, () -> new GD_QuanLyDatMon(mainJpanel, nhanVien));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatMonActionPerformed
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, new GD_DatBan(mainJpanel));
+//      SwingWorker<List<OrderCard>, Void> worker chỗ này 
+//      Bởi vì cần tạo hết rồi mới add vào mainJpanel
+//        mainJpanel.removeAll();
+//        Loading loading = new Loading();
+//        mainJpanel.add(loading, BorderLayout.CENTER);
+//        mainJpanel.repaint();
+//        mainJpanel.revalidate();
+//        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+//            GD_DatBan gD_DatBan = null;
+//            @Override
+//            protected Void doInBackground() throws Exception {
+//                // Thực hiện công việc lâu dài ở đây
+//                gD_DatBan = ;
+//                return null;
+//            }
+//
+//            @Override
+//            protected void done() {
+//                try {
+//                    mainJpanel.removeAll();
+//                    
+//                    mainJpanel.repaint();
+//                    mainJpanel.revalidate();
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//        };
+//        worker.execute();
+        utils.AppUtils.setUI(mainJpanel, () -> new GD_DatBan(mainJpanel));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatBanActionPerformed
 

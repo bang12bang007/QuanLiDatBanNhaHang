@@ -176,8 +176,8 @@ public class BanItem extends javax.swing.JPanel {
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
                     GD_DatMon gd = new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON);
-                    gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
-                    utils.AppUtils.setUI(main, gd);
+                    gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON    );
+                    utils.AppUtils.setUI(main, () -> gd);
                 }
                 break;
             }

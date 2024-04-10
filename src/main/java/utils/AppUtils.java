@@ -9,9 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import component.Loading;
-import entity.HoaDon;
 import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -24,6 +22,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Supplier;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.JScrollPane;
@@ -55,12 +55,44 @@ public class AppUtils {
         }
         return con;
     }
+//Update de loading muot nhu sunsil
 
-    public static void setUI(JPanel mainJPanel, JPanel jComponent) {
+    public static void setUI(JPanel mainJPanel, Supplier<JPanel> componentSupplier) {
+//        mainJPanel.removeAll();
+//        mainJPanel.add(jComponent);
+//        mainJPanel.repaint();
+//        mainJPanel.revalidate();
         mainJPanel.removeAll();
-        mainJPanel.add(jComponent);
+        Loading loading = new Loading();
+        mainJPanel.add(loading, BorderLayout.CENTER);
         mainJPanel.repaint();
         mainJPanel.revalidate();
+
+        SwingWorker<JPanel, Void> worker = new SwingWorker<JPanel, Void>() {
+            @Override
+            protected JPanel doInBackground() throws Exception {
+                // Thực hiện công việc lâu dài ở đây, trả về JPanel hoặc null
+                return componentSupplier.get();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    mainJPanel.removeAll();
+                    JPanel resultPanel = get(); // Nhận kết quả từ công việc lâu dài
+                    if (resultPanel != null) {
+                        mainJPanel.add(resultPanel);
+                    } else {
+                        // Xử lý trường hợp không có kết quả
+                    }
+                    mainJPanel.repaint();
+                    mainJPanel.revalidate();
+                } catch (InterruptedException | ExecutionException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
     }
 
     public static void setLoading(JPanel mainJPanel, boolean state, Loading loading, JPanel jpanel) {
