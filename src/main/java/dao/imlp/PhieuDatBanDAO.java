@@ -9,6 +9,9 @@ import entity.Ban;
 import entity.PhieuDatBan;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -52,6 +55,14 @@ public class PhieuDatBanDAO extends AbstractDAO<PhieuDatBan> implements IPhieuDa
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<PhieuDatBan> filterByDate(Date date) {
+        TypedQuery<PhieuDatBan> query = em.createNamedQuery("PhieuDatBan.filterByDate", PhieuDatBan.class);
+        query.setParameter("date", date);
+
+        return query.getResultList();
     }
 
 }

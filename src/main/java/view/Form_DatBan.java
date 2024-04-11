@@ -69,17 +69,17 @@ public class Form_DatBan extends javax.swing.JPanel {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
-    IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private final static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy hh:mm a", Locale.ENGLISH);
-    private boolean isTurnOn;
-//  Cho nhấn một lần sửa lại giao diện truyền 1 JFrame không new mới khi click vào
+    private String type = "INSERT";
+    private PhieuDatBan phieuDatBan;
+
     public Form_DatBan(JFrame jFrame, Ban ban) {
         this.jFrame = jFrame;
-        this.ban = ban;
-        this.isTurnOn = true;
+        this.ban = ban;;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
-        this.setBackground(new Color(0, 0, 0, 0.7f));
+        this.setBackground(new Color(0, 0, 0, 0.6f));
         btnPlus.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
         btnMinus.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 20, Color.WHITE));
         txtSoNguoi.setBackground(TRANSPERANT);
@@ -700,6 +700,23 @@ public class Form_DatBan extends javax.swing.JPanel {
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnXemThucDonActionPerformed
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
+        if (type.equals("INSERT")) {
+            insertPhieuDatBan();
+        } else if (type.equals("UPDATE")) {
+            updatePhieuDatBan();
+        }
+    }//GEN-LAST:event_btnCatActionPerformed
+
+    private void updatePhieuDatBan() {
+        PhieuDatBan phieuDatBan = createPhieuDatBan();
+        if (phieuDatBan != null) {
+            phieuDatBan.setMaPhieuDatBan(this.phieuDatBan.getMaPhieuDatBan());
+            phieuDatBanDAO.update(phieuDatBan);
+            utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
+        }
+    }
+
+    private void insertPhieuDatBan() {
         PhieuDatBan phieuDatBan = createPhieuDatBan();
         if (phieuDatBan != null) {
             KhachHang kh = khachHangDAO.findByPhoneNumber(txtSoDienThoai.getText());
@@ -715,7 +732,7 @@ public class Form_DatBan extends javax.swing.JPanel {
             this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
         }
-    }//GEN-LAST:event_btnCatActionPerformed
+    }
 
     public void setMonDaDat(List<MenuItem> ds) {
         this.dsMon = ds;
@@ -830,16 +847,58 @@ public class Form_DatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_txtKhachHangKeyReleased
 
     void setData(PhieuDatBan phieuDatBan) {
+        this.phieuDatBan = phieuDatBan;
+        Date date = phieuDatBan.getNgayGioDat();
+        String yeuCauDatMon = "";
+        List<ChiTietHoaDon> dsChiTietHoaDon = getChiTietHoaDonByBan(phieuDatBan.getBan());
+        for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
+            String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
+            yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
+        }
         txtKhachHang.setText(phieuDatBan.getHoTen());
         txtSoDienThoai.setText(phieuDatBan.getSdt());
         txtYeuCau.setText(phieuDatBan.getYeuCauKhac());
         txtSoNguoi.setText(phieuDatBan.getSoLuongNguoi() + "");
+        dateChooser.setSelectedDate(new SelectedDate(date.getDate(), date.getMonth() + 1, date.getYear()));
+        txtGioDen.setSelectedItem(forrmater(phieuDatBan.getNgayGioDat().toString()));
+        txtYeuCauDatMon.setText(yeuCauDatMon);
+    }
 
+    private String forrmater(String date) {
+        String dateTimeString = date;
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a");
+        String formattedTime = "";
+        try {
+            Date dateTime = inputFormat.parse(dateTimeString);
+            formattedTime = outputFormat.format(dateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return formattedTime;
+    }
+
+    private List<ChiTietHoaDon> getChiTietHoaDonByBan(Ban ban) {
+        HoaDon _hoaDon = null;
+        for (HoaDon hoaDon : ban.getHoaDon()) {
+            if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                _hoaDon = hoaDon;
+                break;
+            }
+        }
+        List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);
+        return dsChiTietHoaDon;
+    }
+
+    public void setType(String update) {
+        this.type = type;
     }
 
     public void setMainJpanel(JPanel main) {
         this.mainJpanel = main;
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCat;

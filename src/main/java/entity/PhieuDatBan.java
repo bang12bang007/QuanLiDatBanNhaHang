@@ -30,7 +30,8 @@ import lombok.ToString;
 //NDK created
 @NamedQueries({
     @NamedQuery(name = "PhieuDatBan.updateState", query = "UPDATE PhieuDatBan SET trangThai = :trangThai WHERE maPhieuDatBan = :maPhieuDatBan"),
-    @NamedQuery(name = "PhieuDatBan.updateBanById", query = "UPDATE PhieuDatBan SET ban = :ban WHERE maPhieuDatBan = :maPhieuDatBan")
+    @NamedQuery(name = "PhieuDatBan.updateBanById", query = "UPDATE PhieuDatBan SET ban = :ban WHERE maPhieuDatBan = :maPhieuDatBan"),
+    @NamedQuery(name = "PhieuDatBan.filterByDate", query = "SELECT p FROM PhieuDatBan p WHERE CAST(p.ngayGioDat AS date) = CAST(:date AS date)"),
 })
 public class PhieuDatBan {
 
