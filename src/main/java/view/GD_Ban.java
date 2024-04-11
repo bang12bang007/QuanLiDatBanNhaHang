@@ -533,7 +533,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
 
     }
 
-    public void setFormDatBan() {
+    public void setFormDatBan(Ban ban) {
         if (jFrameForm == null || !jFrameForm.isVisible()) {
             jFrameForm = new JFrame();
             jFrameForm.setUndecorated(true);

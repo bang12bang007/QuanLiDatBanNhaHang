@@ -29,6 +29,7 @@ import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
+import entity.Mon;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
@@ -48,6 +49,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 
 /**
  *
@@ -68,6 +70,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     private List<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
     private JFrame jFrameForm;
+    private int statePhieuDatBan = 0;
 
     public GD_DatBan(JPanel jPanel) {
         this.mainJPanel = jPanel;
@@ -84,6 +87,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             public void dateSelected(SelectedAction action, SelectedDate date) {
                 if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
                     filterByDate(date);
+                    dateChooser.hidePopup();
                 }
             }
         });
@@ -92,8 +96,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             public void componentResized(ComponentEvent e) {
                 if (tableBody.getWidth() != 0 && tableBody.getHeight() != 0) {
 //                    loadData();
-                    Date date = new Date();
-                    filterByDate(new SelectedDate(date.getDate(), date.getMonth() + 1, date.getYear() + 1900));
+                    LocalDate date = LocalDate.now();
+                    filterByDate(new SelectedDate(date.getDayOfMonth(), date.getMonthValue(), date.getYear()));
                     // Loại bỏ lắng nghe sự kiện sau khi đã được kích hoạt một lần
                     tableBody.removeComponentListener(this);
                 }
@@ -171,7 +175,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         trangThaiCombobox = new component.ComboBoxSuggestion();
         jLabel3 = new javax.swing.JLabel();
         txtTKKH = new component.PanelRound();
-        jTextField1 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         btnSearch = new component.MyButton();
         container = new component.PanelRound();
         table = new component.PanelRound();
@@ -290,8 +294,13 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         txtTKKH.setRoundTopLeft(8);
         txtTKKH.setRoundTopRight(8);
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextField1.setBorder(null);
+        txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtSearch.setBorder(null);
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout txtTKKHLayout = new javax.swing.GroupLayout(txtTKKH);
         txtTKKH.setLayout(txtTKKHLayout);
@@ -299,11 +308,11 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtTKKHLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
         );
         txtTKKHLayout.setVerticalGroup(
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         btnSearch.setBorder(null);
@@ -737,8 +746,22 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private void trangThaiComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangThaiComboboxActionPerformed
         // TODO add your handling code here:
 //      FindByState in PhieuDatBan
-        System.out.println(trangThaiCombobox.getSelectedIndex());
+//        System.out.println();
+        filterByState(trangThaiCombobox.getSelectedIndex());
     }//GEN-LAST:event_trangThaiComboboxActionPerformed
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        int stt = 0;
+        tableBody.removeAll();
+        for (BookingItem bookingItem : bookingItems) {
+            if (AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getHoTen(), txtSearch.getText().trim()) || AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getSdt(), txtSearch.getText().trim())) {
+                bookingItem.setIndex(stt++);
+                tableBody.add(bookingItem);
+            }
+        };
+        tableBody.repaint();
+        tableBody.revalidate();
+    }//GEN-LAST:event_txtSearchKeyReleased
 
     public void deleteBooking() {
         if (active >= 0) {
@@ -850,17 +873,34 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private void filterByDate(SelectedDate date) {
         int width = tableBody.getWidth();
         bookingItems = new ArrayList<>();
-        List<PhieuDatBan> dsPhieu = phieuDatBanDAO.filterByDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
+        List<PhieuDatBan> dsPhieu = phieuDatBanDAO.filterByDate(LocalDate.of(date.getYear(), date.getMonth(), date.getDay()));
         tableBody.removeAll();
         for (int i = 0; i < dsPhieu.size(); i++) {
             BookingItem bookingItem = new BookingItem(i, getContents(dsPhieu.get(i)), width, this);
             bookingItem.setPhieuDatBan(dsPhieu.get(i));
             bookingItems.add(bookingItem);
-            tableBody.add(bookingItem);
+            if (dsPhieu.get(i).getTrangThai() == statePhieuDatBan) {
+                tableBody.add(bookingItem);
+            }
         }
         tableBody.repaint();
         tableBody.revalidate();
     }
+
+    private void filterByState(int state) {
+        this.statePhieuDatBan = state;
+        tableBody.removeAll();
+        int stt = 0;
+        for (BookingItem bookingItem : bookingItems) {
+            if (bookingItem.getPhieuDatBan().getTrangThai() == state) {
+                bookingItem.setIndex(stt++);
+                tableBody.add(bookingItem);
+            }
+        }
+        tableBody.repaint();
+        tableBody.revalidate();
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ban;
@@ -891,7 +931,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
     private component.PanelRound state;
     private component.PanelRound table;
     private javax.swing.JPanel tableBody;
@@ -902,6 +941,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound tableService;
     private component.ComboBoxSuggestion trangThaiCombobox;
     private javax.swing.JTextField txtNgay;
+    private javax.swing.JTextField txtSearch;
     private component.PanelRound txtTKKH;
     private javax.swing.JPanel wrapper;
     private javax.swing.JLabel yeuCauDatMon;
