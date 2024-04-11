@@ -61,6 +61,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private Ban ban;
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private GD_DatMon gd_Datmon; //sử dụng để khi back từ món về vô lại nhanh
 
 //    NDK: Them phieu dat ban de chuyen ban
 //    NDK: Bi do GD_DatBan, DatMon, QuanLyDatMon, TrangChu
@@ -518,6 +519,14 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
         banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
         
+    }
+
+    public GD_DatMon getGd_Datmon() {
+        return gd_Datmon;
+    }
+
+    public void setGd_Datmon(GD_DatMon gd_Datmon) {
+        this.gd_Datmon = gd_Datmon;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

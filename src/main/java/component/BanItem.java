@@ -49,6 +49,7 @@ public class BanItem extends javax.swing.JPanel {
     private NhanVien nv;
     private int trangThai;
     private GD_Ban gD_Ban;
+    private GD_DatMon gD_datMon;
 
     public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
@@ -175,9 +176,17 @@ public class BanItem extends javax.swing.JPanel {
             }
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    GD_DatMon gd = new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON);
-                    gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON    );
-                    gd.setgD_Ban(gD_Ban);
+                    GD_DatMon gd;
+                    if(gD_Ban.getGd_Datmon()==null){//chưa có thì tạo
+                        gd = new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON);
+                        gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON    );
+                        gd.setgD_Ban(gD_Ban);
+                    }
+                    else{//có load vào rồi thì gọi lại
+                        gd = gD_Ban.getGd_Datmon();
+                        gd.getBtnBack().setBackground(new Color(83,86,99));
+                    }
+                    
                     utils.AppUtils.setUI(main, () -> gd);
                 }
                 break;
@@ -203,6 +212,14 @@ public class BanItem extends javax.swing.JPanel {
 
     public void move() {
         gD_Ban.moveTable(this.ban);
+    }
+
+    public GD_DatMon getgD_datMon() {
+        return gD_datMon;
+    }
+
+    public void setgD_datMon(GD_DatMon gD_datMon) {
+        this.gD_datMon = gD_datMon;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

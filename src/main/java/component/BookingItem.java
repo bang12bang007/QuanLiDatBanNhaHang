@@ -138,6 +138,7 @@ public class BookingItem extends javax.swing.JPanel {
 
         left.setLayout(new java.awt.GridLayout(1, 5));
 
+        btnSapCho.setBorder(null);
         btnSapCho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/table_icon.png"))); // NOI18N
         btnSapCho.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnSapCho.setMaximumSize(new java.awt.Dimension(30, 60));
@@ -151,6 +152,7 @@ public class BookingItem extends javax.swing.JPanel {
         });
         left.add(btnSapCho);
 
+        btnGoiMon.setBorder(null);
         btnGoiMon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/fork_icon.png"))); // NOI18N
         btnGoiMon.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnGoiMon.setMaximumSize(new java.awt.Dimension(30, 60));
@@ -164,6 +166,7 @@ public class BookingItem extends javax.swing.JPanel {
         });
         left.add(btnGoiMon);
 
+        btnNhanBan.setBorder(null);
         btnNhanBan.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnNhanBan.setMaximumSize(new java.awt.Dimension(30, 60));
         btnNhanBan.setMinimumSize(new java.awt.Dimension(30, 60));
@@ -216,9 +219,7 @@ public class BookingItem extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -262,6 +263,8 @@ public class BookingItem extends javax.swing.JPanel {
             }
             @Override
             protected void done(){
+                datMon.setGd_datBan(GD);
+                btnGoiMon.setBackground(new Color(255,255,255,0));
                 utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
             }
         };

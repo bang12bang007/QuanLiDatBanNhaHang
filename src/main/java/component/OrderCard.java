@@ -22,6 +22,7 @@ import view.GD_DatMon;
 import java.text.DecimalFormat;
 import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
+import view.GD_QuanLyDatMon;
 import view.GD_ThanhToan;
 
 /**
@@ -37,6 +38,7 @@ public class OrderCard extends javax.swing.JPanel {
     private HoaDon hoaDon;
     private Double total = 0.0;
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
+    private GD_QuanLyDatMon ql_datMon;//khai biến để back về không cần tạo mới
 
     public OrderCard() {
         initComponents();
@@ -298,7 +300,9 @@ public class OrderCard extends javax.swing.JPanel {
     private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
         // TODO add your handling code here:
         GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-//        gD_DatMon.setHoaDon(hoaDon);
+        gD_DatMon.setHoaDon(hoaDon);
+        gD_DatMon.setGd_qlDatMon(ql_datMon);
+        gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
         AppUtils.setUI(mainPanel, () -> gD_DatMon);
     }//GEN-LAST:event_panelRound3MouseClicked
 
@@ -314,9 +318,18 @@ public class OrderCard extends javax.swing.JPanel {
     public void setToTal(double total) {
         tongTien.setText(tien_format.format(total));
     }
-
+    
 //    NDK: T tính trong orderCard luôn á 
 //    NDK: xóa luôn đi
+//    duccuong1609 : ?? :DD
+
+    public GD_QuanLyDatMon getQl_datMon() {
+        return ql_datMon;
+    }
+
+    public void setQl_datMon(GD_QuanLyDatMon ql_datMon) {
+        this.ql_datMon = ql_datMon;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheck;
