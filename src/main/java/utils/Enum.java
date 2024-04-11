@@ -54,6 +54,6 @@ public class Enum {
     };
     
     public static enum TypeDatMon_Branch {
-        DATMON,KHAC_DATMON,DAT_TRUOC_MON;
+        DATMON,THEMMON,DAT_TRUOC_MON;
     };
 }

@@ -7,6 +7,7 @@ package view;
 import LIB.FadeEffect;
 import component.Food;
 import component.Loading;
+import component.MyButton;
 import component.OrderItem_forUIDatMon;
 import component.RoundJTextField;
 import component.ScrollBarCustom;
@@ -43,8 +44,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 import utils.Enum.DatMon_ThemMon;
@@ -70,9 +69,12 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private NhanVien nv;
     private String type_datMon;
     private DatMon_ThemMon loai;
-    private TypeDatMon_Branch branch = TypeDatMon_Branch.KHAC_DATMON;//duccuong1609 : phân loại luồng đi vào (đặt món,sửa món)
+    private TypeDatMon_Branch branch = TypeDatMon_Branch.THEMMON;//duccuong1609 : phân loại luồng đi vào (đặt món,sửa món)
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
-    private GD_Ban gD_Ban;
+    private HoaDon hoaDon;
+    private GD_Ban gD_Ban;//duccuong1609 : load thẳng vào nếu có 
+    private GD_QuanLyDatMon gd_qlDatMon;//load thẳng vào nếu có 
+    private GD_DatBan gd_datBan;//load thẳng vào nếu có 
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
@@ -243,6 +245,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnKhac.setRadius(10);
 
         jTextFieldSearch.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldSearchActionPerformed(evt);
+            }
+        });
         jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldSearchKeyReleased(evt);
@@ -866,11 +873,16 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        if (branch == TypeDatMon_Branch.DATMON){
+        if (branch == TypeDatMon_Branch.DATMON) {
+            gD_Ban.setGd_Datmon(this);
             AppUtils.setUI(main, () -> gD_Ban);
         }
-        else
-            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, AppUtils.NHANVIEN));
+        if (branch == TypeDatMon_Branch.THEMMON) {
+            AppUtils.setUI(main, () -> gd_qlDatMon);
+        }
+        if (branch == TypeDatMon_Branch.DAT_TRUOC_MON) {
+            AppUtils.setUI(main, () -> gd_datBan);
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed
@@ -954,11 +966,19 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
         // TODO add your handling code here:
         GD_DatMon datMon = this;
-        String input = jTextFieldSearch.getText().trim();
         FoodList.removeAll();
+        for (Mon mon : mons) {
+            if (AppUtils.CheckContainsAbbreviation(mon.getTenMon(), jTextFieldSearch.getText().trim())) {
+                FoodList.add(new Food(datMon, mon, PanelOrder, mons, orders));
+            }
+        };
         FoodList.repaint();
         FoodList.revalidate();
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
+
+    private void jTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldSearchActionPerformed
     public void First_LoadData() {
         GD_DatMon gd_mon = this;
         FoodList.removeAll();
@@ -971,8 +991,17 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             protected List<Food> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<Food> list = new ArrayList<>();
-                if (branch.equals(TypeDatMon_Branch.DATMON)) {
+                if (!branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
                     orders = new ArrayList<Mon>();
+                }
+                //lấy danh sách chi tiết hóa đơn từ luồng thêm món nhờ hóa đơn (từ ordercard --> đặt món)
+                if (branch.equals(TypeDatMon_Branch.THEMMON)) {
+                    IChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
+                    List<ChiTietHoaDon> details = dao.getListByHoaDon(hoaDon);
+                    for (ChiTietHoaDon d : details) {
+                        orders.add(d.getMon());
+                        list_quantity.add(d.getSoLuong());
+                    }
                 }
                 mons = new ArrayList<Mon>();
                 IMonDAO dao = new MonDAO();
@@ -998,12 +1027,12 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 } catch (ExecutionException ex) {
                     Logger.getLogger(GD_DatMon.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+                if (!branch.equals(TypeDatMon_Branch.DATMON)) {
                     Double total = 0.0;
                     for (int i = 0; i < orders.size(); i++) {
                         String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGia() * gd_mon.getList_quantity().get(i)), ""};
                         gd_mon.getPanelOrder().add(new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders));
-                        total += orders.get(i).getGia()*list_quantity.get(i);
+                        total += orders.get(i).getGia() * list_quantity.get(i);
                     }
                     labelTongTien.setText(tien_format.format(total));
                 }
@@ -1071,6 +1100,30 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     public void setgD_Ban(GD_Ban gD_Ban) {
         this.gD_Ban = gD_Ban;
+    }
+
+    public HoaDon getHoaDon() {
+        return hoaDon;
+    }
+
+    public void setHoaDon(HoaDon hoaDon) {
+        this.hoaDon = hoaDon;
+    }
+
+    public void setBtnBack(MyButton btnBack) {
+        this.btnBack = btnBack;
+    }
+
+    public MyButton getBtnBack() {
+        return btnBack;
+    }
+
+    public void setGd_qlDatMon(GD_QuanLyDatMon gd_qlDatMon) {
+        this.gd_qlDatMon = gd_qlDatMon;
+    }
+
+    public void setGd_datBan(GD_DatBan gd_datBan) {
+        this.gd_datBan = gd_datBan;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

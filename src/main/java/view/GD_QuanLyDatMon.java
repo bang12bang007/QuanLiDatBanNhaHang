@@ -445,6 +445,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         main.add(loading, BorderLayout.CENTER);
         main.repaint();
         main.revalidate();
+        GD_QuanLyDatMon ql_datMon = this;
         SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
             @Override
             protected List<OrderCard> doInBackground() throws Exception {
@@ -454,6 +455,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
                 for (HoaDon hoaDon : dsHoaDonDatTruoc) {
                     OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
                     orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+                    orderCard.setQl_datMon(ql_datMon);
                     listOrderCard.add(orderCard);
                 }
                 return listOrderCard;

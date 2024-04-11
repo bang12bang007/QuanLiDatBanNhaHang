@@ -405,9 +405,10 @@ public class Form_DatBan extends javax.swing.JPanel {
         yeuCauDatMon.setLayout(yeuCauDatMonLayout);
         yeuCauDatMonLayout.setHorizontalGroup(
             yeuCauDatMonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, yeuCauDatMonLayout.createSequentialGroup()
+            .addGroup(yeuCauDatMonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollYCMD))
+                .addComponent(scrollYCMD)
+                .addContainerGap())
         );
         yeuCauDatMonLayout.setVerticalGroup(
             yeuCauDatMonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -678,6 +679,8 @@ public class Form_DatBan extends javax.swing.JPanel {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
+        jFrame.setVisible(false);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
