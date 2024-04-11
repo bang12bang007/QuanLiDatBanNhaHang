@@ -5,8 +5,11 @@
 package view;
 
 import component.OrderItem_forUIDatMon;
+import entity.ChiTietHoaDon;
+import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JFrame;
 import jiconfont.swing.IconFontSwing;
 
@@ -21,7 +24,9 @@ public class Form_HuyMon extends javax.swing.JPanel {
      */
     private JFrame main;
     private OrderItem_forUIDatMon parent;
-    public Form_HuyMon(JFrame frame,OrderItem_forUIDatMon parent) {
+    private Mon monHuy;
+
+    public Form_HuyMon(JFrame frame, OrderItem_forUIDatMon parent) {
         initComponents();
         this.main = frame;
         this.parent = parent;
@@ -248,10 +253,17 @@ public class Form_HuyMon extends javax.swing.JPanel {
 
     private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
         // TODO add your handling code here:
-        parent.updateForDelete();
+        parent.update_PanelOrder(true);
+        monHuy = parent.getMon();
+        List<ChiTietHoaDon> list = parent.getDatMon().getDetails();
+        for(ChiTietHoaDon c : list){
+            if(c.getMon().getTenMon().equals(monHuy.getTenMon())){
+                //chỗ này bỏ ghi chú vào
+            }
+        }
+        parent.getDatMon().getList_CancelFood().add(monHuy);
         main.dispose();
     }//GEN-LAST:event_myButton3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnClose;

@@ -71,10 +71,6 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         this.nv = AppUtils.NHANVIEN;
         this.phieuDatBan = phieuDatBan;
         this.ban = phieuDatBan != null ? phieuDatBan.getBan() : null;
-        AppUtils.run(main, this);
-    }
-
-    public void setUI() {
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
@@ -85,7 +81,6 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
         loadData();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -556,5 +551,10 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound8;
     private javax.swing.JLabel tabLabel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setUI() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }
