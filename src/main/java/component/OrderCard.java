@@ -37,7 +37,7 @@ public class OrderCard extends javax.swing.JPanel {
     private JPanel mainPanel;
     private HoaDon hoaDon;
     private Double total = 0.0;
-    private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
+    private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private GD_QuanLyDatMon ql_datMon;//khai biến để back về không cần tạo mới
 
     public OrderCard() {

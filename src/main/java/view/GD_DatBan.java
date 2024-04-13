@@ -755,7 +755,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.removeAll();
         for (BookingItem bookingItem : bookingItems) {
             if (AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getHoTen(), txtSearch.getText().trim()) || AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getSdt(), txtSearch.getText().trim())) {
-                bookingItem.setIndex(stt++);
+                bookingItem.setColorByIndex(stt++);
                 tableBody.add(bookingItem);
             }
         };
@@ -875,11 +875,13 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         bookingItems = new ArrayList<>();
         List<PhieuDatBan> dsPhieu = phieuDatBanDAO.filterByDate(LocalDate.of(date.getYear(), date.getMonth(), date.getDay()));
         tableBody.removeAll();
+        int stt = 0;
         for (int i = 0; i < dsPhieu.size(); i++) {
             BookingItem bookingItem = new BookingItem(i, getContents(dsPhieu.get(i)), width, this);
             bookingItem.setPhieuDatBan(dsPhieu.get(i));
             bookingItems.add(bookingItem);
             if (dsPhieu.get(i).getTrangThai() == statePhieuDatBan) {
+                bookingItem.setColorByIndex(stt++);
                 tableBody.add(bookingItem);
             }
         }
@@ -893,7 +895,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         int stt = 0;
         for (BookingItem bookingItem : bookingItems) {
             if (bookingItem.getPhieuDatBan().getTrangThai() == state) {
-                bookingItem.setIndex(stt++);
+                bookingItem.setColorByIndex(stt++);
                 tableBody.add(bookingItem);
             }
         }

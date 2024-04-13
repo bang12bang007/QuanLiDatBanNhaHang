@@ -78,10 +78,13 @@ public class BookingItem extends javax.swing.JPanel {
     }
 
     public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setColorByIndex(int index) {
         Color color = index % 2 == 0 ? new Color(83, 86, 99) : new Color(31, 29, 43);
         left.setBackground(color);
         right.setBackground(color);
-        this.index = index;
     }
 
     private void push(String[] data) {
