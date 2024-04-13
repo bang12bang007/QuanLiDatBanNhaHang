@@ -30,7 +30,9 @@ import entity.NhanVien;
 import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.awt.FontFormatException;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -41,12 +43,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
+import static utils.AppUtils.*;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -173,7 +178,8 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         header.setBackground(new java.awt.Color(31, 29, 43));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Đặt chỗ");
 
@@ -191,7 +197,7 @@ public class Form_DatBan extends javax.swing.JPanel {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 707, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addContainerGap())
         );
@@ -215,6 +221,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnCat.setColor(new java.awt.Color(83, 86, 99));
         btnCat.setColorClick(new java.awt.Color(234, 124, 105));
         btnCat.setColorOver(new java.awt.Color(234, 124, 105));
+        btnCat.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         btnCat.setRadius(8);
         btnCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +235,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnHuy.setColor(new java.awt.Color(83, 86, 99));
         btnHuy.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuy.setColorOver(new java.awt.Color(234, 124, 105));
+        btnHuy.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         btnHuy.setRadius(8);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,7 +265,8 @@ public class Form_DatBan extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel2.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ngày");
 
@@ -272,7 +283,8 @@ public class Form_DatBan extends javax.swing.JPanel {
             }
         });
 
-        txtDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtDate.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         txtDate.setBorder(null);
 
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
@@ -291,7 +303,8 @@ public class Form_DatBan extends javax.swing.JPanel {
             .addComponent(txtDate)
         );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel3.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Giờ đến");
 
@@ -305,7 +318,8 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         txtGioDen.setBorder(null);
         txtGioDen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12:00 AM", "12:15 AM", "12:30 AM", "12:45 AM", "1:00 AM", "1:15 AM", "1:30 AM", "1:45 AM", "2:00 AM", "2:15 AM", "2:30 AM", "2:45 AM", "3:00 AM", "3:15 AM", "3:30 AM", "3:45 AM", "4:00 AM", "4:15 AM", "4:30 AM", "4:45 AM", "5:00 AM", "5:15 AM", "5:30 AM", "5:45 AM", "6:00 AM", "6:15 AM", "6:30 AM", "6:45 AM", "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM", "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM", "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "1:00 PM", "1:15 PM", "1:30 PM", "1:45 PM", "2:00 PM", "2:15 PM", "2:30 PM", "2:45 PM", "3:00 PM", "3:15 PM", "3:30 PM", "3:45 PM", "4:00 PM", "4:15 PM", "4:30 PM", "4:45 PM", "5:00 PM", "5:15 PM", "5:30 PM", "5:45 PM", "6:00 PM", "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", "7:30 PM", "7:45 PM", "8:00 PM", "8:15 PM", "8:30 PM", "8:45 PM", "9:00 PM", "9:15 PM", "9:30 PM", "9:45 PM", "10:00 PM", "10:15 PM", "10:30 PM", "10:45 PM", "11:00 PM", "11:15 PM", "11:30 PM", "11:45 PM" }));
-        txtGioDen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtGioDen.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
 
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
@@ -329,7 +343,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound3.setRoundTopLeft(8);
         panelRound3.setRoundTopRight(8);
 
-        txtKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtKhachHang.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         txtKhachHang.setBorder(null);
         txtKhachHang.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -350,11 +365,13 @@ public class Form_DatBan extends javax.swing.JPanel {
             .addComponent(txtKhachHang)
         );
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel4.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Khách hàng");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel5.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Số điện thoại");
 
@@ -364,7 +381,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound4.setRoundTopLeft(8);
         panelRound4.setRoundTopRight(8);
 
-        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtSoDienThoai.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         txtSoDienThoai.setBorder(null);
 
         javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
@@ -380,7 +398,8 @@ public class Form_DatBan extends javax.swing.JPanel {
             .addComponent(txtSoDienThoai)
         );
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel6.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Yêu cầu đặt món");
 
@@ -396,7 +415,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         txtYeuCauDatMon.setEditable(false);
         txtYeuCauDatMon.setBackground(java.awt.Color.white);
         txtYeuCauDatMon.setColumns(4);
-        txtYeuCauDatMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtYeuCauDatMon.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         txtYeuCauDatMon.setLineWrap(true);
         txtYeuCauDatMon.setRows(5);
         txtYeuCauDatMon.setBorder(null);
@@ -420,7 +440,8 @@ public class Form_DatBan extends javax.swing.JPanel {
                 .addComponent(scrollYCMD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel7.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Yêu cầu khác");
 
@@ -430,7 +451,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         yeuCauKhac.setRoundTopLeft(8);
         yeuCauKhac.setRoundTopRight(8);
 
-        txtYeuCau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtYeuCau.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         txtYeuCau.setBorder(null);
         txtYeuCau.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
@@ -447,7 +469,8 @@ public class Form_DatBan extends javax.swing.JPanel {
             .addComponent(txtYeuCau)
         );
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel8.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Số người");
 
@@ -457,7 +480,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         panelRound7.setRoundTopLeft(8);
         panelRound7.setRoundTopRight(8);
 
-        txtSoNguoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtSoNguoi.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         txtSoNguoi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSoNguoi.setText("1");
         txtSoNguoi.setBorder(null);
@@ -497,6 +521,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         btnXemThucDon.setColor(new java.awt.Color(31, 29, 43));
         btnXemThucDon.setColorClick(new java.awt.Color(234, 124, 105));
         btnXemThucDon.setColorOver(new java.awt.Color(234, 124, 105));
+        btnXemThucDon.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnXemThucDon.setRadius(8);
         btnXemThucDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -516,7 +542,8 @@ public class Form_DatBan extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
+        );
         jLabel9.setForeground(new java.awt.Color(255, 51, 51));
         jLabel9.setText("*");
 
@@ -661,16 +688,16 @@ public class Form_DatBan extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(174, Short.MAX_VALUE)
+                .addContainerGap(191, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
+                .addContainerGap(91, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -731,8 +758,9 @@ public class Form_DatBan extends javax.swing.JPanel {
             if (kh == null) {
                 khachHangDAO.insert(createKhachHang());
             }
-            createHoaDon(kh);
-            phieuDatBan.setYeuCauDatMon(txtYeuCauDatMon.getText());
+            if (!dsMon.isEmpty()) {
+                createHoaDon(kh);
+            }
             phieuDatBanDAO.insert(phieuDatBan);
             banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
             this.jFrame.setVisible(false);
@@ -777,7 +805,7 @@ public class Form_DatBan extends javax.swing.JPanel {
             LocalDate ngay = LocalDate.parse(FORMATTER.format(ngayString), DateTimeFormatter.ISO_LOCAL_DATE);
             LocalTime gioDen = LocalTime.parse(gioDenString, DateTimeFormatter.ofPattern("h:mm a"));
             LocalDateTime ngayGio = LocalDateTime.of(ngay, gioDen);
-//            LocalDateTime ngayGio = LocalDateTime.now();
+            System.out.println("LocalDateTime: " + ngayGio);
             phieuDatBan = new PhieuDatBan(ngayGio, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
             phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
         }
@@ -795,7 +823,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     }
 
     private HoaDon createHoaDon(KhachHang kh) {
-        hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
+        hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDate.now());
         hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
         hoaDon.setBan(ban);
         hoaDonDAO.insertHoaDon(hoaDon);
@@ -876,17 +904,9 @@ public class Form_DatBan extends javax.swing.JPanel {
     private List<ChiTietHoaDon> getChiTietHoaDonByBan(Ban ban) {
         HoaDon _hoaDon = null;
         for (HoaDon hoaDon : ban.getHoaDon()) {
-            if (phieuDatBan.getTrangThai() == 0) {
-                if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
-                    _hoaDon = hoaDon;
-                    break;
-                }
-            }
-            if (phieuDatBan.getTrangThai() == 1) {
-                if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-                    _hoaDon = hoaDon;
-                    break;
-                }
+            if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                _hoaDon = hoaDon;
+                break;
             }
         }
         List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);

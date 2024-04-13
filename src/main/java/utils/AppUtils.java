@@ -13,8 +13,11 @@ import component.Loading;
 import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +30,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.JScrollPane;
@@ -43,7 +48,20 @@ public class AppUtils {
     private final static Gson GSON = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     public static NhanVien NHANVIEN = null;
     public static DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
-
+    public static String _NORMAL_ = "src/main/java/font/OpenSans-VariableFont_wdth,wght.ttf";
+    public static String _BOLD_ = "src/main/java/font/OpenSans_Condensed-Bold.ttf";
+    public static String _ITALIC_ = "src/main/java/font/OpenSans-Italic-VariableFont_wdth,wght.ttf";
+    public static Font getFont(float a, String b) {
+        File fontStyle = new File(b);
+        Font font = null;
+        try {
+            font = FONT.createFont(FONT.TRUETYPE_FONT, fontStyle).deriveFont(a);
+        } catch (Exception e) {
+        }
+        return font;
+    }
+   
+    
     public static Connection connect() {
         Connection con = null;
         try {

@@ -5,15 +5,12 @@
 package component;
 
 import entity.Mon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import view.GD_DatMon;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author dmx
@@ -27,9 +24,9 @@ public class Food extends javax.swing.JPanel {
     private JPanel orderPanel;
     private String ten;
     private String gia;
-    private ArrayList<Mon> orders = new ArrayList<Mon>();
+    private ArrayList<Mon> orders;
     private List<Mon> mons;
-    private ArrayList<Integer> list_Quantity = new ArrayList<Integer>();
+    private ArrayList<Integer> list_Quantity;
     private Mon mon;
     private GD_DatMon datmon;
 
@@ -38,6 +35,7 @@ public class Food extends javax.swing.JPanel {
         this.orderPanel = panelOrder;
         this.ten = mon.getTenMon();
         this.gia = mon.getGia().toString();
+        this.orders = new ArrayList<Mon>();
         this.orders = orders;
         this.mon = mon;
         this.mons = mons;
@@ -116,13 +114,15 @@ public class Food extends javax.swing.JPanel {
             }
         });
 
-        jLabelTen.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelTen.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabelTen.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTen.setText("500.000 VNĐ");
         jLabelTen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabelGia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelGia.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabelGia.setForeground(new java.awt.Color(255, 255, 255));
         jLabelGia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelGia.setText("CƠM GÀ CHIÊN BƠ");
@@ -155,20 +155,12 @@ public class Food extends javax.swing.JPanel {
     private void panelFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseClicked
         // TODO add your handling code here:
         panelFood.setBackground(new java.awt.Color(234, 124, 105));
-        boolean found = false;
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getTenMon().equals(mon.getTenMon())) {
-                found = true;
-//                System.out.println("yes");   //duccuong1609: chỗ này tính làm thông báo 
-            }
-        }
-        if(found == false){
+        if (orders.indexOf(mons.get(mons.indexOf(mon))) == -1) {
             orders.add(mons.get(mons.indexOf(mon)));
             list_Quantity = datmon.getList_quantity();
             list_Quantity.add(1);
             String[] title = new String[]{ten, "1", tien_format.format(Double.parseDouble(gia)), ""};
             OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datmon, mon, orderPanel.getWidth(), orders.size(), title, orders);
-            item.setListPreOrder(datmon.getListPreOrderItem());
             item.setType("BUTTON");
             orderPanel.add(item);
             orderPanel.revalidate();
@@ -176,7 +168,6 @@ public class Food extends javax.swing.JPanel {
             datmon.setList_quantity(list_Quantity);
             updateTongTien();
         }
-        
     }//GEN-LAST:event_panelFoodMouseClicked
     public void updateTongTien() {
         double tong = 0.0;

@@ -8,7 +8,6 @@ import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.DecimalFormat;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -16,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.GapContent;
 import jiconfont.swing.IconFontSwing;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -28,7 +27,6 @@ public class OrderItem extends javax.swing.JPanel {
      */
 //    Text or Button
     private String type = "TEXT";
-    private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private String[] data;
 
     public OrderItem(int width, int index, String[] data) {
@@ -47,7 +45,7 @@ public class OrderItem extends javax.swing.JPanel {
     public void push(String[] data) {
         tenMon.setText("  " + data[0]);
         soLuong.setText("  " + data[1]);
-        donGia.setText(" " + tien_format.format(Double.parseDouble(data[2])));
+        donGia.setText(" " + data[2]);
         setLastItem(data[3]);
     }
 
@@ -56,7 +54,7 @@ public class OrderItem extends javax.swing.JPanel {
             IconFontSwing.register(FontAwesome.getIconFont());
             thanhTien.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
         } else {
-            thanhTien.setText(" " + tien_format.format(Double.parseDouble(data)));
+            thanhTien.setText(" " + data);
         }
     }
 
@@ -79,19 +77,23 @@ public class OrderItem extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridLayout(1, 0));
 
-        tenMon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tenMon.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
         add(tenMon);
 
-        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        soLuong.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         soLuong.setForeground(new java.awt.Color(255, 255, 255));
         add(soLuong);
 
-        donGia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        donGia.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         donGia.setForeground(new java.awt.Color(255, 255, 255));
         add(donGia);
 
-        thanhTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        thanhTien.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         thanhTien.setForeground(new java.awt.Color(255, 255, 255));
         thanhTien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

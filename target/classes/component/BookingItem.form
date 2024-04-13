@@ -21,7 +21,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="wrapper" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="wrapper" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -50,9 +53,6 @@
           <SubComponents>
             <Component class="component.MyButton" name="btnSapCho">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/table_icon.png"/>
                 </Property>
@@ -72,9 +72,6 @@
             </Component>
             <Component class="component.MyButton" name="btnGoiMon">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/fork_icon.png"/>
                 </Property>
@@ -88,15 +85,9 @@
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
                 <Property name="radius" type="int" value="12"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGoiMonActionPerformed"/>
-              </Events>
             </Component>
             <Component class="component.MyButton" name="btnNhanBan">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[30, 60]"/>
@@ -107,9 +98,6 @@
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
                 <Property name="radius" type="int" value="12"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhanBanActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="gioDen">
               <Properties>
