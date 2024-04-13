@@ -7,6 +7,7 @@ package dao.imlp;
 import dao.IHoaDonDAO;
 import entity.Ban;
 import entity.HoaDon;
+import entity.PhieuDatBan;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import java.time.LocalDateTime;
@@ -109,5 +110,15 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon) {
+        return em.createNamedQuery("HoaDon.getPhieuDatBan",PhieuDatBan.class)
+                .setParameter("maHoaDon", hoaDon.getMaHoaDon())
+                .getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 }

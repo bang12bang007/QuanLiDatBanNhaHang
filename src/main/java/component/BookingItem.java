@@ -262,6 +262,9 @@ public class BookingItem extends javax.swing.JPanel {
             protected void done() {
                 datMon.setGd_datBan(GD);
                 btnGoiMon.setBackground(new Color(255, 255, 255, 0));
+                if(datMon.getGd_qlDatMon()!=null){
+                    datMon.getGd_qlDatMon().setWait_for_payment(true);
+                }
                 utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
             }
         };

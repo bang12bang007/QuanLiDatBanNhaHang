@@ -49,6 +49,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private List<HoaDon> hoadons;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private boolean wait_for_payment = true;//duccuong1609 : phân biệt 2 tab chờ thanh toán / đặt trước
 
     public GD_QuanLyDatMon(JPanel main, NhanVien nv) {
         this.mainPanel = main;
@@ -385,13 +386,13 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private int count = 1;
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-
+        wait_for_payment = true;
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-
+        wait_for_payment = false;
     }//GEN-LAST:event_btnReserveActionPerformed
 
     private void txtMaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaBanActionPerformed
@@ -482,6 +483,14 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     public void setNv(NhanVien nv) {
         this.nv = nv;
+    }
+
+    public boolean isWait_for_payment() {
+        return wait_for_payment;
+    }
+
+    public void setWait_for_payment(boolean wait_for_payment) {
+        this.wait_for_payment = wait_for_payment;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
