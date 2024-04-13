@@ -250,6 +250,7 @@ public class BookingItem extends javax.swing.JPanel {
                 ArrayList<Mon> mons = new ArrayList<Mon>();
                 ArrayList<Integer> quantity = new ArrayList<Integer>();
 //                Double total = 0.0;
+                
                 for (ChiTietHoaDon chitiet : list) {
                     mons.add(chitiet.getMon());
                     quantity.add(chitiet.getSoLuong());
@@ -258,6 +259,7 @@ public class BookingItem extends javax.swing.JPanel {
                 datMon.setList_quantity(quantity);
                 datMon.setOrders(mons);
                 datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+                datMon.setHoaDon(list.get(0).getHoaDon());
 //                datMon.setLabelTongTien(AppUtils.tien_format.format(total));
                 return null;
             }

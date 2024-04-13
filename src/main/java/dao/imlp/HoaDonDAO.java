@@ -110,5 +110,4 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             return false;
         }
     }
-
 }

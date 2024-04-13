@@ -994,11 +994,18 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             protected List<Food> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<Food> list = new ArrayList<>();
+                List<ChiTietHoaDon> replace_details = new ArrayList<>();
                 orders = new ArrayList<Mon>();
                 //lấy danh sách chi tiết hóa đơn từ luồng thêm món nhờ hóa đơn (từ ordercard --> đặt món)
                 if (branch.equals(TypeDatMon_Branch.THEMMON)) {
                     IChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-                     details = dao.getListByHoaDon(hoaDon);
+                    details = dao.getListByHoaDon(hoaDon);
+                    for(ChiTietHoaDon chitiet : details){
+                        if(chitiet.getSoLuong()!=0){
+                            replace_details.add(chitiet);
+                        }
+                    }
+                    details = replace_details;
                     for (ChiTietHoaDon d : details) { //duccuong1609 : này load trước mấy chi tiết hóa đơn lên
                         orders.add(d.getMon());
                         list_quantity.add(d.getSoLuong());
@@ -1017,7 +1024,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             protected void done() {
                 FoodList.removeAll();
                 List<Food> list;
-                
+
                 try {
                     list = get();
                     utils.AppUtils.setLoadingForTable(scrollFoodList, false, loading, FoodList);
@@ -1040,7 +1047,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                         gd_mon.getPanelOrder().add(item);
                         total += orders.get(i).getGia() * list_quantity.get(i);
                     }
-                    for(int i=0;i<gd_mon.PanelOrder.getComponentCount();i++){
+                    for (int i = 0; i < gd_mon.PanelOrder.getComponentCount(); i++) {
                         OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) gd_mon.PanelOrder.getComponent(i);
                         item.setListPreOrder(listPreOrderItem);
                     }
@@ -1055,16 +1062,50 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         IHoaDonDAO hoaDonDAO = new HoaDonDAO();
         IBanDAO banDAO = new BanDAO();
         IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
-        Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
-        HoaDon hoaDon = new HoaDon(nv, LocalDate.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-        if (loai.equals(DatMon_ThemMon.DATMON)) {
-            hoaDonDAO.insertHoaDon(hoaDon);
-            for (int i = 0; i < orders.size(); i++) {
-                ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
-                chitietDAO.insert(chiTiet);
+
+        if (branch.equals(TypeDatMon_Branch.DATMON)) {
+            Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
+            HoaDon hoaDon = new HoaDon(nv, LocalDate.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+            if (loai.equals(DatMon_ThemMon.DATMON)) {
+                hoaDonDAO.insertHoaDon(hoaDon);
+                for (int i = 0; i < orders.size(); i++) {
+                    ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
+                    chitietDAO.insert(chiTiet);
+                }
             }
+            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
         }
-        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+        if(branch.equals(TypeDatMon_Branch.THEMMON)){
+            List<Mon> pre_order = new ArrayList<>();
+            List<ChiTietHoaDon> list_canceled = chitietDAO.getListBySoLuong(0);
+            for(ChiTietHoaDon detail : details){
+                pre_order.add(detail.getMon());
+                chitietDAO.update(detail);
+            }
+            for(int i = 0; i < orders.size(); i++){
+                if(!pre_order.contains(orders.get(i))){
+                    ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
+                    for(ChiTietHoaDon cancel : list_canceled){
+                        if(orders.get(i).getTenMon().equals(cancel.getMon().getTenMon())){
+                            chitietDAO.deleteChiTiet(cancel);
+                        }
+                    }
+                    chitietDAO.insert(chiTiet);
+                }
+            }            
+            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+        }
+        if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){
+//            details = chitietDAO.getListByHoaDon(hoaDon); // duccuong1609 : fail
+//            for(ChiTietHoaDon detail : details){
+//                chitietDAO.deleteChiTiet(detail);
+//            }
+//            for(int i=0;i<orders.size();i++){
+//                chitietDAO.insert(new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i)));
+//            }
+            AppUtils.setUI(main, () -> new GD_DatBan(main));
+        }
+        
     }
 
     public void setOrders(ArrayList<Mon> orders) {
@@ -1150,6 +1191,10 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     public List<Mon> getList_CancelFood() {
         return list_CancelFood;
+    }
+
+    public void setDetails(List<ChiTietHoaDon> details) {
+        this.details = details;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

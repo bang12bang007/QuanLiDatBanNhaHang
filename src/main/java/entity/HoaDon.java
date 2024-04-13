@@ -23,7 +23,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
@@ -32,7 +31,6 @@ import utils.Enum.LoaiTrangThaiHoaDon;
  */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @NamedQueries({
