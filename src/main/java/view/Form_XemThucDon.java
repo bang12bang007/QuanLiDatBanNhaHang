@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
-import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -119,8 +119,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         header.setRoundTopLeft(8);
         header.setRoundTopRight(8);
 
-        title.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
+        title.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
         title.setText("Xem thực đơn");
 
@@ -168,14 +167,12 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         headerTable.setRoundTopRight(8);
         headerTable.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel1.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("   Món");
         headerTable.add(jLabel1);
 
-        jLabel2.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Đơn giá");
         headerTable.add(jLabel2);
@@ -184,8 +181,6 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         tableScrollLeft.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         tableBody.setBackground(new java.awt.Color(83, 86, 99));
-        tableBody.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
 
         javax.swing.GroupLayout tableBodyLayout = new javax.swing.GroupLayout(tableBody);
         tableBody.setLayout(tableBodyLayout);
@@ -316,14 +311,12 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         headerTableRight.setRoundTopRight(8);
         headerTableRight.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel3.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("   Món");
         headerTableRight.add(jLabel3);
 
-        jLabel4.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Số lượng   ");
         headerTableRight.add(jLabel4);
@@ -332,8 +325,6 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         tableScrollRight.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         tableBodyRight.setBackground(new java.awt.Color(83, 86, 99));
-        tableBodyRight.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
 
         javax.swing.GroupLayout tableBodyRightLayout = new javax.swing.GroupLayout(tableBodyRight);
         tableBodyRight.setLayout(tableBodyRightLayout);
@@ -385,12 +376,10 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setFont(utils.AppUtils.getFont(12f, _BOLD_)
-        );
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Tổng tiền");
 
-        tongTien.setFont(utils.AppUtils.getFont(12f, _BOLD_)
-        );
+        tongTien.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         tongTien.setText("0");
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
@@ -428,8 +417,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel7.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Yêu cầu đặt món");
 
@@ -500,8 +488,6 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         btnDongY.setColor(new java.awt.Color(83, 86, 99));
         btnDongY.setColorClick(new java.awt.Color(234, 124, 105));
         btnDongY.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDongY.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnDongY.setRadius(8);
         btnDongY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -514,8 +500,6 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         btnHuy.setColor(new java.awt.Color(83, 86, 99));
         btnHuy.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuy.setColorOver(new java.awt.Color(234, 124, 105));
-        btnHuy.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnHuy.setRadius(8);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

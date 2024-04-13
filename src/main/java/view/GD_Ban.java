@@ -43,7 +43,7 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
-import static utils.AppUtils.*;
+
 /**
  *
  * @author dmx
@@ -84,19 +84,6 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         loadData();
 //        AppUtils.run(main, this);
     }
-
-    public void setUI() {
-        initComponents();
-        IconFontSwing.register(FontAwesome.getIconFont());
-        tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
-        ScrollListBan.setVerticalScrollBar(new ScrollBarCustom());
-        ScrollListBan.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        ListBan.setLayout(new WrapLayout(FlowLayout.LEADING, 40, 40));
-        containerFloors.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-        containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
-        loadData();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,23 +194,19 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Bàn Trống");
 
-        jLabel2.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bàn Đang phục vụ");
 
-        jLabel3.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Bàn Đặt Trước");
 
-        jLabel5.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Bàn Đang phục vụ/Đặt Trước");
 
@@ -255,8 +238,8 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
             .addGroup(RightInfoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(RightInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelRound6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(panelRound6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
@@ -268,20 +251,17 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
 
         LeftInfo.setBackground(new java.awt.Color(31, 29, 43));
 
-        jLabel4.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Toàn Bộ Nhà Hàng:");
 
-        GheTrongNhaHang.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
+        GheTrongNhaHang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         GheTrongNhaHang.setForeground(new java.awt.Color(255, 255, 255));
         GheTrongNhaHang.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         GheTrongNhaHang.setText("Trống 20/40 - 300 ghế");
         GheTrongNhaHang.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        GheTrongTang.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
+        GheTrongTang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         GheTrongTang.setForeground(new java.awt.Color(255, 255, 255));
         GheTrongTang.setText("Tầng 1: Trống 9/12 bàn - 54 ghế");
 
@@ -595,6 +575,10 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private component.MyButton myButton2;
+    private component.MyButton myButton3;
+    private component.MyButton myButton4;
+    private component.MyButton myButton5;
     private component.PanelRound panelRound1;
     private component.PanelRound panelRound2;
     private component.PanelRound panelRound3;
@@ -603,5 +587,10 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound8;
     private javax.swing.JLabel tabLabel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setUI() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

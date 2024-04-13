@@ -10,11 +10,15 @@ import component.ScrollBarCustom;
 import component.WrapGridLayout;
 import component.WrapLayout;
 import dao.IChiTietHoaDonDAO;
+import dao.IKhachHangDAO;
 import dao.IMonDAO;
 import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.KhachHangDAO;
 import dao.imlp.MonDAO;
+import datechooser.SelectedDate;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.KhachHang;
 import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
@@ -24,7 +28,13 @@ import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static utils.AppUtils.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author Laptop
@@ -38,27 +48,16 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private HoaDon hoaDon;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private IMonDAO monDAO = new MonDAO();
+    private JPanel mJPanel;
+    private DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
+    private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
+    private IKhachHangDAO khachHangDAO = new KhachHangDAO();
+//  Quản lý đặt món hoặc là đặt món
+    private JPanel branch;
 
     public GD_ThanhToan(HoaDon hoaDon, JPanel mJPanel) {
         this.hoaDon = hoaDon;
-        utils.AppUtils.run(mJPanel, this);
-    }
-
-    private void FirstTimeLoadItem() {
-        Timer timer = new Timer(1520, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Thêm mã để kích hoạt action listener tại đây
-                loadData();
-                tableContainer.repaint();
-                tableContainer.revalidate();
-            }
-        });
-        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
-        timer.start();
-    }
-
-    public void setUI() {
+        this.mJPanel = mJPanel;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         theThanhVienLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CREDIT_CARD, 20, Color.WHITE));
@@ -79,7 +78,38 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         tableContainer.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tableBody.setVerticalScrollBar(new ScrollBarCustom());
         tableBody.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        FirstTimeLoadItem();
+        tableContainer.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                if (tableContainer.getWidth() != 0 && tableContainer.getHeight() != 0) {
+                    loadData();
+                    // Loại bỏ lắng nghe sự kiện sau khi đã được kích hoạt một lần
+                    tableContainer.removeComponentListener(this);
+                }
+            }
+        });
+        maHoaDon.setText(hoaDon.getMaHoaDon() + " - " + hoaDon.getBan().getMaBan());
+        ngayGioHienTai.setText(myFormatObj.format(LocalDateTime.now()));
+        thanhTien.setText(tien_format.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)));
+//        utils.AppUtils.run(mJPanel, this);
+    }
+
+    private void FirstTimeLoadItem() {
+//        Timer timer = new Timer(1520, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // Thêm mã để kích hoạt action listener tại đây
+//                loadData();
+//                tableContainer.repaint();
+//                tableContainer.revalidate();
+//            }
+//        });
+//        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
+//        timer.start();
+    }
+
+    public void setUI() {
+
     }
 
     /**
@@ -118,7 +148,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         rightContainer = new javax.swing.JPanel();
         theThanhVienContainer1 = new javax.swing.JPanel();
         maHoaDon = new javax.swing.JLabel();
-        maHoaDon1 = new javax.swing.JLabel();
+        ngayGioHienTai = new javax.swing.JLabel();
         btnBack = new component.MyButton();
         jPanel2 = new javax.swing.JPanel();
         btnReserve = new component.MyButton();
@@ -138,13 +168,18 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         jLabel9 = new javax.swing.JLabel();
         tableBody = new javax.swing.JScrollPane();
         tableContainer = new javax.swing.JPanel();
+        thanhTien = new javax.swing.JLabel();
+        panelRound1 = new component.PanelRound();
+        jLabel10 = new javax.swing.JLabel();
+        panelRound2 = new component.PanelRound();
+        jLabel11 = new javax.swing.JLabel();
+        tienThu = new javax.swing.JLabel();
 
         leftContainer.setBackground(new java.awt.Color(83, 86, 99));
 
         theThanhVienContainer.setBackground(new java.awt.Color(31, 29, 43));
 
-        theThanhVienLabel.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        theThanhVienLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         theThanhVienLabel.setForeground(new java.awt.Color(255, 255, 255));
         theThanhVienLabel.setText("Thể thành viên");
 
@@ -195,13 +230,11 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             .addComponent(txtMTV, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jLabel1.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Mã thành viên");
 
-        jLabel2.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tên Thành viên");
 
@@ -222,8 +255,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             .addGap(0, 38, Short.MAX_VALUE)
         );
 
-        jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Hạng Thẻ");
 
@@ -246,8 +278,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         ctkmContainer.setBackground(new java.awt.Color(31, 29, 43));
 
-        chuongTrinhKhuyenMai.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        chuongTrinhKhuyenMai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         chuongTrinhKhuyenMai.setForeground(new java.awt.Color(255, 255, 255));
         chuongTrinhKhuyenMai.setText("Chương trình khuyến mãi");
 
@@ -273,8 +304,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnAddKM.setColor(new java.awt.Color(31, 29, 43));
         btnAddKM.setColorClick(new java.awt.Color(234, 124, 105));
         btnAddKM.setColorOver(new java.awt.Color(234, 124, 105));
-        btnAddKM.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        btnAddKM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAddKM.setRadius(8);
         btnAddKM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,8 +336,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         ctkmContainer1.setBackground(new java.awt.Color(31, 29, 43));
 
-        khuyenMai.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        khuyenMai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         khuyenMai.setForeground(new java.awt.Color(255, 255, 255));
         khuyenMai.setText("Mã khuyến mãi");
 
@@ -386,8 +415,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnScanQR.setColor(new java.awt.Color(31, 29, 43));
         btnScanQR.setColorClick(new java.awt.Color(234, 124, 105));
         btnScanQR.setColorOver(new java.awt.Color(234, 124, 105));
-        btnScanQR.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        btnScanQR.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnScanQR.setRadius(8);
         btnScanQR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,16 +501,15 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         theThanhVienContainer1.setBackground(new java.awt.Color(31, 29, 43));
 
-        maHoaDon.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        maHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         maHoaDon.setForeground(new java.awt.Color(255, 255, 255));
         maHoaDon.setText("11122003-Ban101");
         maHoaDon.setToolTipText("");
 
-        maHoaDon1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        maHoaDon1.setForeground(new java.awt.Color(255, 255, 255));
-        maHoaDon1.setText("13/3/2024 5:10 SA");
-        maHoaDon1.setToolTipText("");
+        ngayGioHienTai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ngayGioHienTai.setForeground(new java.awt.Color(255, 255, 255));
+        ngayGioHienTai.setText("13/3/2024 5:10 SA");
+        ngayGioHienTai.setToolTipText("");
 
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setColor(new java.awt.Color(83, 86, 99));
@@ -505,7 +532,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
                 .addGap(18, 18, 18)
                 .addComponent(maHoaDon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(maHoaDon1)
+                .addComponent(ngayGioHienTai)
                 .addContainerGap())
         );
         theThanhVienContainer1Layout.setVerticalGroup(
@@ -518,20 +545,18 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(theThanhVienContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(maHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                        .addComponent(maHoaDon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(ngayGioHienTai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(31, 29, 43));
 
         btnReserve.setForeground(new java.awt.Color(255, 255, 255));
-        btnReserve.setText("Đặt trước (0)");
+        btnReserve.setText("Tách hóa đơn");
         btnReserve.setToolTipText("");
         btnReserve.setColor(new java.awt.Color(83, 86, 99));
         btnReserve.setColorClick(new java.awt.Color(234, 124, 105));
         btnReserve.setColorOver(new java.awt.Color(234, 124, 105));
-        btnReserve.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnReserve.setRadius(8);
         btnReserve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -545,8 +570,6 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnThuTien.setColor(new java.awt.Color(83, 86, 99));
         btnThuTien.setColorClick(new java.awt.Color(234, 124, 105));
         btnThuTien.setColorOver(new java.awt.Color(234, 124, 105));
-        btnThuTien.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnThuTien.setRadius(8);
         btnThuTien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -560,8 +583,6 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnLuuTam.setColor(new java.awt.Color(83, 86, 99));
         btnLuuTam.setColorClick(new java.awt.Color(234, 124, 105));
         btnLuuTam.setColorOver(new java.awt.Color(234, 124, 105));
-        btnLuuTam.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnLuuTam.setRadius(8);
         btnLuuTam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -570,13 +591,11 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         });
 
         btnReserve3.setForeground(new java.awt.Color(255, 255, 255));
-        btnReserve3.setText("Đặt trước (0)");
+        btnReserve3.setText("In tạm tính");
         btnReserve3.setToolTipText("");
         btnReserve3.setColor(new java.awt.Color(83, 86, 99));
         btnReserve3.setColorClick(new java.awt.Color(234, 124, 105));
         btnReserve3.setColorOver(new java.awt.Color(234, 124, 105));
-        btnReserve3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnReserve3.setRadius(8);
         btnReserve3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -633,33 +652,28 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        jLabel4.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
-        );
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Thành tiền:");
+        jLabel4.setText("Tổng thanh toán:");
 
-        jLabel5.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
-        );
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Còn phải thu:");
 
         headerTable.setBackground(new java.awt.Color(31, 29, 43));
         headerTable.setLayout(new java.awt.GridLayout(1, 4));
 
-        jLabel6.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("  Tên món");
         headerTable.add(jLabel6);
 
-        jLabel7.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText(" SL");
         headerTable.add(jLabel7);
 
-        jLabel8.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText(" Đơn giá");
         headerTable.add(jLabel8);
@@ -682,7 +696,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         );
         tableContainerLayout.setVerticalGroup(
             tableContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
+            .addGap(0, 293, Short.MAX_VALUE)
         );
 
         tableBody.setViewportView(tableContainer);
@@ -699,8 +713,60 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             .addGroup(tableLayout.createSequentialGroup()
                 .addComponent(headerTable, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(tableBody))
+                .addComponent(tableBody, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
         );
+
+        thanhTien.setBackground(new java.awt.Color(255, 255, 255));
+        thanhTien.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        thanhTien.setForeground(new java.awt.Color(255, 255, 255));
+
+        panelRound1.setBackground(new java.awt.Color(234, 124, 105));
+        panelRound1.setRoundBottomLeft(12);
+        panelRound1.setRoundBottomRight(12);
+        panelRound1.setRoundTopLeft(12);
+        panelRound1.setRoundTopRight(12);
+
+        jLabel10.setBackground(new java.awt.Color(234, 124, 105));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("VOUCHER");
+
+        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
+        panelRound1.setLayout(panelRound1Layout);
+        panelRound1Layout.setHorizontalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        panelRound1Layout.setVerticalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        panelRound2.setBackground(new java.awt.Color(255, 255, 255));
+        panelRound2.setRoundBottomLeft(12);
+        panelRound2.setRoundBottomRight(12);
+        panelRound2.setRoundTopLeft(12);
+        panelRound2.setRoundTopRight(12);
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(31, 29, 43));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("ĐIỂM");
+
+        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
+        panelRound2.setLayout(panelRound2Layout);
+        panelRound2Layout.setHorizontalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        panelRound2Layout.setVerticalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        tienThu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
         rightContainer.setLayout(rightContainerLayout);
@@ -714,14 +780,26 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
                 .addComponent(btnDownTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(rightContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1)
             .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(rightContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(rightContainerLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tienThu, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(rightContainerLayout.createSequentialGroup()
+                        .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(rightContainerLayout.createSequentialGroup()
+                                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)))
+                        .addGap(40, 40, 40)
+                        .addComponent(thanhTien, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         rightContainerLayout.setVerticalGroup(
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -735,12 +813,21 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
                 .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDownTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(jLabel4)
-                .addGap(50, 50, 50)
-                .addComponent(jLabel5)
-                .addGap(20, 20, 20)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64)
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(thanhTien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(12, 12, 12)
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rightContainerLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tienThu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -781,6 +868,15 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnScanQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScanQRActionPerformed
         // TODO add your handling code here:
+        JFrame jFrame = new JFrame();
+        jFrame.setUndecorated(true);
+        jFrame.setExtendedState(MAXIMIZED_BOTH);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Form_QRCODE form_QRCODE = new Form_QRCODE(jFrame, this);
+        jFrame.add(form_QRCODE);
+        jFrame.setBackground(new Color(0, 0, 0, 0));
+        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+        jFrame.setVisible(true);
     }//GEN-LAST:event_btnScanQRActionPerformed
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
@@ -793,6 +889,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        utils.AppUtils.setUI(mJPanel, () -> new GD_QuanLyDatMon(mJPanel, utils.AppUtils.NHANVIEN));
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
@@ -805,7 +902,9 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         jFrame.setUndecorated(true);
         jFrame.setExtendedState(MAXIMIZED_BOTH);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jFrame.add(new Form_ThuTien(jFrame));
+        Form_ThuTien form_ThuTien = new Form_ThuTien(jFrame, hoaDon);
+        form_ThuTien.setTienPhaiThu(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+        jFrame.add(form_ThuTien);
         jFrame.setBackground(new Color(0, 0, 0, 0));
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
         jFrame.setVisible(true);
@@ -831,6 +930,11 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         }
     }
 
+    public void setDataOfCustomer(String maKH) {
+        KhachHang khachHang = (KhachHang) khachHangDAO.findById(maKH, KhachHang.class);
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnAddKM;
@@ -851,6 +955,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel iconSearch;
     private javax.swing.JLabel iconSearch_KM;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -866,18 +972,22 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel khuyenMai;
     private javax.swing.JPanel leftContainer;
     private javax.swing.JLabel maHoaDon;
-    private javax.swing.JLabel maHoaDon1;
     private component.PanelRound maTheContainer;
     private component.PanelRound maTheContainer1;
     private component.PanelRound maTheContainer2;
     private component.PanelRound maTheContainer3;
+    private javax.swing.JLabel ngayGioHienTai;
+    private component.PanelRound panelRound1;
+    private component.PanelRound panelRound2;
     private javax.swing.JPanel rightContainer;
     private javax.swing.JPanel table;
     private javax.swing.JScrollPane tableBody;
     private javax.swing.JPanel tableContainer;
+    private javax.swing.JLabel thanhTien;
     private javax.swing.JPanel theThanhVienContainer;
     private javax.swing.JPanel theThanhVienContainer1;
     private javax.swing.JLabel theThanhVienLabel;
+    private javax.swing.JLabel tienThu;
     private javax.swing.JTextField txtMKM;
     private javax.swing.JTextField txtMTV;
     // End of variables declaration//GEN-END:variables

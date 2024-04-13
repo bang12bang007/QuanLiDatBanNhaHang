@@ -36,7 +36,7 @@ import utils.AppUtils;
 import view.GD_Ban;
 import view.GD_DatBan;
 import view.GD_DatMon;
-import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -78,10 +78,13 @@ public class BookingItem extends javax.swing.JPanel {
     }
 
     public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setColorByIndex(int index) {
         Color color = index % 2 == 0 ? new Color(83, 86, 99) : new Color(31, 29, 43);
         left.setBackground(color);
         right.setBackground(color);
-        this.index = index;
     }
 
     private void push(String[] data) {
@@ -181,13 +184,11 @@ public class BookingItem extends javax.swing.JPanel {
         });
         left.add(btnNhanBan);
 
-        gioDen.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        gioDen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         gioDen.setForeground(new java.awt.Color(255, 255, 255));
         left.add(gioDen);
 
-        khachHang.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        khachHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         khachHang.setForeground(new java.awt.Color(255, 255, 255));
         left.add(khachHang);
 
@@ -195,25 +196,20 @@ public class BookingItem extends javax.swing.JPanel {
 
         right.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel1.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         right.add(jLabel1);
 
-        soNguoi.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        soNguoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         soNguoi.setForeground(new java.awt.Color(255, 255, 255));
         soNguoi.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         right.add(soNguoi);
 
-        trangThai.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        trangThai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         trangThai.setForeground(new java.awt.Color(255, 255, 255));
         trangThai.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         right.add(trangThai);
 
-        datCoc.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        datCoc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         datCoc.setForeground(new java.awt.Color(255, 255, 255));
         datCoc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         right.add(datCoc);
@@ -259,16 +255,9 @@ public class BookingItem extends javax.swing.JPanel {
                 List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
                 ArrayList<Mon> mons = new ArrayList<Mon>();
                 ArrayList<Integer> quantity = new ArrayList<Integer>();
-//                Double total = 0.0;
-                for (ChiTietHoaDon chitiet : list) {
-                    mons.add(chitiet.getMon());
-                    quantity.add(chitiet.getSoLuong());
-//                    total = chitiet.getMon().getGia()*chitiet.getSoLuong();
-                }
-                datMon.setList_quantity(quantity);
-                datMon.setOrders(mons);
+                datMon.setHoaDon(list.get(0).getHoaDon());
+                datMon.setPhieuDatBan(phieuDatBan);
                 datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-//                datMon.setLabelTongTien(AppUtils.tien_format.format(total));
                 return null;
             }
 

@@ -4,12 +4,19 @@
  */
 package view;
 
+import dao.IHoaDonDAO;
+import dao.imlp.HoaDonDAO;
+import entity.HoaDon;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import jiconfont.swing.IconFontSwing;
-import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -20,12 +27,58 @@ public class Form_ThuTien extends javax.swing.JPanel {
      * Creates new form Form_ThuTien
      */
     private JFrame jFrame;
-    public Form_ThuTien(JFrame jFrame) {
+    private double total;
+    private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
+    private DecimalFormat formatNotVND = new DecimalFormat("###,###");
+    private double btnTotal = 0;
+//  NDK  Tạo list để lưu các btn
+    private List<JButton> moneyDenominations = new ArrayList<>();
+    private List<JButton> moneySuggestions = new ArrayList<>();
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private HoaDon hoaDon;
+
+    public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
         initComponents();
         this.jFrame = jFrame;
-        this.setBackground(new Color(0,0,0,0.6f));
-        wrapper.setBackground(new Color(0,0,0,0));
+        this.hoaDon = hoaDon;
+        this.setBackground(new Color(0, 0, 0, 0.6f));
+        wrapper.setBackground(new Color(0, 0, 0, 0));
         IconFontSwing.register(FontAwesome.getIconFont());
+        createAndSetEventForButtons();
+    }
+
+    private void createAndSetEventForButtons() {
+        moneyDenominations.add(btn500);
+        moneyDenominations.add(btn200);
+        moneyDenominations.add(btn100);
+        moneyDenominations.add(btn50);
+        moneyDenominations.add(btn20);
+        moneyDenominations.add(btn10);
+        moneyDenominations.add(btn5);
+        moneyDenominations.add(btn2);
+        moneyDenominations.add(btn1);
+        for (JButton btn : moneyDenominations) {
+            btn.addActionListener(e -> {
+                String tien = btn.getText().replace(".", ""); // Loại bỏ dấu phẩy
+                double tienKhachDua = Double.parseDouble(tien);
+                btnTotal += tienKhachDua;
+                onChange(total, btnTotal);
+            });
+        }
+    }
+
+    private void createAndSetEventButtonSuggestions() {
+        moneySuggestions.add(suggestion1);
+        moneySuggestions.add(suggestion2);
+        moneySuggestions.add(suggestion3);
+        for (JButton btn : moneySuggestions) {
+            btn.addActionListener(e -> {
+                String tien = btn.getText().replace(",", ""); // Loại bỏ dấu phẩy
+                double tienKhachDua = Double.parseDouble(tien);
+                btnTotal = tienKhachDua;
+                onChange(total, btnTotal);
+            });
+        }
     }
 
     /**
@@ -46,35 +99,36 @@ public class Form_ThuTien extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         panelRound1 = new component.PanelRound();
+        txtTienKhachDua = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        myButton1 = new component.MyButton();
-        myButton2 = new component.MyButton();
-        myButton3 = new component.MyButton();
-        myButton4 = new component.MyButton();
-        myButton5 = new component.MyButton();
-        myButton6 = new component.MyButton();
-        myButton7 = new component.MyButton();
-        myButton8 = new component.MyButton();
-        myButton9 = new component.MyButton();
+        btn500 = new component.MyButton();
+        btn200 = new component.MyButton();
+        btn100 = new component.MyButton();
+        btn50 = new component.MyButton();
+        btn20 = new component.MyButton();
+        btn10 = new component.MyButton();
+        btn5 = new component.MyButton();
+        btn2 = new component.MyButton();
+        btn1 = new component.MyButton();
         jLabel10 = new javax.swing.JLabel();
-        myButton10 = new component.MyButton();
-        myButton11 = new component.MyButton();
-        myButton12 = new component.MyButton();
+        suggestion1 = new component.MyButton();
+        suggestion2 = new component.MyButton();
+        suggestion3 = new component.MyButton();
         rightContainer = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         labelTienThu = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        tienPhaiThu = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        tienPhaiTra = new javax.swing.JLabel();
         footer = new component.PanelRound();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnDong = new component.MyButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        btnInDong = new component.MyButton();
         btnHuy = new component.MyButton();
+        btnInVaDong = new component.MyButton();
 
         wrapper.setRoundBottomLeft(12);
         wrapper.setRoundBottomRight(12);
@@ -82,8 +136,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
         wrapper.setRoundTopRight(12);
 
         header.setBackground(new java.awt.Color(31, 29, 43));
-        header.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
         header.setRoundTopLeft(16);
         header.setRoundTopRight(16);
 
@@ -128,141 +180,158 @@ public class Form_ThuTien extends javax.swing.JPanel {
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(31, 29, 43));
 
-        jLabel5.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nhập số tiền khách đưa");
 
+        panelRound1.setBackground(new java.awt.Color(255, 255, 255));
         panelRound1.setRoundBottomLeft(8);
         panelRound1.setRoundBottomRight(8);
         panelRound1.setRoundTopLeft(8);
         panelRound1.setRoundTopRight(8);
 
+        txtTienKhachDua.setBackground(new java.awt.Color(255, 255, 255));
+        txtTienKhachDua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtTienKhachDua.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        txtTienKhachDua.setText("0");
+        txtTienKhachDua.setBorder(null);
+        txtTienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTienKhachDuaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTienKhachDuaKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtTienKhachDua)
+                .addContainerGap())
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 45, Short.MAX_VALUE)
+            .addComponent(txtTienKhachDua, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        jLabel9.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Nhập tiền theo mệnh giá");
 
-        myButton1.setForeground(new java.awt.Color(255, 255, 255));
-        myButton1.setText("500.000");
-        myButton1.setColor(new java.awt.Color(31, 29, 43));
-        myButton1.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton1.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton1.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton1.setRadius(8);
-        myButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton1ActionPerformed(evt);
-            }
-        });
+        btn500.setForeground(new java.awt.Color(255, 255, 255));
+        btn500.setText("500.000");
+        btn500.setColor(new java.awt.Color(31, 29, 43));
+        btn500.setColorClick(new java.awt.Color(234, 124, 105));
+        btn500.setColorOver(new java.awt.Color(234, 124, 105));
+        btn500.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn500.setRadius(8);
 
-        myButton2.setForeground(new java.awt.Color(255, 255, 255));
-        myButton2.setText("200.000");
-        myButton2.setColor(new java.awt.Color(31, 29, 43));
-        myButton2.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton2.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton2.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton2.setRadius(8);
-        myButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton2ActionPerformed(evt);
-            }
-        });
+        btn200.setForeground(new java.awt.Color(255, 255, 255));
+        btn200.setText("200.000");
+        btn200.setColor(new java.awt.Color(31, 29, 43));
+        btn200.setColorClick(new java.awt.Color(234, 124, 105));
+        btn200.setColorOver(new java.awt.Color(234, 124, 105));
+        btn200.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn200.setRadius(8);
 
-        myButton3.setForeground(new java.awt.Color(255, 255, 255));
-        myButton3.setText("100.000");
-        myButton3.setColor(new java.awt.Color(31, 29, 43));
-        myButton3.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton3.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton3.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton3.setRadius(8);
-        myButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton3ActionPerformed(evt);
-            }
-        });
+        btn100.setForeground(new java.awt.Color(255, 255, 255));
+        btn100.setText("100.000");
+        btn100.setColor(new java.awt.Color(31, 29, 43));
+        btn100.setColorClick(new java.awt.Color(234, 124, 105));
+        btn100.setColorOver(new java.awt.Color(234, 124, 105));
+        btn100.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn100.setRadius(8);
 
-        myButton4.setForeground(new java.awt.Color(255, 255, 255));
-        myButton4.setText("50.000");
-        myButton4.setColor(new java.awt.Color(31, 29, 43));
-        myButton4.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton4.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton4.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton4.setRadius(8);
+        btn50.setForeground(new java.awt.Color(255, 255, 255));
+        btn50.setText("50.000");
+        btn50.setColor(new java.awt.Color(31, 29, 43));
+        btn50.setColorClick(new java.awt.Color(234, 124, 105));
+        btn50.setColorOver(new java.awt.Color(234, 124, 105));
+        btn50.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn50.setRadius(8);
 
-        myButton5.setForeground(new java.awt.Color(255, 255, 255));
-        myButton5.setText("20.000");
-        myButton5.setColor(new java.awt.Color(31, 29, 43));
-        myButton5.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton5.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton5.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton5.setRadius(8);
+        btn20.setForeground(new java.awt.Color(255, 255, 255));
+        btn20.setText("20.000");
+        btn20.setColor(new java.awt.Color(31, 29, 43));
+        btn20.setColorClick(new java.awt.Color(234, 124, 105));
+        btn20.setColorOver(new java.awt.Color(234, 124, 105));
+        btn20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn20.setRadius(8);
 
-        myButton6.setForeground(new java.awt.Color(255, 255, 255));
-        myButton6.setText("10.000");
-        myButton6.setColor(new java.awt.Color(31, 29, 43));
-        myButton6.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton6.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton6.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton6.setRadius(8);
+        btn10.setForeground(new java.awt.Color(255, 255, 255));
+        btn10.setText("10.000");
+        btn10.setColor(new java.awt.Color(31, 29, 43));
+        btn10.setColorClick(new java.awt.Color(234, 124, 105));
+        btn10.setColorOver(new java.awt.Color(234, 124, 105));
+        btn10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn10.setRadius(8);
 
-        myButton7.setForeground(new java.awt.Color(255, 255, 255));
-        myButton7.setText("5.000");
-        myButton7.setColor(new java.awt.Color(31, 29, 43));
-        myButton7.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton7.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton7.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton7.setRadius(8);
+        btn5.setForeground(new java.awt.Color(255, 255, 255));
+        btn5.setText("5.000");
+        btn5.setColor(new java.awt.Color(31, 29, 43));
+        btn5.setColorClick(new java.awt.Color(234, 124, 105));
+        btn5.setColorOver(new java.awt.Color(234, 124, 105));
+        btn5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn5.setRadius(8);
 
-        myButton8.setForeground(new java.awt.Color(255, 255, 255));
-        myButton8.setText("2.000");
-        myButton8.setColor(new java.awt.Color(31, 29, 43));
-        myButton8.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton8.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton8.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton8.setRadius(8);
+        btn2.setForeground(new java.awt.Color(255, 255, 255));
+        btn2.setText("2.000");
+        btn2.setColor(new java.awt.Color(31, 29, 43));
+        btn2.setColorClick(new java.awt.Color(234, 124, 105));
+        btn2.setColorOver(new java.awt.Color(234, 124, 105));
+        btn2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn2.setRadius(8);
 
-        myButton9.setForeground(new java.awt.Color(255, 255, 255));
-        myButton9.setText("1.000");
-        myButton9.setColor(new java.awt.Color(31, 29, 43));
-        myButton9.setColorClick(new java.awt.Color(234, 124, 105));
-        myButton9.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton9.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
-        myButton9.setRadius(8);
+        btn1.setForeground(new java.awt.Color(255, 255, 255));
+        btn1.setText("1.000");
+        btn1.setColor(new java.awt.Color(31, 29, 43));
+        btn1.setColorClick(new java.awt.Color(234, 124, 105));
+        btn1.setColorOver(new java.awt.Color(234, 124, 105));
+        btn1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn1.setRadius(8);
 
-        jLabel10.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Gợi ý tiền mặt");
 
-        myButton10.setText("myButton1");
-        myButton10.setRadius(8);
+        suggestion1.setBorder(null);
+        suggestion1.setForeground(new java.awt.Color(255, 255, 255));
+        suggestion1.setText("myButton1");
+        suggestion1.setColor(new java.awt.Color(234, 124, 105));
+        suggestion1.setColorClick(new java.awt.Color(234, 124, 105));
+        suggestion1.setColorOver(new java.awt.Color(234, 124, 105));
+        suggestion1.setFocusable(false);
+        suggestion1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        suggestion1.setRadius(8);
+        suggestion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suggestion1ActionPerformed(evt);
+            }
+        });
 
-        myButton11.setText("myButton1");
-        myButton11.setRadius(8);
+        suggestion2.setBorder(null);
+        suggestion2.setForeground(new java.awt.Color(255, 255, 255));
+        suggestion2.setText("myButton1");
+        suggestion2.setColor(new java.awt.Color(234, 124, 105));
+        suggestion2.setColorClick(new java.awt.Color(234, 124, 105));
+        suggestion2.setColorOver(new java.awt.Color(234, 124, 105));
+        suggestion2.setFocusable(false);
+        suggestion2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        suggestion2.setRadius(8);
 
-        myButton12.setText("myButton1");
-        myButton12.setRadius(8);
+        suggestion3.setBorder(null);
+        suggestion3.setForeground(new java.awt.Color(255, 255, 255));
+        suggestion3.setText("myButton1");
+        suggestion3.setColor(new java.awt.Color(234, 124, 105));
+        suggestion3.setColorClick(new java.awt.Color(234, 124, 105));
+        suggestion3.setColorOver(new java.awt.Color(234, 124, 105));
+        suggestion3.setFocusable(false);
+        suggestion3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        suggestion3.setRadius(8);
 
         javax.swing.GroupLayout leffContainerLayout = new javax.swing.GroupLayout(leffContainer);
         leffContainer.setLayout(leffContainerLayout);
@@ -271,39 +340,37 @@ public class Form_ThuTien extends javax.swing.JPanel {
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(leffContainerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(leffContainerLayout.createSequentialGroup()
-                        .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9)
-                            .addGroup(leffContainerLayout.createSequentialGroup()
-                                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(leffContainerLayout.createSequentialGroup()
-                                .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(leffContainerLayout.createSequentialGroup()
-                                .addComponent(myButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel10)
-                            .addGroup(leffContainerLayout.createSequentialGroup()
-                                .addComponent(myButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(myButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel9)
+                        .addGroup(leffContainerLayout.createSequentialGroup()
+                            .addComponent(btn500, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn200, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn100, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(leffContainerLayout.createSequentialGroup()
+                            .addComponent(btn50, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn20, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(leffContainerLayout.createSequentialGroup()
+                            .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel10)
+                        .addGroup(leffContainerLayout.createSequentialGroup()
+                            .addComponent(suggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(suggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(suggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(8, 8, 8))
         );
         leffContainerLayout.setVerticalGroup(
             leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,27 +385,27 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn500, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn200, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn100, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn50, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn20, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(leffContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(suggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(suggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(suggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         rightContainer.setBackground(new java.awt.Color(83, 86, 99));
@@ -347,25 +414,23 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
         jSeparator3.setForeground(new java.awt.Color(31, 29, 43));
 
-        labelTienThu.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        labelTienThu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelTienThu.setForeground(new java.awt.Color(255, 255, 255));
         labelTienThu.setText("Số tiền còn phải thu");
 
-        jLabel6.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("2.000.000");
+        tienPhaiThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        tienPhaiThu.setForeground(new java.awt.Color(255, 255, 255));
+        tienPhaiThu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        tienPhaiThu.setText("2.000.000");
 
-        jLabel7.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tiền trả lại khách");
 
-        jLabel8.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("0");
+        tienPhaiTra.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        tienPhaiTra.setForeground(new java.awt.Color(255, 255, 255));
+        tienPhaiTra.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        tienPhaiTra.setText("0 VNĐ");
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
         rightContainer.setLayout(rightContainerLayout);
@@ -379,11 +444,11 @@ public class Form_ThuTien extends javax.swing.JPanel {
                     .addGroup(rightContainerLayout.createSequentialGroup()
                         .addComponent(labelTienThu)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tienPhaiThu, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(rightContainerLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tienPhaiTra, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         rightContainerLayout.setVerticalGroup(
@@ -392,7 +457,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTienThu)
-                    .addComponent(jLabel6))
+                    .addComponent(tienPhaiThu))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -400,7 +465,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(tienPhaiTra))
                 .addGap(136, 136, 136))
         );
 
@@ -411,7 +476,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
             .addGroup(containerLayout.createSequentialGroup()
                 .addComponent(leffContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(rightContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(rightContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         containerLayout.setVerticalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,13 +489,11 @@ public class Form_ThuTien extends javax.swing.JPanel {
         footer.setRoundBottomLeft(16);
         footer.setRoundBottomRight(16);
 
-        jLabel1.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Đóng:");
 
-        jLabel3.setFont(utils.AppUtils.getFont(14f, _BOLD_)
-        );
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("In & Đóng:");
 
@@ -438,8 +502,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
         btnDong.setColor(new java.awt.Color(83, 86, 99));
         btnDong.setColorClick(new java.awt.Color(234, 124, 105));
         btnDong.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDong.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnDong.setRadius(8);
         btnDong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -447,41 +509,35 @@ public class Form_ThuTien extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(utils.AppUtils.getFont(14f, _ITALIC_)
-        );
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ALT + N hoặc F8");
 
-        jLabel4.setFont(utils.AppUtils.getFont(14f, _ITALIC_)
-        );
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ALT + L hoặc F9");
 
-        btnInDong.setForeground(new java.awt.Color(255, 255, 255));
-        btnInDong.setText("HỦY BỎ");
-        btnInDong.setColor(new java.awt.Color(83, 86, 99));
-        btnInDong.setColorClick(new java.awt.Color(234, 124, 105));
-        btnInDong.setColorOver(new java.awt.Color(234, 124, 105));
-        btnInDong.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
-        btnInDong.setRadius(8);
-        btnInDong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInDongActionPerformed(evt);
-            }
-        });
-
         btnHuy.setForeground(new java.awt.Color(255, 255, 255));
-        btnHuy.setText("IN & ĐÓNG");
+        btnHuy.setText("HỦY BỎ");
         btnHuy.setColor(new java.awt.Color(83, 86, 99));
         btnHuy.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuy.setColorOver(new java.awt.Color(234, 124, 105));
-        btnHuy.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnHuy.setRadius(8);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
+            }
+        });
+
+        btnInVaDong.setForeground(new java.awt.Color(255, 255, 255));
+        btnInVaDong.setText("IN & ĐÓNG");
+        btnInVaDong.setColor(new java.awt.Color(83, 86, 99));
+        btnInVaDong.setColorClick(new java.awt.Color(234, 124, 105));
+        btnInVaDong.setColorOver(new java.awt.Color(234, 124, 105));
+        btnInVaDong.setRadius(8);
+        btnInVaDong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInVaDongActionPerformed(evt);
             }
         });
 
@@ -494,16 +550,16 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(39, 39, 39)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInVaDong, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnInDong, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         footerLayout.setVerticalGroup(
@@ -511,9 +567,9 @@ public class Form_ThuTien extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, footerLayout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInDong, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInVaDong, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -525,9 +581,9 @@ public class Form_ThuTien extends javax.swing.JPanel {
         wrapper.setLayout(wrapperLayout);
         wrapperLayout.setHorizontalGroup(
             wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         wrapperLayout.setVerticalGroup(
             wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,43 +599,36 @@ public class Form_ThuTien extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
-                .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(135, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
+                .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(213, Short.MAX_VALUE)
+                .addContainerGap(300, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
-
+        String tien = tienPhaiTra.getText().replace("VNĐ", "");
+        tien = tien.replace(",", "");
+        double tienThua = Double.parseDouble(tien);
+        hoaDonDAO.createInvoice(hoaDon, total + tienThua, tienThua);
     }//GEN-LAST:event_btnDongActionPerformed
-
-    private void btnInDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInDongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInDongActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
+        jFrame.setVisible(false);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+    private void btnInVaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInVaDongActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton1ActionPerformed
-
-    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton2ActionPerformed
-
-    private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton3ActionPerformed
+    }//GEN-LAST:event_btnInVaDongActionPerformed
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // TODO add your handling code here:
@@ -587,11 +636,92 @@ public class Form_ThuTien extends javax.swing.JPanel {
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel11MouseClicked
 
+    private void txtTienKhachDuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c))
+            evt.consume();
+    }//GEN-LAST:event_txtTienKhachDuaKeyTyped
+
+    private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
+        // TODO add your handling code here:
+        if (!txtTienKhachDua.getText().trim().equals("")) {
+            String tien = txtTienKhachDua.getText().replace(",", "");
+            double tienKhachDua = Double.parseDouble(tien);
+            txtTienKhachDua.setText(formatNotVND.format(tienKhachDua));
+            tienPhaiTra.setText(tien_format.format(tienKhachDua - total));
+        } else {
+            tienPhaiTra.setText("0 VNĐ");
+            btnTotal = 0;
+        }
+        txtTienKhachDua.requestFocus();
+    }//GEN-LAST:event_txtTienKhachDuaKeyReleased
+
+    private void suggestion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suggestion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_suggestion1ActionPerformed
+
+    private void onChange(double total, double btnTotal) {
+        if (total - btnTotal < 0) {
+            txtTienKhachDua.setText("0");
+        } else {
+            txtTienKhachDua.setText(formatNotVND.format(total - btnTotal));
+        }
+        tienPhaiTra.setText(tien_format.format(btnTotal - total));
+    }
+
+    void setTienPhaiThu(Double total) {
+        this.total = total;
+        tienPhaiThu.setText(tien_format.format(total));
+        double originalValue = total;
+        List<Double> suggestions = getSuggestedAmounts(total);
+        for (int i = 0; i < suggestions.size(); i++) {
+            System.out.println(suggestions.get(i));
+            moneySuggestions.get(i).setText(formatNotVND.format(suggestions.get(i)));
+        }
+    }
+
+    public List<Double> getSuggestedAmounts(double originalValue) {
+        createAndSetEventButtonSuggestions();
+        List<Double> suggestions = new ArrayList<>();
+
+        // Làm tròn lên đến hàng nghìn gần nhất
+//        double roundedToThousand = Math.ceil(originalValue / 1000) * 1000;
+//        if (roundedToThousand != originalValue) {
+//            suggestions.add(roundedToThousand);
+//        }
+//
+//        // Làm tròn lên đến hàng chục nghìn gần nhất
+//        double roundedToTenThousand = Math.ceil(originalValue / 10000) * 10000;
+//        if (roundedToTenThousand != originalValue) {
+//            suggestions.add(roundedToTenThousand);
+//        }
+//
+//        // Làm tròn lên đến hàng trăm nghìn gần nhất
+//        double roundedToHundredThousand = Math.ceil(originalValue / 100000) * 100000;
+//        if (roundedToHundredThousand != originalValue) {
+//            suggestions.add(roundedToHundredThousand);
+//        }
+        suggestions.add(Math.ceil(originalValue / 1000) * 1000);
+        suggestions.add(Math.ceil(originalValue / 10000) * 10000);
+        suggestions.add(Math.ceil(originalValue / 100000) * 100000);
+
+        return suggestions;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private component.MyButton btn1;
+    private component.MyButton btn10;
+    private component.MyButton btn100;
+    private component.MyButton btn2;
+    private component.MyButton btn20;
+    private component.MyButton btn200;
+    private component.MyButton btn5;
+    private component.MyButton btn50;
+    private component.MyButton btn500;
     private component.MyButton btnDong;
     private component.MyButton btnHuy;
-    private component.MyButton btnInDong;
+    private component.MyButton btnInVaDong;
     private javax.swing.JPanel container;
     private component.PanelRound footer;
     private component.PanelRound header;
@@ -602,30 +732,23 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel labelTienThu;
     private javax.swing.JPanel leffContainer;
-    private component.MyButton myButton1;
-    private component.MyButton myButton10;
-    private component.MyButton myButton11;
-    private component.MyButton myButton12;
-    private component.MyButton myButton2;
-    private component.MyButton myButton3;
-    private component.MyButton myButton4;
-    private component.MyButton myButton5;
-    private component.MyButton myButton6;
-    private component.MyButton myButton7;
-    private component.MyButton myButton8;
-    private component.MyButton myButton9;
     private component.PanelRound panelRound1;
     private javax.swing.JPanel rightContainer;
+    private component.MyButton suggestion1;
+    private component.MyButton suggestion2;
+    private component.MyButton suggestion3;
+    private javax.swing.JLabel tienPhaiThu;
+    private javax.swing.JLabel tienPhaiTra;
     private javax.swing.JLabel title;
+    private javax.swing.JTextField txtTienKhachDua;
     private component.PanelRound wrapper;
     // End of variables declaration//GEN-END:variables
+
 }

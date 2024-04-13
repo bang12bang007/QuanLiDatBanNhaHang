@@ -55,6 +55,8 @@ public class PhieuDatBan {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBan")
     private Ban ban;
+    @Column(name = "YeuCauDatMon", columnDefinition = "NVARCHAR(255)", nullable = true)
+    private String yeuCauDatMon;
 
     public PhieuDatBan(LocalDateTime ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, String yeuCauKhac, Ban ban) {
         this.ngayGioDat = ngayGioDat;

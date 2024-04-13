@@ -32,7 +32,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
-import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -128,8 +128,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         thongTin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-//                utils.AppUtils.setUI(mainJpanel, () -> new GD_Ban(mainJpanel, "DAT_MON", null));
- 
+                utils.AppUtils.setUI(mainJpanel, () -> new GD_Ban(mainJpanel, "DAT_MON", null));
             }
         });
     }
@@ -184,9 +183,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatMon.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatMon.setFocusable(false);
-        buttonDatMon.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-
-        );
+        buttonDatMon.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
         buttonDatMon.setIconTextGap(8);
         buttonDatMon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -207,9 +204,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatBan.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatBan.setFocusable(false);
-        buttonDatBan.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-
-        );
+        buttonDatBan.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
         buttonDatBan.setIconTextGap(8);
         buttonDatBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,9 +220,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonThongKe.setColorClick(new java.awt.Color(31, 29, 43));
         buttonThongKe.setColorOver(new java.awt.Color(31, 29, 43));
         buttonThongKe.setFocusable(false);
-        buttonThongKe.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-
-        );
+        buttonThongKe.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
         buttonThongKe.setIconTextGap(8);
         buttonThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,20 +238,17 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        label_AVT.setFont(utils.AppUtils.getFont(13f, _BOLD_)
-        );
+        label_AVT.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
         label_AVT.setForeground(new java.awt.Color(255, 255, 255));
         label_AVT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_AVT.setText("Nguyễn Đức Cường");
 
-        label_week_day.setFont(utils.AppUtils.getFont(13f, _BOLD_)
-        );
+        label_week_day.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
         label_week_day.setForeground(new java.awt.Color(255, 255, 255));
         label_week_day.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_week_day.setText("MONDAY");
 
-        label_day_month_year.setFont(utils.AppUtils.getFont(13f, _BOLD_)
-        );
+        label_day_month_year.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
         label_day_month_year.setForeground(new java.awt.Color(255, 255, 255));
         label_day_month_year.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_day_month_year.setText("16/09/2003");
@@ -378,7 +368,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThongKeActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel,() -> new GD_ThongKe());
         setActiveTab(evt);
     }//GEN-LAST:event_buttonThongKeActionPerformed
 
