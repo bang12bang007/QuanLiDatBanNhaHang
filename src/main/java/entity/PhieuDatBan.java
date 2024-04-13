@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,15 +31,15 @@ import lombok.ToString;
 //NDK created
 @NamedQueries({
     @NamedQuery(name = "PhieuDatBan.updateState", query = "UPDATE PhieuDatBan SET trangThai = :trangThai WHERE maPhieuDatBan = :maPhieuDatBan"),
-    @NamedQuery(name = "PhieuDatBan.updateBanById", query = "UPDATE PhieuDatBan SET ban = :ban WHERE maPhieuDatBan = :maPhieuDatBan")
-})
+    @NamedQuery(name = "PhieuDatBan.updateBanById", query = "UPDATE PhieuDatBan SET ban = :ban WHERE maPhieuDatBan = :maPhieuDatBan"),
+    @NamedQuery(name = "PhieuDatBan.filterByDate", query = "SELECT p FROM PhieuDatBan p WHERE CAST(p.ngayGioDat AS date) = CAST(:date AS date)"),})
 public class PhieuDatBan {
 
     @Id
     @Column(name = "MaPhieuDatBan", nullable = false)
     private String maPhieuDatBan;
     @Column(name = "NgayGioDatBan", nullable = false)
-    private Date ngayGioDat;
+    private LocalDateTime ngayGioDat;
     @Column(name = "SoLuongNguoi", nullable = false)
     private int soLuongNguoi;
     @Column(name = "HoTenNguoiDat", columnDefinition = "NVARCHAR(50)", nullable = false)
@@ -54,8 +55,10 @@ public class PhieuDatBan {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBan")
     private Ban ban;
+    @Column(name = "YeuCauDatMon", columnDefinition = "NVARCHAR(255)", nullable = true)
+    private String yeuCauDatMon;
 
-    public PhieuDatBan(Date ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, String yeuCauKhac, Ban ban) {
+    public PhieuDatBan(LocalDateTime ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, String yeuCauKhac, Ban ban) {
         this.ngayGioDat = ngayGioDat;
         this.soLuongNguoi = soLuongNguoi;
         this.hoTen = hoTen;

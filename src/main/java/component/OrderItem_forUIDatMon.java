@@ -52,6 +52,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private String type_orderItem = "NONE";
     private ArrayList<Mon> list_MonHuy; //duccuong1609 : danh sách món đã gửi bếp nhưng lại hủy (case thêm món, case đặt trước)
     private List<OrderItem_forUIDatMon> listPreOrder; //duccuong1609 : cái này giữ lại cái danh sách cũ tại có món nó preload và có món mới thêm
+    private List<Integer> list_quantity;
 
     public OrderItem_forUIDatMon(GD_DatMon datMon, Mon mon, int width, int index, String[] data, ArrayList<Mon> orders) {
         this.data = data;
@@ -60,6 +61,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         this.datMon = datMon;
         this.mon = mon;
         this.details = datMon.getDetails();
+        this.list_quantity = datMon.getList_quantity();
         initComponents();
         setBackground(index % 2 != 0 ? new Color(83, 86, 99) : new Color(31, 29, 43));
         setPreferredSize(new Dimension(width, 50));
@@ -386,8 +388,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             orders = replace_orders;
             datMon.setOrders(replace_orders);
             datMon.getPanelOrder().removeAll();
+            
             for (int i = 0; i < orders.size(); i++) {
-                String[] title = new String[]{orders.get(i).getTenMon(), "1", tien_format.format(orders.get(i).getGia() * datMon.getList_quantity().get(i)), ""};
+                String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGia() * datMon.getList_quantity().get(i)), ""};
                 OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datMon, orders.get(i), datMon.getPanelOrder().getWidth(), i + 1, title, orders);
                 for (OrderItem_forUIDatMon order_item : listPreOrder) {
                     if (item.getTenMon().getText().trim().equals(order_item.getTenMon().getText().trim())) {

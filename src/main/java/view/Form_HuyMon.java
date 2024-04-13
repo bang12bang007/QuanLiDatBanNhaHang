@@ -258,8 +258,9 @@ public class Form_HuyMon extends javax.swing.JPanel {
 
     private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
         // TODO add your handling code here:
-        parent.update_PanelOrder(true);
+//        parent.getDatMon().getList_quantity().remove(parent.getDatMon().getOrders().indexOf(parent.getMon()));
         monHuy = parent.getMon();
+        parent.update_PanelOrder(true);
         List<ChiTietHoaDon> list = parent.getDatMon().getDetails();
         for(ChiTietHoaDon c : list){
             if(c.getMon().getTenMon().equals(monHuy.getTenMon())){

@@ -24,6 +24,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -243,49 +245,34 @@ public class BookingItem extends javax.swing.JPanel {
         // TODO add your handling code here:
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+
             @Override
             protected Void doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
                 ArrayList<Mon> mons = new ArrayList<Mon>();
                 ArrayList<Integer> quantity = new ArrayList<Integer>();
-//                Double total = 0.0;
-                
-                for (ChiTietHoaDon chitiet : list) {
-                    mons.add(chitiet.getMon());
-                    quantity.add(chitiet.getSoLuong());
-//                    total = chitiet.getMon().getGia()*chitiet.getSoLuong();
-                }
-                datMon.setList_quantity(quantity);
-                datMon.setOrders(mons);
-                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
                 datMon.setHoaDon(list.get(0).getHoaDon());
-//                datMon.setLabelTongTien(AppUtils.tien_format.format(total));
+                datMon.setPhieuDatBan(phieuDatBan);
+                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
                 return null;
             }
+
             @Override
-            protected void done(){
+            protected void done() {
                 datMon.setGd_datBan(GD);
-                btnGoiMon.setBackground(new Color(255,255,255,0));
+                btnGoiMon.setBackground(new Color(255, 255, 255, 0));
                 utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
             }
         };
         worker.execute();
     }//GEN-LAST:event_btnGoiMonActionPerformed
 
+//    NDK: sửa Date thành LocalDateTime
     private String forrmater(String date) {
-        String dateTimeString = date;
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a");
-        String formattedTime = "";
-        try {
-            Date dateTime = inputFormat.parse(dateTimeString);
-            formattedTime = outputFormat.format(dateTime);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return formattedTime;
+        LocalDateTime inputDateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String formattedDateTime = inputDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        return formattedDateTime;
     }
 
     public void setTrangThai(String trangThai) {

@@ -10,6 +10,7 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.JFrame;
 import component.BanItem;
 import component.Loading;
+import component.Message;
 import component.MyButton;
 import component.OrderCard;
 import component.ScrollBarCustom;
@@ -61,6 +62,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private Ban ban;
     private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private JFrame jFrameForm;
     private GD_DatMon gd_Datmon; //sử dụng để khi back từ món về vô lại nhanh
 
 //    NDK: Them phieu dat ban de chuyen ban
@@ -80,6 +82,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         containerFloors.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
         loadData();
+//        AppUtils.run(main, this);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -482,6 +485,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
                 loadEmptyTableOfRestaurant();
                 return null;
             }
+
             @Override
             protected void done() {
             }
@@ -513,7 +517,40 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
         banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
         banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
-        
+
+    }
+
+    public void setFormDatBan(Ban ban) {
+        if (jFrameForm == null || !jFrameForm.isVisible()) {
+            jFrameForm = new JFrame();
+            jFrameForm.setUndecorated(true);
+            jFrameForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_DatBan form_DatBan = new Form_DatBan(jFrameForm, ban);
+            form_DatBan.setMainJpanel(main);
+            jFrameForm.add(form_DatBan);
+            jFrameForm.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(jFrameForm, 8, 0.1f);
+            jFrameForm.setVisible(true);
+        } else {
+            jFrameForm.toFront();
+        }
+    }
+
+    public void setFormMessageMoveTable(BanItem banItem) {
+        if (jFrameForm == null || !jFrameForm.isVisible()) {
+            jFrameForm = new JFrame();
+            jFrameForm.setUndecorated(true);
+            jFrameForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Message message = new Message(jFrameForm, banItem);
+            jFrameForm.add(message);
+            jFrameForm.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(jFrameForm, 8, 0.1f);
+            jFrameForm.setVisible(true);
+        } else {
+            jFrameForm.toFront();
+        }
     }
 
     public GD_DatMon getGd_Datmon() {
@@ -523,7 +560,6 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     public void setGd_Datmon(GD_DatMon gd_Datmon) {
         this.gd_Datmon = gd_Datmon;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel GheTrongNhaHang;
     private javax.swing.JLabel GheTrongTang;

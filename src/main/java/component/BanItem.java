@@ -149,10 +149,11 @@ public class BanItem extends javax.swing.JPanel {
     public Ban getBan() {
         return this.ban;
     }
-    
+
     public JPanel getMain() {
         return this.main;
     }
+
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
@@ -160,50 +161,28 @@ public class BanItem extends javax.swing.JPanel {
         switch (type) {
             case "DAT_BAN": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    JFrame jFrame = new JFrame();
-                    jFrame.setUndecorated(true);
-                    jFrame.setExtendedState(MAXIMIZED_BOTH);
-                    jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    Form_DatBan form_DatBan = new Form_DatBan(jFrame, ban);
-                    form_DatBan.setMainJpanel(main);
-                    jFrame.add(form_DatBan);
-                    jFrame.setBackground(new Color(0, 0, 0, 0));
-                    FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-                    jFrame.setVisible(true);
+                    gD_Ban.setFormDatBan(ban);
                 }
-
                 break;
             }
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
                     GD_DatMon gd;
-                    if(gD_Ban.getGd_Datmon()==null){//chưa có thì tạo
+                    if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo
                         gd = new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON);
-                        gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON    );
+                        gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
                         gd.setgD_Ban(gD_Ban);
-                    }
-                    else{//có load vào rồi thì gọi lại
+                    } else {//có load vào rồi thì gọi lại
                         gd = gD_Ban.getGd_Datmon();
-                        gd.getBtnBack().setBackground(new Color(83,86,99));
+                        gd.getBtnBack().setBackground(new Color(83, 86, 99));
                     }
-                    
                     utils.AppUtils.setUI(main, () -> gd);
                 }
                 break;
             }
             case "CHUYEN_BAN": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    String fromBan = this.gD_Ban.getBanActive().getMaBan();
-                    String toBan = this.ban.getMaBan();
-                    JFrame jFrame = new JFrame();
-                    jFrame.setUndecorated(true);
-                    jFrame.setExtendedState(MAXIMIZED_BOTH);
-                    jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    Message message = new Message(jFrame, this);
-                    jFrame.add(message);
-                    jFrame.setBackground(new Color(0, 0, 0, 0));
-                    FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-                    jFrame.setVisible(true);
+                    gD_Ban.setFormMessageMoveTable(this);
                 }
                 break;
             }

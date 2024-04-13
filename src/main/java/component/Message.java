@@ -4,6 +4,7 @@
  */
 package component;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import view.GD_DatBan;
@@ -19,11 +20,12 @@ public class Message extends javax.swing.JPanel {
      */
     private JFrame jFrame;
     private BanItem banItem;
-    
+
     public Message(JFrame jFrame, BanItem banItem) {
         this.jFrame = jFrame;
         this.banItem = banItem;
         initComponents();
+        this.setBackground(new Color(0, 0, 0, 0.7f));
         jLabel2.setText("Bạn có muốn chuyển từ " + banItem.getGDBan().getBanActive().getMaBan() + " đến " + banItem.getBan().getMaBan());
     }
 
