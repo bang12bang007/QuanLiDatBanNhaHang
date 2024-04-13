@@ -161,7 +161,7 @@ public class BanItem extends javax.swing.JPanel {
         switch (type) {
             case "DAT_BAN": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    gD_Ban.setFormDatBan();
+                    gD_Ban.setFormDatBan(ban);
                 }
                 break;
             }
