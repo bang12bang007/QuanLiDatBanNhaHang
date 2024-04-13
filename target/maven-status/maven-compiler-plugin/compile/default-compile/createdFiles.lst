@@ -10,6 +10,7 @@ view\Form_DatBan$2.class
 dao\imlp\ChiTietHoaDonDAO.class
 view\GD_DatMon$4.class
 entity\NhanVien.class
+view\Form_ThongTinCaNhan$1.class
 dao\INhanVienDAO.class
 view\GD_Ban$1.class
 view\GD_ThanhToan$7.class
@@ -124,6 +125,7 @@ component\ModernScrollBarUI.class
 utils\AppUtils.class
 view\GD_ThanhToan$6.class
 utils\Enum$LoaiTrangThaiHoaDon.class
+view\Form_ThongTinCaNhan.class
 view\GD_DangNhap.class
 view\GD_DatMon$19$1.class
 utils\Enum$LoaiTrangThaiKhuyenMai.class
@@ -221,6 +223,7 @@ view\GD_DatBan$5.class
 view\GD_DatMon$6.class
 component\OrderItem_forUIDatMon$4.class
 entity\TaiKhoan.class
+view\Form_ThongTinCaNhan$2.class
 entity\PhieuDatBan.class
 view\Form_DatBan$1.class
 component\BanItem$1.class
@@ -231,6 +234,7 @@ view\Form_HuyMon$3.class
 datechooser\Button.class
 view\Form_XemThucDon$3.class
 view\GD_DatBan$10.class
+view\Form_ThongTinCaNhan$3.class
 datechooser\Slider$6.class
 view\GD_DangNhap$3.class
 component\MyJMenuItem.class

@@ -4,6 +4,7 @@
  */
 package view;
 
+import LIB.FadeEffect;
 import component.Loading;
 import component.MyButton;
 import component.MyJMenuItem;
@@ -19,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import static javax.swing.SwingConstants.LEFT;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -128,7 +131,15 @@ public class GD_TrangChu extends javax.swing.JFrame {
         thongTin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                utils.AppUtils.setUI(mainJpanel, () -> new GD_Ban(mainJpanel, "DAT_MON", null));
+                JFrame jFrame = new JFrame();
+                jFrame.setUndecorated(true);
+                jFrame.setExtendedState(MAXIMIZED_BOTH);
+                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                Form_ThongTinCaNhan form = new Form_ThongTinCaNhan(jFrame);
+                jFrame.add(form);
+                jFrame.setBackground(new Color(0, 0, 0, 0));
+                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                jFrame.setVisible(true);
             }
         });
     }
