@@ -371,6 +371,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void btnAVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVTActionPerformed
         // TODO add your handling code here:
+                utils.AppUtils.setUI(mainJpanel, () -> new GD_BaoCao());
+
     }//GEN-LAST:event_btnAVTActionPerformed
 
     private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed

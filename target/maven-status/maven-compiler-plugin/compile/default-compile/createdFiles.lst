@@ -9,6 +9,7 @@ datechooser\Button$1.class
 view\Form_DatBan$2.class
 dao\imlp\ChiTietHoaDonDAO.class
 view\GD_DatMon$4.class
+view\GD_BaoCao$2.class
 entity\NhanVien.class
 view\Form_ThongTinCaNhan$1.class
 dao\INhanVienDAO.class
@@ -211,6 +212,7 @@ datechooser\Slider$4.class
 component\MyButton.class
 component\PanelRound.class
 view\GD_DatBan$11.class
+view\GD_BaoCao.class
 view\GD_DangNhap$2.class
 view\GD_DatMon$8.class
 dao\IKhachHangDAO.class
@@ -249,6 +251,7 @@ view\GD_DatMon$17.class
 view\Form_XemThucDon$4.class
 component\ComboBoxSuggestion.class
 dao\imlp\PhieuDatBanDAO.class
+view\GD_BaoCao$1.class
 view\GD_DatBan.class
 view\GD_QuanLyDatMon$8.class
 component\OrderItem_forUIDatMon$5.class
