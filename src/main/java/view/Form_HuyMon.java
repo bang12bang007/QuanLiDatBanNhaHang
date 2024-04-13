@@ -5,8 +5,11 @@
 package view;
 
 import component.OrderItem_forUIDatMon;
+import entity.ChiTietHoaDon;
+import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JFrame;
 import jiconfont.swing.IconFontSwing;
 
@@ -21,7 +24,9 @@ public class Form_HuyMon extends javax.swing.JPanel {
      */
     private JFrame main;
     private OrderItem_forUIDatMon parent;
-    public Form_HuyMon(JFrame frame,OrderItem_forUIDatMon parent) {
+    private Mon monHuy;
+
+    public Form_HuyMon(JFrame frame, OrderItem_forUIDatMon parent) {
         initComponents();
         this.main = frame;
         this.parent = parent;
@@ -48,7 +53,7 @@ public class Form_HuyMon extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        BoxLyDo = new javax.swing.JComboBox<>();
         panelRound3 = new component.PanelRound();
         myButton3 = new component.MyButton();
         myButton4 = new component.MyButton();
@@ -126,8 +131,13 @@ public class Form_HuyMon extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 51, 51));
         jLabel4.setText("*");
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        BoxLyDo.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        BoxLyDo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khách hủy món do đợi lâu", "Khách không hài lòng", "Khách yêu cầu đổi món", "Khách yêu cầu hủy món","Nhân viên ghi sai order","Khác" }));
+        BoxLyDo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoxLyDoActionPerformed(evt);
+            }
+        });
 
         panelRound3.setBackground(new java.awt.Color(31, 29, 43));
         panelRound3.setRoundBottomLeft(10);
@@ -194,7 +204,7 @@ public class Form_HuyMon extends javax.swing.JPanel {
                         .addGap(2, 2, 2)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(BoxLyDo, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)))
             .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(panelRound2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -209,7 +219,7 @@ public class Form_HuyMon extends javax.swing.JPanel {
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BoxLyDo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -248,15 +258,30 @@ public class Form_HuyMon extends javax.swing.JPanel {
 
     private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
         // TODO add your handling code here:
-        parent.updateForDelete();
+//        parent.getDatMon().getList_quantity().remove(parent.getDatMon().getOrders().indexOf(parent.getMon()));
+        monHuy = parent.getMon();
+        parent.update_PanelOrder(true);
+        List<ChiTietHoaDon> list = parent.getDatMon().getDetails();
+        for(ChiTietHoaDon c : list){
+            if(c.getMon().getTenMon().equals(monHuy.getTenMon())){
+                //chỗ này bỏ ghi chú vào
+                c.setGhiChu(BoxLyDo.getSelectedItem().toString());
+                c.setSoLuong(0);
+            }
+        }
+        parent.getDatMon().getList_CancelFood().add(monHuy);
+        parent.getDatMon().setDetails(list);
         main.dispose();
     }//GEN-LAST:event_myButton3ActionPerformed
 
+    private void BoxLyDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoxLyDoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BoxLyDoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> BoxLyDo;
     private component.MyButton btnClose;
     private component.MyButton btnHelp;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

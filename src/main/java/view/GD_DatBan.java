@@ -40,6 +40,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -754,9 +755,11 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         int stt = 0;
         tableBody.removeAll();
         for (BookingItem bookingItem : bookingItems) {
-            if (AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getHoTen(), txtSearch.getText().trim()) || AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getSdt(), txtSearch.getText().trim())) {
-                bookingItem.setColorByIndex(stt++);
-                tableBody.add(bookingItem);
+            if (bookingItem.getPhieuDatBan().getTrangThai() == statePhieuDatBan) {
+                if (AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getHoTen(), txtSearch.getText().trim()) || AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getSdt(), txtSearch.getText().trim())) {
+                    bookingItem.setColorByIndex(stt++);
+                    tableBody.add(bookingItem);
+                }
             }
         };
         tableBody.repaint();
@@ -802,7 +805,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             if (hoaDon == null) {
 //                suawr lai nhan ban
                 KhachHang kh = (KhachHang) khachHangDAO.findByPhoneNumber(bookingItems.get(active).getPhieuDatBan().getSdt());
-                hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDate.now());
+                hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
                 hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
                 hoaDon.setBan(bookingItems.get(active).getPhieuDatBan().getBan());
                 boolean result = hoaDonDAO.insertHoaDon(hoaDon);
@@ -814,7 +817,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             bookingItems.get(active).setTrangThai("Đã nhận bàn");
             setBookingActive(-1);
         }
-
     }
 
     public void setBookingActive(int active) {
@@ -839,14 +841,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     }
 
     public void setInfoForActiveItem(PhieuDatBan phieuDatBan) {
-        String yeuCauDatMon = "";
-        dsChiTietHoaDon = getChiTietHoaDonByBan(phieuDatBan.getBan());
-        for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
-            String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
-            yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
-        }
         ban.setText(phieuDatBan.getBan().getMaBan() + " - Tầng " + phieuDatBan.getBan().getMaTang());
-        this.yeuCauDatMon.setText(yeuCauDatMon);
+        this.yeuCauDatMon.setText(phieuDatBan.getYeuCauDatMon());
         yeuCauKhac.setText(phieuDatBan.getYeuCauKhac());
     }
 

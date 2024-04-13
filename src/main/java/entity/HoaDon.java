@@ -18,12 +18,12 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
@@ -32,7 +32,6 @@ import utils.Enum.LoaiTrangThaiHoaDon;
  */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @NamedQueries({
@@ -59,7 +58,7 @@ public class HoaDon {
     @JoinColumn(name = "MaDichVu", nullable = true)
     private DichVu dichVu;
     @Column(name = "NgayLapHoaDon", nullable = false)
-    private LocalDate ngayLapHoaDon;
+    private LocalDateTime ngayLapHoaDon;
     @ManyToOne
     @JoinColumn(name = "MaBan", nullable = false)
     private Ban ban;
@@ -69,14 +68,14 @@ public class HoaDon {
     @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
     
-    public HoaDon(NhanVien nhanVien, LocalDate ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
+    public HoaDon(NhanVien nhanVien, LocalDateTime ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
         this.nhanVien = nhanVien;
         this.ngayLapHoaDon = ngayLapHoaDon;
         this.ban = ban;
         this.trangThai = trangThai;
     }
 
-    public HoaDon(NhanVien nhanVien, KhachHang khachHang, LocalDate ngayLapHoaDon) {
+    public HoaDon(NhanVien nhanVien, KhachHang khachHang, LocalDateTime ngayLapHoaDon) {
         this.nhanVien = nhanVien;
         this.khachHang = khachHang;
         this.ngayLapHoaDon = ngayLapHoaDon;

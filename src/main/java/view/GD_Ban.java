@@ -84,19 +84,6 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         loadData();
 //        AppUtils.run(main, this);
     }
-
-    public void setUI() {
-        initComponents();
-        IconFontSwing.register(FontAwesome.getIconFont());
-        tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
-        ScrollListBan.setVerticalScrollBar(new ScrollBarCustom());
-        ScrollListBan.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        ListBan.setLayout(new WrapLayout(FlowLayout.LEADING, 40, 40));
-        containerFloors.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-        containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
-        loadData();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -600,5 +587,10 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound8;
     private javax.swing.JLabel tabLabel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setUI() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

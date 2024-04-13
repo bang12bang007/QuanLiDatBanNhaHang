@@ -5,10 +5,13 @@
 package component;
 
 import entity.Mon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import view.GD_DatMon;
 
 /**
@@ -24,9 +27,9 @@ public class Food extends javax.swing.JPanel {
     private JPanel orderPanel;
     private String ten;
     private String gia;
-    private ArrayList<Mon> orders;
+    private ArrayList<Mon> orders = new ArrayList<Mon>();
     private List<Mon> mons;
-    private ArrayList<Integer> list_Quantity;
+    private ArrayList<Integer> list_Quantity = new ArrayList<Integer>();
     private Mon mon;
     private GD_DatMon datmon;
 
@@ -35,7 +38,6 @@ public class Food extends javax.swing.JPanel {
         this.orderPanel = panelOrder;
         this.ten = mon.getTenMon();
         this.gia = mon.getGia().toString();
-        this.orders = new ArrayList<Mon>();
         this.orders = orders;
         this.mon = mon;
         this.mons = mons;
@@ -153,12 +155,20 @@ public class Food extends javax.swing.JPanel {
     private void panelFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseClicked
         // TODO add your handling code here:
         panelFood.setBackground(new java.awt.Color(234, 124, 105));
-        if (orders.indexOf(mons.get(mons.indexOf(mon))) == -1) {
+        boolean found = false;
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getTenMon().equals(mon.getTenMon())) {
+                found = true;
+//                System.out.println("yes");   //duccuong1609: chỗ này tính làm thông báo 
+            }
+        }
+        if(found == false){
             orders.add(mons.get(mons.indexOf(mon)));
             list_Quantity = datmon.getList_quantity();
             list_Quantity.add(1);
             String[] title = new String[]{ten, "1", tien_format.format(Double.parseDouble(gia)), ""};
             OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datmon, mon, orderPanel.getWidth(), orders.size(), title, orders);
+            item.setListPreOrder(datmon.getListPreOrderItem());
             item.setType("BUTTON");
             orderPanel.add(item);
             orderPanel.revalidate();
@@ -166,6 +176,7 @@ public class Food extends javax.swing.JPanel {
             datmon.setList_quantity(list_Quantity);
             updateTongTien();
         }
+        
     }//GEN-LAST:event_panelFoodMouseClicked
     public void updateTongTien() {
         double tong = 0.0;

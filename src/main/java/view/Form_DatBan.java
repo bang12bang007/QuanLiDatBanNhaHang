@@ -731,9 +731,8 @@ public class Form_DatBan extends javax.swing.JPanel {
             if (kh == null) {
                 khachHangDAO.insert(createKhachHang());
             }
-            if (!dsMon.isEmpty()) {
-                createHoaDon(kh);
-            }
+            createHoaDon(kh);
+            phieuDatBan.setYeuCauDatMon(txtYeuCauDatMon.getText());
             phieuDatBanDAO.insert(phieuDatBan);
             banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
             this.jFrame.setVisible(false);
@@ -778,7 +777,7 @@ public class Form_DatBan extends javax.swing.JPanel {
             LocalDate ngay = LocalDate.parse(FORMATTER.format(ngayString), DateTimeFormatter.ISO_LOCAL_DATE);
             LocalTime gioDen = LocalTime.parse(gioDenString, DateTimeFormatter.ofPattern("h:mm a"));
             LocalDateTime ngayGio = LocalDateTime.of(ngay, gioDen);
-            System.out.println("LocalDateTime: " + ngayGio);
+//            LocalDateTime ngayGio = LocalDateTime.now();
             phieuDatBan = new PhieuDatBan(ngayGio, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
             phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
         }
@@ -796,7 +795,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     }
 
     private HoaDon createHoaDon(KhachHang kh) {
-        hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDate.now());
+        hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
         hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
         hoaDon.setBan(ban);
         hoaDonDAO.insertHoaDon(hoaDon);
@@ -877,9 +876,17 @@ public class Form_DatBan extends javax.swing.JPanel {
     private List<ChiTietHoaDon> getChiTietHoaDonByBan(Ban ban) {
         HoaDon _hoaDon = null;
         for (HoaDon hoaDon : ban.getHoaDon()) {
-            if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-                _hoaDon = hoaDon;
-                break;
+            if (phieuDatBan.getTrangThai() == 0) {
+                if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+                    _hoaDon = hoaDon;
+                    break;
+                }
+            }
+            if (phieuDatBan.getTrangThai() == 1) {
+                if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                    _hoaDon = hoaDon;
+                    break;
+                }
             }
         }
         List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);

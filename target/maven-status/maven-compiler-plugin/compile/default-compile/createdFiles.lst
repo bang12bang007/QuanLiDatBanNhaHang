@@ -185,6 +185,7 @@ view\Form_ThemMonKhac$2.class
 dao\imlp\TaiKhoanDAO.class
 datechooser\DateChooser$6.class
 view\GD_DatMon$15.class
+view\Form_HuyMon$5.class
 datechooser\Slider.class
 dao\IBanDAO.class
 dao\imlp\AbstractDAO.class

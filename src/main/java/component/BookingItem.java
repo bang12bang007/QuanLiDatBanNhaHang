@@ -255,16 +255,9 @@ public class BookingItem extends javax.swing.JPanel {
                 List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
                 ArrayList<Mon> mons = new ArrayList<Mon>();
                 ArrayList<Integer> quantity = new ArrayList<Integer>();
-//                Double total = 0.0;
-                for (ChiTietHoaDon chitiet : list) {
-                    mons.add(chitiet.getMon());
-                    quantity.add(chitiet.getSoLuong());
-//                    total = chitiet.getMon().getGia()*chitiet.getSoLuong();
-                }
-                datMon.setList_quantity(quantity);
-                datMon.setOrders(mons);
+                datMon.setHoaDon(list.get(0).getHoaDon());
+                datMon.setPhieuDatBan(phieuDatBan);
                 datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-//                datMon.setLabelTongTien(AppUtils.tien_format.format(total));
                 return null;
             }
 
