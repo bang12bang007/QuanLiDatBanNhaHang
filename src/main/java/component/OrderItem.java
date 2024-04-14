@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.GapContent;
 import jiconfont.swing.IconFontSwing;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -77,19 +77,23 @@ public class OrderItem extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridLayout(1, 0));
 
-        tenMon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tenMon.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
         add(tenMon);
 
-        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        soLuong.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         soLuong.setForeground(new java.awt.Color(255, 255, 255));
         add(soLuong);
 
-        donGia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        donGia.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         donGia.setForeground(new java.awt.Color(255, 255, 255));
         add(donGia);
 
-        thanhTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        thanhTien.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         thanhTien.setForeground(new java.awt.Color(255, 255, 255));
         thanhTien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

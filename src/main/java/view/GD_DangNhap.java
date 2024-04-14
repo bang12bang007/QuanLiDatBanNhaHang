@@ -91,7 +91,8 @@ public class GD_DangNhap extends javax.swing.JFrame {
         btnDangNhap.setColor(new java.awt.Color(38, 32, 25));
         btnDangNhap.setColorClick(new java.awt.Color(47, 41, 33));
         btnDangNhap.setColorOver(new java.awt.Color(68, 58, 45));
-        btnDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnDangNhap.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         btnDangNhap.setRadius(50);
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +105,8 @@ public class GD_DangNhap extends javax.swing.JFrame {
 
         userNameContaier.setBackground(new java.awt.Color(235, 234, 232));
 
+        tenDangNhap.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         tenDangNhap.setBorder(null);
 
         javax.swing.GroupLayout userNameContaierLayout = new javax.swing.GroupLayout(userNameContaier);
@@ -123,6 +126,8 @@ public class GD_DangNhap extends javax.swing.JFrame {
 
         passContaier.setBackground(new java.awt.Color(235, 234, 232));
 
+        matKhau.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         matKhau.setBorder(null);
         matKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,8 +150,12 @@ public class GD_DangNhap extends javax.swing.JFrame {
             .addComponent(matKhau)
         );
 
+        jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel3.setText("Tên đăng nhập");
 
+        jLabel4.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel4.setText("Mật khẩu");
 
         javax.swing.GroupLayout wrapperLayout = new javax.swing.GroupLayout(wrapper);

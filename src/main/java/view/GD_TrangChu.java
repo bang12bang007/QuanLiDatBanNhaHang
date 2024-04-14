@@ -35,7 +35,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -140,6 +140,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
                 jFrame.setBackground(new Color(0, 0, 0, 0));
                 FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
                 jFrame.setVisible(true);
+//                utils.AppUtils.setUI(mainJpanel, () -> new GD_Ban(mainJpanel, "DAT_MON", null));
+ 
             }
         });
     }
@@ -194,7 +196,9 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatMon.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatMon.setFocusable(false);
-        buttonDatMon.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
+        buttonDatMon.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+
+        );
         buttonDatMon.setIconTextGap(8);
         buttonDatMon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -215,7 +219,9 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatBan.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatBan.setFocusable(false);
-        buttonDatBan.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
+        buttonDatBan.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+
+        );
         buttonDatBan.setIconTextGap(8);
         buttonDatBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +237,9 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonThongKe.setColorClick(new java.awt.Color(31, 29, 43));
         buttonThongKe.setColorOver(new java.awt.Color(31, 29, 43));
         buttonThongKe.setFocusable(false);
-        buttonThongKe.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 14)); // NOI18N
+        buttonThongKe.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+
+        );
         buttonThongKe.setIconTextGap(8);
         buttonThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,17 +257,20 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        label_AVT.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
+        label_AVT.setFont(utils.AppUtils.getFont(13f, _BOLD_)
+        );
         label_AVT.setForeground(new java.awt.Color(255, 255, 255));
         label_AVT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_AVT.setText("Nguyễn Đức Cường");
 
-        label_week_day.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
+        label_week_day.setFont(utils.AppUtils.getFont(13f, _BOLD_)
+        );
         label_week_day.setForeground(new java.awt.Color(255, 255, 255));
         label_week_day.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_week_day.setText("MONDAY");
 
-        label_day_month_year.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 12)); // NOI18N
+        label_day_month_year.setFont(utils.AppUtils.getFont(13f, _BOLD_)
+        );
         label_day_month_year.setForeground(new java.awt.Color(255, 255, 255));
         label_day_month_year.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_day_month_year.setText("16/09/2003");

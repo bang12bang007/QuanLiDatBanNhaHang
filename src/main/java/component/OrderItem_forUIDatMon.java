@@ -27,7 +27,7 @@ import jiconfont.swing.IconFontSwing;
 import utils.Enum.TypeDatMon_Branch;
 import view.Form_HuyMon;
 import view.GD_DatMon;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -156,7 +156,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridLayout(1, 0));
 
-        tenMon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tenMon.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
         tenMon.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0));
         add(tenMon);
@@ -165,7 +166,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         panelRound1.setLayout(new java.awt.GridLayout(1, 0));
 
         soLuong.setBackground(new java.awt.Color(204, 255, 255,0));
-        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        soLuong.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         soLuong.setForeground(new java.awt.Color(255, 255, 255));
         soLuong.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         soLuong.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
@@ -191,6 +193,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         });
         panelRound1.add(soLuong);
 
+        increase.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         increase.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 increaseMouseClicked(evt);
@@ -204,6 +208,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         });
         panelRound1.add(increase);
 
+        decrease.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         decrease.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 decreaseMouseClicked(evt);
@@ -219,12 +225,14 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
         add(panelRound1);
 
-        donGia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        donGia.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         donGia.setForeground(new java.awt.Color(255, 255, 255));
         donGia.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
         add(donGia);
 
-        huy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        huy.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         huy.setForeground(new java.awt.Color(255, 255, 255));
         huy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

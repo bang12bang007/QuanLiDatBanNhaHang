@@ -36,7 +36,7 @@ import utils.AppUtils;
 import view.GD_Ban;
 import view.GD_DatBan;
 import view.GD_DatMon;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -181,11 +181,13 @@ public class BookingItem extends javax.swing.JPanel {
         });
         left.add(btnNhanBan);
 
-        gioDen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        gioDen.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         gioDen.setForeground(new java.awt.Color(255, 255, 255));
         left.add(gioDen);
 
-        khachHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        khachHang.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         khachHang.setForeground(new java.awt.Color(255, 255, 255));
         left.add(khachHang);
 
@@ -193,20 +195,25 @@ public class BookingItem extends javax.swing.JPanel {
 
         right.setLayout(new java.awt.GridLayout(1, 0));
 
+        jLabel1.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         right.add(jLabel1);
 
-        soNguoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        soNguoi.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         soNguoi.setForeground(new java.awt.Color(255, 255, 255));
         soNguoi.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         right.add(soNguoi);
 
-        trangThai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        trangThai.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         trangThai.setForeground(new java.awt.Color(255, 255, 255));
         trangThai.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         right.add(trangThai);
 
-        datCoc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        datCoc.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         datCoc.setForeground(new java.awt.Color(255, 255, 255));
         datCoc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         right.add(datCoc);

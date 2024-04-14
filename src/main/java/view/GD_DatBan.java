@@ -50,7 +50,7 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -153,7 +153,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         };
         worker.execute();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -220,6 +220,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         wrapper.setBackground(new java.awt.Color(31, 29, 43));
 
         header.setBackground(new java.awt.Color(31, 29, 43));
+        header.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -264,6 +266,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         trangThaiCombobox.setBorder(null);
         trangThaiCombobox.setEditable(false);
         trangThaiCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chưa nhận bàn", "Đã nhận bàn" }));
+        trangThaiCombobox.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         trangThaiCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 trangThaiComboboxActionPerformed(evt);
@@ -406,7 +410,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
         tableService.setBackground(new java.awt.Color(83, 86, 99));
 
-        btnDatCho.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDatCho.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         btnDatCho.setForeground(new java.awt.Color(255, 255, 255));
         btnDatCho.setText("Đặt chỗ");
         btnDatCho.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -415,7 +420,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        btnThayDoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnThayDoi.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         btnThayDoi.setForeground(new java.awt.Color(255, 255, 255));
         btnThayDoi.setText("Thay đổi");
         btnThayDoi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -424,7 +430,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        btnHuyCho.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnHuyCho.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         btnHuyCho.setForeground(new java.awt.Color(255, 255, 255));
         btnHuyCho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icon_close.png"))); // NOI18N
         btnHuyCho.setText("Hủy đặt chỗ");
@@ -464,35 +471,40 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableHaderLeft.setBackground(new java.awt.Color(31, 29, 43));
         tableHaderLeft.setLayout(new java.awt.GridLayout(1, 5));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Xếp bàn");
         jLabel7.setToolTipText("");
         tableHaderLeft.add(jLabel7);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Đặt món");
         jLabel8.setToolTipText("");
         tableHaderLeft.add(jLabel8);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Nhận bàn");
         jLabel9.setToolTipText("");
         tableHaderLeft.add(jLabel9);
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("   Giờ đến");
         jLabel10.setToolTipText("");
         tableHaderLeft.add(jLabel10);
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Khách hàng");
@@ -505,19 +517,22 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableHeaderRight.setLayout(new java.awt.GridLayout(1, 4));
         tableHeaderRight.add(jLabel12);
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Số người");
         tableHeaderRight.add(jLabel13);
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Trạng thái");
         tableHeaderRight.add(jLabel14);
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel15.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Tiền đặt trước");
@@ -540,7 +555,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
                 .addGap(0, 0, 0)
                 .addComponent(tableHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(tableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addComponent(tableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -563,15 +578,18 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         footer.setBackground(new java.awt.Color(31, 29, 43));
         footer.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel4.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Bàn:");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel5.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Yêu cầu đặt món:");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel6.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Yêu cầu khác:");
 

@@ -24,7 +24,7 @@ import java.awt.*;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -143,7 +143,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         theThanhVienContainer.setBackground(new java.awt.Color(31, 29, 43));
 
-        theThanhVienLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        theThanhVienLabel.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         theThanhVienLabel.setForeground(new java.awt.Color(255, 255, 255));
         theThanhVienLabel.setText("Thể thành viên");
 
@@ -194,11 +195,13 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             .addComponent(txtMTV, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Mã thành viên");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tên Thành viên");
 
@@ -219,7 +222,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             .addGap(0, 38, Short.MAX_VALUE)
         );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Hạng Thẻ");
 
@@ -242,7 +246,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         ctkmContainer.setBackground(new java.awt.Color(31, 29, 43));
 
-        chuongTrinhKhuyenMai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chuongTrinhKhuyenMai.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         chuongTrinhKhuyenMai.setForeground(new java.awt.Color(255, 255, 255));
         chuongTrinhKhuyenMai.setText("Chương trình khuyến mãi");
 
@@ -268,7 +273,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnAddKM.setColor(new java.awt.Color(31, 29, 43));
         btnAddKM.setColorClick(new java.awt.Color(234, 124, 105));
         btnAddKM.setColorOver(new java.awt.Color(234, 124, 105));
-        btnAddKM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAddKM.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnAddKM.setRadius(8);
         btnAddKM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,7 +306,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         ctkmContainer1.setBackground(new java.awt.Color(31, 29, 43));
 
-        khuyenMai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        khuyenMai.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         khuyenMai.setForeground(new java.awt.Color(255, 255, 255));
         khuyenMai.setText("Mã khuyến mãi");
 
@@ -379,7 +386,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnScanQR.setColor(new java.awt.Color(31, 29, 43));
         btnScanQR.setColorClick(new java.awt.Color(234, 124, 105));
         btnScanQR.setColorOver(new java.awt.Color(234, 124, 105));
-        btnScanQR.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnScanQR.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnScanQR.setRadius(8);
         btnScanQR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -465,7 +473,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         theThanhVienContainer1.setBackground(new java.awt.Color(31, 29, 43));
 
-        maHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        maHoaDon.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         maHoaDon.setForeground(new java.awt.Color(255, 255, 255));
         maHoaDon.setText("11122003-Ban101");
         maHoaDon.setToolTipText("");
@@ -521,6 +530,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnReserve.setColor(new java.awt.Color(83, 86, 99));
         btnReserve.setColorClick(new java.awt.Color(234, 124, 105));
         btnReserve.setColorOver(new java.awt.Color(234, 124, 105));
+        btnReserve.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnReserve.setRadius(8);
         btnReserve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -534,6 +545,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnThuTien.setColor(new java.awt.Color(83, 86, 99));
         btnThuTien.setColorClick(new java.awt.Color(234, 124, 105));
         btnThuTien.setColorOver(new java.awt.Color(234, 124, 105));
+        btnThuTien.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnThuTien.setRadius(8);
         btnThuTien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -547,6 +560,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnLuuTam.setColor(new java.awt.Color(83, 86, 99));
         btnLuuTam.setColorClick(new java.awt.Color(234, 124, 105));
         btnLuuTam.setColorOver(new java.awt.Color(234, 124, 105));
+        btnLuuTam.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnLuuTam.setRadius(8);
         btnLuuTam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -560,6 +575,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnReserve3.setColor(new java.awt.Color(83, 86, 99));
         btnReserve3.setColorClick(new java.awt.Color(234, 124, 105));
         btnReserve3.setColorOver(new java.awt.Color(234, 124, 105));
+        btnReserve3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnReserve3.setRadius(8);
         btnReserve3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -616,28 +633,33 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
+        );
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Thành tiền:");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
+        );
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Còn phải thu:");
 
         headerTable.setBackground(new java.awt.Color(31, 29, 43));
         headerTable.setLayout(new java.awt.GridLayout(1, 4));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("  Tên món");
         headerTable.add(jLabel6);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText(" SL");
         headerTable.add(jLabel7);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText(" Đơn giá");
         headerTable.add(jLabel8);
@@ -660,7 +682,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         );
         tableContainerLayout.setVerticalGroup(
             tableContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 293, Short.MAX_VALUE)
+            .addGap(0, 303, Short.MAX_VALUE)
         );
 
         tableBody.setViewportView(tableContainer);
@@ -677,7 +699,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             .addGroup(tableLayout.createSequentialGroup()
                 .addComponent(headerTable, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(tableBody, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                .addComponent(tableBody))
         );
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);

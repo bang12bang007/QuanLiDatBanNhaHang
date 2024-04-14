@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import view.GD_DatMon;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author dmx
@@ -114,13 +114,15 @@ public class Food extends javax.swing.JPanel {
             }
         });
 
-        jLabelTen.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelTen.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabelTen.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTen.setText("500.000 VNĐ");
         jLabelTen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabelGia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelGia.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabelGia.setForeground(new java.awt.Color(255, 255, 255));
         jLabelGia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelGia.setText("CƠM GÀ CHIÊN BƠ");

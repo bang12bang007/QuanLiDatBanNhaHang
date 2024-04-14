@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import jiconfont.swing.IconFontSwing;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -82,6 +82,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         wrapper.setRoundTopRight(12);
 
         header.setBackground(new java.awt.Color(31, 29, 43));
+        header.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         header.setRoundTopLeft(16);
         header.setRoundTopRight(16);
 
@@ -126,7 +128,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(31, 29, 43));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel5.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nhập số tiền khách đưa");
 
@@ -146,7 +149,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
             .addGap(0, 45, Short.MAX_VALUE)
         );
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Nhập tiền theo mệnh giá");
 
@@ -155,7 +159,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton1.setColor(new java.awt.Color(31, 29, 43));
         myButton1.setColorClick(new java.awt.Color(234, 124, 105));
         myButton1.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton1.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton1.setRadius(8);
         myButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +173,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton2.setColor(new java.awt.Color(31, 29, 43));
         myButton2.setColorClick(new java.awt.Color(234, 124, 105));
         myButton2.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton2.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton2.setRadius(8);
         myButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,7 +187,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton3.setColor(new java.awt.Color(31, 29, 43));
         myButton3.setColorClick(new java.awt.Color(234, 124, 105));
         myButton3.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton3.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton3.setRadius(8);
         myButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,7 +201,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton4.setColor(new java.awt.Color(31, 29, 43));
         myButton4.setColorClick(new java.awt.Color(234, 124, 105));
         myButton4.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton4.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton4.setRadius(8);
 
         myButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -202,7 +210,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton5.setColor(new java.awt.Color(31, 29, 43));
         myButton5.setColorClick(new java.awt.Color(234, 124, 105));
         myButton5.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton5.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton5.setRadius(8);
 
         myButton6.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,7 +219,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton6.setColor(new java.awt.Color(31, 29, 43));
         myButton6.setColorClick(new java.awt.Color(234, 124, 105));
         myButton6.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton6.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton6.setRadius(8);
 
         myButton7.setForeground(new java.awt.Color(255, 255, 255));
@@ -218,7 +228,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton7.setColor(new java.awt.Color(31, 29, 43));
         myButton7.setColorClick(new java.awt.Color(234, 124, 105));
         myButton7.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton7.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton7.setRadius(8);
 
         myButton8.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,7 +237,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton8.setColor(new java.awt.Color(31, 29, 43));
         myButton8.setColorClick(new java.awt.Color(234, 124, 105));
         myButton8.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton8.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton8.setRadius(8);
 
         myButton9.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,10 +246,12 @@ public class Form_ThuTien extends javax.swing.JPanel {
         myButton9.setColor(new java.awt.Color(31, 29, 43));
         myButton9.setColorClick(new java.awt.Color(234, 124, 105));
         myButton9.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        myButton9.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton9.setRadius(8);
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Gợi ý tiền mặt");
 
@@ -333,19 +347,23 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
         jSeparator3.setForeground(new java.awt.Color(31, 29, 43));
 
-        labelTienThu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelTienThu.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         labelTienThu.setForeground(new java.awt.Color(255, 255, 255));
         labelTienThu.setText("Số tiền còn phải thu");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("2.000.000");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel7.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tiền trả lại khách");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("0");
 
@@ -405,11 +423,13 @@ public class Form_ThuTien extends javax.swing.JPanel {
         footer.setRoundBottomLeft(16);
         footer.setRoundBottomRight(16);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Đóng:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel3.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("In & Đóng:");
 
@@ -418,6 +438,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         btnDong.setColor(new java.awt.Color(83, 86, 99));
         btnDong.setColorClick(new java.awt.Color(234, 124, 105));
         btnDong.setColorOver(new java.awt.Color(234, 124, 105));
+        btnDong.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnDong.setRadius(8);
         btnDong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,11 +447,13 @@ public class Form_ThuTien extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel2.setFont(utils.AppUtils.getFont(14f, _ITALIC_)
+        );
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ALT + N hoặc F8");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel4.setFont(utils.AppUtils.getFont(14f, _ITALIC_)
+        );
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ALT + L hoặc F9");
 
@@ -438,6 +462,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         btnInDong.setColor(new java.awt.Color(83, 86, 99));
         btnInDong.setColorClick(new java.awt.Color(234, 124, 105));
         btnInDong.setColorOver(new java.awt.Color(234, 124, 105));
+        btnInDong.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnInDong.setRadius(8);
         btnInDong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -450,6 +476,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         btnHuy.setColor(new java.awt.Color(83, 86, 99));
         btnHuy.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuy.setColorOver(new java.awt.Color(234, 124, 105));
+        btnHuy.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnHuy.setRadius(8);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,7 +498,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -516,16 +544,16 @@ public class Form_ThuTien extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(136, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
+                .addContainerGap(213, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

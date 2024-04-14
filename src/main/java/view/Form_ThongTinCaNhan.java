@@ -64,8 +64,6 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         header = new component.PanelRound();
         btnHuy = new component.MyButton();
         jLabel1 = new javax.swing.JLabel();
-        footer = new component.PanelRound();
-        btnUpdate = new component.MyButton();
         container = new javax.swing.JPanel();
         destop = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -122,7 +120,7 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Thông tin tài khoản");
 
@@ -132,8 +130,8 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -146,50 +144,17 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        footer.setBackground(new java.awt.Color(31, 29, 43));
-        footer.setRoundBottomLeft(10);
-        footer.setRoundBottomRight(10);
-
-        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("Cập nhật");
-        btnUpdate.setColor(new java.awt.Color(83, 86, 99));
-        btnUpdate.setColorClick(new java.awt.Color(234, 124, 105));
-        btnUpdate.setColorOver(new java.awt.Color(234, 124, 105));
-        btnUpdate.setRadius(8);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
-        footer.setLayout(footerLayout);
-        footerLayout.setHorizontalGroup(
-            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(footerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        footerLayout.setVerticalGroup(
-            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
-
         container.setBackground(new java.awt.Color(0, 0, 0));
         container.setForeground(new java.awt.Color(255, 255, 255));
 
         destop.setBackground(new java.awt.Color(0, 0, 0));
         destop.setForeground(java.awt.Color.white);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("jLabel09");
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("jLabel29");
 
@@ -211,15 +176,15 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         destopLayout.setHorizontalGroup(
             destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(destopLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(btnAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(destopLayout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
-                .addGroup(destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(125, Short.MAX_VALUE)
+                .addGroup(destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel29)
                     .addComponent(jLabel9))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(0, 125, Short.MAX_VALUE))
         );
         destopLayout.setVerticalGroup(
             destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,76 +193,98 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
                 .addComponent(btnAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel29)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Thông tin cá nhân");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Giới tính");
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Ngày bắt đầu");
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Số điện thoại");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("Vai trò ");
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Trạng thái");
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel10.setForeground(java.awt.Color.white);
         jLabel10.setText("Địa chỉ");
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel11.setForeground(java.awt.Color.white);
         jLabel11.setText("Tuổi");
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel12.setForeground(java.awt.Color.white);
         jLabel12.setText(":");
 
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel14.setForeground(java.awt.Color.white);
         jLabel14.setText(":");
 
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel15.setForeground(java.awt.Color.white);
         jLabel15.setText(":");
 
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel16.setForeground(java.awt.Color.white);
         jLabel16.setText(":");
 
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel18.setForeground(java.awt.Color.white);
         jLabel18.setText(":");
 
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel19.setForeground(java.awt.Color.white);
         jLabel19.setText(":");
 
         jLabel20.setForeground(java.awt.Color.white);
 
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel21.setForeground(java.awt.Color.white);
         jLabel21.setText(":");
 
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel22.setForeground(java.awt.Color.white);
         jLabel22.setText("jLabel22");
 
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel23.setForeground(java.awt.Color.white);
         jLabel23.setText("jLabel22");
 
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel24.setForeground(java.awt.Color.white);
         jLabel24.setText("jLabel22");
 
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel25.setForeground(java.awt.Color.white);
         jLabel25.setText("jLabel22");
 
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel26.setForeground(java.awt.Color.white);
         jLabel26.setText("jLabel22");
 
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel27.setForeground(java.awt.Color.white);
         jLabel27.setText("jLabel22");
 
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel28.setForeground(java.awt.Color.white);
         jLabel28.setText("jLabel22");
 
@@ -410,7 +397,6 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         wrapper.setLayout(wrapperLayout);
         wrapperLayout.setHorizontalGroup(
             wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(footer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -419,10 +405,7 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
             .addGroup(wrapperLayout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -443,28 +426,22 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        // TODO add your handling code here:;
-         jFrame.setVisible(false);
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_btnHuyActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void btnAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvatarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAvatarActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        // TODO add your handling code here:;
+        jFrame.setVisible(false);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnHuyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnAvatar;
     private component.MyButton btnHuy;
-    private component.MyButton btnUpdate;
     private javax.swing.JPanel container;
     private javax.swing.JPanel destop;
-    private component.PanelRound footer;
     private component.PanelRound header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

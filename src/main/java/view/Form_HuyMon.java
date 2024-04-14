@@ -9,7 +9,7 @@ import icon.FontAwesome;
 import java.awt.Color;
 import javax.swing.JFrame;
 import jiconfont.swing.IconFontSwing;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author dmx
@@ -63,7 +63,8 @@ public class Form_HuyMon extends javax.swing.JPanel {
         panelRound2.setRoundTopLeft(10);
         panelRound2.setRoundTopRight(10);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Hủy Món");
 
@@ -114,11 +115,13 @@ public class Form_HuyMon extends javax.swing.JPanel {
                 .addGap(10, 10, 10))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bạn có chắc muốn hủy món không ?");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Lý do hủy");
 
@@ -126,7 +129,8 @@ public class Form_HuyMon extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 51, 51));
         jLabel4.setText("*");
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jComboBox1.setFont(utils.AppUtils.getFont(18f, _ITALIC_)
+        );
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         panelRound3.setBackground(new java.awt.Color(31, 29, 43));
@@ -139,7 +143,8 @@ public class Form_HuyMon extends javax.swing.JPanel {
         myButton3.setColor(new java.awt.Color(83, 86, 99));
         myButton3.setColorClick(new java.awt.Color(234, 124, 105));
         myButton3.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        myButton3.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         myButton3.setRadius(10);
         myButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +158,8 @@ public class Form_HuyMon extends javax.swing.JPanel {
         myButton4.setColor(new java.awt.Color(83, 86, 99));
         myButton4.setColorClick(new java.awt.Color(234, 124, 105));
         myButton4.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        myButton4.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         myButton4.setRadius(10);
         myButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
