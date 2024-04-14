@@ -16,15 +16,18 @@ import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
 import dao.IMonDAO;
+import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
+import dao.imlp.PhieuDatBanDAO;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Mon;
 import entity.NhanVien;
+import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -34,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -75,12 +79,19 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private GD_Ban gD_Ban;//duccuong1609 : load thẳng vào nếu có 
     private GD_QuanLyDatMon gd_qlDatMon;//load thẳng vào nếu có 
     private GD_DatBan gd_datBan;//load thẳng vào nếu có 
+    private List<ChiTietHoaDon> details; //ds chi tiết hóa đơn (luồng thêm món)
+    private GD_DatMon gd_mon = this;
+    private List<OrderItem_forUIDatMon> listPreOrderItem;
+    private List<Mon> list_CancelFood = new ArrayList<>();
+    private PhieuDatBan phieuDatBan;
+    private boolean back_toUI_DatBan;
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
         this.main = main;
         this.ban = ban;
         this.loai = loai;
+        this.back_toUI_DatBan = false;
         initComponents();
         setVisible(true);
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -248,7 +259,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         );
         btnKhac.setRadius(10);
 
-        jTextFieldSearch.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jTextFieldSearch.setFont(utils.AppUtils.getFont(16f, _ITALIC_)
+        );
         jTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldSearchActionPerformed(evt);
@@ -265,6 +277,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnSearch.setColor(new java.awt.Color(83, 86, 99));
         btnSearch.setColorClick(new java.awt.Color(234, 124, 105));
         btnSearch.setColorOver(new java.awt.Color(234, 124, 105));
+        btnSearch.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnSearch.setRadius(10);
 
         javax.swing.GroupLayout panelMonLayout = new javax.swing.GroupLayout(panelMon);
@@ -354,6 +368,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         scrollFoodList.setBackground(new java.awt.Color(83, 86, 99));
 
         FoodList.setBackground(new java.awt.Color(83, 86, 99));
+        FoodList.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         FoodList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 FoodListMouseEntered(evt);
@@ -399,7 +415,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnBack.setColor(new java.awt.Color(83, 86, 99));
         btnBack.setColorClick(new java.awt.Color(234, 124, 105));
         btnBack.setColorOver(new java.awt.Color(234, 124, 105));
-        btnBack.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        btnBack.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnBack.setRadius(10);
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +438,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnNV.setColor(new java.awt.Color(83, 86, 99));
         btnNV.setColorClick(new java.awt.Color(234, 124, 105));
         btnNV.setColorOver(new java.awt.Color(234, 124, 105));
-        btnNV.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        btnNV.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnNV.setRadius(10);
         btnNV.addActionListener(new java.awt.event.ActionListener() {
@@ -434,7 +450,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnGhiChu.setColor(new java.awt.Color(83, 86, 99));
         btnGhiChu.setColorClick(new java.awt.Color(234, 124, 105));
         btnGhiChu.setColorOver(new java.awt.Color(234, 124, 105));
-        btnGhiChu.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        btnGhiChu.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnGhiChu.setRadius(10);
 
@@ -474,7 +490,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnThem.setColor(new java.awt.Color(83, 86, 99));
         btnThem.setColorClick(new java.awt.Color(234, 124, 105));
         btnThem.setColorOver(new java.awt.Color(234, 124, 105));
-        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnThem.setRadius(10);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -487,7 +504,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnKhuyenMai.setColor(new java.awt.Color(83, 86, 99));
         btnKhuyenMai.setColorClick(new java.awt.Color(234, 124, 105));
         btnKhuyenMai.setColorOver(new java.awt.Color(234, 124, 105));
-        btnKhuyenMai.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        btnKhuyenMai.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnKhuyenMai.setRadius(10);
 
@@ -496,7 +513,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnTime.setColor(new java.awt.Color(83, 86, 99));
         btnTime.setColorClick(new java.awt.Color(234, 124, 105));
         btnTime.setColorOver(new java.awt.Color(234, 124, 105));
-        btnTime.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        btnTime.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnTime.setRadius(10);
         btnTime.addActionListener(new java.awt.event.ActionListener() {
@@ -510,8 +527,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnUp.setColor(new java.awt.Color(83, 86, 99));
         btnUp.setColorClick(new java.awt.Color(234, 124, 105));
         btnUp.setColorOver(new java.awt.Color(234, 124, 105));
-        btnUp.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        btnUp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnUp.setRadius(50);
 
         btnDown.setBackground(new java.awt.Color(83, 86, 99));
@@ -519,8 +535,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnDown.setColor(new java.awt.Color(83, 86, 99));
         btnDown.setColorClick(new java.awt.Color(234, 124, 105));
         btnDown.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDown.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        btnDown.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDown.setRadius(50);
 
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
@@ -559,7 +574,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnGuiBep.setColor(new java.awt.Color(31, 29, 43));
         btnGuiBep.setColorClick(new java.awt.Color(234, 124, 105));
         btnGuiBep.setColorOver(new java.awt.Color(234, 124, 105));
-        btnGuiBep.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        btnGuiBep.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnGuiBep.setRadius(20);
         btnGuiBep.addActionListener(new java.awt.event.ActionListener() {
@@ -573,7 +588,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnHuyBo.setColor(new java.awt.Color(31, 29, 43));
         btnHuyBo.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuyBo.setColorOver(new java.awt.Color(234, 124, 105));
-        btnHuyBo.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        btnHuyBo.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnHuyBo.setRadius(20);
         btnHuyBo.addActionListener(new java.awt.event.ActionListener() {
@@ -587,7 +602,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnTinhTien.setColor(new java.awt.Color(31, 29, 43));
         btnTinhTien.setColorClick(new java.awt.Color(234, 124, 105));
         btnTinhTien.setColorOver(new java.awt.Color(234, 124, 105));
-        btnTinhTien.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        btnTinhTien.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnTinhTien.setRadius(20);
 
@@ -596,7 +611,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnCat.setColor(new java.awt.Color(31, 29, 43));
         btnCat.setColorClick(new java.awt.Color(234, 124, 105));
         btnCat.setColorOver(new java.awt.Color(234, 124, 105));
-        btnCat.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        btnCat.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnCat.setRadius(20);
         btnCat.addActionListener(new java.awt.event.ActionListener() {
@@ -605,13 +620,14 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(12f, _NORMAL_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("TỔNG TIỀN");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        labelTongTien.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        labelTongTien.setFont(utils.AppUtils.getFont(14f, _BOLD_)
         );
         labelTongTien.setForeground(new java.awt.Color(255, 255, 255));
         labelTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -636,12 +652,12 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         panelGradient1.setBackground(new java.awt.Color(83, 86, 99));
         panelGradient1.setBorder(null);
 
-        nhanVienName.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        nhanVienName.setFont(utils.AppUtils.getFont(14f, _BOLD_)
         );
         nhanVienName.setForeground(new java.awt.Color(255, 255, 255));
         nhanVienName.setText("NGUYỄN ĐỨC CƯỜNG");
 
-        jLabel8.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        jLabel8.setFont(utils.AppUtils.getFont(12f, _NORMAL_)
         );
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Nhân Viên Phục Vụ");
@@ -747,26 +763,22 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         HEADER_ORDER.setRoundTopRight(10);
         HEADER_ORDER.setLayout(new java.awt.GridLayout(1, 4));
 
-        jLabel4.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("  TÊN MÓN");
         HEADER_ORDER.add(jLabel4);
 
-        jLabel5.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText(" SL");
         HEADER_ORDER.add(jLabel5);
 
-        jLabel6.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("THÀNH TIỀN");
         HEADER_ORDER.add(jLabel6);
 
-        jLabel7.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("HỦY");
         HEADER_ORDER.add(jLabel7);
@@ -774,6 +786,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         Scroll_Order.setBorder(null);
 
         PanelOrder.setBackground(new java.awt.Color(83, 86, 99));
+        PanelOrder.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
 
         javax.swing.GroupLayout PanelOrderLayout = new javax.swing.GroupLayout(PanelOrder);
         PanelOrder.setLayout(PanelOrderLayout);
@@ -903,7 +917,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             AppUtils.setUI(main, () -> gd_qlDatMon);
         }
         if (branch == TypeDatMon_Branch.DAT_TRUOC_MON) {
-            AppUtils.setUI(main, () -> gd_datBan);
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> gd_qlDatMon);
+            } else {
+                AppUtils.setUI(main, () -> gd_datBan);
+            }
         }
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -929,7 +947,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         // TODO add your handling code here:
-        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+        Create_OrUpdate_Order();
     }//GEN-LAST:event_btnCatActionPerformed
 
     int index = 1;
@@ -969,7 +987,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnGuiBepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiBepActionPerformed
         // TODO add your handling code here:
-        Create_OrUpdate_Order();
+        System.out.println("GUI BEP");// duccuong1609 : thong bao gui bep
+//        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
     }//GEN-LAST:event_btnGuiBepActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -1002,7 +1021,6 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSearchActionPerformed
     public void First_LoadData() {
-        GD_DatMon gd_mon = this;
         FoodList.removeAll();
         Loading loading = new Loading();
         utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
@@ -1013,14 +1031,19 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             protected List<Food> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<Food> list = new ArrayList<>();
-                if (!branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
-                    orders = new ArrayList<Mon>();
-                }
+                List<ChiTietHoaDon> replace_details = new ArrayList<>();
+                orders = new ArrayList<Mon>();
                 //lấy danh sách chi tiết hóa đơn từ luồng thêm món nhờ hóa đơn (từ ordercard --> đặt món)
                 if (branch.equals(TypeDatMon_Branch.THEMMON)) {
                     IChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-                    List<ChiTietHoaDon> details = dao.getListByHoaDon(hoaDon);
-                    for (ChiTietHoaDon d : details) {
+                    details = dao.getListByHoaDon(hoaDon);
+                    for (ChiTietHoaDon chitiet : details) {
+                        if (chitiet.getSoLuong() != 0) {
+                            replace_details.add(chitiet);
+                        }
+                    }
+                    details = replace_details;
+                    for (ChiTietHoaDon d : details) { //duccuong1609 : này load trước mấy chi tiết hóa đơn lên
                         orders.add(d.getMon());
                         list_quantity.add(d.getSoLuong());
                     }
@@ -1038,12 +1061,13 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             protected void done() {
                 FoodList.removeAll();
                 List<Food> list;
+
                 try {
                     list = get();
+                    utils.AppUtils.setLoadingForTable(scrollFoodList, false, loading, FoodList);
                     for (Food f : list) {
                         FoodList.add(f);
                     }
-                    utils.AppUtils.setLoadingForTable(scrollFoodList, false, loading, FoodList);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(GD_DatMon.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ExecutionException ex) {
@@ -1051,10 +1075,18 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 }
                 if (!branch.equals(TypeDatMon_Branch.DATMON)) {
                     Double total = 0.0;
+                    listPreOrderItem = new ArrayList<>();
                     for (int i = 0; i < orders.size(); i++) {
                         String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGia() * gd_mon.getList_quantity().get(i)), ""};
-                        gd_mon.getPanelOrder().add(new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders));
+                        OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders);
+                        item.setType_orderItem("PRELOAD");//có ở dưới data base load lên
+                        listPreOrderItem.add(item);
+                        gd_mon.getPanelOrder().add(item);
                         total += orders.get(i).getGia() * list_quantity.get(i);
+                    }
+                    for (int i = 0; i < gd_mon.PanelOrder.getComponentCount(); i++) {
+                        OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) gd_mon.PanelOrder.getComponent(i);
+                        item.setListPreOrder(listPreOrderItem);
                     }
                     labelTongTien.setText(tien_format.format(total));
                 }
@@ -1067,16 +1099,88 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         IHoaDonDAO hoaDonDAO = new HoaDonDAO();
         IBanDAO banDAO = new BanDAO();
         IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
-        Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
-        HoaDon hoaDon = new HoaDon(nv, LocalDate.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-        if (loai.equals(DatMon_ThemMon.DATMON)) {
-            hoaDonDAO.insertHoaDon(hoaDon);
+        IPhieuDatBanDAO phieudatDAO = new PhieuDatBanDAO();
+
+        using_for_DatMon(banDAO, hoaDonDAO, chitietDAO);
+        using_for_ThemMon(banDAO, hoaDonDAO, chitietDAO);
+        using_for_DatTruocMon(chitietDAO, phieudatDAO);
+    }
+
+    public void using_for_DatMon(IBanDAO banDAO, IHoaDonDAO hoaDonDAO, IChiTietHoaDonDAO chitietDAO) {
+        if (branch.equals(TypeDatMon_Branch.DATMON)) {
+            Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
+            HoaDon hoaDon = new HoaDon(nv, LocalDateTime.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+            if (loai.equals(DatMon_ThemMon.DATMON)) {
+                hoaDonDAO.insertHoaDon(hoaDon);
+                for (int i = 0; i < orders.size(); i++) {
+                    ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
+                    chitietDAO.insert(chiTiet);
+                }
+            }
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+            banDAO.update(ban);
+            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+        }
+    }
+
+    public void using_for_ThemMon(IBanDAO banDAO, IHoaDonDAO hoaDonDAO, IChiTietHoaDonDAO chitietDAO) {
+        if (branch.equals(TypeDatMon_Branch.THEMMON)) {
+            List<Mon> pre_order = new ArrayList<>();
+            List<ChiTietHoaDon> list_canceled = chitietDAO.getListBySoLuong(0);
+
             for (int i = 0; i < orders.size(); i++) {
-                ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
-                chitietDAO.insert(chiTiet);
+                for (ChiTietHoaDon detail : details) {
+                    if (orders.get(i).getTenMon().equals(detail.getMon().getTenMon())) {
+                        detail.setSoLuong(list_quantity.get(i));
+
+                    }
+                }
+            }
+            for (ChiTietHoaDon detail : details) {
+                pre_order.add(detail.getMon());
+                chitietDAO.update(detail);
+            }
+            for (int i = 0; i < orders.size(); i++) {
+                if (!pre_order.contains(orders.get(i))) {
+                    ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
+                    for (ChiTietHoaDon cancel : list_canceled) {
+                        if (orders.get(i).getTenMon().equals(cancel.getMon().getTenMon())) {
+                            chitietDAO.deleteChiTiet(cancel);
+                        }
+                    }
+                    chitietDAO.insert(chiTiet);
+                }
+            }
+            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+        }
+        
+    }
+
+    public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO,IPhieuDatBanDAO phieudatDAO) {
+        if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+            details = chitietDAO.getListByHoaDon(hoaDon);
+            for (ChiTietHoaDon detail : details) {
+                chitietDAO.deleteChiTiet(detail);
+            }
+            for (int i = 0; i < orders.size(); i++) {
+                chitietDAO.insert(new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i)));
+            }
+
+            List<ChiTietHoaDon> dsChiTietHoaDon = chitietDAO.getListByHoaDon(hoaDon);
+            String yeuCauDatMon = "";
+            for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
+                String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
+                yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
+            }
+
+            phieuDatBan.setYeuCauDatMon(yeuCauDatMon);
+            phieudatDAO.update(phieuDatBan);
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            } else {
+                AppUtils.setUI(main, () -> new GD_DatBan(main));
             }
         }
-        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
     }
 
     public void setOrders(ArrayList<Mon> orders) {
@@ -1148,6 +1252,50 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         this.gd_datBan = gd_datBan;
     }
 
+    public List<ChiTietHoaDon> getDetails() {
+        return details;
+    }
+
+    public List<OrderItem_forUIDatMon> getListPreOrderItem() {
+        return listPreOrderItem;
+    }
+
+    public void setListPreOrderItem(List<OrderItem_forUIDatMon> listPreOrderItem) {
+        this.listPreOrderItem = listPreOrderItem;
+    }
+
+    public List<Mon> getList_CancelFood() {
+        return list_CancelFood;
+    }
+
+    public void setDetails(List<ChiTietHoaDon> details) {
+        this.details = details;
+    }
+
+    public ArrayList<Mon> getOrders() {
+        return orders;
+    }
+
+    public PhieuDatBan getPhieuDatBan() {
+        return phieuDatBan;
+    }
+
+    public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
+        this.phieuDatBan = phieuDatBan;
+    }
+
+    public GD_QuanLyDatMon getGd_qlDatMon() {
+        return gd_qlDatMon;
+    }
+
+    public boolean isBack_toUI_DatBan() {
+        return back_toUI_DatBan;
+    }
+
+    public void setBack_toUI_DatBan(boolean back_toUI_DatBan) {
+        this.back_toUI_DatBan = back_toUI_DatBan;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FoodList;
     private component.PanelRound HEADER_ORDER;
@@ -1198,6 +1346,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound5;
     private javax.swing.JScrollPane scrollFoodList;
     // End of variables declaration//GEN-END:variables
+    
 
     public void setUI() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

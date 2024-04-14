@@ -91,7 +91,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
         btnDangNhap.setColor(new java.awt.Color(38, 32, 25));
         btnDangNhap.setColorClick(new java.awt.Color(47, 41, 33));
         btnDangNhap.setColorOver(new java.awt.Color(68, 58, 45));
-        btnDangNhap.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        btnDangNhap.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
         );
         btnDangNhap.setRadius(50);
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {

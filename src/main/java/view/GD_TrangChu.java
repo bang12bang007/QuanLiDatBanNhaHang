@@ -140,8 +140,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
                 jFrame.setBackground(new Color(0, 0, 0, 0));
                 FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
                 jFrame.setVisible(true);
-//                utils.AppUtils.setUI(mainJpanel, () -> new GD_Ban(mainJpanel, "DAT_MON", null));
- 
             }
         });
     }
@@ -170,6 +168,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFont(utils.AppUtils.getFont(16f, _BOLD_));
 
         jPanel1.setBackground(new java.awt.Color(83, 86, 99));
         jPanel1.setForeground(new java.awt.Color(83, 86, 99));
@@ -196,9 +195,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatMon.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatMon.setFocusable(false);
-        buttonDatMon.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-
-        );
+        buttonDatMon.setFont(utils.AppUtils.getFont(16f, _BOLD_));
         buttonDatMon.setIconTextGap(8);
         buttonDatMon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -219,9 +216,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));
         buttonDatBan.setColorOver(new java.awt.Color(31, 29, 43));
         buttonDatBan.setFocusable(false);
-        buttonDatBan.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-
-        );
+        buttonDatBan.setFont(utils.AppUtils.getFont(16f, _BOLD_));
         buttonDatBan.setIconTextGap(8);
         buttonDatBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,9 +232,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         buttonThongKe.setColorClick(new java.awt.Color(31, 29, 43));
         buttonThongKe.setColorOver(new java.awt.Color(31, 29, 43));
         buttonThongKe.setFocusable(false);
-        buttonThongKe.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-
-        );
+        buttonThongKe.setFont(utils.AppUtils.getFont(16f, _BOLD_));
         buttonThongKe.setIconTextGap(8);
         buttonThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,20 +250,17 @@ public class GD_TrangChu extends javax.swing.JFrame {
             }
         });
 
-        label_AVT.setFont(utils.AppUtils.getFont(13f, _BOLD_)
-        );
+        label_AVT.setFont(utils.AppUtils.getFont(12f, _BOLD_));
         label_AVT.setForeground(new java.awt.Color(255, 255, 255));
         label_AVT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_AVT.setText("Nguyễn Đức Cường");
 
-        label_week_day.setFont(utils.AppUtils.getFont(13f, _BOLD_)
-        );
+        label_week_day.setFont(utils.AppUtils.getFont(12f, _BOLD_));
         label_week_day.setForeground(new java.awt.Color(255, 255, 255));
         label_week_day.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_week_day.setText("MONDAY");
 
-        label_day_month_year.setFont(utils.AppUtils.getFont(13f, _BOLD_)
-        );
+        label_day_month_year.setFont(utils.AppUtils.getFont(12f, _BOLD_));
         label_day_month_year.setForeground(new java.awt.Color(255, 255, 255));
         label_day_month_year.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_day_month_year.setText("16/09/2003");
@@ -377,7 +367,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVTActionPerformed
@@ -391,7 +381,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonHelpActionPerformed
 
     private void buttonThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThongKeActionPerformed
-        // TODO add your handling code here:
+
+        utils.AppUtils.setUI(mainJpanel, () -> new GD_ThongKe());
         setActiveTab(evt);
     }//GEN-LAST:event_buttonThongKeActionPerformed
 

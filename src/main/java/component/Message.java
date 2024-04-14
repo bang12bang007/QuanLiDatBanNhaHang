@@ -48,6 +48,8 @@ public class Message extends javax.swing.JPanel {
         btnDongY = new component.MyButton();
         btnHuy = new component.MyButton();
 
+        setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+
         panelRound1.setBackground(new java.awt.Color(83, 86, 99));
         panelRound1.setRoundBottomLeft(10);
         panelRound1.setRoundBottomRight(10);
@@ -58,8 +60,7 @@ public class Message extends javax.swing.JPanel {
         panelRound2.setRoundTopLeft(10);
         panelRound2.setRoundTopRight(10);
 
-        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
+        jLabel1.setFont(utils.AppUtils.getFont(14f, _BOLD_));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Chuyển bàn");
 
@@ -91,8 +92,8 @@ public class Message extends javax.swing.JPanel {
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(308, 308, 308)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(325, 325, 325)
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,8 +110,7 @@ public class Message extends javax.swing.JPanel {
                 .addGap(10, 10, 10))
         );
 
-        jLabel2.setFont(utils.AppUtils.getFont(20f, _BOLD_)
-        );
+        jLabel2.setFont(utils.AppUtils.getFont(18f, _BOLD_));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bạn có muốn chuyển từ BAN0110 đến BAN0121");
 
@@ -124,8 +124,7 @@ public class Message extends javax.swing.JPanel {
         btnDongY.setColor(new java.awt.Color(83, 86, 99));
         btnDongY.setColorClick(new java.awt.Color(234, 124, 105));
         btnDongY.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDongY.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        btnDongY.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         btnDongY.setRadius(10);
         btnDongY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,8 +138,7 @@ public class Message extends javax.swing.JPanel {
         btnHuy.setColor(new java.awt.Color(83, 86, 99));
         btnHuy.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuy.setColorOver(new java.awt.Color(234, 124, 105));
-        btnHuy.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        btnHuy.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         btnHuy.setRadius(10);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

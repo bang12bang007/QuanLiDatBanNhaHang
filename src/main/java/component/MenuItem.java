@@ -103,16 +103,13 @@ public class MenuItem extends javax.swing.JPanel {
 
         wrapper.setLayout(new java.awt.GridLayout(1, 0));
 
-        tenMon.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        tenMon.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
         wrapper.add(tenMon);
 
         myButton1.setColor(new java.awt.Color(31, 29, 43));
         myButton1.setColorClick(new java.awt.Color(234, 124, 105));
         myButton1.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton1.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
         myButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         myButton1.setMinimumSize(new java.awt.Dimension(25, 25));
         myButton1.setRadius(8);
@@ -122,8 +119,7 @@ public class MenuItem extends javax.swing.JPanel {
             }
         });
 
-        soLuong.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        soLuong.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         soLuong.setBorder(null);
         soLuong.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

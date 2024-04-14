@@ -101,7 +101,7 @@
         <Component class="javax.swing.JLabel" name="jLabelTen">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="utils.AppUtils.getFont(18f, _NORMAL_)&#xa;" type="code"/>
+              <Connection code="utils.AppUtils.getFont(16f, _BOLD_)" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -114,7 +114,7 @@
         <Component class="javax.swing.JLabel" name="jLabelGia">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="utils.AppUtils.getFont(18f, _NORMAL_)&#xa;" type="code"/>
+              <Connection code="utils.AppUtils.getFont(13f, _BOLD_)" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

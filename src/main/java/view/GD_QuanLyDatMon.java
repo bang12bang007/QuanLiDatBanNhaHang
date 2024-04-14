@@ -28,13 +28,13 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
 import javax.swing.*;
-
+import static utils.AppUtils.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import static utils.AppUtils.*;
 import java.util.List;
-import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -49,6 +49,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private List<HoaDon> hoadons;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private boolean waitForPayment = true;
 
     public GD_QuanLyDatMon(JPanel main, NhanVien nv) {
         this.mainPanel = main;
@@ -156,6 +157,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         panelRound2.setRoundTopRight(8);
 
         txtMaBan.setBackground(new java.awt.Color(83, 86, 99));
+        txtMaBan.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         txtMaBan.setForeground(new java.awt.Color(255, 255, 255));
         txtMaBan.setBorder(null);
         txtMaBan.addActionListener(new java.awt.event.ActionListener() {
@@ -187,6 +190,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         );
 
         panelRound3.setBackground(new java.awt.Color(83, 86, 99));
+        panelRound3.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         panelRound3.setRoundBottomLeft(8);
         panelRound3.setRoundBottomRight(8);
         panelRound3.setRoundTopLeft(8);
@@ -210,7 +215,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         myButton1.setColor(new java.awt.Color(83, 86, 99));
         myButton1.setColorClick(new java.awt.Color(234, 124, 105));
         myButton1.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton1.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        myButton1.setFont(utils.AppUtils.getFont(14f, _BOLD_)
         );
         myButton1.setIconTextGap(15);
         myButton1.setRadius(10);
@@ -355,6 +360,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         scroll.setBorder(null);
 
         main.setBackground(new java.awt.Color(83, 86, 99));
+        main.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
 
         javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
         main.setLayout(mainLayout);
@@ -391,13 +398,13 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private int count = 1;
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-
+        setWaitForPayment(true);
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
+        setWaitForPayment(false);
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-
     }//GEN-LAST:event_btnReserveActionPerformed
 
     private void txtMaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaBanActionPerformed
@@ -490,6 +497,15 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         this.nv = nv;
     }
 
+    public boolean isWaitForPayment() {
+        return waitForPayment;
+    }
+
+    public void setWaitForPayment(boolean waitForPayment) {
+        this.waitForPayment = waitForPayment;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheckout;
     private component.MyButton btnDD;

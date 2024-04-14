@@ -32,7 +32,7 @@ import view.Form_DatBan;
 import view.GD_Ban;
 import view.GD_DatBan;
 import view.GD_DatMon;
-import static utils.AppUtils.*;
+
 /**
  *
  * @author dmx
@@ -86,7 +86,7 @@ public class BanItem extends javax.swing.JPanel {
         setBackground(new java.awt.Color(83, 86, 99));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(utils.AppUtils.getFont(18f, _BOLD_)
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_)
         );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

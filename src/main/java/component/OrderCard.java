@@ -5,8 +5,10 @@
 package component;
 
 import dao.IChiTietHoaDonDAO;
+import dao.IHoaDonDAO;
 import dao.IMonDAO;
 import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -37,8 +39,9 @@ public class OrderCard extends javax.swing.JPanel {
     private JPanel mainPanel;
     private HoaDon hoaDon;
     private Double total = 0.0;
-    private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
+    private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private GD_QuanLyDatMon ql_datMon;//khai biến để back về không cần tạo mới
+    private IHoaDonDAO hoaDonDAO;
 
     public OrderCard() {
         initComponents();
@@ -91,8 +94,7 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound2.setRoundTopLeft(8);
         panelRound2.setRoundTopRight(8);
 
-        soLuongNguoi.setFont(utils.AppUtils.getFont(15f, _NORMAL_)
-        );
+        soLuongNguoi.setFont(utils.AppUtils.getFont(12f, _NORMAL_));
         soLuongNguoi.setForeground(new java.awt.Color(255, 255, 255));
         soLuongNguoi.setText("8");
 
@@ -125,8 +127,7 @@ public class OrderCard extends javax.swing.JPanel {
             }
         });
 
-        maBan.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
-        );
+        maBan.setFont(utils.AppUtils.getFont(14f, _BOLD_));
         maBan.setForeground(new java.awt.Color(255, 255, 255));
         maBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         maBan.setText("BAN0110");
@@ -136,9 +137,9 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound3Layout.setHorizontalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound3Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(maBan)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,8 +155,7 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound8.setRoundTopLeft(8);
         panelRound8.setRoundTopRight(8);
 
-        tongTien.setFont(utils.AppUtils.getFont(15f, _NORMAL_)
-        );
+        tongTien.setFont(utils.AppUtils.getFont(12f, _NORMAL_));
         tongTien.setForeground(new java.awt.Color(255, 255, 255));
         tongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tongTien.setText("0");
@@ -192,8 +192,6 @@ public class OrderCard extends javax.swing.JPanel {
         btnChinhSua.setColor(new java.awt.Color(83, 86, 99));
         btnChinhSua.setColorClick(new java.awt.Color(234, 124, 105));
         btnChinhSua.setColorOver(new java.awt.Color(234, 124, 105));
-        btnChinhSua.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnChinhSua.setRadius(8);
         btnChinhSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,8 +203,6 @@ public class OrderCard extends javax.swing.JPanel {
         btnThanhToan.setColor(new java.awt.Color(83, 86, 99));
         btnThanhToan.setColorClick(new java.awt.Color(234, 124, 105));
         btnThanhToan.setColorOver(new java.awt.Color(234, 124, 105));
-        btnThanhToan.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnThanhToan.setRadius(8);
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,8 +213,6 @@ public class OrderCard extends javax.swing.JPanel {
         btnTacVu.setColor(new java.awt.Color(83, 86, 99));
         btnTacVu.setColorClick(new java.awt.Color(234, 124, 105));
         btnTacVu.setColorOver(new java.awt.Color(234, 124, 105));
-        btnTacVu.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnTacVu.setRadius(8);
         btnTacVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,8 +224,6 @@ public class OrderCard extends javax.swing.JPanel {
         btnCheck.setColor(new java.awt.Color(83, 86, 99));
         btnCheck.setColorClick(new java.awt.Color(234, 124, 105));
         btnCheck.setColorOver(new java.awt.Color(234, 124, 105));
-        btnCheck.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnCheck.setRadius(8);
         btnCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,7 +307,14 @@ public class OrderCard extends javax.swing.JPanel {
         GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
         gD_DatMon.setHoaDon(hoaDon);
         gD_DatMon.setGd_qlDatMon(ql_datMon);
-        gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+        if(ql_datMon.isWaitForPayment()){
+            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+        }
+        else{
+            hoaDonDAO = new HoaDonDAO();
+            gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
+            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+        }
         AppUtils.setUI(mainPanel, () -> gD_DatMon);
     }//GEN-LAST:event_panelRound3MouseClicked
 

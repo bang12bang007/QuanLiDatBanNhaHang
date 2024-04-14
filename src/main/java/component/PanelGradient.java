@@ -63,8 +63,7 @@ public class PanelGradient extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setFont(utils.AppUtils.getFont(18f, _NORMAL_)
-        );
+        setFont(utils.AppUtils.getFont(16f, _NORMAL_));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

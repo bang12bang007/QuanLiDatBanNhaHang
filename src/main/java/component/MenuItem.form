@@ -39,7 +39,7 @@
         <Component class="javax.swing.JLabel" name="tenMon">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="utils.AppUtils.getFont(18f, _NORMAL_)&#xa;" type="code"/>
+              <Connection code="utils.AppUtils.getFont(16f, _NORMAL_)" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -83,9 +83,6 @@
                 <Property name="colorOver" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="69" green="7c" red="ea" type="rgb"/>
                 </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.AppUtils.getFont(18f, _NORMAL_)&#xa;" type="code"/>
-                </Property>
                 <Property name="horizontalTextPosition" type="int" value="4"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[25, 25]"/>
@@ -99,7 +96,7 @@
             <Component class="javax.swing.JTextField" name="soLuong">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.AppUtils.getFont(18f, _NORMAL_)&#xa;" type="code"/>
+                  <Connection code="utils.AppUtils.getFont(16f, _NORMAL_)" type="code"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>

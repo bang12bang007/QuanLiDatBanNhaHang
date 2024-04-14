@@ -119,7 +119,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         header.setRoundTopLeft(8);
         header.setRoundTopRight(8);
 
-        title.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        title.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
         );
         title.setForeground(new java.awt.Color(255, 255, 255));
         title.setText("Xem thực đơn");
@@ -168,13 +168,13 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         headerTable.setRoundTopRight(8);
         headerTable.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel1.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("   Món");
         headerTable.add(jLabel1);
 
-        jLabel2.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        jLabel2.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Đơn giá");
@@ -316,13 +316,13 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         headerTableRight.setRoundTopRight(8);
         headerTableRight.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel3.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("   Món");
         headerTableRight.add(jLabel3);
 
-        jLabel4.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        jLabel4.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Số lượng   ");
@@ -385,11 +385,11 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        jLabel5.setFont(utils.AppUtils.getFont(14f, _BOLD_)
         );
         jLabel5.setText("Tổng tiền");
 
-        tongTien.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        tongTien.setFont(utils.AppUtils.getFont(16f, _BOLD_)
         );
         tongTien.setText("0");
 
@@ -428,7 +428,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel7.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        jLabel7.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Yêu cầu đặt món");
@@ -500,8 +500,6 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         btnDongY.setColor(new java.awt.Color(83, 86, 99));
         btnDongY.setColorClick(new java.awt.Color(234, 124, 105));
         btnDongY.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDongY.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnDongY.setRadius(8);
         btnDongY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -514,8 +512,6 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         btnHuy.setColor(new java.awt.Color(83, 86, 99));
         btnHuy.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuy.setColorOver(new java.awt.Color(234, 124, 105));
-        btnHuy.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
         btnHuy.setRadius(8);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
