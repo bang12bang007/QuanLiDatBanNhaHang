@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
 import view.GD_QuanLyDatMon;
 import view.GD_ThanhToan;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -91,6 +91,7 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound2.setRoundTopLeft(8);
         panelRound2.setRoundTopRight(8);
 
+        soLuongNguoi.setFont(utils.AppUtils.getFont(12f, _NORMAL_));
         soLuongNguoi.setForeground(new java.awt.Color(255, 255, 255));
         soLuongNguoi.setText("8");
 
@@ -123,7 +124,7 @@ public class OrderCard extends javax.swing.JPanel {
             }
         });
 
-        maBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        maBan.setFont(utils.AppUtils.getFont(14f, _BOLD_));
         maBan.setForeground(new java.awt.Color(255, 255, 255));
         maBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         maBan.setText("BAN0110");
@@ -133,9 +134,9 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound3Layout.setHorizontalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound3Layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(maBan)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,6 +152,7 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound8.setRoundTopLeft(8);
         panelRound8.setRoundTopRight(8);
 
+        tongTien.setFont(utils.AppUtils.getFont(12f, _NORMAL_));
         tongTien.setForeground(new java.awt.Color(255, 255, 255));
         tongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tongTien.setText("0");

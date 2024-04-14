@@ -28,7 +28,7 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
 import javax.swing.*;
-
+import static utils.AppUtils.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -125,6 +125,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         btnCheckout.setColor(new java.awt.Color(83, 86, 99));
         btnCheckout.setColorClick(new java.awt.Color(234, 124, 105));
         btnCheckout.setColorOver(new java.awt.Color(234, 124, 105));
+        btnCheckout.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         btnCheckout.setRadius(8);
         btnCheckout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +140,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         btnReserve.setColor(new java.awt.Color(83, 86, 99));
         btnReserve.setColorClick(new java.awt.Color(234, 124, 105));
         btnReserve.setColorOver(new java.awt.Color(234, 124, 105));
+        btnReserve.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         btnReserve.setRadius(8);
         btnReserve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +156,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         panelRound2.setRoundTopRight(8);
 
         txtMaBan.setBackground(new java.awt.Color(83, 86, 99));
+        txtMaBan.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         txtMaBan.setForeground(new java.awt.Color(255, 255, 255));
         txtMaBan.setBorder(null);
         txtMaBan.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +189,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         );
 
         panelRound3.setBackground(new java.awt.Color(83, 86, 99));
+        panelRound3.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         panelRound3.setRoundBottomLeft(8);
         panelRound3.setRoundBottomRight(8);
         panelRound3.setRoundTopLeft(8);
@@ -206,7 +214,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         myButton1.setColor(new java.awt.Color(83, 86, 99));
         myButton1.setColorClick(new java.awt.Color(234, 124, 105));
         myButton1.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        myButton1.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         myButton1.setIconTextGap(15);
         myButton1.setRadius(10);
         myButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -242,23 +251,24 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
                         .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(31, 29, 43));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _ITALIC_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Tổng số order: ");
 
-        orderNumber.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        orderNumber.setFont(utils.AppUtils.getFont(16f, _ITALIC_)
+        );
         orderNumber.setForeground(new java.awt.Color(255, 255, 255));
         orderNumber.setText("3");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(utils.AppUtils.getFont(16f, _ITALIC_)
+        );
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Thêm Order: F2 hoặc ALT + T");
 
@@ -349,6 +359,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         scroll.setBorder(null);
 
         main.setBackground(new java.awt.Color(83, 86, 99));
+        main.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
 
         javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
         main.setLayout(mainLayout);
@@ -376,7 +388,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

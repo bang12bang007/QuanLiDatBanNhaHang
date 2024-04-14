@@ -53,7 +53,7 @@ import utils.AppUtils;
 import utils.Enum.DatMon_ThemMon;
 import utils.Enum.TypeDatMon_Branch;
 import utils.ModelColor;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -211,7 +211,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnHayDung.setColor(new java.awt.Color(83, 86, 99));
         btnHayDung.setColorClick(new java.awt.Color(234, 124, 105));
         btnHayDung.setColorOver(new java.awt.Color(234, 124, 105));
-        btnHayDung.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHayDung.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         btnHayDung.setRadius(10);
         btnHayDung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,7 +225,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnMonAn.setColor(new java.awt.Color(83, 86, 99));
         btnMonAn.setColorClick(new java.awt.Color(234, 124, 105));
         btnMonAn.setColorOver(new java.awt.Color(234, 124, 105));
-        btnMonAn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMonAn.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         btnMonAn.setRadius(10);
         btnMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +239,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnDoUong.setColor(new java.awt.Color(83, 86, 99));
         btnDoUong.setColorClick(new java.awt.Color(234, 124, 105));
         btnDoUong.setColorOver(new java.awt.Color(234, 124, 105));
-        btnDoUong.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDoUong.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         btnDoUong.setRadius(10);
         btnDoUong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,10 +253,12 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnKhac.setColor(new java.awt.Color(83, 86, 99));
         btnKhac.setColorClick(new java.awt.Color(234, 124, 105));
         btnKhac.setColorOver(new java.awt.Color(234, 124, 105));
-        btnKhac.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnKhac.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         btnKhac.setRadius(10);
 
-        jTextFieldSearch.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jTextFieldSearch.setFont(utils.AppUtils.getFont(16f, _ITALIC_)
+        );
         jTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldSearchActionPerformed(evt);
@@ -270,6 +275,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnSearch.setColor(new java.awt.Color(83, 86, 99));
         btnSearch.setColorClick(new java.awt.Color(234, 124, 105));
         btnSearch.setColorOver(new java.awt.Color(234, 124, 105));
+        btnSearch.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         btnSearch.setRadius(10);
 
         javax.swing.GroupLayout panelMonLayout = new javax.swing.GroupLayout(panelMon);
@@ -359,6 +366,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         scrollFoodList.setBackground(new java.awt.Color(83, 86, 99));
 
         FoodList.setBackground(new java.awt.Color(83, 86, 99));
+        FoodList.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         FoodList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 FoodListMouseEntered(evt);
@@ -404,7 +413,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnBack.setColor(new java.awt.Color(83, 86, 99));
         btnBack.setColorClick(new java.awt.Color(234, 124, 105));
         btnBack.setColorOver(new java.awt.Color(234, 124, 105));
-        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBack.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnBack.setRadius(10);
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,7 +436,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnNV.setColor(new java.awt.Color(83, 86, 99));
         btnNV.setColorClick(new java.awt.Color(234, 124, 105));
         btnNV.setColorOver(new java.awt.Color(234, 124, 105));
-        btnNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnNV.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnNV.setRadius(10);
         btnNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -437,7 +448,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnGhiChu.setColor(new java.awt.Color(83, 86, 99));
         btnGhiChu.setColorClick(new java.awt.Color(234, 124, 105));
         btnGhiChu.setColorOver(new java.awt.Color(234, 124, 105));
-        btnGhiChu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGhiChu.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnGhiChu.setRadius(10);
 
         javax.swing.GroupLayout panelOrderLayout = new javax.swing.GroupLayout(panelOrder);
@@ -476,7 +488,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnThem.setColor(new java.awt.Color(83, 86, 99));
         btnThem.setColorClick(new java.awt.Color(234, 124, 105));
         btnThem.setColorOver(new java.awt.Color(234, 124, 105));
-        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnThem.setRadius(10);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -489,7 +502,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnKhuyenMai.setColor(new java.awt.Color(83, 86, 99));
         btnKhuyenMai.setColorClick(new java.awt.Color(234, 124, 105));
         btnKhuyenMai.setColorOver(new java.awt.Color(234, 124, 105));
-        btnKhuyenMai.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnKhuyenMai.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnKhuyenMai.setRadius(10);
 
         btnTime.setBackground(new java.awt.Color(83, 86, 99));
@@ -497,7 +511,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnTime.setColor(new java.awt.Color(83, 86, 99));
         btnTime.setColorClick(new java.awt.Color(234, 124, 105));
         btnTime.setColorOver(new java.awt.Color(234, 124, 105));
-        btnTime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTime.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnTime.setRadius(10);
         btnTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -557,7 +572,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnGuiBep.setColor(new java.awt.Color(31, 29, 43));
         btnGuiBep.setColorClick(new java.awt.Color(234, 124, 105));
         btnGuiBep.setColorOver(new java.awt.Color(234, 124, 105));
-        btnGuiBep.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuiBep.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnGuiBep.setRadius(20);
         btnGuiBep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -570,7 +586,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnHuyBo.setColor(new java.awt.Color(31, 29, 43));
         btnHuyBo.setColorClick(new java.awt.Color(234, 124, 105));
         btnHuyBo.setColorOver(new java.awt.Color(234, 124, 105));
-        btnHuyBo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHuyBo.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnHuyBo.setRadius(20);
         btnHuyBo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -583,7 +600,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnTinhTien.setColor(new java.awt.Color(31, 29, 43));
         btnTinhTien.setColorClick(new java.awt.Color(234, 124, 105));
         btnTinhTien.setColorOver(new java.awt.Color(234, 124, 105));
-        btnTinhTien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTinhTien.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnTinhTien.setRadius(20);
 
         btnCat.setForeground(new java.awt.Color(255, 255, 255));
@@ -591,7 +609,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnCat.setColor(new java.awt.Color(31, 29, 43));
         btnCat.setColorClick(new java.awt.Color(234, 124, 105));
         btnCat.setColorOver(new java.awt.Color(234, 124, 105));
-        btnCat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCat.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        );
         btnCat.setRadius(20);
         btnCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -599,13 +618,15 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(12f, _NORMAL_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("TỔNG TIỀN");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        labelTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelTongTien.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         labelTongTien.setForeground(new java.awt.Color(255, 255, 255));
         labelTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTongTien.setText("5000000 VND");
@@ -629,11 +650,13 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         panelGradient1.setBackground(new java.awt.Color(83, 86, 99));
         panelGradient1.setBorder(null);
 
-        nhanVienName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nhanVienName.setFont(utils.AppUtils.getFont(14f, _BOLD_)
+        );
         nhanVienName.setForeground(new java.awt.Color(255, 255, 255));
         nhanVienName.setText("NGUYỄN ĐỨC CƯỜNG");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setFont(utils.AppUtils.getFont(12f, _NORMAL_)
+        );
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Nhân Viên Phục Vụ");
 
@@ -761,6 +784,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         Scroll_Order.setBorder(null);
 
         PanelOrder.setBackground(new java.awt.Color(83, 86, 99));
+        PanelOrder.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
 
         javax.swing.GroupLayout PanelOrderLayout = new javax.swing.GroupLayout(PanelOrder);
         PanelOrder.setLayout(PanelOrderLayout);

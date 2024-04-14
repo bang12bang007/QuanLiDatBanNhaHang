@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import utils.ModelColor;
+import static utils.AppUtils.*;
 /**
  *
  * @author dmx
@@ -61,6 +62,8 @@ public class PanelGradient extends JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setFont(utils.AppUtils.getFont(16f, _NORMAL_));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

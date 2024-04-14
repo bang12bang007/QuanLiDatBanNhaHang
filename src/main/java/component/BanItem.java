@@ -86,7 +86,8 @@ public class BanItem extends javax.swing.JPanel {
         setBackground(new java.awt.Color(83, 86, 99));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("101");

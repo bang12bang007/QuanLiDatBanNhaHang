@@ -9,12 +9,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.itextpdf.io.font.constants.FontStyles;
 import component.Loading;
 import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,6 +60,20 @@ public class AppUtils {
             e.printStackTrace();
         }
         return con;
+    }
+    public static String _NORMAL_ = "src/main/java/font/OpenSans-VariableFont_wdth,wght.ttf";
+    public static String _BOLD_ = "src/main/java/font/OpenSans_Condensed-ExtraBold.ttf";
+    public static String _ITALIC_ = "src/main/java/font/OpenSans-Italic-VariableFont_wdth,wght.ttf";
+// Font
+    public static Font getFont(float a , String b){
+        try {
+            File fontStyle = new File(b);
+            Font font = Font.createFont(Font.TRUETYPE_FONT, fontStyle).deriveFont(a);
+            return font;
+        } catch (Exception e) {
+        }
+        
+        return null;
     }
 //Update de loading muot nhu sunsil
 

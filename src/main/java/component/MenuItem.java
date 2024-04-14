@@ -11,7 +11,7 @@ import java.awt.Dimension;
 import jiconfont.swing.IconFontSwing;
 import javax.swing.Icon;
 import view.Form_XemThucDon;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -103,7 +103,7 @@ public class MenuItem extends javax.swing.JPanel {
 
         wrapper.setLayout(new java.awt.GridLayout(1, 0));
 
-        tenMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tenMon.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
         wrapper.add(tenMon);
 
@@ -119,7 +119,7 @@ public class MenuItem extends javax.swing.JPanel {
             }
         });
 
-        soLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        soLuong.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         soLuong.setBorder(null);
         soLuong.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

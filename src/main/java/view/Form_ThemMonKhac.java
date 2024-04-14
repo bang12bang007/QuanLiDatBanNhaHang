@@ -9,7 +9,7 @@ import icon.FontAwesome;
 import java.awt.Color;
 import javax.swing.JFrame;
 import jiconfont.swing.IconFontSwing;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author dmx
@@ -65,7 +65,7 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
 
         panelRound2.setBackground(new java.awt.Color(31, 29, 43));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Thêm Món Khác");
 
@@ -104,34 +104,42 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelRound2Layout.createSequentialGroup()
+                .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
+                        .addGap(10, 10, 10))
+                    .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panelRound3.setBackground(new java.awt.Color(83, 86, 99));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setFont(utils.AppUtils.getFont(14f, _NORMAL_));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Món");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setFont(utils.AppUtils.getFont(14f, _NORMAL_));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Số Lượng");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setFont(utils.AppUtils.getFont(14f, _NORMAL_));
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Đơn Giá");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(utils.AppUtils.getFont(14f, _NORMAL_));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Ghi Chú");
 
+        jTextField1.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+
+        jTextField2.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+
+        jTextField3.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -211,7 +219,7 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         myButton3.setColor(new java.awt.Color(83, 86, 99));
         myButton3.setColorClick(new java.awt.Color(234, 124, 105));
         myButton3.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        myButton3.setFont(utils.AppUtils.getFont(14f, _BOLD_));
         myButton3.setRadius(10);
 
         myButton4.setBackground(new java.awt.Color(83, 86, 99));
@@ -220,7 +228,7 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         myButton4.setColor(new java.awt.Color(83, 86, 99));
         myButton4.setColorClick(new java.awt.Color(234, 124, 105));
         myButton4.setColorOver(new java.awt.Color(234, 124, 105));
-        myButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        myButton4.setFont(utils.AppUtils.getFont(14f, _BOLD_));
         myButton4.setRadius(10);
 
         javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
@@ -268,9 +276,9 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap(119, Short.MAX_VALUE)
                 .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
