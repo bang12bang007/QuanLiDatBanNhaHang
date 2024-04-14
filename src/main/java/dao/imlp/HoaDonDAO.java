@@ -164,7 +164,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             PdfDocument pdfDocument = new PdfDocument(pdfWriter);
             pdfDocument.setDefaultPageSize(PageSize.A4);
             Document document = new Document(pdfDocument);
-            PdfFont font = PdfFontFactory.createFont("C:\\Users\\Laptop\\Downloads\\static\\JetBrainsMono-SemiBold.ttf", PdfEncodings.IDENTITY_H);
+            PdfFont font = PdfFontFactory.createFont("src/main/java/font/OpenSans-VariableFont_wdth,wght.ttf", PdfEncodings.IDENTITY_H);
             float pageWidth = pdfDocument.getDefaultPageSize().getWidth() - 70;
             document.setFont(font);
 
