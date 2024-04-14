@@ -774,10 +774,10 @@ public class Form_DatBan extends javax.swing.JPanel {
             double tienDatCoc = 0;
             String yeuCauKhac = txtYeuCau.getText();
             LocalDate ngayString = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
-//            LocalDate ngay = LocalDate.parse(FORMATTER.format(ngayString), DateTimeFormatter.ISO_LOCAL_DATE);
-//            LocalTime gioDen = LocalTime.parse(gioDenString, DateTimeFormatter.ofPattern("h:mm a"));
-//            LocalDateTime ngayGio = LocalDateTime.of(ngay, gioDen);
-            LocalDateTime ngayGio = LocalDateTime.now();
+            LocalDate ngay = LocalDate.parse(FORMATTER.format(ngayString), DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalTime gioDen = LocalTime.parse(gioDenString, DateTimeFormatter.ofPattern("h:mm a"));
+            LocalDateTime ngayGio = LocalDateTime.of(ngay, gioDen);
+//            LocalDateTime ngayGio = LocalDateTime.now();
             phieuDatBan = new PhieuDatBan(ngayGio, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
             phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
         }
