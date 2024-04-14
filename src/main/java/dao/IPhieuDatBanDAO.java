@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface IPhieuDatBanDAO<T> extends GenericDAO<T> {
 
-    boolean updateStateById(String id, int trangThai);
+    boolean updateStateById(String id, Enum trangThai);
 
     boolean updateBanById(String id, Ban ban);
 

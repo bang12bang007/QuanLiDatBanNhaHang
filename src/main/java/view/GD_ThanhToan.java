@@ -34,7 +34,9 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import raven.toast.Notifications;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -91,6 +93,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         maHoaDon.setText(hoaDon.getMaHoaDon() + " - " + hoaDon.getBan().getMaBan());
         ngayGioHienTai.setText(myFormatObj.format(LocalDateTime.now()));
         thanhTien.setText(tien_format.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)));
+
 //        utils.AppUtils.run(mJPanel, this);
     }
 
@@ -942,10 +945,12 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Form_ThuTien form_ThuTien = new Form_ThuTien(jFrame, hoaDon);
         form_ThuTien.setTienPhaiThu(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+        form_ThuTien.setMainJPanel(mJPanel);
         jFrame.add(form_ThuTien);
         jFrame.setBackground(new Color(0, 0, 0, 0));
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
         jFrame.setVisible(true);
+
     }//GEN-LAST:event_btnThuTienActionPerformed
 
     private void btnLuuTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuTamActionPerformed

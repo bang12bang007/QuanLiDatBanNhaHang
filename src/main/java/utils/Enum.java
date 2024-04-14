@@ -56,4 +56,8 @@ public class Enum {
     public static enum TypeDatMon_Branch {
         DATMON,THEMMON,DAT_TRUOC_MON;
     };
+    
+    public static enum LoaiTrangThaiPhieu {
+        CHUA_NHAN, DA_NHAN, DA_HUY
+    }
 }

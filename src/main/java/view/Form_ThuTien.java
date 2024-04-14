@@ -4,19 +4,29 @@
  */
 package view;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
+import dao.IMonDAO;
+import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
+import dao.imlp.MonDAO;
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 import jiconfont.swing.IconFontSwing;
+import raven.toast.Notifications;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -35,7 +45,10 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private List<JButton> moneyDenominations = new ArrayList<>();
     private List<JButton> moneySuggestions = new ArrayList<>();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private IMonDAO monDAO = new MonDAO();
     private HoaDon hoaDon;
+    private JPanel mainJPanel;
 
     public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
         initComponents();
@@ -45,6 +58,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         wrapper.setBackground(new Color(0, 0, 0, 0));
         IconFontSwing.register(FontAwesome.getIconFont());
         createAndSetEventForButtons();
+        Notifications.getInstance().setJFrame(jFrame);
+        FlatIntelliJLaf.setup();
     }
 
     private void createAndSetEventForButtons() {
@@ -377,7 +392,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             .addGroup(leffContainerLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel5)
-                .addGap(20, 20, 20)
+                .addGap(17, 17, 17)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -617,10 +632,25 @@ public class Form_ThuTien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
-        String tien = tienPhaiTra.getText().replace("VNĐ", "");
-        tien = tien.replace(",", "");
-        double tienThua = Double.parseDouble(tien);
-        hoaDonDAO.createInvoice(hoaDon, total + tienThua, tienThua);
+
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                pay();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán thành công");
+                jFrame.setVisible(false);
+                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                utils.AppUtils.setUI(mainJPanel, () -> new GD_QuanLyDatMon(mainJPanel, NHANVIEN));
+            }
+
+        };
+
+        worker.execute();
     }//GEN-LAST:event_btnDongActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -631,6 +661,26 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
     private void btnInVaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInVaDongActionPerformed
         // TODO add your handling code here:
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                pay();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán và tạo hóa đơn thành công");
+                createHoaDon();
+                jFrame.setVisible(false);
+                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                utils.AppUtils.setUI(mainJPanel, () -> new GD_QuanLyDatMon(mainJPanel, NHANVIEN));
+            }
+
+        };
+
+        worker.execute();
+
     }//GEN-LAST:event_btnInVaDongActionPerformed
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
@@ -679,7 +729,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
         double originalValue = total;
         List<Double> suggestions = getSuggestedAmounts(total);
         for (int i = 0; i < suggestions.size(); i++) {
-            System.out.println(suggestions.get(i));
             moneySuggestions.get(i).setText(formatNotVND.format(suggestions.get(i)));
         }
     }
@@ -687,29 +736,31 @@ public class Form_ThuTien extends javax.swing.JPanel {
     public List<Double> getSuggestedAmounts(double originalValue) {
         createAndSetEventButtonSuggestions();
         List<Double> suggestions = new ArrayList<>();
-
-        // Làm tròn lên đến hàng nghìn gần nhất
-//        double roundedToThousand = Math.ceil(originalValue / 1000) * 1000;
-//        if (roundedToThousand != originalValue) {
-//            suggestions.add(roundedToThousand);
-//        }
-//
-//        // Làm tròn lên đến hàng chục nghìn gần nhất
-//        double roundedToTenThousand = Math.ceil(originalValue / 10000) * 10000;
-//        if (roundedToTenThousand != originalValue) {
-//            suggestions.add(roundedToTenThousand);
-//        }
-//
-//        // Làm tròn lên đến hàng trăm nghìn gần nhất
-//        double roundedToHundredThousand = Math.ceil(originalValue / 100000) * 100000;
-//        if (roundedToHundredThousand != originalValue) {
-//            suggestions.add(roundedToHundredThousand);
-//        }
         suggestions.add(Math.ceil(originalValue / 1000) * 1000);
         suggestions.add(Math.ceil(originalValue / 10000) * 10000);
         suggestions.add(Math.ceil(originalValue / 100000) * 100000);
-
         return suggestions;
+    }
+
+    private void createHoaDon() {
+        String tien = tienPhaiTra.getText().replace("VNĐ", "");
+        tien = tien.replace(",", "");
+        double tienThua = Double.parseDouble(tien);
+        hoaDonDAO.createInvoice(hoaDon, total + tienThua, tienThua);
+    }
+
+    private void pay() {
+        List<ChiTietHoaDon> chiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
+        for (ChiTietHoaDon item : chiTietHoaDon) {
+            Mon mon = item.getMon();
+            mon.setSoLuongDaDat(mon.getSoLuongDaDat() + item.getSoLuong());
+            monDAO.update(mon);
+        }
+        hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+    }
+
+    public void setMainJPanel(JPanel jPanel) {
+        this.mainJPanel = jPanel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

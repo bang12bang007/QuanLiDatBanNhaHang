@@ -41,6 +41,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,8 +51,10 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
+import raven.toast.Notifications;
 import utils.AppUtils;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -738,36 +741,41 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnHuyChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyChoMouseClicked
         // TODO add your handling code here:
-        banDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
+//      NDK change here
+
         this.deleteBooking();
     }//GEN-LAST:event_btnHuyChoMouseClicked
 
     private void btnThayDoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThayDoiMouseClicked
         // TODO add your handling code here:
         if (active >= 0) {
-            if (jFrameForm == null || !jFrameForm.isVisible()) {
-                jFrameForm = new JFrame();
-                jFrameForm.setUndecorated(true);
-                jFrameForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_DatBan form_DatBan = new Form_DatBan(jFrameForm, bookingItems.get(active).getPhieuDatBan().getBan());
-                form_DatBan.setMainJpanel(mainJPanel);
-                form_DatBan.setData(bookingItems.get(active).getPhieuDatBan());
-                form_DatBan.setType("UPDATE");
-                jFrameForm.add(form_DatBan);
-                jFrameForm.setBackground(new Color(0, 0, 0, 0));
-                FadeEffect.fadeInFrame(jFrameForm, 8, 0.1f);
-                jFrameForm.setVisible(true);
+            if (bookingItems.get(active).getPhieuDatBan().getTrangThai().ordinal() == 0) {
+                if (jFrameForm == null || !jFrameForm.isVisible()) {
+                    jFrameForm = new JFrame();
+                    jFrameForm.setUndecorated(true);
+                    jFrameForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    Form_DatBan form_DatBan = new Form_DatBan(jFrameForm, bookingItems.get(active).getPhieuDatBan().getBan());
+                    form_DatBan.setMainJpanel(mainJPanel);
+                    form_DatBan.setData(bookingItems.get(active).getPhieuDatBan());
+                    form_DatBan.setType("UPDATE");
+                    jFrameForm.add(form_DatBan);
+                    jFrameForm.setBackground(new Color(0, 0, 0, 0));
+                    FadeEffect.fadeInFrame(jFrameForm, 8, 0.1f);
+                    jFrameForm.setVisible(true);
+                } else {
+                    jFrameForm.toFront();
+                }
             } else {
-                jFrameForm.toFront();
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Phiếu đặt bàn không thể thay đổi");
             }
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, 1500, "Vui lòng chọn vào phiếu cần thay đổi");
         }
     }//GEN-LAST:event_btnThayDoiMouseClicked
 
     private void trangThaiComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangThaiComboboxActionPerformed
-        // TODO add your handling code here:
-//      FindByState in PhieuDatBan
-//        System.out.println();
+
         filterByState(trangThaiCombobox.getSelectedIndex());
     }//GEN-LAST:event_trangThaiComboboxActionPerformed
 
@@ -775,7 +783,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         int stt = 0;
         tableBody.removeAll();
         for (BookingItem bookingItem : bookingItems) {
-            if (bookingItem.getPhieuDatBan().getTrangThai() == statePhieuDatBan) {
+            if (bookingItem.getPhieuDatBan().getTrangThai().ordinal() == statePhieuDatBan) {
                 if (AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getHoTen(), txtSearch.getText().trim()) || AppUtils.CheckContainsAbbreviation(bookingItem.getPhieuDatBan().getSdt(), txtSearch.getText().trim())) {
                     bookingItem.setColorByIndex(stt++);
                     tableBody.add(bookingItem);
@@ -788,26 +796,36 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     public void deleteBooking() {
         if (active >= 0) {
-            phieuDatBanDAO.delete(bookingItems.get(active).getPhieuDatBan().getMaPhieuDatBan(), PhieuDatBan.class);
-            HoaDon hoaDon = null;
-            for (HoaDon hd : bookingItems.get(active).getPhieuDatBan().getBan().getHoaDon()) {
-                if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-                    hoaDon = hd;
-                    break;
+            if (bookingItems.get(active).getPhieuDatBan().getTrangThai().ordinal() == 0) {
+                phieuDatBanDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getMaPhieuDatBan(), utils.Enum.LoaiTrangThaiPhieu.DA_HUY);
+                banDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
+                HoaDon hoaDon = null;
+                for (HoaDon hd : bookingItems.get(active).getPhieuDatBan().getBan().getHoaDon()) {
+                    if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                        hoaDon = hd;
+                        break;
+                    }
                 }
-            }
-            if (hoaDon != null) {
-                hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
-            }
-            bookingItems.remove(active);
-            tableBody.removeAll();
-            if (!bookingItems.isEmpty()) {
-                for (int i = 0; i < bookingItems.size(); i++) {
-                    bookingItems.get(i).setIndex(i);
-                    tableBody.add(bookingItems.get(i));
+                if (hoaDon != null) {
+                    hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
                 }
+                bookingItems.remove(active);
+                tableBody.removeAll();
+                if (!bookingItems.isEmpty()) {
+                    for (int i = 0; i < bookingItems.size(); i++) {
+                        bookingItems.get(i).setIndex(i);
+                        tableBody.add(bookingItems.get(i));
+                    }
+                }
+                tableBody.repaint();
+                tableBody.revalidate();
+                setBookingActive(-1);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_RIGHT, 1500, "Hủy thành công");
+            } else {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Khách đã vào bàn nên không thể hủy được");
             }
-            setBookingActive(-1);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, 1500, "Vui lòng chọn vào phiếu cần hủy");
         }
     }
 
@@ -833,10 +851,17 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
                 hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
             }
             banDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
-            phieuDatBanDAO.updateStateById(id, 1);
+            phieuDatBanDAO.updateStateById(id, utils.Enum.LoaiTrangThaiPhieu.DA_NHAN);
             bookingItems.get(active).setTrangThai("Đã nhận bàn");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Khách " + bookingItems.get(active).getPhieuDatBan().getHoTen() + " đã nhận bàn vào lúc " + forrmater(LocalDateTime.now().toString()));
             setBookingActive(-1);
         }
+    }
+
+    private String forrmater(String date) {
+        LocalDateTime inputDateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String formattedDateTime = inputDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        return formattedDateTime;
     }
 
     public void setBookingActive(int active) {
@@ -867,7 +892,12 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     }
 
     private String[] getContents(PhieuDatBan phieuDatBan) {
-        String trangThai = phieuDatBan.getTrangThai() == 0 ? "Chưa nhận bàn" : "Đã nhận bàn";
+        String trangThai = "Chưa nhận bàn";
+        if (phieuDatBan.getTrangThai().ordinal() == 1) {
+            trangThai = "Đã nhận bàn";
+        } else if (phieuDatBan.getTrangThai().ordinal() == 2) {
+            trangThai = "Đã hủy";
+        }
         return new String[]{phieuDatBan.getNgayGioDat().toString(), phieuDatBan.getHoTen(), phieuDatBan.getSoLuongNguoi() + "", trangThai, phieuDatBan.getTienDatCoc() + ""};
     }
 
@@ -896,7 +926,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             BookingItem bookingItem = new BookingItem(i, getContents(dsPhieu.get(i)), width, this);
             bookingItem.setPhieuDatBan(dsPhieu.get(i));
             bookingItems.add(bookingItem);
-            if (dsPhieu.get(i).getTrangThai() == statePhieuDatBan) {
+            if (dsPhieu.get(i).getTrangThai().ordinal() == statePhieuDatBan) {
                 bookingItem.setColorByIndex(stt++);
                 tableBody.add(bookingItem);
             }
@@ -910,7 +940,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.removeAll();
         int stt = 0;
         for (BookingItem bookingItem : bookingItems) {
-            if (bookingItem.getPhieuDatBan().getTrangThai() == state) {
+            if (bookingItem.getPhieuDatBan().getTrangThai().ordinal() == state) {
                 bookingItem.setColorByIndex(stt++);
                 tableBody.add(bookingItem);
             }

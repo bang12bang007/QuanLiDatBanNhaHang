@@ -30,6 +30,7 @@ view\GD_TrangChu$8.class
 view\GD_ThongKe$1.class
 utils\Enum$LoaiTrangThaiMon.class
 view\Form_DatBan$8.class
+view\Form_ThuTien$8.class
 component\ComboSuggestionUI.class
 component\BanItem.class
 component\ComboSuggestionUI$ComboSuggestionPopup.class
@@ -46,6 +47,7 @@ view\GD_DangNhap$1.class
 view\GD_TrangChu$10.class
 view\GD_TrangChu$9.class
 view\GD_DatBan$9.class
+view\Form_ThuTien$7.class
 component\OrderItem_forUIDatMon$1.class
 datechooser\EventDateChooser.class
 view\GD_DatMon$13.class
@@ -95,6 +97,7 @@ view\GD_ThanhToan$5.class
 component\Message$4.class
 utils\AppUtils$2.class
 dao\imlp\BanDAO.class
+utils\Enum$LoaiTrangThaiPhieu.class
 datechooser\DateChooser$3.class
 datechooser\Slider$1.class
 datechooser\Months.class
