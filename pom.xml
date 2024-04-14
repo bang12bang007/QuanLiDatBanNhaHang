@@ -141,8 +141,13 @@
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.5.4</version>
+<<<<<<< HEAD
             <type>jar</type>
         </dependency>
+=======
+        </dependency>
+
+>>>>>>> origin/main
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

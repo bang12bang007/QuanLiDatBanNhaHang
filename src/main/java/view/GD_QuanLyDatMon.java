@@ -49,6 +49,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private List<HoaDon> hoadons;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private boolean waitForPayment = true;
 
     public GD_QuanLyDatMon(JPanel main, NhanVien nv) {
         this.mainPanel = main;
@@ -397,13 +398,13 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private int count = 1;
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-
+        setWaitForPayment(true);
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
+        setWaitForPayment(false);
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-
     }//GEN-LAST:event_btnReserveActionPerformed
 
     private void txtMaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaBanActionPerformed
@@ -496,6 +497,15 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         this.nv = nv;
     }
 
+    public boolean isWaitForPayment() {
+        return waitForPayment;
+    }
+
+    public void setWaitForPayment(boolean waitForPayment) {
+        this.waitForPayment = waitForPayment;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheckout;
     private component.MyButton btnDD;

@@ -84,12 +84,14 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private List<OrderItem_forUIDatMon> listPreOrderItem;
     private List<Mon> list_CancelFood = new ArrayList<>();
     private PhieuDatBan phieuDatBan;
+    private boolean back_toUI_DatBan;
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
         this.main = main;
         this.ban = ban;
         this.loai = loai;
+        this.back_toUI_DatBan = false;
         initComponents();
         setVisible(true);
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -915,7 +917,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             AppUtils.setUI(main, () -> gd_qlDatMon);
         }
         if (branch == TypeDatMon_Branch.DAT_TRUOC_MON) {
-            AppUtils.setUI(main, () -> gd_datBan);
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> gd_qlDatMon);
+            } else {
+                AppUtils.setUI(main, () -> gd_datBan);
+            }
         }
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -1031,8 +1037,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 if (branch.equals(TypeDatMon_Branch.THEMMON)) {
                     IChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
                     details = dao.getListByHoaDon(hoaDon);
-                    for(ChiTietHoaDon chitiet : details){
-                        if(chitiet.getSoLuong()!=0){
+                    for (ChiTietHoaDon chitiet : details) {
+                        if (chitiet.getSoLuong() != 0) {
                             replace_details.add(chitiet);
                         }
                     }
@@ -1095,6 +1101,12 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
         IPhieuDatBanDAO phieudatDAO = new PhieuDatBanDAO();
 
+        using_for_DatMon(banDAO, hoaDonDAO, chitietDAO);
+        using_for_ThemMon(banDAO, hoaDonDAO, chitietDAO);
+        using_for_DatTruocMon(chitietDAO, phieudatDAO);
+    }
+
+    public void using_for_DatMon(IBanDAO banDAO, IHoaDonDAO hoaDonDAO, IChiTietHoaDonDAO chitietDAO) {
         if (branch.equals(TypeDatMon_Branch.DATMON)) {
             Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
             HoaDon hoaDon = new HoaDon(nv, LocalDateTime.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
@@ -1109,57 +1121,65 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             banDAO.update(ban);
             AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
         }
-        
-        if(branch.equals(TypeDatMon_Branch.THEMMON)){
+    }
+
+    public void using_for_ThemMon(IBanDAO banDAO, IHoaDonDAO hoaDonDAO, IChiTietHoaDonDAO chitietDAO) {
+        if (branch.equals(TypeDatMon_Branch.THEMMON)) {
             List<Mon> pre_order = new ArrayList<>();
             List<ChiTietHoaDon> list_canceled = chitietDAO.getListBySoLuong(0);
-            
-            for(int i=0;i<orders.size();i++){
-                for(ChiTietHoaDon detail : details){
-                    if(orders.get(i).getTenMon().equals(detail.getMon().getTenMon())){
+
+            for (int i = 0; i < orders.size(); i++) {
+                for (ChiTietHoaDon detail : details) {
+                    if (orders.get(i).getTenMon().equals(detail.getMon().getTenMon())) {
                         detail.setSoLuong(list_quantity.get(i));
-                    
+
                     }
                 }
             }
-            
-            for(ChiTietHoaDon detail : details){
+            for (ChiTietHoaDon detail : details) {
                 pre_order.add(detail.getMon());
                 chitietDAO.update(detail);
             }
-            for(int i = 0; i < orders.size(); i++){
-                if(!pre_order.contains(orders.get(i))){
+            for (int i = 0; i < orders.size(); i++) {
+                if (!pre_order.contains(orders.get(i))) {
                     ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
-                    for(ChiTietHoaDon cancel : list_canceled){
-                        if(orders.get(i).getTenMon().equals(cancel.getMon().getTenMon())){
+                    for (ChiTietHoaDon cancel : list_canceled) {
+                        if (orders.get(i).getTenMon().equals(cancel.getMon().getTenMon())) {
                             chitietDAO.deleteChiTiet(cancel);
                         }
                     }
                     chitietDAO.insert(chiTiet);
                 }
-            }            
+            }
             AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
         }
-        if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){
+        
+    }
+
+    public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO,IPhieuDatBanDAO phieudatDAO) {
+        if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
             details = chitietDAO.getListByHoaDon(hoaDon);
-            for(ChiTietHoaDon detail : details){
+            for (ChiTietHoaDon detail : details) {
                 chitietDAO.deleteChiTiet(detail);
             }
-            for(int i=0;i<orders.size();i++){
+            for (int i = 0; i < orders.size(); i++) {
                 chitietDAO.insert(new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i)));
             }
-            
+
             List<ChiTietHoaDon> dsChiTietHoaDon = chitietDAO.getListByHoaDon(hoaDon);
             String yeuCauDatMon = "";
             for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
                 String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
                 yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
             }
-            
+
             phieuDatBan.setYeuCauDatMon(yeuCauDatMon);
             phieudatDAO.update(phieuDatBan);
-            
-            AppUtils.setUI(main, () -> new GD_DatBan(main));
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            } else {
+                AppUtils.setUI(main, () -> new GD_DatBan(main));
+            }
         }
     }
 
@@ -1264,6 +1284,18 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         this.phieuDatBan = phieuDatBan;
     }
 
+    public GD_QuanLyDatMon getGd_qlDatMon() {
+        return gd_qlDatMon;
+    }
+
+    public boolean isBack_toUI_DatBan() {
+        return back_toUI_DatBan;
+    }
+
+    public void setBack_toUI_DatBan(boolean back_toUI_DatBan) {
+        this.back_toUI_DatBan = back_toUI_DatBan;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FoodList;
     private component.PanelRound HEADER_ORDER;
@@ -1314,6 +1346,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound5;
     private javax.swing.JScrollPane scrollFoodList;
     // End of variables declaration//GEN-END:variables
+    
 
     public void setUI() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

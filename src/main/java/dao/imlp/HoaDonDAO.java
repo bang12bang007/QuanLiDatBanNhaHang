@@ -30,6 +30,7 @@ import dao.IHoaDonDAO;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.PhieuDatBan;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import java.awt.Color;
@@ -145,6 +146,16 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     }
 
     @Override
+    public PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon) {
+        return em.createNamedQuery("HoaDon.getPhieuDatBan", PhieuDatBan.class)
+                .setParameter("maHoaDon", hoaDon.getMaHoaDon())
+                .getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
+    
+    @Override
     public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
         PdfWriter pdfWriter = null;
         try {
@@ -229,6 +240,8 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             }
         }
     }
+
+    
 
     private Table createCost(IBlockElement label, String content, float width) {
         Table table = new Table(2);

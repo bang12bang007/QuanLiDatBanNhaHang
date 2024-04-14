@@ -266,6 +266,7 @@ public class BookingItem extends javax.swing.JPanel {
             protected void done() {
                 datMon.setGd_datBan(GD);
                 btnGoiMon.setBackground(new Color(255, 255, 255, 0));
+                datMon.setBack_toUI_DatBan(true);
                 utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
             }
         };

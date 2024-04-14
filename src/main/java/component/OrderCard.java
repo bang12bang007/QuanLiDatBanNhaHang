@@ -5,8 +5,10 @@
 package component;
 
 import dao.IChiTietHoaDonDAO;
+import dao.IHoaDonDAO;
 import dao.IMonDAO;
 import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -39,6 +41,7 @@ public class OrderCard extends javax.swing.JPanel {
     private Double total = 0.0;
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private GD_QuanLyDatMon ql_datMon;//khai biến để back về không cần tạo mới
+    private IHoaDonDAO hoaDonDAO;
 
     public OrderCard() {
         initComponents();
@@ -304,7 +307,14 @@ public class OrderCard extends javax.swing.JPanel {
         GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
         gD_DatMon.setHoaDon(hoaDon);
         gD_DatMon.setGd_qlDatMon(ql_datMon);
-        gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+        if(ql_datMon.isWaitForPayment()){
+            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+        }
+        else{
+            hoaDonDAO = new HoaDonDAO();
+            gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
+            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+        }
         AppUtils.setUI(mainPanel, () -> gD_DatMon);
     }//GEN-LAST:event_panelRound3MouseClicked
 
