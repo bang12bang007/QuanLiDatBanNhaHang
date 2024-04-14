@@ -305,7 +305,7 @@ public class OrderCard extends javax.swing.JPanel {
         GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
         gD_DatMon.setHoaDon(hoaDon);
         gD_DatMon.setGd_qlDatMon(ql_datMon);
-        if(ql_datMon.isWait_for_payment()){
+        if(ql_datMon.isWaitForPayment()){
             gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
         }
         else{

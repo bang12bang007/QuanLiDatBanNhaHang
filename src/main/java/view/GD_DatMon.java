@@ -84,12 +84,14 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private List<OrderItem_forUIDatMon> listPreOrderItem;
     private List<Mon> list_CancelFood = new ArrayList<>();
     private PhieuDatBan phieuDatBan;
+    private boolean back_toUI_DatBan;
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
         this.main = main;
         this.ban = ban;
         this.loai = loai;
+        this.back_toUI_DatBan = false;
         initComponents();
         setVisible(true);
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -890,12 +892,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             AppUtils.setUI(main, () -> gd_qlDatMon);
         }
         if (branch == TypeDatMon_Branch.DAT_TRUOC_MON) {
-            if (gd_qlDatMon != null) {
-                if (gd_qlDatMon.isWait_for_payment() == false) {
-                    AppUtils.setUI(main, () -> gd_qlDatMon);
-                } else {
-                    AppUtils.setUI(main, () -> gd_datBan);
-                }
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> gd_qlDatMon);
             } else {
                 AppUtils.setUI(main, () -> gd_datBan);
             }
@@ -1096,8 +1094,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             }
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
             banDAO.update(ban);
+            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
         }
-        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
     }
 
     public void using_for_ThemMon(IBanDAO banDAO, IHoaDonDAO hoaDonDAO, IChiTietHoaDonDAO chitietDAO) {
@@ -1128,8 +1126,9 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                     chitietDAO.insert(chiTiet);
                 }
             }
+            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
         }
-        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+        
     }
 
     public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO,IPhieuDatBanDAO phieudatDAO) {
@@ -1151,12 +1150,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
             phieuDatBan.setYeuCauDatMon(yeuCauDatMon);
             phieudatDAO.update(phieuDatBan);
-            if (gd_qlDatMon != null) {
-                if (gd_qlDatMon.isWait_for_payment() == false) {
-                    AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
-                } else {
-                    AppUtils.setUI(main, () -> new GD_DatBan(main));
-                }
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
             } else {
                 AppUtils.setUI(main, () -> new GD_DatBan(main));
             }
@@ -1268,6 +1263,13 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         return gd_qlDatMon;
     }
 
+    public boolean isBack_toUI_DatBan() {
+        return back_toUI_DatBan;
+    }
+
+    public void setBack_toUI_DatBan(boolean back_toUI_DatBan) {
+        this.back_toUI_DatBan = back_toUI_DatBan;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FoodList;
@@ -1319,6 +1321,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound5;
     private javax.swing.JScrollPane scrollFoodList;
     // End of variables declaration//GEN-END:variables
+    
 
     public void setUI() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

@@ -253,6 +253,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private void huyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseClicked
         // TODO add your handling code here:
         if (datMon.getBranch().equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+            datMon.getList_quantity().remove(datMon.getOrders().indexOf(mon));
             update_PanelOrder(true);
             if (type_orderItem.equals("PRELOAD")) {
                 datMon.getList_CancelFood().add(mon);
@@ -274,6 +275,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             }
         }
         if (datMon.getBranch().equals(TypeDatMon_Branch.DATMON)) {
+            datMon.getList_quantity().remove(datMon.getOrders().indexOf(mon));
+            listPreOrder = new ArrayList<>();
             update_PanelOrder(true);
         }
     }//GEN-LAST:event_huyMouseClicked
@@ -388,9 +391,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             orders = replace_orders;
             datMon.setOrders(replace_orders);
             datMon.getPanelOrder().removeAll();
-            
+
             for (int i = 0; i < orders.size(); i++) {
-                String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGia() * datMon.getList_quantity().get(i)), ""};
+                String[] title = new String[]{orders.get(i).getTenMon(), datMon.getList_quantity().get(i).toString(), tien_format.format(orders.get(i).getGia() * datMon.getList_quantity().get(i)), ""};
                 OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datMon, orders.get(i), datMon.getPanelOrder().getWidth(), i + 1, title, orders);
                 for (OrderItem_forUIDatMon order_item : listPreOrder) {
                     if (item.getTenMon().getText().trim().equals(order_item.getTenMon().getText().trim())) {

@@ -27,6 +27,7 @@ view\GD_QuanLyDatMon$3.class
 component\BookingItem$1.class
 utils\Enum$LoaiVaiTro.class
 view\GD_TrangChu$8.class
+view\GD_ThongKe$1.class
 utils\Enum$LoaiTrangThaiMon.class
 view\Form_DatBan$8.class
 component\ComboSuggestionUI.class
@@ -79,6 +80,7 @@ entity\KhachHang.class
 entity\HoaDon.class
 view\Form_ThuTien$6.class
 view\Form_DatBan$9.class
+view\GD_ThongKe.class
 view\GD_QuanLyDatMon$4.class
 view\Form_DatBan$10.class
 entity\ChiTietHoaDon.class
