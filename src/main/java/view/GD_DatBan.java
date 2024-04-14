@@ -176,7 +176,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         txtNgay = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         state = new component.PanelRound();
-        trangThaiCombobox = new component.ComboBoxSuggestion();
+        trangThaiCombox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txtTKKH = new component.PanelRound();
         txtSearch = new javax.swing.JTextField();
@@ -237,7 +237,13 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         date.setRoundTopRight(8);
 
         calender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        calender.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calenderMouseClicked(evt);
+            }
+        });
 
+        txtNgay.setBackground(new java.awt.Color(255, 255, 255));
         txtNgay.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
         );
         txtNgay.setBorder(null);
@@ -269,14 +275,13 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         state.setRoundTopLeft(8);
         state.setRoundTopRight(8);
 
-        trangThaiCombobox.setBorder(null);
-        trangThaiCombobox.setEditable(false);
-        trangThaiCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chưa nhận bàn", "Đã nhận bàn" }));
-        trangThaiCombobox.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
-        );
-        trangThaiCombobox.addActionListener(new java.awt.event.ActionListener() {
+        trangThaiCombox.setBackground(new java.awt.Color(255, 255, 255));
+        trangThaiCombox.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        trangThaiCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa nhận bàn", "Đã nhận bàn" }));
+        trangThaiCombox.setBorder(null);
+        trangThaiCombox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                trangThaiComboboxActionPerformed(evt);
+                trangThaiComboxActionPerformed(evt);
             }
         });
 
@@ -284,14 +289,18 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         state.setLayout(stateLayout);
         stateLayout.setHorizontalGroup(
             stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stateLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(trangThaiCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 186, Short.MAX_VALUE)
+            .addGroup(stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(stateLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(trangThaiCombox, 0, 174, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         stateLayout.setVerticalGroup(
             stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(trangThaiCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
+            .addGroup(stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(trangThaiCombox, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
@@ -318,9 +327,10 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         txtTKKH.setLayout(txtTKKHLayout);
         txtTKKHLayout.setHorizontalGroup(
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtTKKHLayout.createSequentialGroup()
+            .addGroup(txtTKKHLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
+                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addContainerGap())
         );
         txtTKKHLayout.setVerticalGroup(
             txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -541,7 +551,8 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         jLabel14.setText("Trạng thái");
         tableHeaderRight.add(jLabel14);
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel15.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Tiền đặt trước");
@@ -599,13 +610,17 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Yêu cầu khác:");
 
-        yeuCauDatMon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        yeuCauDatMon.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         yeuCauDatMon.setForeground(new java.awt.Color(255, 255, 255));
 
+        yeuCauKhac.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         yeuCauKhac.setForeground(new java.awt.Color(255, 255, 255));
         yeuCauKhac.setText("    ");
 
-        ban.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ban.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
         ban.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
@@ -774,11 +789,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         }
     }//GEN-LAST:event_btnThayDoiMouseClicked
 
-    private void trangThaiComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangThaiComboboxActionPerformed
-
-        filterByState(trangThaiCombobox.getSelectedIndex());
-    }//GEN-LAST:event_trangThaiComboboxActionPerformed
-
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         int stt = 0;
         tableBody.removeAll();
@@ -793,6 +803,16 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         tableBody.repaint();
         tableBody.revalidate();
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void trangThaiComboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangThaiComboxActionPerformed
+        // TODO add your handling code here:
+        filterByState(trangThaiCombox.getSelectedIndex());
+    }//GEN-LAST:event_trangThaiComboxActionPerformed
+
+    private void calenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calenderMouseClicked
+        // TODO add your handling code here:
+        dateChooser.showPopup();
+    }//GEN-LAST:event_calenderMouseClicked
 
     public void deleteBooking() {
         if (active >= 0) {
@@ -987,7 +1007,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JPanel tableHeaderRight;
     private javax.swing.JScrollPane tableScroll;
     private component.PanelRound tableService;
-    private component.ComboBoxSuggestion trangThaiCombobox;
+    private javax.swing.JComboBox<String> trangThaiCombox;
     private javax.swing.JTextField txtNgay;
     private javax.swing.JTextField txtSearch;
     private component.PanelRound txtTKKH;

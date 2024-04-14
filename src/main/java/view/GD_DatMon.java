@@ -54,6 +54,7 @@ import utils.Enum.DatMon_ThemMon;
 import utils.Enum.TypeDatMon_Branch;
 import utils.ModelColor;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -84,6 +85,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private List<OrderItem_forUIDatMon> listPreOrderItem;
     private List<Mon> list_CancelFood = new ArrayList<>();
     private PhieuDatBan phieuDatBan;
+//    NDK: Di chuyển lên đây nè
+    private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private IBanDAO banDAO = new BanDAO();
+    private IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
+    private IPhieuDatBanDAO phieudatDAO = new PhieuDatBanDAO();
     private boolean back_toUI_DatBan;
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
@@ -1096,11 +1102,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     }
 
     public void Create_OrUpdate_Order() {
-        IHoaDonDAO hoaDonDAO = new HoaDonDAO();
-        IBanDAO banDAO = new BanDAO();
-        IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
-        IPhieuDatBanDAO phieudatDAO = new PhieuDatBanDAO();
-
+//  NDK: t di chuyển lên trên lúc tạo biến rồi
         using_for_DatMon(banDAO, hoaDonDAO, chitietDAO);
         using_for_ThemMon(banDAO, hoaDonDAO, chitietDAO);
         using_for_DatTruocMon(chitietDAO, phieudatDAO);
@@ -1153,10 +1155,10 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             }
             AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
         }
-        
+
     }
 
-    public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO,IPhieuDatBanDAO phieudatDAO) {
+    public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO, IPhieuDatBanDAO phieudatDAO) {
         if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
             details = chitietDAO.getListByHoaDon(hoaDon);
             for (ChiTietHoaDon detail : details) {
@@ -1346,7 +1348,6 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound5;
     private javax.swing.JScrollPane scrollFoodList;
     // End of variables declaration//GEN-END:variables
-    
 
     public void setUI() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

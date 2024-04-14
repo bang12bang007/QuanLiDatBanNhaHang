@@ -5,6 +5,7 @@
 package view;
 
 import component.Loading;
+import component.MyButton;
 import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
@@ -34,6 +35,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import static utils.AppUtils.*;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,6 +54,8 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private List<HoaDon> hoadons;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private boolean waitForPayment = true;
+//    NDK create a list ccontains tabs
+    private List<JButton> tabs = new ArrayList<>();
 
     public GD_QuanLyDatMon(JPanel main, NhanVien nv) {
         this.mainPanel = main;
@@ -64,7 +70,9 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
         btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-        showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        tabs.add(btnCheckout);
+        tabs.add(btnReserve);
+        loadData();
 //        run(mainPanel, this);
     }
 
@@ -84,7 +92,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
         btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
 
-        loadOrdering();
+        showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN);
 
     }
 
@@ -231,7 +239,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -400,11 +408,13 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         setWaitForPayment(true);
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        setActiveTab(evt);
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
         setWaitForPayment(false);
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+        setActiveTab(evt);
     }//GEN-LAST:event_btnReserveActionPerformed
 
     private void txtMaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaBanActionPerformed
@@ -443,12 +453,14 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         IHoaDonDAO dao = new HoaDonDAO();
         IChiTietHoaDonDAO chiTietDAO = new ChiTietHoaDonDAO();
         hoadons = dao.findOnOrder();
-
-        for (HoaDon h : hoadons) {
-            Double total = chiTietDAO.TotalFoodCurrency(h);
-//          NDK chỗ này mà mainPanel not main
-            main.add(new OrderCard(h, mainPanel));
+        for (HoaDon hoaDon : hoadons) {
+            OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+            orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+            orderCard.setQl_datMon(this);
+            main.add(orderCard);
         }
+        main.repaint();
+        main.revalidate();
     }
 
     private void showOrderByState(Enum e) {
@@ -504,8 +516,35 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     public void setWaitForPayment(boolean waitForPayment) {
         this.waitForPayment = waitForPayment;
     }
-    
-    
+
+    private void loadData() {
+        loadOrdering();
+        setInitActive(tabs.get(0));
+        setTextBtns(btnCheckout, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN, "Chờ thanh toán (");
+        setTextBtns(btnReserve, utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC, "Đặt trước (");
+        orderNumber.setText(hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN).size() + "");
+    }
+
+    private void setTextBtns(JButton btn, Enum e, String content) {
+        int count = hoaDonDAO.findByState(e).size();
+        content += count + ")";
+        btn.setText(content);
+    }
+
+    private void setActiveTab(ActionEvent e) {
+        Color transparent = new Color(83, 86, 99);
+        Color activeColor = new Color(234, 124, 105);
+        for (JButton button : tabs) {
+            boolean isButton = e.getSource().equals(button);
+            ((MyButton) button).setColor(isButton ? activeColor : transparent);
+        }
+    }
+
+    private void setInitActive(JButton button) {
+        ActionEvent fakeEvent = new ActionEvent(button, ActionEvent.ACTION_PERFORMED, "");
+        setActiveTab(fakeEvent);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCheckout;
     private component.MyButton btnDD;

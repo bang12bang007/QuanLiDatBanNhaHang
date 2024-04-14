@@ -4,11 +4,14 @@
  */
 package component;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import raven.toast.Notifications;
 import view.GD_DatBan;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -20,6 +23,8 @@ public class Message extends javax.swing.JPanel {
      */
     private JFrame jFrame;
     private BanItem banItem;
+//    NDK: branch GD_QLDATMON GD_QLDATBAN
+    private JPanel branch;
 
     public Message(JFrame jFrame, BanItem banItem) {
         this.jFrame = jFrame;
@@ -27,6 +32,8 @@ public class Message extends javax.swing.JPanel {
         initComponents();
         this.setBackground(new Color(0, 0, 0, 0.7f));
         jLabel2.setText("Bạn có muốn chuyển từ " + banItem.getGDBan().getBanActive().getMaBan() + " đến " + banItem.getBan().getMaBan());
+        Notifications.getInstance().setJFrame(jFrame);
+        FlatIntelliJLaf.setup();
     }
 
     /**
@@ -219,6 +226,7 @@ public class Message extends javax.swing.JPanel {
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
         // TODO add your handling code here:
         banItem.move();
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Chuyển bàn thành công");
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         utils.AppUtils.setUI(banItem.getMain(), () -> new GD_DatBan(banItem.getMain()));

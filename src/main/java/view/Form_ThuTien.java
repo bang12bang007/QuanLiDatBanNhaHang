@@ -5,9 +5,11 @@
 package view;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
 import dao.IMonDAO;
+import dao.imlp.BanDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
@@ -47,6 +49,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private IMonDAO monDAO = new MonDAO();
+    private IBanDAO banDAO = new BanDAO();
     private HoaDon hoaDon;
     private JPanel mainJPanel;
 
@@ -57,6 +60,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
         this.setBackground(new Color(0, 0, 0, 0.6f));
         wrapper.setBackground(new Color(0, 0, 0, 0));
         IconFontSwing.register(FontAwesome.getIconFont());
+        btnDong.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK, 20, Color.WHITE));
+        btnInVaDong.setIcon(IconFontSwing.buildIcon(FontAwesome.PRINT, 20, Color.WHITE));
         createAndSetEventForButtons();
         Notifications.getInstance().setJFrame(jFrame);
         FlatIntelliJLaf.setup();
@@ -757,6 +762,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             monDAO.update(mon);
         }
         hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+        banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
     }
 
     public void setMainJPanel(JPanel jPanel) {

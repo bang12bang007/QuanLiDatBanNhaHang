@@ -9,6 +9,7 @@ datechooser\Button$1.class
 view\Form_DatBan$2.class
 dao\imlp\ChiTietHoaDonDAO.class
 view\GD_DatMon$4.class
+view\GD_DatBan$15.class
 entity\NhanVien.class
 dao\INhanVienDAO.class
 view\GD_Ban$1.class
@@ -62,6 +63,7 @@ view\GD_ThanhToan$10.class
 view\Form_DatBan$3.class
 component\MenuItem.class
 datechooser\DateChooser$5.class
+component\MenuItem$3.class
 view\Form_XemThucDon$7.class
 dao\imlp\NhanVienDAO.class
 view\GD_DatMon.class
@@ -80,6 +82,7 @@ utils\Enum$LoaiViTri.class
 entity\KhachHang.class
 entity\HoaDon.class
 view\Form_ThuTien$6.class
+view\Form_XemThucDon$9.class
 view\Form_DatBan$9.class
 view\GD_ThongKe.class
 view\GD_QuanLyDatMon$4.class
@@ -120,6 +123,7 @@ component\Loading.class
 view\GD_TrangChu$7.class
 view\Form_DatBan$7.class
 view\GD_QuanLyDatMon$2.class
+view\Form_XemThucDon$10.class
 utils\Enum.class
 datechooser\DateChooser$2.class
 view\GD_ThanhToan$14.class
