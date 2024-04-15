@@ -6,6 +6,8 @@ package entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -18,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import utils.Enum.LoaiTrangThaiPhieu;
 
 /**
  *
@@ -46,8 +49,9 @@ public class PhieuDatBan {
     private String hoTen;
     @Column(name = "SoDienThoai", nullable = false)
     private String sdt;
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "TrangThai", nullable = false)
-    private int trangThai;
+    private LoaiTrangThaiPhieu trangThai;
     @Column(name = "TienDatCoc", nullable = false)
     private double tienDatCoc;
     @Column(name = "YeuCauKhac", columnDefinition = "NVARCHAR(255)", nullable = true)
@@ -58,7 +62,7 @@ public class PhieuDatBan {
     @Column(name = "YeuCauDatMon", columnDefinition = "NVARCHAR(255)", nullable = true)
     private String yeuCauDatMon;
 
-    public PhieuDatBan(LocalDateTime ngayGioDat, int soLuongNguoi, String hoTen, String sdt, int trangThai, double tienDatCoc, String yeuCauKhac, Ban ban) {
+    public PhieuDatBan(LocalDateTime ngayGioDat, int soLuongNguoi, String hoTen, String sdt, LoaiTrangThaiPhieu trangThai, double tienDatCoc, String yeuCauKhac, Ban ban) {
         this.ngayGioDat = ngayGioDat;
         this.soLuongNguoi = soLuongNguoi;
         this.hoTen = hoTen;

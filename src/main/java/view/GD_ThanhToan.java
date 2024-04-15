@@ -34,7 +34,9 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import raven.toast.Notifications;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -52,6 +54,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
+    private JFrame thuTienJFrame;
 //  Quản lý đặt món hoặc là đặt món
     private JPanel branch;
 
@@ -91,6 +94,9 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         maHoaDon.setText(hoaDon.getMaHoaDon() + " - " + hoaDon.getBan().getMaBan());
         ngayGioHienTai.setText(myFormatObj.format(LocalDateTime.now()));
         thanhTien.setText(tien_format.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)));
+        btnInTamTinh.setIcon(IconFontSwing.buildIcon(FontAwesome.PRINT, 20, Color.WHITE));
+        btnLuuTam.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 20, Color.WHITE));
+        btnThuTien.setIcon(IconFontSwing.buildIcon(FontAwesome.MONEY, 20, Color.WHITE));
 //        utils.AppUtils.run(mJPanel, this);
     }
 
@@ -143,7 +149,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         txtMKM = new javax.swing.JTextField();
         iconSearch_KM = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        MKMcontainer = new javax.swing.JPanel();
         btnScanQR = new component.MyButton();
         rightContainer = new javax.swing.JPanel();
         theThanhVienContainer1 = new javax.swing.JPanel();
@@ -154,7 +160,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnReserve = new component.MyButton();
         btnThuTien = new component.MyButton();
         btnLuuTam = new component.MyButton();
-        btnReserve3 = new component.MyButton();
+        btnInTamTinh = new component.MyButton();
         btnUpTable = new component.MyButton();
         btnDownTable = new component.MyButton();
         jLabel4 = new javax.swing.JLabel();
@@ -410,22 +416,22 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
         jScrollPane1.setBorder(null);
 
-        jPanel1.setBackground(new java.awt.Color(83, 86, 99));
-        jPanel1.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        MKMcontainer.setBackground(new java.awt.Color(83, 86, 99));
+        MKMcontainer.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout MKMcontainerLayout = new javax.swing.GroupLayout(MKMcontainer);
+        MKMcontainer.setLayout(MKMcontainerLayout);
+        MKMcontainerLayout.setHorizontalGroup(
+            MKMcontainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 454, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        MKMcontainerLayout.setVerticalGroup(
+            MKMcontainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 160, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel1);
+        jScrollPane1.setViewportView(MKMcontainer);
 
         btnScanQR.setForeground(new java.awt.Color(255, 255, 255));
         btnScanQR.setText("Quét mã QR");
@@ -616,18 +622,18 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        btnReserve3.setForeground(new java.awt.Color(255, 255, 255));
-        btnReserve3.setText("In tạm tính");
-        btnReserve3.setToolTipText("");
-        btnReserve3.setColor(new java.awt.Color(83, 86, 99));
-        btnReserve3.setColorClick(new java.awt.Color(234, 124, 105));
-        btnReserve3.setColorOver(new java.awt.Color(234, 124, 105));
-        btnReserve3.setFont(utils.AppUtils.getFont(13f, _BOLD_)
+        btnInTamTinh.setForeground(new java.awt.Color(255, 255, 255));
+        btnInTamTinh.setText("In tạm tính");
+        btnInTamTinh.setToolTipText("");
+        btnInTamTinh.setColor(new java.awt.Color(83, 86, 99));
+        btnInTamTinh.setColorClick(new java.awt.Color(234, 124, 105));
+        btnInTamTinh.setColorOver(new java.awt.Color(234, 124, 105));
+        btnInTamTinh.setFont(utils.AppUtils.getFont(13f, _BOLD_)
         );
-        btnReserve3.setRadius(8);
-        btnReserve3.addActionListener(new java.awt.event.ActionListener() {
+        btnInTamTinh.setRadius(8);
+        btnInTamTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReserve3ActionPerformed(evt);
+                btnInTamTinhActionPerformed(evt);
             }
         });
 
@@ -639,7 +645,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
-                .addComponent(btnReserve3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInTamTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(btnLuuTam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
@@ -654,7 +660,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
                     .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThuTien, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuuTam, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReserve3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnInTamTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -936,16 +942,22 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnThuTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuTienActionPerformed
         // TODO add your handling code here:
-        JFrame jFrame = new JFrame();
-        jFrame.setUndecorated(true);
-        jFrame.setExtendedState(MAXIMIZED_BOTH);
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Form_ThuTien form_ThuTien = new Form_ThuTien(jFrame, hoaDon);
-        form_ThuTien.setTienPhaiThu(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
-        jFrame.add(form_ThuTien);
-        jFrame.setBackground(new Color(0, 0, 0, 0));
-        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-        jFrame.setVisible(true);
+        if (!thuTienJFrame.isVisible() || thuTienJFrame != null) {
+            thuTienJFrame = new JFrame();
+            thuTienJFrame.setUndecorated(true);
+            thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
+            thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_ThuTien form_ThuTien = new Form_ThuTien(thuTienJFrame, hoaDon);
+            form_ThuTien.setTienPhaiThu(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+            form_ThuTien.setMainJPanel(mJPanel);
+            thuTienJFrame.add(form_ThuTien);
+            thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
+            thuTienJFrame.setVisible(true);
+        } else {
+            thuTienJFrame.toFront();
+        }
+
     }//GEN-LAST:event_btnThuTienActionPerformed
 
     private void btnLuuTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuTamActionPerformed
@@ -953,9 +965,9 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         loadData();
     }//GEN-LAST:event_btnLuuTamActionPerformed
 
-    private void btnReserve3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserve3ActionPerformed
+    private void btnInTamTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInTamTinhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReserve3ActionPerformed
+    }//GEN-LAST:event_btnInTamTinhActionPerformed
 
     public void loadData() {
         int width = tableContainer.getWidth();
@@ -975,13 +987,14 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel MKMcontainer;
     private component.MyButton btnAddKM;
     private component.MyButton btnBack;
     private component.MyButton btnDown;
     private component.MyButton btnDownTable;
+    private component.MyButton btnInTamTinh;
     private component.MyButton btnLuuTam;
     private component.MyButton btnReserve;
-    private component.MyButton btnReserve3;
     private component.MyButton btnScanQR;
     private component.MyButton btnThuTien;
     private component.MyButton btnUp;
@@ -1003,7 +1016,6 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

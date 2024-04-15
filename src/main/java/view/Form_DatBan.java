@@ -5,6 +5,7 @@
 package view;
 
 import LIB.FadeEffect;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import component.MenuItem;
 import component.ScrollBarCustom;
 import dao.IBanDAO;
@@ -48,7 +49,9 @@ import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import raven.toast.Notifications;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -110,6 +113,8 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         });
         autoComplete();
+        Notifications.getInstance().setJFrame(jFrame);
+        FlatIntelliJLaf.setup();
     }
 
     /**
@@ -438,9 +443,10 @@ public class Form_DatBan extends javax.swing.JPanel {
         yeuCauKhac.setLayout(yeuCauKhacLayout);
         yeuCauKhacLayout.setHorizontalGroup(
             yeuCauKhacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, yeuCauKhacLayout.createSequentialGroup()
+            .addGroup(yeuCauKhacLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtYeuCau))
+                .addComponent(txtYeuCau)
+                .addContainerGap())
         );
         yeuCauKhacLayout.setVerticalGroup(
             yeuCauKhacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -718,10 +724,18 @@ public class Form_DatBan extends javax.swing.JPanel {
         PhieuDatBan phieuDatBan = createPhieuDatBan();
         if (phieuDatBan != null) {
             phieuDatBan.setMaPhieuDatBan(this.phieuDatBan.getMaPhieuDatBan());
-            phieuDatBanDAO.update(phieuDatBan);
-            this.jFrame.setVisible(false);
-            this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
+            phieuDatBan.setYeuCauDatMon(txtYeuCauDatMon.getText());
+            updateMenu(phieuDatBan);
+            boolean isSuccess = phieuDatBanDAO.update(phieuDatBan);
+            if (isSuccess) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn thành công");
+                this.jFrame.setVisible(false);
+                this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
+            } else {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn không thành công");
+            }
+
         }
     }
 
@@ -734,11 +748,16 @@ public class Form_DatBan extends javax.swing.JPanel {
             }
             createHoaDon(kh);
             phieuDatBan.setYeuCauDatMon(txtYeuCauDatMon.getText());
-            phieuDatBanDAO.insert(phieuDatBan);
-            banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
-            this.jFrame.setVisible(false);
-            this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
+            boolean isSuccess = phieuDatBanDAO.insert(phieuDatBan);
+            if (isSuccess) {
+                banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Đặt bàn thành công");
+                this.jFrame.setVisible(false);
+                this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
+            } else {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Đặt bàn không thành công");
+            }
         }
     }
 
@@ -764,6 +783,7 @@ public class Form_DatBan extends javax.swing.JPanel {
     }
 
     private PhieuDatBan createPhieuDatBan() {
+
         PhieuDatBan phieuDatBan = null;
         if (isValidate()) {
             SelectedDate date = dateChooser.getSelectedDate();
@@ -771,7 +791,6 @@ public class Form_DatBan extends javax.swing.JPanel {
             String khachHang = txtKhachHang.getText();
             String sdt = txtSoDienThoai.getText();
             int soLuong = Integer.parseInt(txtSoNguoi.getText());
-            int trangThai = 0;
             double tienDatCoc = 0;
             String yeuCauKhac = txtYeuCau.getText();
             LocalDate ngayString = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
@@ -779,8 +798,18 @@ public class Form_DatBan extends javax.swing.JPanel {
             LocalTime gioDen = LocalTime.parse(gioDenString, DateTimeFormatter.ofPattern("h:mm a"));
             LocalDateTime ngayGio = LocalDateTime.of(ngay, gioDen);
 //            LocalDateTime ngayGio = LocalDateTime.now();
-            phieuDatBan = new PhieuDatBan(ngayGio, soLuong, khachHang, sdt, trangThai, tienDatCoc, yeuCauKhac, ban);
-            phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan());
+            phieuDatBan = new PhieuDatBan(ngayGio, soLuong, khachHang, sdt, utils.Enum.LoaiTrangThaiPhieu.CHUA_NHAN, tienDatCoc, yeuCauKhac, ban);
+//          NDK: test thôi
+            int count = phieuDatBanDAO.findAll(PhieuDatBan.class).size();
+            String stt = "";
+            if (count + 1 < 10) {
+                stt += "00" + ++count;
+            } else if (count + 1 < 100) {
+                stt += "0" + ++count;
+            } else {
+                stt += ++count;
+            }
+            phieuDatBan.setMaPhieuDatBan("PDB" + ban.getMaBan() + stt);
         }
 
         return phieuDatBan;
@@ -808,6 +837,21 @@ public class Form_DatBan extends javax.swing.JPanel {
             chiTietHoaDonDAO.insert(chiTietHoaDon);
         }
         return hoaDon;
+    }
+
+    private void updateMenu(PhieuDatBan phieuDatBan) {
+        HoaDon hoaDon = getHoaDonByBan(phieuDatBan.getBan());
+        List<ChiTietHoaDon> details = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
+        for (ChiTietHoaDon detail : details) {
+            chiTietHoaDonDAO.deleteChiTiet(detail);
+        }
+        for (MenuItem item : dsMon) {
+            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+            chiTietHoaDon.setHoaDon(hoaDon);
+            chiTietHoaDon.setMon(item.getMon());
+            chiTietHoaDon.setSoLuong(item.getSoLuong());
+            chiTietHoaDonDAO.update(chiTietHoaDon);
+        }
     }
 
     private void txtSoNguoiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoNguoiKeyTyped
@@ -877,13 +921,13 @@ public class Form_DatBan extends javax.swing.JPanel {
     private List<ChiTietHoaDon> getChiTietHoaDonByBan(Ban ban) {
         HoaDon _hoaDon = null;
         for (HoaDon hoaDon : ban.getHoaDon()) {
-            if (phieuDatBan.getTrangThai() == 0) {
+            if (phieuDatBan.getTrangThai().ordinal() == 0) {
                 if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
                     _hoaDon = hoaDon;
                     break;
                 }
             }
-            if (phieuDatBan.getTrangThai() == 1) {
+            if (phieuDatBan.getTrangThai().ordinal() == 1) {
                 if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
                     _hoaDon = hoaDon;
                     break;
@@ -892,6 +936,17 @@ public class Form_DatBan extends javax.swing.JPanel {
         }
         List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);
         return dsChiTietHoaDon;
+    }
+
+    private HoaDon getHoaDonByBan(Ban ban) {
+        HoaDon _hoaDon = null;
+        for (HoaDon hoaDon : ban.getHoaDon()) {
+            if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+                _hoaDon = hoaDon;
+                break;
+            }
+        }
+        return _hoaDon;
     }
 
     public void setType(String type) {

@@ -46,10 +46,7 @@
             <groupId>com.github.sarxos</groupId>
             <artifactId>webcam-capture</artifactId>
             <version>0.3.12</version>
-
         </dependency>
-
-
         <!-- https://mvnrepository.com/artifact/com.itextpdf/itext7-core -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -137,11 +134,36 @@
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
         </dependency>
+        <!-- NDK -->
         <!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
         <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.0.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.4.1</version>
+            <type>jar</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf-extras -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>swingToastNotifications</groupId>
+            <artifactId>swing-toast-notifications</artifactId>
+            <version>1.0.1</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>

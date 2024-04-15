@@ -12,6 +12,7 @@ import jiconfont.swing.IconFontSwing;
 import javax.swing.Icon;
 import view.Form_XemThucDon;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -43,7 +44,7 @@ public class MenuItem extends javax.swing.JPanel {
 
     public void push(String[] data) {
         tenMon.setText("  " + data[0] + "");
-        soLuong.setText(data[1]);
+        soLuong.setText(utils.AppUtils.tien_format.format(Double.parseDouble(data[1])));
     }
 
     private Icon getIconByType() {
@@ -66,9 +67,14 @@ public class MenuItem extends javax.swing.JPanel {
         return this.data;
     }
 
-    public void setData(String[] data) {
+    public void setData(String[] data, String type) {
         this.data = data;
-        push(data);
+        if (type.equals("QUANTITY")) {
+            tenMon.setText("  " + data[0] + "");
+            soLuong.setText(data[1]);
+        } else {
+            push(data);
+        }
     }
 
     public int getSoLuong() {
@@ -120,7 +126,13 @@ public class MenuItem extends javax.swing.JPanel {
         });
 
         soLuong.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        soLuong.setForeground(new java.awt.Color(255, 255, 255));
         soLuong.setBorder(null);
+        soLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soLuongActionPerformed(evt);
+            }
+        });
         soLuong.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 soLuongKeyReleased(evt);
@@ -136,10 +148,10 @@ public class MenuItem extends javax.swing.JPanel {
             rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(soLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(soLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap())
         );
         rightLayout.setVerticalGroup(
             rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +181,9 @@ public class MenuItem extends javax.swing.JPanel {
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
         if (type.equals("THEM_MON")) {
-            form.themMon(new MenuItem(width, new String[]{data[0], 1 + ""}, mon));
+            MenuItem menuItem = new MenuItem(width, new String[]{data[0], 1 + ""}, mon);
+            menuItem.setData(new String[]{data[0], 1 + ""}, "QUANTITY");
+            form.themMon(menuItem);
         } else if (type.equals("HUY_MON")) {
             form.huyMon(this);
         }
@@ -189,6 +203,10 @@ public class MenuItem extends javax.swing.JPanel {
         if (!Character.isDigit(c))
             evt.consume();
     }//GEN-LAST:event_soLuongKeyTyped
+
+    private void soLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soLuongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_soLuongActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

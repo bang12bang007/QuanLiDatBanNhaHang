@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class PhieuDatBanDAO extends AbstractDAO<PhieuDatBan> implements IPhieuDatBanDAO<PhieuDatBan> {
 
-    public boolean updateStateById(String id, int trangThai) {
+    public boolean updateStateById(String id, Enum trangThai) {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();

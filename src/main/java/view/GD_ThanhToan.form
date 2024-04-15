@@ -519,7 +519,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel1">
+            <Container class="javax.swing.JPanel" name="MKMcontainer">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="63" green="56" red="53" type="rgb"/>
@@ -758,7 +758,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnReserve" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="btnReserve3" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnInTamTinh" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Component id="btnLuuTam" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -775,7 +775,7 @@
                           <Component id="btnReserve" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
                           <Component id="btnThuTien" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
                           <Component id="btnLuuTam" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
-                          <Component id="btnReserve3" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                          <Component id="btnInTamTinh" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -858,7 +858,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuTamActionPerformed"/>
               </Events>
             </Component>
-            <Component class="component.MyButton" name="btnReserve3">
+            <Component class="component.MyButton" name="btnInTamTinh">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -880,7 +880,7 @@
                 <Property name="radius" type="int" value="8"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReserve3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInTamTinhActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

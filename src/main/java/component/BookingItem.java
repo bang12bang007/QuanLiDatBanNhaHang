@@ -37,6 +37,7 @@ import view.GD_Ban;
 import view.GD_DatBan;
 import view.GD_DatMon;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -102,7 +103,7 @@ public class BookingItem extends javax.swing.JPanel {
 
     public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
         this.phieuDatBan = phieuDatBan;
-        if (phieuDatBan.getTrangThai() == 1) {
+        if (phieuDatBan.getTrangThai().ordinal() == 1) {
             hideButton();
         }
     }

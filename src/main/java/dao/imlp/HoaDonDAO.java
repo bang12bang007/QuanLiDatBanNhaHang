@@ -155,7 +155,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
                 .findFirst()
                 .orElse(null);
     }
-    
+
     @Override
     public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
         PdfWriter pdfWriter = null;
@@ -241,8 +241,6 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             }
         }
     }
-
-    
 
     private Table createCost(IBlockElement label, String content, float width) {
         Table table = new Table(2);

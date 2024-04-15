@@ -5,6 +5,7 @@
 package view;
 
 import LIB.FadeEffect;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import component.Loading;
 import component.MyButton;
 import component.MyJMenuItem;
@@ -34,6 +35,7 @@ import static javax.swing.SwingConstants.LEFT;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import jiconfont.swing.IconFontSwing;
+import raven.toast.Notifications;
 import utils.AppUtils;
 import static utils.AppUtils.*;
 /**
@@ -56,6 +58,9 @@ public class GD_TrangChu extends javax.swing.JFrame {
         AppUtils.saveStorage(nhanVien);
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
+//      NDK set up notifications
+        Notifications.getInstance().setJFrame(this);
+        FlatIntelliJLaf.setup();
 //        setResizable(false);
 //        label_AVT.setText(nhanVien.getHoTen());
 //        UIManager.put( "Menu.selectionBackground", Color.cyan );

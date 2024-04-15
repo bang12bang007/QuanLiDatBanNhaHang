@@ -17,6 +17,8 @@ public interface IChiTietHoaDonDAO<T> extends GenericDAO<T> {
     Double TotalFoodCurrency(HoaDon hoaDon);
 
     List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon);
+
     List<ChiTietHoaDon> getListBySoLuong(int soLuong);
+
     boolean deleteChiTiet(ChiTietHoaDon t);
 }
