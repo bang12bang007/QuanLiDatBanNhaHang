@@ -4,26 +4,21 @@
  */
 package view;
 
+import dao.IHoaDonDAO;
+import dao.imlp.HoaDonDAO;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import java.awt.Color;
-import java.awt.FontFormatException;
-import java.awt.Image;
 import java.awt.Paint;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import lombok.Builder;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
 import static utils.AppUtils.*;
-
+import entity.HoaDon;;
+import entity.ChiTietHoaDon;
+import java.util.ArrayList;
+import java.util.List;
+import entity.NhanVien;
 /**
  *
  * @author quanvo
@@ -31,31 +26,36 @@ import static utils.AppUtils.*;
 public class GD_ThongKe extends javax.swing.JPanel {
 
     private JFrame jFrame;
-
+    private List<HoaDon> hoaDon;
+    private ChiTietHoaDon info;
+    private HoaDonDAO hd_Dao;
     /**
      * Creates new form GD_ThongKe
      */
     public GD_ThongKe() {
         setVisible(true);
         initComponents();
+        hd_Dao = new HoaDonDAO();
+        jLabel4.setText(hd_Dao.getFormatter().format(hd_Dao.getTongDoanhThu(NHANVIEN)+5000000));
+        jLabel5.setText(Integer.toString(hd_Dao.getTongHoaDon(NHANVIEN)));
+        jLabel6.setText(hd_Dao.getFormatter().format(hd_Dao.getTongDoanhThu(NHANVIEN)));
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("One", (43.2f));
-        dataset.setValue("Two", (10.0f));
-        JFreeChart chart = ChartFactory.createPieChart("ThongKe", dataset, true, true, Locale.ENGLISH);
+        dataset.setValue("DoanhThuNhanVien",(hd_Dao.getTongDoanhThu(NHANVIEN)));
+        dataset.setValue("TongDoanhThu", (hd_Dao.getTongDoanhThu(NHANVIEN)*5000000));
+        JFreeChart chart;
+        chart = ChartFactory.createPieChart("BaoCao", dataset, true, true, true);
         PiePlot P = (PiePlot) chart.getPlot();
-//      P.setLabelFont(utils.AppUtils.getFont(22f, _BOLD_));
+        P.setLabelFont(utils.AppUtils.getFont(20f, _BOLD_));
         ChartPanel chartpanel = new ChartPanel(chart);
         chartpanel.setSize(490, 490);
         jPanel2.add(chartpanel);
-
+        jLabel1.setFont(utils.AppUtils.getFont(15f, _BOLD_));
+        jLabel2.setFont(utils.AppUtils.getFont(15f, _BOLD_));
+        jLabel3.setFont(utils.AppUtils.getFont(15f, _BOLD_));
+        jLabel4.setFont(utils.AppUtils.getFont(15f, _BOLD_));
+        jLabel5.setFont(utils.AppUtils.getFont(15f, _BOLD_));
+        jLabel6.setFont(utils.AppUtils.getFont(15f, _BOLD_));
     }
-
-    public int getTongHoaDon() {
-        int a = 0;
-
-        return a;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

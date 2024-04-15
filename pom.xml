@@ -137,12 +137,12 @@
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
         </dependency>
-        <!-- NDK -->
-        <!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
+        <!--NDK--> 
+        <!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
         <dependency>
-            <groupId>jfree</groupId>
+            <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
-            <version>1.0.13</version>
+            <version>1.5.4</version>
         </dependency>
     </dependencies>
     <properties>

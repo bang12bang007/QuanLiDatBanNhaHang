@@ -30,6 +30,7 @@ import dao.IHoaDonDAO;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.NhanVien;
 import entity.PhieuDatBan;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
@@ -260,4 +261,45 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 
         return table;
     }
+
+    @Override
+    public int getTongHoaDon(NhanVien nv) {
+        int hd = 0;
+        String ngay = generateTime.substring(0, 6);
+        List<HoaDon> hoaDons = findAll(HoaDon.class);
+        for(HoaDon h : hoaDons){
+            if(nv.getMaNV().equals(h.getNhanVien().getMaNV())){
+                if(ngay.equals(h.getMaHoaDon().substring(2, 8)))
+                    hd += 1;
+            }
+        }
+        return hd;
+    }
+
+    @Override
+    public double getTongDoanhThu(NhanVien nv) {
+        double sum = 0.0;
+        String day = generateTime.substring(0,6);
+        ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO();
+        List<HoaDon> hd = findAll(HoaDon.class);
+        for(HoaDon hd_total : hd){
+            if(nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())){
+                if(day.equals(hd_total.getMaHoaDon().substring(2, 8)))
+                    sum+= tien.TotalFoodCurrency(hd_total);
+//                Chưa áp mã khuyễn mãi và VAT
+            }
+        }  
+        return sum;
+    }
+    public static void main(String[] args) {
+        NhanVienDAO nv = new NhanVienDAO();
+        NhanVien nv1 = nv.findById("NV120060424290", NhanVien.class);
+        HoaDonDAO hd = new HoaDonDAO();
+        System.out.println(hd.formatter.format(hd.getTongDoanhThu(nv1)));
+    }
+
+    public DecimalFormat getFormatter() {
+        return formatter;
+    }
+    
 }
