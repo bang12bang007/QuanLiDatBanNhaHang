@@ -382,7 +382,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThongKeActionPerformed
 
-        utils.AppUtils.setUI(mainJpanel, () -> new GD_ThongKe());
+//        utils.AppUtils.setUI(mainJpanel, () -> new GD_ThongKe());
         setActiveTab(evt);
     }//GEN-LAST:event_buttonThongKeActionPerformed
 

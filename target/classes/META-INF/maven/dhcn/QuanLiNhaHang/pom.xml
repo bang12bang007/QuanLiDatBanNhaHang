@@ -137,7 +137,6 @@
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
         </dependency>
-        <!-- NDK -->
         <!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
         <dependency>
             <groupId>jfree</groupId>

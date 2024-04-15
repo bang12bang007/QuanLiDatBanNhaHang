@@ -5,9 +5,11 @@
 package view;
 
 import component.*;
+import icon.FontAwesome;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import jiconfont.swing.IconFontSwing;
 import view.GD_DatBan;
 import static utils.AppUtils.NHANVIEN;
 /**
@@ -23,8 +25,13 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
     private String gioiTinh;
     private String trangThai;
     public Form_ThongTinCaNhan(JFrame jFrame) {
-        
-        if(NHANVIEN.isGioiTinh()){
+        initComponents();
+        this.jFrame= jFrame;
+        set_up_UI();
+    }
+
+    private void set_up_UI(){
+            if(NHANVIEN.isGioiTinh()){
             gioiTinh="Nu";
         }
         else{
@@ -36,8 +43,6 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         else{
             trangThai="Đã cút";
         }
-        initComponents();
-        this.jFrame= jFrame;
         this.setBackground(new Color(0, 0, 0, 0.7f));
         jLabel9.setText(NHANVIEN.getHoTen());
         jLabel29.setText(String.valueOf(NHANVIEN.getMaNV()));
@@ -49,7 +54,6 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         jLabel27.setText(trangThai);
         jLabel28.setText(NHANVIEN.getDiaChi());
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,10 +142,13 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         container.setBackground(new java.awt.Color(0, 0, 0));
