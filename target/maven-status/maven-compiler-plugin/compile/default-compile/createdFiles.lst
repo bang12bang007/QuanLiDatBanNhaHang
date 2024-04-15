@@ -21,6 +21,7 @@ view\Form_XemThucDon$8.class
 view\GD_DatMon$1$1.class
 view\GD_DatBan$4.class
 view\GD_TrangChu$2.class
+view\GD_ThanhToan$15.class
 component\WrapLayout.class
 component\OrderCard.class
 dao\IPhieuDatBanDAO.class
@@ -59,10 +60,12 @@ view\GD_DatMon$14.class
 component\Message$2.class
 component\WrapGridLayout.class
 component\PanelGradient.class
+view\GD_QuanLyDatMon$10.class
 view\GD_ThanhToan$10.class
 view\Form_DatBan$3.class
 component\MenuItem.class
 datechooser\DateChooser$5.class
+dao\imlp\KhuyenMainDAO.class
 component\MenuItem$3.class
 view\Form_XemThucDon$7.class
 dao\imlp\NhanVienDAO.class
@@ -104,14 +107,18 @@ utils\Enum$LoaiTrangThaiPhieu.class
 datechooser\DateChooser$3.class
 datechooser\Slider$1.class
 datechooser\Months.class
+dao\IKhuyenMaiDAO.class
 component\RoundJTextField.class
 view\GD_DatBan$14.class
+dao\imlp\TheThanhVienDAO.class
 view\GD_TrangChu$6.class
 datechooser\DateChooser$1.class
 component\MyJMenuItem$1.class
 utils\Enum$LoaiTrangThai.class
+component\KhuyenMaiItem.class
 entity\TheThanhVien.class
 icon\FontAwesome$1.class
+component\KhuyenMaiItem$1.class
 view\GD_DatMon$10.class
 view\Form_ThuTien$4.class
 view\Form_XemThucDon.class
@@ -127,6 +134,7 @@ view\Form_XemThucDon$10.class
 utils\Enum.class
 datechooser\DateChooser$2.class
 view\GD_ThanhToan$14.class
+dao\ITheThanhVienDAO.class
 view\Form_ThuTien$3.class
 component\BookingItem$3.class
 component\ModernScrollBarUI.class

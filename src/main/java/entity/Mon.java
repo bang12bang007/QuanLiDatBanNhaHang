@@ -33,7 +33,6 @@ import utils.Enum.LoaiTrangThaiMon;
 @NoArgsConstructor
 @NamedQueries({
     @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m WHERE m.trangThai = :trangThai"),
-    @NamedQuery(name = "Mon.Popular", query = "SELECT m FROM Mon m WHERE m.soLuongDaDat = (SELECT MAX(m2.soLuongDaDat) from Mon m2)")
 })
 public class Mon {
 
@@ -52,21 +51,18 @@ public class Mon {
     private LoaiMon loaiMon;
     @Column(name = "HinhAnh", length = 255, nullable = true)
     private String hinhAnh;
-    @Column(name = "SoLuongDaDat", nullable = true)
-    private int soLuongDaDat;
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "TrangThai", nullable = false)
     private LoaiTrangThaiMon trangThai;
     @OneToMany(mappedBy = "mon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
 
-    public Mon(String tenMon, Double gia, KhuyenMai khuyenMai, LoaiMon loaiMon, String hinhAnh, int soLuongDaDat, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
+    public Mon(String tenMon, Double gia, KhuyenMai khuyenMai, LoaiMon loaiMon, String hinhAnh, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
         this.tenMon = tenMon;
         this.gia = gia;
         this.khuyenMai = khuyenMai;
         this.loaiMon = loaiMon;
         this.hinhAnh = hinhAnh;
-        this.soLuongDaDat = soLuongDaDat;
         this.trangThai = trangThai;
         this.chiTietHoaDon = chiTietHoaDon;
     }

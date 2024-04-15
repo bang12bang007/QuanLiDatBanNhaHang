@@ -19,7 +19,7 @@ public class MonDAO extends AbstractDAO<Mon> implements IMonDAO<Mon>{
                 .getResultList();
     };
 
-    public List<Mon> findPopular() {
-        return em.createNamedQuery("Mon.Popular").getResultList();
-    };
+//    public List<Mon> findPopular() {
+//        return em.createNamedQuery("Mon.Popular").getResultList();
+//    };
 }

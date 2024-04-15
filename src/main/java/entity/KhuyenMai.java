@@ -4,12 +4,12 @@
  */
 package entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
@@ -32,27 +32,27 @@ import utils.Enum.LoaiTrangThaiKhuyenMai;
 public class KhuyenMai {
 
     @Id
-    @Column(name = "MaKhuyenMai", length = 21,nullable = false)
+    @Column(name = "MaKhuyenMai", length = 21, nullable = false)
     private String maKhuyenMai;
-    @Column(name = "TenKhuyenMai", columnDefinition = "NVARCHAR(100)",nullable = false)
+    @Column(name = "TenKhuyenMai", columnDefinition = "NVARCHAR(100)", nullable = false)
     private String tenKhuyenMai;
-    @Column(name = "NgayBatDau",nullable = false)
+    @Column(name = "NgayBatDau", nullable = false)
     private Date ngayBatDau;
     @Column(name = "NgayKetThuc", nullable = true)
     private Date ngayKetThuc;
-    @Column(name = "ChietKhau",nullable = false)
+    @Column(name = "ChietKhau", nullable = false)
     private Double chietKhau;
-    @Column(name = "LoaiKhuyenMai",nullable = false)
+    @Column(name = "LoaiKhuyenMai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiKhuyenMai loaiKhuyenMai;
     @Column(name = "GhiChu", nullable = true, columnDefinition = "NVARCHAR(255)")
     private String ghiChu;
-    @Column(name = "TrangThai",nullable = false)
+    @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiKhuyenMai trangThai;
     @OneToMany(mappedBy = "khuyenMai")
     private List<Mon> mon;
-    @OneToMany(mappedBy = "khuyenMai", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "khuyenMai")
     private List<HoaDon> hoaDon;
 
     public KhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Double chietKhau, LoaiKhuyenMai loaiKhuyenMai, String ghiChu, LoaiTrangThaiKhuyenMai trangThai, List<Mon> mon) {

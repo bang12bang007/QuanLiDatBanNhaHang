@@ -890,14 +890,14 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 Loading loading = new Loading();
                 utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
 
-                popular = new ArrayList<Mon>();
-                IMonDAO dao = new MonDAO();
-                popular = dao.findPopular();
-                FoodList.removeAll();
-                for (Mon mon : popular) {
-                    FoodList.add(new Food(datmon, mon, PanelOrder, mons, orders));
-                }
-                FoodList.revalidate();
+//                popular = new ArrayList<Mon>();
+//                IMonDAO dao = new MonDAO();
+//                popular = dao.findPopular();
+//                FoodList.removeAll();
+//                for (Mon mon : popular) {
+//                    FoodList.add(new Food(datmon, mon, PanelOrder, mons, orders));
+//                }
+//                FoodList.revalidate();
 
                 Timer hideTimer = new Timer(500, new ActionListener() {
                     @Override
