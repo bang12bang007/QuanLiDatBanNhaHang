@@ -157,7 +157,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         };
         worker.execute();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -831,10 +831,13 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
                 }
                 bookingItems.remove(active);
                 tableBody.removeAll();
+                int stt = 0;
                 if (!bookingItems.isEmpty()) {
                     for (int i = 0; i < bookingItems.size(); i++) {
-                        bookingItems.get(i).setIndex(i);
-                        tableBody.add(bookingItems.get(i));
+                        if (bookingItems.get(i).getPhieuDatBan().getTrangThai().ordinal() == statePhieuDatBan) {
+                            bookingItems.get(i).setColorByIndex(stt++);
+                            tableBody.add(bookingItems.get(i));
+                        }
                     }
                 }
                 tableBody.repaint();

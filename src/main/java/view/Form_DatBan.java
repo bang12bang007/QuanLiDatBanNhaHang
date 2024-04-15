@@ -828,16 +828,18 @@ public class Form_DatBan extends javax.swing.JPanel {
     }
 
     private HoaDon createHoaDon(KhachHang kh) {
-        hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
-        hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-        hoaDon.setBan(ban);
-        hoaDonDAO.insertHoaDon(hoaDon);
-        for (MenuItem item : dsMon) {
-            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-            chiTietHoaDon.setHoaDon(hoaDon);
-            chiTietHoaDon.setMon(item.getMon());
-            chiTietHoaDon.setSoLuong(item.getSoLuong());
-            chiTietHoaDonDAO.insert(chiTietHoaDon);
+        if (!dsMon.isEmpty()) {
+            hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
+            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+            hoaDon.setBan(ban);
+            hoaDonDAO.insertHoaDon(hoaDon);
+            for (MenuItem item : dsMon) {
+                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+                chiTietHoaDon.setHoaDon(hoaDon);
+                chiTietHoaDon.setMon(item.getMon());
+                chiTietHoaDon.setSoLuong(item.getSoLuong());
+                chiTietHoaDonDAO.insert(chiTietHoaDon);
+            }
         }
         return hoaDon;
     }

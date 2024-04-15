@@ -995,6 +995,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             Form_ThuTien form_ThuTien = new Form_ThuTien(thuTienJFrame, hoaDon);
             form_ThuTien.setTienPhaiThu(tienPhaiThu);
             form_ThuTien.setMainJPanel(mJPanel);
+            form_ThuTien.setListKhuyenMai(khuyenMais);
             thuTienJFrame.add(form_ThuTien);
             thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
             FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);

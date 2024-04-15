@@ -31,6 +31,7 @@ public class KhuyenMaiItem extends javax.swing.JPanel {
         checkbox.setBackground(new Color(0, 0, 0, 0));
         container.setBackground(new Color(0, 0, 0, 0));
         setPreferredSize(new Dimension(width, wrapper.getPreferredSize().height));
+        push(khuyenMai);
     }
 
     /**
@@ -133,8 +134,12 @@ public class KhuyenMaiItem extends javax.swing.JPanel {
         } else {
             gD_ThanhToan.removeKM(khuyenMai);
         }
-
     }//GEN-LAST:event_checkboxActionPerformed
+
+    private void push(KhuyenMai khuyenMai) {
+        tenKM.setText(khuyenMai.getTenKhuyenMai());
+        ghiChuKM.setText(khuyenMai.getGhiChu());
+    }
 
     public void setGDThanhToan(GD_ThanhToan gD_ThanhToan) {
         this.gD_ThanhToan = gD_ThanhToan;

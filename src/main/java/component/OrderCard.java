@@ -27,6 +27,7 @@ import jiconfont.swing.IconFontSwing;
 import view.GD_QuanLyDatMon;
 import view.GD_ThanhToan;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -301,21 +302,22 @@ public class OrderCard extends javax.swing.JPanel {
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCheckActionPerformed
-
     private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
         // TODO add your handling code here:
-        GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-        gD_DatMon.setHoaDon(hoaDon);
-        gD_DatMon.setGd_qlDatMon(ql_datMon);
-        if(ql_datMon.isWaitForPayment()){
-            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
-        }
-        else{
-            hoaDonDAO = new HoaDonDAO();
-            gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
-            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-        }
-        AppUtils.setUI(mainPanel, () -> gD_DatMon);
+
+        AppUtils.setUI(mainPanel, () -> {
+            GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+            gD_DatMon.setHoaDon(hoaDon);
+            gD_DatMon.setGd_qlDatMon(ql_datMon);
+            if (ql_datMon.isWaitForPayment()) {
+                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+            } else {
+                hoaDonDAO = new HoaDonDAO();
+                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
+                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+            }
+            return gD_DatMon;
+        });
     }//GEN-LAST:event_panelRound3MouseClicked
 
     private void setIconBtn() {
@@ -330,11 +332,10 @@ public class OrderCard extends javax.swing.JPanel {
     public void setToTal(double total) {
         tongTien.setText(tien_format.format(total));
     }
-    
+
 //    NDK: T tính trong orderCard luôn á 
 //    NDK: xóa luôn đi
 //    duccuong1609 : ?? :DD
-
     public GD_QuanLyDatMon getQl_datMon() {
         return ql_datMon;
     }

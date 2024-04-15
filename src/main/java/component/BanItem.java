@@ -168,16 +168,18 @@ public class BanItem extends javax.swing.JPanel {
             }
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    GD_DatMon gd;
-                    if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo
-                        gd = new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON);
-                        gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
-                        gd.setgD_Ban(gD_Ban);
-                    } else {//có load vào rồi thì gọi lại
-                        gd = gD_Ban.getGd_Datmon();
-                        gd.getBtnBack().setBackground(new Color(83, 86, 99));
-                    }
-                    utils.AppUtils.setUI(main, () -> gd);
+                    utils.AppUtils.setUI(main, () -> {
+                        GD_DatMon gd;
+                        if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo
+                            gd = new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON);
+                            gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
+                            gd.setgD_Ban(gD_Ban);
+                        } else {//có load vào rồi thì gọi lại
+                            gd = gD_Ban.getGd_Datmon();
+                            gd.getBtnBack().setBackground(new Color(83, 86, 99));
+                        }
+                        return gd;
+                    });
                 }
                 break;
             }

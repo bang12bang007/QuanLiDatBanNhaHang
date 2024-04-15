@@ -15,6 +15,7 @@ import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.KhuyenMai;
 import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
@@ -52,6 +53,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private IBanDAO banDAO = new BanDAO();
     private HoaDon hoaDon;
     private JPanel mainJPanel;
+    private List<KhuyenMai> khuyenMais = new ArrayList<>();
 
     public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
         initComponents();
@@ -212,7 +214,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
         txtTienKhachDua.setBackground(new java.awt.Color(255, 255, 255));
         txtTienKhachDua.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
-        txtTienKhachDua.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        txtTienKhachDua.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTienKhachDua.setText("0");
         txtTienKhachDua.setBorder(null);
         txtTienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -755,12 +757,17 @@ public class Form_ThuTien extends javax.swing.JPanel {
     }
 
     private void pay() {
+        hoaDon.setKhuyenMai(khuyenMais);
         hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
         banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
     }
 
     public void setMainJPanel(JPanel jPanel) {
         this.mainJPanel = jPanel;
+    }
+
+    public void setListKhuyenMai(List<KhuyenMai> khuyenMais) {
+        this.khuyenMais = khuyenMais;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
