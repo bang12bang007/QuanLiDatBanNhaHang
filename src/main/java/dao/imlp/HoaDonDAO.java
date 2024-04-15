@@ -41,6 +41,7 @@ import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -258,4 +259,43 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 
         return table;
     }
+
+    @Override
+    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay){
+        List<HoaDon> list = findAll(HoaDon.class);
+        List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
+        String month_format = String.format("%02d", ngay.getMonthValue());
+        String date_format = String.format("%02d", ngay.getDayOfMonth());
+        String ngayString = Integer.toString(ngay.getYear()).substring(2,4) + month_format+ date_format;
+        for(int i=0;i<list.size();i++){
+            String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
+            if(ngayString.equals(ngay_hoadon)){
+                listHoaDonTheoNgay.add(list.get(i));
+            }
+        }
+        System.out.println(listHoaDonTheoNgay.size());
+        return listHoaDonTheoNgay;
+    };
+    @Override
+    public int getTongHoaDonTheoNgay(LocalDateTime ngay) {
+        int soLuongHoaDon = 0;
+        List<HoaDon> list = findHoaDonTheoNgay(ngay);
+        for(int i=0;i<list.size();i++){
+            soLuongHoaDon +=1;
+        }
+        return soLuongHoaDon;
+    }
+    @Override
+    public double getTongTienHoaDonTheoNgay(LocalDateTime ngay) {
+        Double total = 0.0;
+        ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
+        List<HoaDon> list = findHoaDonTheoNgay(ngay);
+        for(int i=0;i<list.size();i++){
+            total += dao.TotalFoodCurrency(list.get(i));
+        }
+        return total;
+    }
+    
+    
+    
 }

@@ -7,6 +7,8 @@ package dao;
 import entity.Ban;
 import entity.HoaDon;
 import entity.PhieuDatBan;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 
@@ -35,4 +37,9 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
     PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon);
 
     void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
+
+    List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay);
+    int getTongHoaDonTheoNgay(LocalDateTime ngay);
+    double getTongTienHoaDonTheoNgay(LocalDateTime ngay);
+
 }
