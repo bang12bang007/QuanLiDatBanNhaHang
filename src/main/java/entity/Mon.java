@@ -20,7 +20,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import utils.Enum.LoaiTrangThaiMon;
 
 /**
@@ -41,7 +40,7 @@ public class Mon {
     private String maMon;
     @Column(name = "TenMon", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String tenMon;
-    @Column(name = "Gia", nullable = false)
+    @Column(name = "GiaBan", nullable = false)
     private Double gia;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhuyenMai", nullable = true)
@@ -54,17 +53,22 @@ public class Mon {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "TrangThai", nullable = false)
     private LoaiTrangThaiMon trangThai;
+    @Column(name = "GiaGoc", nullable = false)
+    private Double giaGoc;
     @OneToMany(mappedBy = "mon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
 
-    public Mon(String tenMon, Double gia, KhuyenMai khuyenMai, LoaiMon loaiMon, String hinhAnh, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
+    public Mon(String tenMon, Double giaGoc, KhuyenMai khuyenMai, LoaiMon loaiMon, String hinhAnh, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
         this.tenMon = tenMon;
-        this.gia = gia;
+        this.giaGoc = giaGoc;
         this.khuyenMai = khuyenMai;
         this.loaiMon = loaiMon;
         this.hinhAnh = hinhAnh;
         this.trangThai = trangThai;
         this.chiTietHoaDon = chiTietHoaDon;
+        if(khuyenMai!=null)
+            this.gia = giaGoc - giaGoc*khuyenMai.getChietKhau();
+        else
+            this.gia = giaGoc;
     }
-
 }
