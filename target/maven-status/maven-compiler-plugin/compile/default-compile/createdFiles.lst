@@ -11,6 +11,7 @@ dao\imlp\ChiTietHoaDonDAO.class
 view\GD_DatMon$4.class
 view\GD_DatBan$15.class
 entity\NhanVien.class
+view\Form_ThongTinCaNhan$1.class
 dao\INhanVienDAO.class
 view\GD_Ban$1.class
 view\GD_ThanhToan$7.class
@@ -125,5 +126,8 @@ view\Form_XemThucDon$10.class
 utils\Enum.class
 datechooser\DateChooser$2.class
 view\GD_ThanhToan$14.class
+view\Form_ThongTinCaNhan.class
 component\OrderItem_forUIDatMon$8.class
 component\OrderItem_forUIDatMon$7.class
+view\GD_BaoCao.class
+view\Form_ThongTinCaNhan$2.class

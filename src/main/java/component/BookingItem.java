@@ -258,8 +258,6 @@ public class BookingItem extends javax.swing.JPanel {
                 ArrayList<Mon> mons = new ArrayList<Mon>();
                 ArrayList<Integer> quantity = new ArrayList<Integer>();
                 datMon.setHoaDon(list.get(0).getHoaDon());
-                datMon.setPhieuDatBan(phieuDatBan);
-                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
                 return null;
             }
 
@@ -267,6 +265,8 @@ public class BookingItem extends javax.swing.JPanel {
             protected void done() {
                 datMon.setGd_datBan(GD);
                 btnGoiMon.setBackground(new Color(255, 255, 255, 0));
+                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+                datMon.setPhieuDatBan(phieuDatBan);
                 datMon.setBack_toUI_DatBan(true);
                 utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
             }
