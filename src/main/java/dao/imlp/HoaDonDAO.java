@@ -160,6 +160,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     @Override
     public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
         PdfWriter pdfWriter = null;
+
         try {
             String path = "invoice.pdf";
             pdfWriter = new PdfWriter(path);
@@ -179,9 +180,12 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 //          ---Ngày---
             LocalDateTime inputDateTime = LocalDateTime.parse(LocalDateTime.now().toString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             String formattedDateTime = inputDateTime.format(DateTimeFormatter.ofPattern("hh:mma"));
+            DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime createDate = LocalDateTime.parse(hoaDon.getNgayLapHoaDon().toString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            String formatCreateDate = createDate.format(DateTimeFormatter.ofPattern("hh:mma"));
             Paragraph paragraphDate = new Paragraph().setMargin(0);
             paragraphDate.add(new Text("Ngày: ").setBold());
-            paragraphDate.add(new Text(hoaDon.getNgayLapHoaDon() + " (11:45AM  " + formattedDateTime + ")"));
+            paragraphDate.add(new Text(formatterDate.format(hoaDon.getNgayLapHoaDon()) + " (" + formatCreateDate + "  " + formattedDateTime + ")"));
             document.add(paragraphDate);
 //          ---Bàn---
             Paragraph paragraphTable = new Paragraph().setMargin(0);
@@ -266,10 +270,11 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         int hd = 0;
         String ngay = generateTime.substring(0, 6);
         List<HoaDon> hoaDons = findAll(HoaDon.class);
-        for(HoaDon h : hoaDons){
-            if(nv.getMaNV().equals(h.getNhanVien().getMaNV())){
-                if(ngay.equals(h.getMaHoaDon().substring(2, 8)))
+        for (HoaDon h : hoaDons) {
+            if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {
+                if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
                     hd += 1;
+                }
             }
         }
         return hd;
@@ -278,23 +283,25 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     @Override
     public double getTongDoanhThu(NhanVien nv) {
         double sum = 0.0;
-        String day = generateTime.substring(0,6);
+        String day = generateTime.substring(0, 6);
         ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO();
         List<HoaDon> hd = findAll(HoaDon.class);
-        for(HoaDon hd_total : hd){
-            if(nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())){
-                if(day.equals(hd_total.getMaHoaDon().substring(2, 8)))
-                    sum+= tien.TotalFoodCurrency(hd_total);
+        for (HoaDon hd_total : hd) {
+            if (nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
+                if (day.equals(hd_total.getMaHoaDon().substring(2, 8))) {
+                    sum += tien.TotalFoodCurrency(hd_total);
+                }
 //                Chưa áp mã khuyễn mãi và VAT
             }
-        }  
+        }
         return sum;
     }
+
     public DecimalFormat getFormatter() {
         return formatter;
     }
 
-    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay){
+    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay) {
         List<HoaDon> list = findAll(HoaDon.class);
         List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
         String month_format = String.format("%02d", ngay.getMonthValue());

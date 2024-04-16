@@ -850,16 +850,18 @@ public class Form_DatBan extends javax.swing.JPanel {
             KhachHang kh = khachHangDAO.findByPhoneNumber(phieuDatBan.getSdt());
             createHoaDon(kh);
         }
-        List<ChiTietHoaDon> details = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
-        for (ChiTietHoaDon detail : details) {
-            chiTietHoaDonDAO.deleteChiTiet(detail);
-        }
-        for (MenuItem item : dsMon) {
-            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-            chiTietHoaDon.setHoaDon(hoaDon);
-            chiTietHoaDon.setMon(item.getMon());
-            chiTietHoaDon.setSoLuong(item.getSoLuong());
-            chiTietHoaDonDAO.update(chiTietHoaDon);
+        if (!dsMon.isEmpty()) {
+            List<ChiTietHoaDon> details = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
+            for (ChiTietHoaDon detail : details) {
+                chiTietHoaDonDAO.deleteChiTiet(detail);
+            }
+            for (MenuItem item : dsMon) {
+                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+                chiTietHoaDon.setHoaDon(hoaDon);
+                chiTietHoaDon.setMon(item.getMon());
+                chiTietHoaDon.setSoLuong(item.getSoLuong());
+                chiTietHoaDonDAO.update(chiTietHoaDon);
+            }
         }
     }
 

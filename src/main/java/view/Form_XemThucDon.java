@@ -677,7 +677,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
                 return monDAO.findAll(Mon.class);
             }
             case 1: {
-                return monDAO.findAll(Mon.class);
+                return new ArrayList<>(monDAO.findPopular().keySet());
             }
             case 2: {
                 return dsMon.stream().filter(mon -> !mon.getLoaiMon().getMaLoaiMon().equals("ML01")).toList();

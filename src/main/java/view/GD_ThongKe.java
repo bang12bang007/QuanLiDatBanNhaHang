@@ -24,31 +24,33 @@ import static utils.AppUtils.*;
  * @author quanvo
  */
 public class GD_ThongKe extends javax.swing.JPanel {
+
     private JFrame jFrame;
     private List<HoaDon> hoaDon;
     private ChiTietHoaDon info;
     private HoaDonDAO hd_Dao;
+
     /**
      * Creates new form GD_ThongKe
      */
     public GD_ThongKe() {
         initComponents();
-        Color cus= new Color(102,102,102);
-        Color cus1 = new Color(31,29,43);
+        Color cus = new Color(83, 86, 99);
+        Color cus1 = new Color(255, 255, 255);
         hd_Dao = new HoaDonDAO();
-        jLabel5.setText(hd_Dao.getFormatter().format(hd_Dao.getTongDoanhThu(NHANVIEN)+5000000));
+        jLabel5.setText(hd_Dao.getFormatter().format(hd_Dao.getTongDoanhThu(NHANVIEN) + 5000000));
         jLabel8.setText(Integer.toString(hd_Dao.getTongHoaDon(NHANVIEN)));
         jLabel6.setText(hd_Dao.getFormatter().format(hd_Dao.getTongDoanhThu(NHANVIEN)));
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("DoanhThuNhanVien",(hd_Dao.getTongDoanhThu(NHANVIEN)));
-        dataset.setValue("TongDoanhThu", (hd_Dao.getTongDoanhThu(NHANVIEN)+5000000));
-        dataset.setValue("HoaDon",(hd_Dao.getTongHoaDon(NHANVIEN)));
+        dataset.setValue("Doanh thu nhân viên", (hd_Dao.getTongDoanhThu(NHANVIEN)));
+        dataset.setValue("Tổng doanh thu", (hd_Dao.getTongDoanhThu(NHANVIEN) + 5000000));
+        dataset.setValue("Hóa đơn", (hd_Dao.getTongHoaDon(NHANVIEN)));
         JFreeChart chart;
-        chart = ChartFactory.createPieChart("BaoCao", dataset, true, true, true);
+        chart = ChartFactory.createPieChart("Báo cáo", dataset, true, true, true);
         PiePlot P = (PiePlot) chart.getPlot();
         P.setLabelFont(utils.AppUtils.getFont(20f, _BOLD_));
         P.setBackgroundPaint(cus);
-        P.setLabelPaint(cus1);
+        P.setLabelPaint(new Color(0, 0, 0));
         chart.setBackgroundPaint(cus1);
         ChartPanel chartpanel = new ChartPanel(chart);
         chartpanel.setSize(490, 490);
@@ -84,7 +86,7 @@ public class GD_ThongKe extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(31, 29, 43));
 
-        panelRound2.setBackground(new java.awt.Color(102, 102, 102));
+        panelRound2.setBackground(new java.awt.Color(83, 86, 99));
         panelRound2.setPreferredSize(new java.awt.Dimension(237, 94));
         panelRound2.setRoundBottomLeft(50);
         panelRound2.setRoundBottomRight(50);
@@ -129,7 +131,7 @@ public class GD_ThongKe extends javax.swing.JPanel {
                     .addGap(30, 30, 30)))
         );
 
-        panelRound4.setBackground(new java.awt.Color(102, 102, 102));
+        panelRound4.setBackground(new java.awt.Color(83, 86, 99));
         panelRound4.setRoundBottomLeft(50);
         panelRound4.setRoundBottomRight(50);
         panelRound4.setRoundTopLeft(50);
@@ -173,7 +175,7 @@ public class GD_ThongKe extends javax.swing.JPanel {
                     .addGap(30, 30, 30)))
         );
 
-        panelRound5.setBackground(new java.awt.Color(102, 102, 102));
+        panelRound5.setBackground(new java.awt.Color(83, 86, 99));
         panelRound5.setPreferredSize(new java.awt.Dimension(237, 94));
         panelRound5.setRoundBottomLeft(50);
         panelRound5.setRoundBottomRight(50);
@@ -258,10 +260,10 @@ public class GD_ThongKe extends javax.swing.JPanel {
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -273,10 +275,7 @@ public class GD_ThongKe extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(44, 44, 44))
+            .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

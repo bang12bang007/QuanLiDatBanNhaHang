@@ -766,7 +766,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
     private void pay() {
         if (theThanhVien != null) {
-            double diemTichLuy = theThanhVien.getDiemTich() + (total / 100000);
+            double diemTichLuy = theThanhVien.getDiemTich() + ((int) total / 100000);
             if (diemTichLuy >= 100.0) {
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.BRONZE);
             } else if (diemTichLuy >= 500.0) {
@@ -777,7 +777,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 System.out.println("VCL dcmm");
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.DIAMOND);
             }
-            theThanhVien.setDiemTich(diemTichLuy);
+            // Làm tròn số với hai chữ số thập phân
+            theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
             theThanhVienDAO.update(theThanhVien);
         }
         hoaDon.setKhuyenMai(khuyenMais);

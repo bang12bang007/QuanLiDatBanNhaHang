@@ -25,6 +25,8 @@ import static utils.AppUtils.*;
  */
 public class GD_DangNhap extends javax.swing.JFrame {
 
+//    TK: NV120060424290
+//    MK: 280920003
     /**
      * Creates new form GD_DangNhap
      */
