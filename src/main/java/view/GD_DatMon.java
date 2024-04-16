@@ -5,6 +5,7 @@
 package view;
 
 import LIB.FadeEffect;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import component.Food;
 import component.Loading;
 import component.MyButton;
@@ -40,6 +41,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,6 +51,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
+import raven.toast.Notifications;
 import utils.AppUtils;
 import utils.Enum.DatMon_ThemMon;
 import utils.Enum.TypeDatMon_Branch;
@@ -68,6 +71,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private List<Mon> mons;
     private List<Mon> beverages;
     private List<Mon> popular;
+    private List<Mon> others;
     private Ban ban;
     private ArrayList<Mon> orders;
     private ArrayList<Integer> list_quantity = new ArrayList<Integer>();
@@ -125,6 +129,8 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         labelTongTien.setText("0,0 VNĐ");
         nhanVienName.setText(nv.getHoTen());
         First_LoadData();
+        Notifications.getInstance();
+        FlatIntelliJLaf.setup();
     }
 
 //    NDK: t di len contructor luon nghe
@@ -264,6 +270,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         btnKhac.setFont(utils.AppUtils.getFont(14f, _BOLD_)
         );
         btnKhac.setRadius(10);
+        btnKhac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKhacActionPerformed(evt);
+            }
+        });
 
         jTextFieldSearch.setFont(utils.AppUtils.getFont(16f, _ITALIC_)
         );
@@ -492,7 +503,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
         btnThem.setBackground(new java.awt.Color(83, 86, 99));
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem.setText("Thêm Món");
+        btnThem.setText("Thêm Món Khác");
         btnThem.setColor(new java.awt.Color(83, 86, 99));
         btnThem.setColorClick(new java.awt.Color(234, 124, 105));
         btnThem.setColorOver(new java.awt.Color(234, 124, 105));
@@ -890,14 +901,18 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 Loading loading = new Loading();
                 utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
 
-//                popular = new ArrayList<Mon>();
-//                IMonDAO dao = new MonDAO();
-//                popular = dao.findPopular();
-//                FoodList.removeAll();
-//                for (Mon mon : popular) {
-//                    FoodList.add(new Food(datmon, mon, PanelOrder, mons, orders));
-//                }
-//                FoodList.revalidate();
+                popular = new ArrayList<Mon>();
+                IMonDAO dao = new MonDAO();
+                Map<Mon, Long> map = dao.findPopular();
+                for (Mon mon : map.keySet()) {
+                    popular.add(mon);
+                }
+                FoodList.removeAll();
+                for (Mon mon : popular) {
+                    FoodList.add(new Food(datmon, mon, PanelOrder, mons, orders));
+                }
+                System.out.println(mons.size());
+                FoodList.revalidate();
 
                 Timer hideTimer = new Timer(500, new ActionListener() {
                     @Override
@@ -970,6 +985,9 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 if (mon.getLoaiMon().getMaLoaiMon().equals("ML01")) {
                     beverages.add(mon);
                 }
+                if(mon.getLoaiMon().getMaLoaiMon().equals("ML06")){
+                    food.remove(mon);
+                }
             }
             food.removeAll(beverages);
         }
@@ -981,6 +999,24 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
         // TODO add your handling code here
+        if (branch == TypeDatMon_Branch.DATMON) {
+            gD_Ban.setGd_Datmon(this);
+            AppUtils.setUI(main, () -> gD_Ban);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+        }
+        if (branch == TypeDatMon_Branch.THEMMON) {
+            AppUtils.setUI(main, () -> gd_qlDatMon);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+        }
+        if (branch == TypeDatMon_Branch.DAT_TRUOC_MON) {
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> gd_qlDatMon);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+            } else {
+                AppUtils.setUI(main, () -> gd_datBan);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+            }
+        }
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnHelpCaculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpCaculatorActionPerformed
@@ -993,7 +1029,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnGuiBepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiBepActionPerformed
         // TODO add your handling code here:
-        System.out.println("GUI BEP");// duccuong1609 : thong bao gui bep
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Gửi Bếp Thành Công");
 //        AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
     }//GEN-LAST:event_btnGuiBepActionPerformed
 
@@ -1026,6 +1062,38 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
     private void jTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSearchActionPerformed
+
+    private void btnKhacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhacActionPerformed
+        // TODO add your handling code here:
+        GD_DatMon datmon = this;
+        Timer timer = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Loading loading = new Loading();
+                utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
+
+                others = new ArrayList<Mon>();
+                IMonDAO dao = new MonDAO();
+                others = dao.findOthers();
+                FoodList.removeAll();
+                for (Mon mon : others) {
+                    FoodList.add(new Food(datmon, mon, PanelOrder, mons, orders));
+                }
+                FoodList.revalidate();
+
+                Timer hideTimer = new Timer(500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        utils.AppUtils.setLoadingForTable(scrollFoodList, false, loading, FoodList);
+                    }
+                });
+                hideTimer.setRepeats(false);
+                hideTimer.start();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }//GEN-LAST:event_btnKhacActionPerformed
     public void First_LoadData() {
         FoodList.removeAll();
         Loading loading = new Loading();
@@ -1122,6 +1190,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
             banDAO.update(ban);
             AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Cất Thành Công");
         }
     }
 
@@ -1154,6 +1223,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 }
             }
             AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
         }
 
     }
@@ -1179,8 +1249,10 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             phieudatDAO.update(phieuDatBan);
             if (back_toUI_DatBan == false) {
                 AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
             } else {
                 AppUtils.setUI(main, () -> new GD_DatBan(main));
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
             }
         }
     }

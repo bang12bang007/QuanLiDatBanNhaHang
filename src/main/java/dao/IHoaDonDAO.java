@@ -6,6 +6,7 @@ package dao;
 
 import entity.Ban;
 import entity.HoaDon;
+import entity.NhanVien;
 import entity.PhieuDatBan;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,10 +37,21 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
 
     PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon);
 
+    
+
+
+
     void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
 
-    List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay);
-    int getTongHoaDonTheoNgay(LocalDateTime ngay);
-    double getTongTienHoaDonTheoNgay(LocalDateTime ngay);
+    
+    int getTongHoaDon(NhanVien nv);
+    
+    double getTongDoanhThu(NhanVien nv);
 
+
+    List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay);
+    
+    int getTongHoaDonTheoNgay(LocalDateTime ngay);
+    
+    double getTongTienHoaDonTheoNgay(LocalDateTime ngay);
 }

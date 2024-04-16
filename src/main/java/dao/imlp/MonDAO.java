@@ -6,7 +6,9 @@ package dao.imlp;
 
 import dao.IMonDAO;
 import entity.Mon;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -19,7 +21,23 @@ public class MonDAO extends AbstractDAO<Mon> implements IMonDAO<Mon>{
                 .getResultList();
     };
 
-//    public List<Mon> findPopular() {
-//        return em.createNamedQuery("Mon.Popular").getResultList();
-//    };
+    public Map<Mon,Long> findPopular() {
+        Map<Mon,Long> map = new LinkedHashMap<>();
+        List<?> list = em.createNamedQuery("Mon.Popular5")
+                .getResultList();
+        list.stream()
+                .map(o->(Object[])o)
+                .forEach(a->{
+                    long soLuong = (long) a[0];
+                    Mon mon = (Mon) a[1];
+                    map.put(mon,soLuong);
+                });
+        return map;
+    };
+
+    @Override
+    public List<Mon> findOthers() {
+        return em.createNamedQuery("Mon.Other", Mon.class)
+                .getResultList();
+    }
 }

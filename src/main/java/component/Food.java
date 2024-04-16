@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import view.GD_DatMon;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author dmx
@@ -162,8 +163,12 @@ public class Food extends javax.swing.JPanel {
 //                System.out.println("yes");   //duccuong1609: chỗ này tính làm thông báo 
             }
         }
-        if(found == false){
-            orders.add(mons.get(mons.indexOf(mon)));
+        if (found == false) {
+            for (Mon m : mons) {
+                if (mon.getTenMon().equals(m.getTenMon())) {
+                    orders.add(mon);
+                }
+            }
             list_Quantity = datmon.getList_quantity();
             list_Quantity.add(1);
             String[] title = new String[]{ten, "1", tien_format.format(Double.parseDouble(gia)), ""};
@@ -176,7 +181,7 @@ public class Food extends javax.swing.JPanel {
             datmon.setList_quantity(list_Quantity);
             updateTongTien();
         }
-        
+
     }//GEN-LAST:event_panelFoodMouseClicked
     public void updateTongTien() {
         double tong = 0.0;

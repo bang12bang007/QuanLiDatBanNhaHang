@@ -39,7 +39,6 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>2.0.12</version>
-
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture -->
 		<dependency>
@@ -84,13 +83,6 @@
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>5.10.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.32</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>LIB_IDETs</groupId>
 			<artifactId>LIB_IDETs</artifactId>
@@ -110,6 +102,13 @@
 			<groupId>jicon_swing</groupId>
 			<artifactId>jicon_swing</artifactId>
 			<version>1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.32</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>Datechooser</groupId>
@@ -136,13 +135,8 @@
 			<artifactId>swingx</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-		<!-- NDK -->
-		<!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
-		<dependency>
-			<groupId>jfree</groupId>
-			<artifactId>jfreechart</artifactId>
-			<version>1.0.13</version>
-		</dependency>
+		<!--NDK-->
+		<!-- https://mvnrepository.com/artifact/com.formdev/flatlaf -->
 		<dependency>
 			<groupId>com.formdev</groupId>
 			<artifactId>flatlaf</artifactId>
@@ -158,6 +152,12 @@
 			<groupId>swingToastNotifications</groupId>
 			<artifactId>swing-toast-notifications</artifactId>
 			<version>1.0.1</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>jfreechart</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.0</version>
 			<type>jar</type>
 		</dependency>
 	</dependencies>
