@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -37,6 +38,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private JTextArea yeuCauDatMon;
     private List<Mon> dsMon;
     private Form_DatBan form_DatBan;
+    private int filter = 0;
 
     public Form_XemThucDon(JFrame jFrame, JTextArea yeuCauDatMon, HoaDon hoaDon) {
         this.jFrame = jFrame;
@@ -95,7 +97,9 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         btnUpTable = new component.MyButton();
         btnDownTable = new component.MyButton();
         panelRound1 = new component.PanelRound();
+        filterCombox = new javax.swing.JComboBox<>();
         panelRound2 = new component.PanelRound();
+        txtSearch = new javax.swing.JTextField();
         rightContainer = new javax.swing.JPanel();
         tableRight = new component.PanelRound();
         headerTableRight = new component.PanelRound();
@@ -237,36 +241,62 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             }
         });
 
+        panelRound1.setBackground(new java.awt.Color(255, 255, 255));
         panelRound1.setRoundBottomLeft(8);
         panelRound1.setRoundBottomRight(8);
         panelRound1.setRoundTopLeft(8);
         panelRound1.setRoundTopRight(8);
 
+        filterCombox.setBackground(new java.awt.Color(255, 255, 255));
+        filterCombox.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        filterCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Hay dùng", "Món ăn", "Đồ uống", "Khác" }));
+        filterCombox.setBorder(null);
+        filterCombox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterComboxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(filterCombox, 0, 248, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(filterCombox, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
+        panelRound2.setBackground(new java.awt.Color(255, 255, 255));
         panelRound2.setRoundBottomLeft(8);
         panelRound2.setRoundBottomRight(8);
         panelRound2.setRoundTopLeft(8);
         panelRound2.setRoundTopRight(8);
 
+        txtSearch.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearch.setBorder(null);
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
         panelRound2Layout.setHorizontalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(panelRound2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtSearch)
+                .addContainerGap())
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addComponent(txtSearch)
         );
 
         javax.swing.GroupLayout leftContainerLayout = new javax.swing.GroupLayout(leftContainer);
@@ -283,9 +313,9 @@ public class Form_XemThucDon extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDownTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
-                        .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         leftContainerLayout.setVerticalGroup(
@@ -391,6 +421,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
         tongTien.setFont(utils.AppUtils.getFont(16f, _BOLD_)
         );
+        tongTien.setForeground(new java.awt.Color(255, 255, 255));
         tongTien.setText("0");
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
@@ -452,9 +483,10 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         panelRound5.setLayout(panelRound5Layout);
         panelRound5Layout.setHorizontalGroup(
             panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound5Layout.createSequentialGroup()
+            .addGroup(panelRound5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelRound5Layout.setVerticalGroup(
             panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -619,6 +651,64 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDownTable1ActionPerformed
 
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        // TODO add your handling code here:
+        textSearch(filter);
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void filterComboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboxActionPerformed
+        // TODO add your handling code here:
+        //Tất cả: 0
+        //Hay dùng: 1
+        //Món ăn: 2
+        //Đồ uống: 3
+        //Khác: 4
+        filterBy(filterCombox.getSelectedIndex());
+    }//GEN-LAST:event_filterComboxActionPerformed
+
+    private void filterBy(int filter) {
+        this.filter = filter;
+        textSearch(filter);
+    }
+
+    private List<Mon> getFilterByCombox(int filter) {
+        switch (filter) {
+            case 0: {
+                return monDAO.findAll(Mon.class);
+            }
+            case 1: {
+                return monDAO.findPopular();
+            }
+            case 2: {
+                return dsMon.stream().filter(mon -> !mon.getLoaiMon().getMaLoaiMon().equals("ML01")).toList();
+            }
+            case 3: {
+                return dsMon.stream().filter(mon -> mon.getLoaiMon().getMaLoaiMon().equals("ML01")).toList();
+            }
+            case 4: {
+                return monDAO.findAll(Mon.class);
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    private void textSearch(int filter) {
+        int width = tableBody.getWidth();
+        List<Mon> dsMon = getFilterByCombox(filter);
+        tableBody.removeAll();
+        for (int i = 0; i < dsMon.size(); i++) {
+            if (utils.AppUtils.CheckContainsAbbreviation(dsMon.get(i).getTenMon(), txtSearch.getText().trim())) {
+                MenuItem menuItem = new MenuItem(width, getContents(dsMon.get(i)), dsMon.get(i));
+                menuItem.setForm(this);
+                menuItem.setType("THEM_MON");
+                tableBody.add(menuItem);
+            }
+        };
+        tableBody.repaint();
+        tableBody.revalidate();
+    }
+
     public void setFormDB(Form_DatBan form_DatBan) {
         this.form_DatBan = form_DatBan;
     }
@@ -627,7 +717,6 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         int width = tableBody.getWidth();
         this.dsMon = monDAO.findAll(Mon.class);
         for (int i = 0; i < this.dsMon.size(); i++) {
-            System.out.println(dsMon.get(i).getTenMon());
             MenuItem menuItem = new MenuItem(width, getContents(dsMon.get(i)), dsMon.get(i));
             menuItem.setForm(this);
             menuItem.setType("THEM_MON");
@@ -648,7 +737,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         } else {
             String quatity = listHuy.get(index).getSoLuong() + 1 + "";
             String[] dataAfterUpdateQuantity = new String[]{menuItem.getData()[0], quatity};
-            listHuy.get(index).setData(dataAfterUpdateQuantity);
+            listHuy.get(index).setData(dataAfterUpdateQuantity, "QUANTITY");
         }
         tableBodyRight.removeAll();
         for (MenuItem item : listHuy) {
@@ -659,7 +748,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             dsMonString += item.getData()[0] + " (" + item.getData()[1] + " Suất)" + isQuote;
             total += getPriceByName(item.getData()[0]) * Integer.parseInt(item.getData()[1]);
         }
-        tongTien.setText(total + "");
+        tongTien.setText(tien_format.format(total));
         txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();
@@ -678,7 +767,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             dsMonString += item.getData()[0] + " (" + item.getData()[1] + " Suất)" + isQuote;
             total += getPriceByName(item.getData()[0]) * Integer.parseInt(item.getData()[1]);
         }
-        tongTien.setText(total + "");
+        tongTien.setText(tien_format.format(total));
         txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();
@@ -703,7 +792,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             dsMonString += item.getData()[0] + " (" + item.getSoLuong() + " Suất)" + isQuote;
             total += getPriceByName(item.getData()[0]) * item.getSoLuong();
         }
-        tongTien.setText(total + "");
+        tongTien.setText(tien_format.format(total));
         txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();
@@ -728,6 +817,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private component.MyButton btnUpTable;
     private component.MyButton btnUpTable1;
     private javax.swing.JPanel container;
+    private javax.swing.JComboBox<String> filterCombox;
     private component.PanelRound footer;
     private component.PanelRound header;
     private component.PanelRound headerTable;
@@ -753,6 +843,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     private javax.swing.JScrollPane tableScrollRight;
     private javax.swing.JLabel title;
     private javax.swing.JLabel tongTien;
+    private javax.swing.JTextField txtSearch;
     private javax.swing.JTextArea txtYeuCauDatMon;
     private javax.swing.JPanel wrapper;
     // End of variables declaration//GEN-END:variables

@@ -39,7 +39,7 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai"),
     @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
-    @NamedQuery(name = "HoaDon.getPhieuDatBan",query = "SELECT p FROM HoaDon h INNER JOIN Ban b on b.maBan = h.ban.maBan INNER JOIN PhieuDatBan p on p.ban.maBan = b.maBan WHERE h.maHoaDon = :maHoaDon")
+    @NamedQuery(name = "HoaDon.getPhieuDatBan",query = "SELECT p FROM HoaDon h INNER JOIN Ban b on b.maBan = h.ban.maBan INNER JOIN PhieuDatBan p on p.ban.maBan = b.maBan WHERE h.maHoaDon = :maHoaDon"),
 })
 public class HoaDon {
 

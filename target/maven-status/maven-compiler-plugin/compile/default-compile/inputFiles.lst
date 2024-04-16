@@ -52,6 +52,7 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/HoaDonDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/MyButton.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/ITaiKhoanDAO.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/GD_BaoCao.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/SelectedAction.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/BanDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/icon/FontAwesome.java
@@ -67,6 +68,7 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/BanItem.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/SelectedDate.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/entity/Ban.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/Form_ThongTinCaNhan.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/entity/NhanVien.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/Form_XemThucDon.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/AbstractDAO.java

@@ -1,9 +1,0 @@
-view.GD_DatBan$5
-view.GD_DatBan
-view.GD_DatBan$6
-view.GD_DatBan$3
-view.GD_DatBan$4
-view.GD_DatBan$7
-view.GD_DatBan$8
-view.GD_DatBan$1
-view.GD_DatBan$2

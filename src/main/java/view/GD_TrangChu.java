@@ -4,6 +4,8 @@
  */
 package view;
 
+import LIB.FadeEffect;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import component.Loading;
 import component.MyButton;
 import component.MyJMenuItem;
@@ -19,6 +21,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,10 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import static javax.swing.SwingConstants.LEFT;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import jiconfont.swing.IconFontSwing;
+import raven.toast.Notifications;
 import utils.AppUtils;
 import static utils.AppUtils.*;
 /**
@@ -53,6 +58,9 @@ public class GD_TrangChu extends javax.swing.JFrame {
         AppUtils.saveStorage(nhanVien);
         set_up_UI();
         setExtendedState(MAXIMIZED_BOTH);
+//      NDK set up notifications
+        Notifications.getInstance().setJFrame(this);
+        FlatIntelliJLaf.setup();
 //        setResizable(false);
 //        label_AVT.setText(nhanVien.getHoTen());
 //        UIManager.put( "Menu.selectionBackground", Color.cyan );
@@ -128,7 +136,15 @@ public class GD_TrangChu extends javax.swing.JFrame {
         thongTin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                utils.AppUtils.setUI(mainJpanel, () -> new GD_Ban(mainJpanel, "DAT_MON", null));
+                JFrame jFrame = new JFrame();
+                jFrame.setUndecorated(true);
+                jFrame.setExtendedState(MAXIMIZED_BOTH);
+                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                Form_ThongTinCaNhan form = new Form_ThongTinCaNhan(jFrame);
+                jFrame.add(form);
+                jFrame.setBackground(new Color(0, 0, 0, 0));
+                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                jFrame.setVisible(true);
             }
         });
     }
@@ -361,6 +377,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void btnAVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVTActionPerformed
         // TODO add your handling code here:
+                utils.AppUtils.setUI(mainJpanel, () -> new GD_BaoCao());
+
     }//GEN-LAST:event_btnAVTActionPerformed
 
     private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed

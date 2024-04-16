@@ -6,6 +6,7 @@ package dao;
 
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,6 +17,8 @@ public interface IChiTietHoaDonDAO<T> extends GenericDAO<T> {
     Double TotalFoodCurrency(HoaDon hoaDon);
 
     List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon);
+
     List<ChiTietHoaDon> getListBySoLuong(int soLuong);
+
     boolean deleteChiTiet(ChiTietHoaDon t);
 }
