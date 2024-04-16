@@ -999,6 +999,24 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
         // TODO add your handling code here
+        if (branch == TypeDatMon_Branch.DATMON) {
+            gD_Ban.setGd_Datmon(this);
+            AppUtils.setUI(main, () -> gD_Ban);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+        }
+        if (branch == TypeDatMon_Branch.THEMMON) {
+            AppUtils.setUI(main, () -> gd_qlDatMon);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+        }
+        if (branch == TypeDatMon_Branch.DAT_TRUOC_MON) {
+            if (back_toUI_DatBan == false) {
+                AppUtils.setUI(main, () -> gd_qlDatMon);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+            } else {
+                AppUtils.setUI(main, () -> gd_datBan);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Hủy Thành Công");
+            }
+        }
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnHelpCaculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpCaculatorActionPerformed
@@ -1172,6 +1190,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
             banDAO.update(ban);
             AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Cất Thành Công");
         }
     }
 
@@ -1204,6 +1223,7 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 }
             }
             AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
         }
 
     }
@@ -1229,8 +1249,10 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
             phieudatDAO.update(phieuDatBan);
             if (back_toUI_DatBan == false) {
                 AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
             } else {
                 AppUtils.setUI(main, () -> new GD_DatBan(main));
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
             }
         }
     }
