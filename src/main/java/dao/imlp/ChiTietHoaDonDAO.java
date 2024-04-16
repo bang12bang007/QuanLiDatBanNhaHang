@@ -8,7 +8,6 @@ import dao.IChiTietHoaDonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import jakarta.persistence.EntityTransaction;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
 
     ;
 
-    @Override
+    @Override // lấy danh sách số lượng tương ứng với món trong chi tiết hoá đơn
     public List<ChiTietHoaDon> getListBySoLuong(int soLuong) {
         return em.createNamedQuery("ChiTietHoaDon.DS_SoLuong", ChiTietHoaDon.class)
                 .setParameter("soLuong", soLuong)

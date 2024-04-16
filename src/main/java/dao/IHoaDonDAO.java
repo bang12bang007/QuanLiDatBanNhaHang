@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
@@ -8,11 +8,7 @@ import entity.Ban;
 import entity.HoaDon;
 import entity.NhanVien;
 import entity.PhieuDatBan;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import java.util.ArrayList;
-
 import java.util.List;
 
 /**
@@ -37,21 +33,12 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
 
     PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon);
 
-    
-
-
-
     void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
-
-    
-    int getTongHoaDon(NhanVien nv);
-    
     double getTongDoanhThu(NhanVien nv);
-
-
-    List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay);
+    List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
     
-    int getTongHoaDonTheoNgay(LocalDateTime ngay);
-    
-    double getTongTienHoaDonTheoNgay(LocalDateTime ngay);
+    int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
+    double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
+    int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
+
 }

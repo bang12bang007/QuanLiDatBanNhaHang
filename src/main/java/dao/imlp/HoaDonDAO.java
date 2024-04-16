@@ -30,10 +30,12 @@ import dao.IHoaDonDAO;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.Mon;
 import entity.NhanVien;
 import entity.PhieuDatBan;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.FileNotFoundException;
@@ -266,6 +268,12 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     }
 
     @Override
+    public List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc ){
+        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findHoaDonTuNgayDenNgay", HoaDon.class);
+        query.setParameter("ngayBatDau", ngayBatDau);
+        query.setParameter("ngayKetThuc", ngayKetThuc);
+        return query.getResultList();
+    }
     public int getTongHoaDon(NhanVien nv) {
         int hd = 0;
         String ngay = generateTime.substring(0, 6);
@@ -319,23 +327,40 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 
     ;
     @Override
-    public int getTongHoaDonTheoNgay(LocalDateTime ngay) {
+    public int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
         int soLuongHoaDon = 0;
-        List<HoaDon> list = findHoaDonTheoNgay(ngay);
-        for (int i = 0; i < list.size(); i++) {
-            soLuongHoaDon += 1;
+        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau,ngayKetThuc);
+        for(int i=0;i<list.size();i++){
+            soLuongHoaDon +=1;
         }
         return soLuongHoaDon;
     }
 
     @Override
-    public double getTongTienHoaDonTheoNgay(LocalDateTime ngay) {
+    public double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
         Double total = 0.0;
         ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-        List<HoaDon> list = findHoaDonTheoNgay(ngay);
-        for (int i = 0; i < list.size(); i++) {
+        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau,ngayKetThuc);
+        for(int i=0;i<list.size();i++){
             total += dao.TotalFoodCurrency(list.get(i));
         }
         return total;
     }
+
+
+    @Override
+    public int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
+        int soLuongMon=0;
+        List<HoaDon> list1 = findHoaDonTuNgayDenNgay(ngayBatDau, ngayKetThuc);
+        ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
+        for(int i=0;i<list1.size();i++){
+            List<ChiTietHoaDon> list2 =new ArrayList<>();
+            list2=dao.getListByHoaDon(list1.get(i));
+            for(int j=0;j<list2.size();j++){
+                soLuongMon+= list2.get(j).getSoLuong();
+            }
+        }
+        return soLuongMon;
+    }
+    
 }

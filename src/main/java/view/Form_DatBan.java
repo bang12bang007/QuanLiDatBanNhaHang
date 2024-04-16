@@ -87,6 +87,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         this.jFrame = jFrame;
         this.ban = ban;;
         initComponents();
+        Notifications.getInstance().setJFrame(jFrame);
+        FlatIntelliJLaf.setup();
         IconFontSwing.register(FontAwesome.getIconFont());
         this.setBackground(new Color(0, 0, 0, 0.6f));
         btnPlus.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
@@ -106,7 +108,7 @@ public class Form_DatBan extends javax.swing.JPanel {
             public void dateSelected(SelectedAction action, SelectedDate date) {
                 LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
                 if (localDate.isBefore(LocalDate.now())) {
-                    System.out.println("Trước ngay hiện tại");
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, 1500, "Ngày không được trước ngày hiện tại");
                     dateChooser.toDay();
                 }
                 if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
@@ -116,8 +118,7 @@ public class Form_DatBan extends javax.swing.JPanel {
 
         });
         autoComplete();
-        Notifications.getInstance().setJFrame(jFrame);
-        FlatIntelliJLaf.setup();
+
     }
 
     /**
