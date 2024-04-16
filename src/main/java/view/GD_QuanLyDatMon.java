@@ -9,13 +9,10 @@ import component.MyButton;
 import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
-import dao.IHoaDonDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
-import dao.IMonDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
-import dao.imlp.MonDAO;
 import entity.HoaDon;
 import entity.NhanVien;
 import icon.FontAwesome;
@@ -23,21 +20,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JScrollPane;
 import jiconfont.swing.IconFontSwing;
 import javax.swing.*;
 import static utils.AppUtils.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
-import static utils.AppUtils.*;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Vector;
 
 /**
  *
@@ -61,6 +50,9 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         this.mainPanel = main;
         initComponents();
         txtMaBan.setBackground(new Color(0, 0, 0, 1));
+        filterBan.setBackground(new Color(0, 0, 0, 0));
+        filterBan.getEditor().getEditorComponent().setBackground(new Color(0, 0, 0, 0));
+        filterBan.getEditor().getEditorComponent().setForeground(Color.WHITE);
         this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
         scroll.setVerticalScrollBar(new ScrollBarCustom());
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -112,6 +104,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         txtMaBan = new javax.swing.JTextField();
         iconSearch = new javax.swing.JLabel();
         panelRound3 = new component.PanelRound();
+        filterBan = new component.ComboBoxSuggestion();
         myButton1 = new component.MyButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -205,15 +198,30 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         panelRound3.setRoundTopLeft(8);
         panelRound3.setRoundTopRight(8);
 
+        filterBan.setBorder(null);
+        filterBan.setForeground(new java.awt.Color(255, 255, 255));
+        filterBan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tìm bàn" }));
+        filterBan.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
+        );
+        filterBan.setOpaque(false);
+        filterBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterBanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
         panelRound3Layout.setHorizontalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 227, Short.MAX_VALUE)
+            .addGroup(panelRound3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(filterBan, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 45, Short.MAX_VALUE)
+            .addComponent(filterBan, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
         myButton1.setBackground(new java.awt.Color(83, 86, 99));
@@ -449,16 +457,24 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 //        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed
 
+    private void filterBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBanActionPerformed
+        // TODO add your handling code here:
+        filterByBan(filterBan.getSelectedItem() + "");
+    }//GEN-LAST:event_filterBanActionPerformed
+
     public void loadOrdering() {
-        IHoaDonDAO dao = new HoaDonDAO();
-        IChiTietHoaDonDAO chiTietDAO = new ChiTietHoaDonDAO();
-        hoadons = dao.findOnOrder();
+        hoadons = hoaDonDAO.findOnOrder();
+//        filterBan.removeAllItems();
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Tìm bàn");
         for (HoaDon hoaDon : hoadons) {
+            list.add(hoaDon.getBan().getMaBan());
             OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
             orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
             orderCard.setQl_datMon(this);
             main.add(orderCard);
         }
+        filterBan.setModel(new DefaultComboBoxModel<>(new Vector<>(list)));
         main.repaint();
         main.revalidate();
     }
@@ -476,13 +492,17 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
             protected List<OrderCard> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<OrderCard> listOrderCard = new ArrayList<>();
-                List<HoaDon> dsHoaDonDatTruoc = hoaDonDAO.findByState(e);
-                for (HoaDon hoaDon : dsHoaDonDatTruoc) {
+                hoadons = hoaDonDAO.findByState(e);
+                ArrayList<String> list = new ArrayList<>();
+                list.add("Tìm bàn");
+                for (HoaDon hoaDon : hoadons) {
+                    list.add(hoaDon.getBan().getMaBan());
                     OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
                     orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
                     orderCard.setQl_datMon(ql_datMon);
                     listOrderCard.add(orderCard);
                 }
+                filterBan.setModel(new DefaultComboBoxModel<>(new Vector<>(list)));
                 return listOrderCard;
             }
 
@@ -507,6 +527,28 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     public void setNv(NhanVien nv) {
         this.nv = nv;
+    }
+
+    private void filterByBan(String maBan) {
+        main.removeAll();
+        boolean isMaBan = maBan.equals("Tìm bàn") ? false : true;
+        for (HoaDon hoaDon : hoadons) {
+            if (isMaBan) {
+                if (hoaDon.getBan().getMaBan().equals(maBan)) {
+                    OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+                    orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+                    orderCard.setQl_datMon(this);
+                    main.add(orderCard);
+                }
+            } else {
+                OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+                orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+                orderCard.setQl_datMon(this);
+                main.add(orderCard);
+            }
+        }
+        main.repaint();
+        main.revalidate();
     }
 
     public boolean isWaitForPayment() {
@@ -552,6 +594,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private component.MyButton btnDown;
     private component.MyButton btnReserve;
     private component.MyButton btnUp;
+    private component.ComboBoxSuggestion filterBan;
     private javax.swing.JLabel iconSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

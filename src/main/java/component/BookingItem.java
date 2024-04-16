@@ -246,29 +246,38 @@ public class BookingItem extends javax.swing.JPanel {
         GD.received();
     }//GEN-LAST:event_btnNhanBanActionPerformed
 
+    GD_DatMon datMon = null;
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
         // TODO add your handling code here:
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-
+        SwingWorker<HoaDon, Void> worker = new SwingWorker<HoaDon, Void>() {
             @Override
-            protected Void doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây
-                List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
-                ArrayList<Mon> mons = new ArrayList<Mon>();
-                ArrayList<Integer> quantity = new ArrayList<Integer>();
-                datMon.setHoaDon(list.get(0).getHoaDon());
-                datMon.setPhieuDatBan(phieuDatBan);
-                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-                return null;
+            protected HoaDon doInBackground() throws Exception {
+                List<ChiTietHoaDon> list = new ArrayList<>();
+                list =  GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
+                if(list.size()!=0)
+                    return list.get(0).getHoaDon();
+                else
+                    return null;
             }
 
             @Override
             protected void done() {
-                datMon.setGd_datBan(GD);
-                btnGoiMon.setBackground(new Color(255, 255, 255, 0));
-                datMon.setBack_toUI_DatBan(true);
-                utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
+                utils.AppUtils.setUI(GD.getMainJpanel(), () -> {
+                    GD_DatMon datMon = null;
+                    try {
+                        datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+                        // Thực hiện công việc lâu dài ở đây
+                        datMon.setHoaDon(get());
+                        datMon.setGd_datBan(GD);
+                        btnGoiMon.setBackground(new Color(255, 255, 255, 0));
+                        datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+                        datMon.setPhieuDatBan(phieuDatBan);
+                        datMon.setBack_toUI_DatBan(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return datMon;
+                });
             }
         };
         worker.execute();

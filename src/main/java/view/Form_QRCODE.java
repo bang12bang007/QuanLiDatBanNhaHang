@@ -130,8 +130,8 @@ public class Form_QRCODE extends javax.swing.JPanel implements Runnable, ThreadF
             }
 
             if (result != null) {
-                System.out.println(result.getText());
                 gD_ThanhToan.setDataOfCustomer(result.getText());
+                System.out.println(result.getText());
                 webcam.close();
                 break;
             }

@@ -32,6 +32,8 @@ import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -46,6 +48,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -752,9 +755,9 @@ public class Form_DatBan extends javax.swing.JPanel {
             if (isSuccess) {
                 banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Đặt bàn thành công");
-                this.jFrame.setVisible(false);
-                this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBan(this.mainJpanel));
+                jFrame.setVisible(false);
+                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                utils.AppUtils.setUI(mainJpanel, () -> new GD_DatBan(mainJpanel));
             } else {
                 Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Đặt bàn không thành công");
             }
