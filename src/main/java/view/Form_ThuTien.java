@@ -755,12 +755,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
     }
 
     private void pay() {
-        List<ChiTietHoaDon> chiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
-        for (ChiTietHoaDon item : chiTietHoaDon) {
-            Mon mon = item.getMon();
-            mon.setSoLuongDaDat(mon.getSoLuongDaDat() + item.getSoLuong());
-            monDAO.update(mon);
-        }
         hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
         banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
     }

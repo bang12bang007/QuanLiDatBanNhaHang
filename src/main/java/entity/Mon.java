@@ -20,7 +20,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import utils.Enum.LoaiTrangThaiMon;
 
 /**
@@ -32,8 +31,9 @@ import utils.Enum.LoaiTrangThaiMon;
 @Setter
 @NoArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m WHERE m.trangThai = :trangThai"),
-    @NamedQuery(name = "Mon.Popular", query = "SELECT m FROM Mon m WHERE m.soLuongDaDat = (SELECT MAX(m2.soLuongDaDat) from Mon m2)")
+    @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m inner join LoaiMon l on m.loaiMon = l WHERE m.trangThai = :trangThai"),//duccuong1609 : cai nay dung theo trang thai cung duoc
+    @NamedQuery(name = "Mon.Popular5",query = "SELECT SUM(c.soLuong) as SoLuong, c.mon as Mon FROM ChiTietHoaDon c inner join HoaDon h on c.hoaDon = h where h.trangThai = 0 group by c.mon ORDER BY SoLuong DESC LIMIT 5"),
+    @NamedQuery(name = "Mon.Other",query = "SELECT m FROM Mon m inner join LoaiMon l on m.loaiMon = l WHERE m.trangThai = 0 AND l.maLoaiMon = 'ML06'")
 })
 public class Mon {
 
@@ -42,7 +42,7 @@ public class Mon {
     private String maMon;
     @Column(name = "TenMon", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String tenMon;
-    @Column(name = "Gia", nullable = false)
+    @Column(name = "GiaBan", nullable = false)
     private Double gia;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhuyenMai", nullable = true)
@@ -52,23 +52,25 @@ public class Mon {
     private LoaiMon loaiMon;
     @Column(name = "HinhAnh", length = 255, nullable = true)
     private String hinhAnh;
-    @Column(name = "SoLuongDaDat", nullable = true)
-    private int soLuongDaDat;
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "TrangThai", nullable = false)
     private LoaiTrangThaiMon trangThai;
+    @Column(name = "GiaGoc", nullable = false)
+    private Double giaGoc;
     @OneToMany(mappedBy = "mon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
 
-    public Mon(String tenMon, Double gia, KhuyenMai khuyenMai, LoaiMon loaiMon, String hinhAnh, int soLuongDaDat, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
+    public Mon(String tenMon, Double giaGoc, KhuyenMai khuyenMai, LoaiMon loaiMon, String hinhAnh, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
         this.tenMon = tenMon;
-        this.gia = gia;
+        this.giaGoc = giaGoc;
         this.khuyenMai = khuyenMai;
         this.loaiMon = loaiMon;
         this.hinhAnh = hinhAnh;
-        this.soLuongDaDat = soLuongDaDat;
         this.trangThai = trangThai;
         this.chiTietHoaDon = chiTietHoaDon;
+        if(khuyenMai!=null)
+            this.gia = giaGoc - giaGoc*khuyenMai.getChietKhau();
+        else
+            this.gia = giaGoc;
     }
-
 }

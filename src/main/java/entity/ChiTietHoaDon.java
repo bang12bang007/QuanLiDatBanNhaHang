@@ -43,7 +43,9 @@ public class ChiTietHoaDon {
     private HoaDon hoaDon;
     @Column(name = "SoLuong", nullable = false)
     private int soLuong;
-    @Column(name = "GhiChu",columnDefinition = "NVARCHAR(255)")
+    @Column(name = "LyDoHuy",columnDefinition = "NVARCHAR(255)")
+    private String lyDoHuy;
+    @Column(name = "ghiChu",columnDefinition = "NVARCHAR(255)")
     private String ghiChu;
 
     public ChiTietHoaDon(Mon mon, HoaDon hoaDon, int soLuong) {
@@ -51,11 +53,18 @@ public class ChiTietHoaDon {
         this.hoaDon = hoaDon;
         this.soLuong = soLuong;
     }
-
-    public ChiTietHoaDon(Mon mon, HoaDon hoaDon, int soLuong, String ghiChu) {
+    
+    public ChiTietHoaDon(Mon mon, HoaDon hoaDon,String ghiChu, int soLuong) {
         this.mon = mon;
         this.hoaDon = hoaDon;
         this.soLuong = soLuong;
         this.ghiChu = ghiChu;
+    }
+
+    public ChiTietHoaDon(Mon mon, HoaDon hoaDon, int soLuong, String lyDoHuy) {
+        this.mon = mon;
+        this.hoaDon = hoaDon;
+        this.soLuong = soLuong;
+        this.lyDoHuy = lyDoHuy;
     }
 }

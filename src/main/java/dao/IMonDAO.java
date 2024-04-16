@@ -7,6 +7,7 @@ package dao;
 import entity.Mon;
 import jakarta.persistence.EntityManager;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,5 +15,6 @@ import java.util.List;
  */
 public interface IMonDAO<T> extends GenericDAO<T>{
     List<Mon> findService();
-    List<Mon> findPopular();
+    Map<Mon,Long> findPopular();
+    List<Mon> findOthers();
 }

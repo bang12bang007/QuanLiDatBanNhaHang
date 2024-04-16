@@ -12,14 +12,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +39,8 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.getPhieuDatBan",query = "SELECT p FROM HoaDon h INNER JOIN Ban b on b.maBan = h.ban.maBan INNER JOIN PhieuDatBan p on p.ban.maBan = b.maBan WHERE h.maHoaDon = :maHoaDon"),
-        @NamedQuery(name = "HoaDon.findHoaDonTuNgayDenNgay",query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
+    @NamedQuery(name = "HoaDon.findHoaDonTuNgayDenNgay",query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
+
 })
 public class HoaDon {
 
@@ -53,9 +53,15 @@ public class HoaDon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhachHang", nullable = true)
     private KhachHang khachHang;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaKhuyenMai", nullable = true)
-    private KhuyenMai khuyenMai;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "ChiTietKhuyenMai",
+            joinColumns = {
+                @JoinColumn(name = "MaHoaDon")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "MaKhuyenMai")}
+    )
+    private List<KhuyenMai> khuyenMai;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaDichVu", nullable = true)
     private DichVu dichVu;
@@ -69,7 +75,7 @@ public class HoaDon {
     private LoaiTrangThaiHoaDon trangThai;
     @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
-    
+
     public HoaDon(NhanVien nhanVien, LocalDateTime ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
         this.nhanVien = nhanVien;
         this.ngayLapHoaDon = ngayLapHoaDon;
