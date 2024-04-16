@@ -27,6 +27,7 @@ import jiconfont.swing.IconFontSwing;
 import view.GD_QuanLyDatMon;
 import view.GD_ThanhToan;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -155,7 +156,7 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound8.setRoundTopLeft(8);
         panelRound8.setRoundTopRight(8);
 
-        tongTien.setFont(utils.AppUtils.getFont(12f, _NORMAL_));
+        tongTien.setFont(utils.AppUtils.getFont(13f, _NORMAL_));
         tongTien.setForeground(new java.awt.Color(255, 255, 255));
         tongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tongTien.setText("0");
@@ -167,13 +168,13 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound8Layout.setHorizontalGroup(
             panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(tongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(iconEadting, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelRound8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
+                        .addGap(0, 109, Short.MAX_VALUE)
+                        .addComponent(iconEadting, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelRound8Layout.setVerticalGroup(
@@ -301,21 +302,22 @@ public class OrderCard extends javax.swing.JPanel {
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCheckActionPerformed
-
     private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
         // TODO add your handling code here:
-        GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-        gD_DatMon.setHoaDon(hoaDon);
-        gD_DatMon.setGd_qlDatMon(ql_datMon);
-        if(ql_datMon.isWaitForPayment()){
-            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
-        }
-        else{
-            hoaDonDAO = new HoaDonDAO();
-            gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
-            gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-        }
-        AppUtils.setUI(mainPanel, () -> gD_DatMon);
+
+        AppUtils.setUI(mainPanel, () -> {
+            GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+            gD_DatMon.setHoaDon(hoaDon);
+            gD_DatMon.setGd_qlDatMon(ql_datMon);
+            if (ql_datMon.isWaitForPayment()) {
+                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+            } else {
+                hoaDonDAO = new HoaDonDAO();
+                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
+                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+            }
+            return gD_DatMon;
+        });
     }//GEN-LAST:event_panelRound3MouseClicked
 
     private void setIconBtn() {
@@ -330,11 +332,10 @@ public class OrderCard extends javax.swing.JPanel {
     public void setToTal(double total) {
         tongTien.setText(tien_format.format(total));
     }
-    
+
 //    NDK: T tính trong orderCard luôn á 
 //    NDK: xóa luôn đi
 //    duccuong1609 : ?? :DD
-
     public GD_QuanLyDatMon getQl_datMon() {
         return ql_datMon;
     }

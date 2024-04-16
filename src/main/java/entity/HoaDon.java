@@ -53,7 +53,7 @@ public class HoaDon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhachHang", nullable = true)
     private KhachHang khachHang;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "ChiTietKhuyenMai",
             joinColumns = {

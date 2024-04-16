@@ -39,6 +39,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import static utils.AppUtils.*;
 import java.util.List;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -61,8 +62,11 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     private JFrame thuTienJFrame;
     private List<String> loaiThe = List.of("STANDARD", "BRONZE", "SILVER", "GOLD", "DIAMOND");
+    private List<String> items = new ArrayList<>();
+    private List<TheThanhVien> theThanhViens = new ArrayList<>();
     private List<KhuyenMai> khuyenMais = new ArrayList<>();
     private double tienPhaiThu = 0;
+    private TheThanhVien theThanhVien = null;
 //  Quản lý đặt món hoặc là đặt món
     private JPanel branch;
 
@@ -108,7 +112,6 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
                 if (MKMcontainer.getWidth() != 0 && tableContainer.getHeight() != 0) {
 
                     loadDataMKM();
-                    // Loại bỏ lắng nghe sự kiện sau khi đã được kích hoạt một lần
                     MKMcontainer.removeComponentListener(this);
                 }
             }
@@ -120,22 +123,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnInTamTinh.setIcon(IconFontSwing.buildIcon(FontAwesome.PRINT, 20, Color.WHITE));
         btnLuuTam.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 20, Color.WHITE));
         btnThuTien.setIcon(IconFontSwing.buildIcon(FontAwesome.MONEY, 20, Color.WHITE));
+        autoComplete();
 
-//        utils.AppUtils.run(mJPanel, this);
-    }
-
-    private void FirstTimeLoadItem() {
-//        Timer timer = new Timer(1520, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // Thêm mã để kích hoạt action listener tại đây
-//                loadData();
-//                tableContainer.repaint();
-//                tableContainer.revalidate();
-//            }
-//        });
-//        timer.setRepeats(false); // Chỉ chạy một lần sau 5 giây
-//        timer.start();
     }
 
     public void setUI() {
@@ -204,7 +193,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         panelRound1 = new component.PanelRound();
         jLabel10 = new javax.swing.JLabel();
         panelRound2 = new component.PanelRound();
-        jLabel11 = new javax.swing.JLabel();
+        diem = new javax.swing.JLabel();
         tienThu = new javax.swing.JLabel();
 
         leftContainer.setBackground(new java.awt.Color(83, 86, 99));
@@ -287,6 +276,11 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         txtTenThanhVien.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
         );
         txtTenThanhVien.setBorder(null);
+        txtTenThanhVien.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTenThanhVienKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout maTheContainer1Layout = new javax.swing.GroupLayout(maTheContainer1);
         maTheContainer1.setLayout(maTheContainer1Layout);
@@ -836,26 +830,27 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         panelRound2.setRoundTopLeft(12);
         panelRound2.setRoundTopRight(12);
 
-        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel11.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        diem.setBackground(new java.awt.Color(255, 255, 255));
+        diem.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
-        jLabel11.setForeground(new java.awt.Color(31, 29, 43));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("ĐIỂM");
+        diem.setForeground(new java.awt.Color(31, 29, 43));
+        diem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        diem.setText("ĐIỂM");
 
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
         panelRound2Layout.setHorizontalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(diem, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(diem, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         tienThu.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
         );
+        tienThu.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
         rightContainer.setLayout(rightContainerLayout);
@@ -995,6 +990,8 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
             Form_ThuTien form_ThuTien = new Form_ThuTien(thuTienJFrame, hoaDon);
             form_ThuTien.setTienPhaiThu(tienPhaiThu);
             form_ThuTien.setMainJPanel(mJPanel);
+            form_ThuTien.setListKhuyenMai(khuyenMais);
+            form_ThuTien.setTheThanhVien(theThanhVien);
             thuTienJFrame.add(form_ThuTien);
             thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
             FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
@@ -1013,6 +1010,23 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private void btnInTamTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInTamTinhActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInTamTinhActionPerformed
+
+    private void txtTenThanhVienKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenThanhVienKeyReleased
+        // TODO add your handling code here:
+        String value = txtTenThanhVien.getText();
+        if (items.contains(value)) {
+            for (TheThanhVien the : theThanhViens) {
+                if (the.getKhachHang().getTenKH().equals(value)) {
+                    theThanhVien = the;
+                    setThe(theThanhVien);
+                    break;
+                }
+            }
+        } else {
+            theThanhVien = null;
+            setThe(theThanhVien);
+        }
+    }//GEN-LAST:event_txtTenThanhVienKeyReleased
 
     public void loadData() {
         int width = tableContainer.getWidth();
@@ -1037,11 +1051,24 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     }
 
     public void setDataOfCustomer(String maThe) {
-        TheThanhVien the = (TheThanhVien) theThanhVienDAO.findById(maThe, TheThanhVien.class);
-        KhachHang khachHang = the.getKhachHang();
-        txtMTV.setText(maThe);
-        txtTenThanhVien.setText(khachHang.getTenKH());
-        txtHangThe.setText(loaiThe.get(the.getLoaiThe().ordinal()));
+        theThanhVien = (TheThanhVien) theThanhVienDAO.findById(maThe, TheThanhVien.class);
+        setThe(theThanhVien);
+    }
+
+    private void setThe(TheThanhVien theThanhVien) {
+        if (theThanhVien != null) {
+            KhachHang khachHang = theThanhVien.getKhachHang();
+            txtMTV.setText(theThanhVien.getMaThe());
+            if (!txtTenThanhVien.getText().trim().equals(khachHang.getTenKH())) {
+                txtTenThanhVien.setText(khachHang.getTenKH());
+            }
+            txtHangThe.setText(loaiThe.get(theThanhVien.getLoaiThe().ordinal()));
+            diem.setText("Điểm: " + theThanhVien.getDiemTich());
+        } else {
+            txtMTV.setText("");
+            txtHangThe.setText("");
+            diem.setText("Điểm");
+        }
     }
 
     public void addKM(KhuyenMai khuyenMai) {
@@ -1063,6 +1090,14 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         tienThu.setText(tien_format.format(this.tienPhaiThu));
     }
 
+    private void autoComplete() {
+        theThanhViens = theThanhVienDAO.findAll(TheThanhVien.class);
+        for (TheThanhVien theThanhVien : theThanhViens) {
+            items.add(theThanhVien.getKhachHang().getTenKH());
+        }
+        AutoCompleteDecorator.decorate(txtTenThanhVien, items, false);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MKMcontainer;
@@ -1080,12 +1115,12 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
     private javax.swing.JLabel chuongTrinhKhuyenMai;
     private javax.swing.JPanel ctkmContainer;
     private javax.swing.JPanel ctkmContainer1;
+    private javax.swing.JLabel diem;
     private javax.swing.JPanel headerTable;
     private javax.swing.JLabel iconSearch;
     private javax.swing.JLabel iconSearch_KM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

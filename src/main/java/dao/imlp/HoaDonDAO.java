@@ -219,7 +219,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 //          -----Tổng thanh toán----
             document.add(createCost(new Paragraph("Tổng thanh toán").setBold(), formatter.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)), pageWidth));
 //          -----Còn phải thu----
-            document.add(createCost(new Paragraph("Còn phải thu").setBold(), formatter.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)), pageWidth));
+            document.add(createCost(new Paragraph("Còn phải thu").setBold(), formatter.format(tienKhachTra - tienThua), pageWidth));
 //          -----Tiền Khách trả----
             document.add(createCost(new Paragraph("Tiền khách trả").setBold(), formatter.format(tienKhachTra), pageWidth));
 //          -----Tiền thừa----
@@ -307,16 +307,18 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
         String month_format = String.format("%02d", ngay.getMonthValue());
         String date_format = String.format("%02d", ngay.getDayOfMonth());
-        String ngayString = Integer.toString(ngay.getYear()).substring(2,4) + month_format+ date_format;
-        for(int i=0;i<list.size();i++){
+        String ngayString = Integer.toString(ngay.getYear()).substring(2, 4) + month_format + date_format;
+        for (int i = 0; i < list.size(); i++) {
             String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
-            if(ngayString.equals(ngay_hoadon)){
+            if (ngayString.equals(ngay_hoadon)) {
                 listHoaDonTheoNgay.add(list.get(i));
             }
         }
         System.out.println(listHoaDonTheoNgay.size());
         return listHoaDonTheoNgay;
-    };
+    }
+
+    ;
     @Override
     public int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
         int soLuongHoaDon = 0;
@@ -326,6 +328,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         }
         return soLuongHoaDon;
     }
+
     @Override
     public double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
         Double total = 0.0;
@@ -336,6 +339,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         }
         return total;
     }
+
 
     @Override
     public int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
@@ -351,6 +355,5 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         }
         return soLuongMon;
     }
-    
     
 }
