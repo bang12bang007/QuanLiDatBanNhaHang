@@ -942,7 +942,7 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
 
     private void btnThuTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuTienActionPerformed
         // TODO add your handling code here:
-        if (!thuTienJFrame.isVisible() || thuTienJFrame != null) {
+        if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
             thuTienJFrame = new JFrame();
             thuTienJFrame.setUndecorated(true);
             thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);

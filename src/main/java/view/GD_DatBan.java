@@ -243,7 +243,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-        txtNgay.setBackground(new java.awt.Color(255, 255, 255));
         txtNgay.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
         );
         txtNgay.setBorder(null);
@@ -275,7 +274,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
         state.setRoundTopLeft(8);
         state.setRoundTopRight(8);
 
-        trangThaiCombox.setBackground(new java.awt.Color(255, 255, 255));
         trangThaiCombox.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         trangThaiCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa nhận bàn", "Đã nhận bàn" }));
         trangThaiCombox.setBorder(null);

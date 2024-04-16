@@ -10,6 +10,7 @@ view\Form_DatBan$2.class
 dao\imlp\ChiTietHoaDonDAO.class
 view\GD_DatMon$4.class
 view\GD_DatBan$15.class
+view\GD_BaoCao$2.class
 entity\NhanVien.class
 dao\INhanVienDAO.class
 view\GD_Ban$1.class
@@ -35,6 +36,7 @@ component\ComboSuggestionUI.class
 component\BanItem.class
 component\ComboSuggestionUI$ComboSuggestionPopup.class
 component\ModernScrollBarUI$ScrollBarButton.class
+view\GD_BaoCao$3.class
 component\ComboSuggestionUI$1.class
 utils\ModelColor.class
 view\Form_ThuTien$1.class
@@ -125,5 +127,7 @@ view\Form_XemThucDon$10.class
 utils\Enum.class
 datechooser\DateChooser$2.class
 view\GD_ThanhToan$14.class
+view\GD_BaoCao$4.class
 component\OrderItem_forUIDatMon$8.class
 component\OrderItem_forUIDatMon$7.class
+view\GD_BaoCao$1.class
