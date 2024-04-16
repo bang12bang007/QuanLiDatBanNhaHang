@@ -156,7 +156,7 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound8.setRoundTopLeft(8);
         panelRound8.setRoundTopRight(8);
 
-        tongTien.setFont(utils.AppUtils.getFont(12f, _NORMAL_));
+        tongTien.setFont(utils.AppUtils.getFont(13f, _NORMAL_));
         tongTien.setForeground(new java.awt.Color(255, 255, 255));
         tongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tongTien.setText("0");
@@ -168,13 +168,13 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound8Layout.setHorizontalGroup(
             panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(tongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(iconEadting, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelRound8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
+                        .addGap(0, 109, Short.MAX_VALUE)
+                        .addComponent(iconEadting, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelRound8Layout.setVerticalGroup(

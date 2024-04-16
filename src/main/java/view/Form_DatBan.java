@@ -846,6 +846,10 @@ public class Form_DatBan extends javax.swing.JPanel {
 
     private void updateMenu(PhieuDatBan phieuDatBan) {
         HoaDon hoaDon = getHoaDonByBan(phieuDatBan.getBan());
+        if (hoaDon == null) {
+            KhachHang kh = khachHangDAO.findByPhoneNumber(phieuDatBan.getSdt());
+            createHoaDon(kh);
+        }
         List<ChiTietHoaDon> details = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
         for (ChiTietHoaDon detail : details) {
             chiTietHoaDonDAO.deleteChiTiet(detail);

@@ -38,6 +38,7 @@ import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
 import utils.AppUtils;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author Laptop
@@ -48,30 +49,25 @@ public class GD_TrangChu extends javax.swing.JFrame {
      * Creates new form GD_TrangChu
      */
     //default test //sau này xóa
-    private NhanVien nhanVien;
+    private NhanVien nhanVien = NHANVIEN;
     private ArrayList<JButton> tabs = new ArrayList<>();
 
+//    public GD_TrangChu() {
+//        INhanVienDAO nv_dao = new NhanVienDAO();
+//        nhanVien = (NhanVien) nv_dao.findById("NV120060424290", NhanVien.class);
+//        AppUtils.saveStorage(nhanVien);
+//        set_up_UI();
+//        setExtendedState(MAXIMIZED_BOTH);
+////      NDK set up notifications
+//        Notifications.getInstance().setJFrame(this);
+//        FlatIntelliJLaf.setup();
+//    }
+    //dùng cho đi từ login vào
     public GD_TrangChu() {
-
-        INhanVienDAO nv_dao = new NhanVienDAO();
-        nhanVien = (NhanVien) nv_dao.findById("NV120060424290", NhanVien.class);
-        AppUtils.saveStorage(nhanVien);
         set_up_UI();
-        setExtendedState(MAXIMIZED_BOTH);
-//      NDK set up notifications
+        label_AVT.setText(nhanVien.getHoTen());
         Notifications.getInstance().setJFrame(this);
         FlatIntelliJLaf.setup();
-//        setResizable(false);
-//        label_AVT.setText(nhanVien.getHoTen());
-//        UIManager.put( "Menu.selectionBackground", Color.cyan );
-//        UIManager.put( "MenuItem.selectionBackground", Color.cyan);
-    }
-
-    //dùng cho đi từ login vào
-    public GD_TrangChu(NhanVien nv) {
-        set_up_UI();
-        nhanVien = nv;
-        label_AVT.setText(nv.getHoTen());
     }
 
     private void set_up_UI() {
@@ -372,12 +368,12 @@ public class GD_TrangChu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVTActionPerformed
         // TODO add your handling code here:
-                utils.AppUtils.setUI(mainJpanel, () -> new GD_BaoCao());
+        utils.AppUtils.setUI(mainJpanel, () -> new GD_BaoCao());
 
     }//GEN-LAST:event_btnAVTActionPerformed
 
@@ -407,36 +403,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonDatMonActionPerformed
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
-        // TODO add your handling code here:
-//      SwingWorker<List<OrderCard>, Void> worker chỗ này 
-//      Bởi vì cần tạo hết rồi mới add vào mainJpanel
-//        mainJpanel.removeAll();
-//        Loading loading = new Loading();
-//        mainJpanel.add(loading, BorderLayout.CENTER);
-//        mainJpanel.repaint();
-//        mainJpanel.revalidate();
-//        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-//            GD_DatBan gD_DatBan = null;
-//            @Override
-//            protected Void doInBackground() throws Exception {
-//                // Thực hiện công việc lâu dài ở đây
-//                gD_DatBan = ;
-//                return null;
-//            }
-//
-//            @Override
-//            protected void done() {
-//                try {
-//                    mainJpanel.removeAll();
-//                    
-//                    mainJpanel.repaint();
-//                    mainJpanel.revalidate();
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        };
-//        worker.execute();
         utils.AppUtils.setUI(mainJpanel, () -> new GD_DatBan(mainJpanel));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatBanActionPerformed

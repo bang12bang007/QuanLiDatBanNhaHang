@@ -4,6 +4,7 @@
  */
 package view;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import dao.INhanVienDAO;
 import dao.ITaiKhoanDAO;
 import dao.imlp.NhanVienDAO;
@@ -15,7 +16,7 @@ import java.awt.Color;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import jiconfont.swing.IconFontSwing;
-import static utils.AppUtils.FONT;
+import raven.toast.Notifications;
 import static utils.AppUtils.*;
 
 /**
@@ -29,15 +30,20 @@ public class GD_DangNhap extends javax.swing.JFrame {
      */
 //    T test nhân viên bằng cách tìm nhân viên
     private INhanVienDAO nhanVienDAO = new NhanVienDAO();
+    private ITaiKhoanDAO tk_dao = new TaiKhoanDAO();
 
     public GD_DangNhap() {
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
-        iconUser.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20));
-        iconPass.setIcon(IconFontSwing.buildIcon(FontAwesome.LOCK, 20));
-        tenDangNhap.setBackground(new Color(0, 0, 0, 1));
-        matKhau.setBackground(new Color(0, 0, 0, 1));
+        iconUser.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
+        iconPass.setIcon(IconFontSwing.buildIcon(FontAwesome.LOCK, 20, Color.WHITE));
+        tenDangNhap.setBackground(new Color(0, 0, 0, 0));
+        matKhau.setBackground(new Color(0, 0, 0, 0));
+        userNameContaier.setBackground(new Color(83, 86, 99));
+        passContaier.setBackground(new Color(83, 86, 99));
         setLocationRelativeTo(null);
+        Notifications.getInstance().setJFrame(this);
+        FlatIntelliJLaf.setup();
     }
 
     /**
@@ -80,17 +86,18 @@ public class GD_DangNhap extends javax.swing.JFrame {
         setTitle("Đăng nhập");
         setResizable(false);
 
-        wrapper.setBackground(new java.awt.Color(235, 234, 232));
+        wrapper.setBackground(new java.awt.Color(83, 86, 99));
 
         title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo_2.png"))); // NOI18N
 
-        btnDangNhap.setForeground(new java.awt.Color(158, 154, 149));
+        btnDangNhap.setBackground(new java.awt.Color(31, 29, 43));
+        btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnDangNhap.setText("Đăng nhập");
-        btnDangNhap.setColor(new java.awt.Color(38, 32, 25));
-        btnDangNhap.setColorClick(new java.awt.Color(47, 41, 33));
-        btnDangNhap.setColorOver(new java.awt.Color(68, 58, 45));
+        btnDangNhap.setColor(new java.awt.Color(31, 29, 43));
+        btnDangNhap.setColorClick(new java.awt.Color(234, 124, 105));
+        btnDangNhap.setColorOver(new java.awt.Color(234, 124, 105));
         btnDangNhap.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
         );
         btnDangNhap.setRadius(50);
@@ -107,6 +114,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
 
         tenDangNhap.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
+        tenDangNhap.setForeground(new java.awt.Color(255, 255, 255));
         tenDangNhap.setBorder(null);
 
         javax.swing.GroupLayout userNameContaierLayout = new javax.swing.GroupLayout(userNameContaier);
@@ -124,10 +132,13 @@ public class GD_DangNhap extends javax.swing.JFrame {
             .addComponent(tenDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
         );
 
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
         passContaier.setBackground(new java.awt.Color(235, 234, 232));
 
         matKhau.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
+        matKhau.setForeground(new java.awt.Color(255, 255, 255));
         matKhau.setBorder(null);
         matKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,12 +161,16 @@ public class GD_DangNhap extends javax.swing.JFrame {
             .addComponent(matKhau)
         );
 
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Tên đăng nhập");
 
         jLabel4.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Mật khẩu");
 
         javax.swing.GroupLayout wrapperLayout = new javax.swing.GroupLayout(wrapper);
@@ -221,26 +236,23 @@ public class GD_DangNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tenDangNhap = this.tenDangNhap.getText().trim();
         String matKhau = this.matKhau.getText().trim();
-
-        ITaiKhoanDAO tk_dao = new TaiKhoanDAO();
         TaiKhoan tk = (TaiKhoan) tk_dao.findById(tenDangNhap, TaiKhoan.class);
-
         if (tk == null) {
-            JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Đăng nhập thất bại");
         } else {
             if (tk.getMatKhau().equals(matKhau)) {
-                INhanVienDAO dao = new NhanVienDAO();
-                NhanVien nv = (NhanVien) dao.findById(tenDangNhap, NhanVien.class);
+                NhanVien nv = (NhanVien) nhanVienDAO.findById(tenDangNhap, NhanVien.class);
+                saveStorage(nv);
                 setVisible(false);
                 if (nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
                     //                Chuyen qua gd quan ly
-                    new GD_TrangChu(nv).setVisible(true);
+                    new GD_TrangChu().setVisible(true);
                 } else {
                     //                Chuyen qua gd nhan vien
-                    new GD_TrangChu(nv).setVisible(true);
+                    new GD_TrangChu().setVisible(true);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Đăng Nhập Thất bại");
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Mật khẩu không đúng");
             }
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed

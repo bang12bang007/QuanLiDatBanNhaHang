@@ -816,7 +816,7 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
 
     public void deleteBooking() {
         if (active >= 0) {
-            if (bookingItems.get(active).getPhieuDatBan().getTrangThai().ordinal() == 0) {
+            if (bookingItems.get(active).getPhieuDatBan().getTrangThai().ordinal() == utils.Enum.LoaiTrangThaiPhieu.CHUA_NHAN.ordinal()) {
                 phieuDatBanDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getMaPhieuDatBan(), utils.Enum.LoaiTrangThaiPhieu.DA_HUY);
                 banDAO.updateStateById(bookingItems.get(active).getPhieuDatBan().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
                 HoaDon hoaDon = null;

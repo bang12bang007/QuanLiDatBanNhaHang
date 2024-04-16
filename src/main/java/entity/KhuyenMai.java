@@ -4,6 +4,7 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -52,7 +53,7 @@ public class KhuyenMai {
     private LoaiTrangThaiKhuyenMai trangThai;
     @OneToMany(mappedBy = "khuyenMai")
     private List<Mon> mon;
-    @ManyToMany(mappedBy = "khuyenMai")
+    @ManyToMany(mappedBy = "khuyenMai", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
 
     public KhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Double chietKhau, LoaiKhuyenMai loaiKhuyenMai, String ghiChu, LoaiTrangThaiKhuyenMai trangThai, List<Mon> mon) {

@@ -9,14 +9,17 @@ import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
 import dao.IMonDAO;
+import dao.ITheThanhVienDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
+import dao.imlp.TheThanhVienDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhuyenMai;
 import entity.Mon;
+import entity.TheThanhVien;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.text.DecimalFormat;
@@ -49,11 +52,13 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private List<JButton> moneySuggestions = new ArrayList<>();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
     private IMonDAO monDAO = new MonDAO();
     private IBanDAO banDAO = new BanDAO();
     private HoaDon hoaDon;
     private JPanel mainJPanel;
     private List<KhuyenMai> khuyenMais = new ArrayList<>();
+    private TheThanhVien theThanhVien;
 
     public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
         initComponents();
@@ -705,10 +710,13 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
     private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
         // TODO add your handling code here:
+        char c = evt.getKeyChar();
         if (!txtTienKhachDua.getText().trim().equals("")) {
             String tien = txtTienKhachDua.getText().replace(",", "");
             double tienKhachDua = Double.parseDouble(tien);
-            txtTienKhachDua.setText(formatNotVND.format(tienKhachDua));
+            if (Character.isDigit(c)) {
+                txtTienKhachDua.setText(formatNotVND.format(tienKhachDua));
+            }
             tienPhaiTra.setText(tien_format.format(tienKhachDua - total));
         } else {
             tienPhaiTra.setText("0 VNĐ");
@@ -757,8 +765,24 @@ public class Form_ThuTien extends javax.swing.JPanel {
     }
 
     private void pay() {
+        if (theThanhVien != null) {
+            double diemTichLuy = theThanhVien.getDiemTich() + (total / 100000);
+            if (diemTichLuy >= 100.0) {
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.BRONZE);
+            } else if (diemTichLuy >= 500.0) {
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.SILVER);
+            } else if (diemTichLuy >= 2000.0) {
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.GOLD);
+            } else if (diemTichLuy >= 10000.0) {
+                System.out.println("VCL dcmm");
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.DIAMOND);
+            }
+            theThanhVien.setDiemTich(diemTichLuy);
+            theThanhVienDAO.update(theThanhVien);
+        }
         hoaDon.setKhuyenMai(khuyenMais);
-        hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+        hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+        hoaDonDAO.update(hoaDon);
         banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
     }
 
@@ -768,6 +792,10 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
     public void setListKhuyenMai(List<KhuyenMai> khuyenMais) {
         this.khuyenMais = khuyenMais;
+    }
+
+    public void setTheThanhVien(TheThanhVien theThanhVien) {
+        this.theThanhVien = theThanhVien;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
