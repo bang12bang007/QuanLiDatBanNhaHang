@@ -83,7 +83,7 @@
                       <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                       <Component id="panelRound2" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="panelRound5" pref="237" max="32767" attributes="0"/>
+                      <Component id="panelRound5" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="panelRound4" pref="237" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>

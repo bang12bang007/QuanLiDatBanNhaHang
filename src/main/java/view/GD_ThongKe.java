@@ -42,9 +42,8 @@ public class GD_ThongKe extends javax.swing.JPanel {
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("DoanhThuNhanVien",(hd_Dao.getTongDoanhThu(NHANVIEN)));
         dataset.setValue("TongDoanhThu", (hd_Dao.getTongDoanhThu(NHANVIEN)+5000000));
-        dataset.setValue("HoaDon",(hd_Dao.getTongHoaDon(NHANVIEN)));
         JFreeChart chart;
-        chart = ChartFactory.createPieChart("BaoCao", dataset, true, true, true);
+        chart = ChartFactory.createPieChart("BaoCao", dataset, true, true, Boolean.TRUE);
         PiePlot P = (PiePlot) chart.getPlot();
         P.setLabelFont(utils.AppUtils.getFont(20f, _BOLD_));
         P.setBackgroundPaint(cus);
