@@ -4,13 +4,8 @@
  */
 package view;
 
-import component.*;
-import icon.FontAwesome;
 import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import jiconfont.swing.IconFontSwing;
-import view.GD_DatBan;
 import static utils.AppUtils.NHANVIEN;
 import utils.AppUtils;
 

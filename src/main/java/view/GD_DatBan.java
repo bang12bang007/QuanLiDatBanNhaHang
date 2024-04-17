@@ -59,7 +59,7 @@ import static utils.AppUtils.*;
  *
  * @author Laptop
  */
-public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
+public class GD_DatBan extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_DatBan
@@ -108,54 +108,6 @@ public class GD_DatBan extends javax.swing.JPanel implements UIUpdatable {
             }
         });
 
-    }
-
-    public void setUI() {
-        initComponents();
-        IconFontSwing.register(FontAwesome.getIconFont());
-        btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
-        btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
-        tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-        tableScroll.setVerticalScrollBar(new ScrollBarCustom());
-        tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
-        btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 24, Color.WHITE));
-        dateChooser.addEventDateChooser(new EventDateChooser() {
-            public void dateSelected(SelectedAction action, SelectedDate date) {
-                if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
-//                    filterByDate(date.getDay(), date.getMonth(), date.getYear());
-                }
-            }
-
-        });
-        FirstTimeLoadItem();
-    }
-
-    private void FirstTimeLoadItem() {
-//        GD_DatBan dat_ban = this;
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây
-                Timer hideTimer = new Timer(1520, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        loadData();
-                        tableBody.repaint();
-                        tableBody.revalidate();
-                    }
-                });
-                hideTimer.setRepeats(false);
-                hideTimer.start();
-
-                return null;
-            }
-
-            @Override
-            protected void done() {
-            }
-        };
-        worker.execute();
     }
 
     /**

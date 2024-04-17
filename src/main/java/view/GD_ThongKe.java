@@ -15,9 +15,7 @@ import static utils.AppUtils.*;
 import entity.HoaDon;
 import entity.ChiTietHoaDon;
 import java.util.List;
-import entity.NhanVien;
 import java.awt.Color;
-import static utils.AppUtils.*;
 
 /**
  *

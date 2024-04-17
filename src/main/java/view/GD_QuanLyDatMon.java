@@ -32,7 +32,7 @@ import java.util.Vector;
  *
  * @author Laptop
  */
-public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
+public class GD_QuanLyDatMon extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_Order
@@ -65,27 +65,6 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         tabs.add(btnCheckout);
         tabs.add(btnReserve);
         loadData();
-//        run(mainPanel, this);
-    }
-
-    public void setUI() {
-
-        this.nv = nv;
-
-        initComponents();
-        txtMaBan.setBackground(new Color(0, 0, 0, 1));
-        this.main.setLayout(new WrapLayout(FlowLayout.LEADING, 52, 20));
-        scroll.setVerticalScrollBar(new ScrollBarCustom());
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        IconFontSwing.register(FontAwesome.getIconFont());
-        iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20, Color.WHITE));
-        btnDown.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
-        btnUp.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
-        btnDD.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_DOWN, 20, Color.WHITE));
-        btnDU.setIcon(IconFontSwing.buildIcon(FontAwesome.ANGLE_DOUBLE_UP, 20, Color.WHITE));
-
-        showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN);
-
     }
 
     /**
@@ -226,7 +205,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
         myButton1.setBackground(new java.awt.Color(83, 86, 99));
         myButton1.setForeground(new java.awt.Color(255, 255, 255));
-        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/plus.png"))); // NOI18N
+        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
         myButton1.setText("Gọi món");
         myButton1.setColor(new java.awt.Color(83, 86, 99));
         myButton1.setColorClick(new java.awt.Color(234, 124, 105));
@@ -453,8 +432,6 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
         utils.AppUtils.setUI(mainPanel, () -> new GD_Ban(mainPanel, "DAT_MON", null));
-//        repaint();
-//        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed
 
     private void filterBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBanActionPerformed

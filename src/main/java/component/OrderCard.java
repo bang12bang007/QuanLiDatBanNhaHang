@@ -13,6 +13,7 @@ import dao.imlp.MonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Mon;
+import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.util.List;
@@ -55,6 +56,7 @@ public class OrderCard extends javax.swing.JPanel {
         initComponents();
         setIconBtn();
         maBan.setText(hoaDon.getBan().getMaBan());
+        setSoLuong(hoaDon);
 //        jLabel2.setText(hoaDon.getBan().getMaBan());
 //        jLabel3.setText(tien_format.format(total));
 //        loadData();
@@ -331,6 +333,14 @@ public class OrderCard extends javax.swing.JPanel {
 
     public void setToTal(double total) {
         tongTien.setText(tien_format.format(total));
+    }
+
+    private void setSoLuong(HoaDon hoaDon) {
+        hoaDonDAO = new HoaDonDAO();
+        PhieuDatBan phieuDatBan = hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon);
+        if (phieuDatBan != null) {
+            soLuongNguoi.setText(phieuDatBan.getSoLuongNguoi() + "");
+        }
     }
 
 //    NDK: T tính trong orderCard luôn á 
