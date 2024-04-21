@@ -37,7 +37,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ import static utils.AppUtils.*;
  *
  * @author Laptop
  */
-public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
+public class GD_DatMon extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_DatMon
@@ -126,34 +125,11 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
         banTextField.setEditable(false);
         labelTongTien.setText("0,0 VNĐ");
         nhanVienName.setText(nv.getHoTen());
-
+        First_LoadData();
         Notifications.getInstance();
         FlatIntelliJLaf.setup();
         First_LoadData();
 
-    }
-
-//    NDK: t di len contructor luon nghe
-    private void run() {
-        GD_DatMon gd_datmon = this;
-        Timer timer = new Timer(0, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Loading loading = new Loading();
-                utils.AppUtils.setLoading(main, true, loading, gd_datmon);
-
-                Timer hideTimer = new Timer(1500, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        utils.AppUtils.setLoading(main, false, loading, gd_datmon);
-                    }
-                });
-                hideTimer.setRepeats(false);
-                hideTimer.start();
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
     }
 
     /**
@@ -1136,7 +1112,6 @@ public class GD_DatMon extends javax.swing.JPanel implements UIUpdatable {
                 for (Mon mon : mons) {
                     list.add(new Food(gd_mon, mon, PanelOrder, mons, orders));
                 }
-
                 if (!branch.equals(TypeDatMon_Branch.DATMON)) {
                     Double total = 0.0;
                     listPreOrderItem = new ArrayList<>();

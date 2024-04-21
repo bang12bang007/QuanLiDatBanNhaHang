@@ -83,7 +83,6 @@ public class Food extends javax.swing.JPanel {
         });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/GaChienBo.png"))); // NOI18N
         btnFood.setColor(new java.awt.Color(31, 29, 43));
         btnFood.setColorClick(new java.awt.Color(31, 29, 43));
         btnFood.setColorOver(new java.awt.Color(31, 29, 43));

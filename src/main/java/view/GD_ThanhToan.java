@@ -45,7 +45,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  *
  * @author Laptop
  */
-public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
+public class GD_ThanhToan extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_ThanhToan
@@ -124,10 +124,6 @@ public class GD_ThanhToan extends javax.swing.JPanel implements UIUpdatable {
         btnLuuTam.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 20, Color.WHITE));
         btnThuTien.setIcon(IconFontSwing.buildIcon(FontAwesome.MONEY, 20, Color.WHITE));
         autoComplete();
-
-    }
-
-    public void setUI() {
 
     }
 

@@ -20,7 +20,6 @@ datechooser\SelectedAction.class
 view\GD_DatMon$19.class
 component\Message.class
 view\Form_XemThucDon$8.class
-view\GD_DatMon$1$1.class
 view\GD_TrangChu$2.class
 view\GD_ThanhToan$15.class
 component\WrapLayout.class
@@ -98,7 +97,6 @@ datechooser\Dates.class
 view\GD_DatMon$12.class
 view\GD_ThanhToan$5.class
 component\Message$4.class
-utils\AppUtils$2.class
 dao\imlp\BanDAO.class
 datechooser\DateChooser$3.class
 datechooser\Slider$1.class
@@ -138,6 +136,7 @@ view\GD_ThanhToan$6.class
 utils\Enum$LoaiTrangThaiHoaDon.class
 view\Form_ThongTinCaNhan.class
 view\GD_DangNhap.class
+view\GD_DatMon$19$1.class
 component\TransparentPopupMenu.class
 view\GD_DatBanTruoc$7.class
 dao\IChiTietHoaDonDAO.class
@@ -215,11 +214,9 @@ view\GD_DatMon$16.class
 view\Form_HuyMon$3.class
 view\GD_DatBanTruoc$6.class
 view\GD_DangNhap$3.class
-view\GD_DatMon$22.class
 component\BanItem$2.class
 view\Form_HuyMon$4.class
 view\GD_DatMon$17.class
 view\GD_DatBanTruoc$5.class
 view\GD_BaoCao$1.class
-view\GD_DatMon$21$1.class
 component\OrderItem_forUIDatMon$5.class

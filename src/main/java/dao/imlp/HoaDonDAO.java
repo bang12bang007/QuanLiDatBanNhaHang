@@ -11,7 +11,6 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -19,27 +18,25 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.TabStop;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.TabAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
-import entity.Mon;
 import entity.NhanVien;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
-import java.awt.Color;
-import java.awt.Font;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +44,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
 import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
@@ -150,6 +152,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 
     @Override
     public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
+
         PdfWriter pdfWriter = null;
 
         try {
@@ -165,7 +168,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             document.add(new Paragraph("KTQD Gò vấp - 244 Lê Văn Thọ").setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
             document.add(new Paragraph("246, Lê Văn Thọ, Phường 11, Q.Gò Vấp").setTextAlignment(TextAlignment.CENTER).setMargin(0));
             document.add(new Paragraph("Thành phố Hồ Chí Minh    Hotline: 0902 777 600").setTextAlignment(TextAlignment.CENTER).setMargin(0));
-            document.add(new Image(ImageDataFactory.create("./src/main/java/image/logo_2.png")).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            document.add(new Image(ImageDataFactory.create("./src/main/resources/images/logo_2.png")).setHorizontalAlignment(HorizontalAlignment.CENTER));
             document.add(new Paragraph("PHIẾU HÓA ĐƠN").setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
             document.add(new Paragraph("Số: " + hoaDon.getMaHoaDon()).setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
 //          ---Ngày---
@@ -221,8 +224,20 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             document.add(new Paragraph("Quý khách vui lòng kiểm tra kỹ lại nội dung trước khi thanh toán! Trân trọng cảm ơn!").setTextAlignment(TextAlignment.CENTER).setBold());
             document.add(new Paragraph("HẸN GẶP LẠI QUÝ KHÁCH").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(20f));
             document.add(new Paragraph("Một sản phẩm của Team The Chosen Ones - NDK").setTextAlignment(TextAlignment.CENTER));
-
             document.close();
+
+            SwingController controller = new SwingController();
+            SwingViewBuilder factory = new SwingViewBuilder(controller);
+            JPanel viewerComponentPanel = factory.buildViewerPanel();
+            controller.getDocumentViewController().setAnnotationCallback(new org.icepdf.ri.common.MyAnnotationCallback(controller.getDocumentViewController()));
+            JFrame frame = new JFrame("PDF Viewer");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setExtendedState(MAXIMIZED_BOTH);
+            frame.setLocationRelativeTo(null);
+            controller.openDocument(path);
+            frame.add(viewerComponentPanel);
+            frame.setVisible(true);
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {
@@ -230,10 +245,14 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         } catch (IOException ex) {
             Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                pdfWriter.close();
-            } catch (IOException ex) {
-                Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            // Đóng PdfWriter
+            if (pdfWriter != null) {
+                try {
+                    pdfWriter.close();
+                    Files.deleteIfExists(Paths.get("invoice.pdf"));
+                } catch (IOException ex) {
+                    Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -257,12 +276,13 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     }
 
     @Override
-    public List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc ){
+    public List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findHoaDonTuNgayDenNgay", HoaDon.class);
         query.setParameter("ngayBatDau", ngayBatDau);
         query.setParameter("ngayKetThuc", ngayKetThuc);
         return query.getResultList();
     }
+
     public int getTongHoaDon(NhanVien nv) {
         int hd = 0;
         String ngay = generateTime.substring(0, 6);
@@ -316,40 +336,39 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 
     ;
     @Override
-    public int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
+    public int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         int soLuongHoaDon = 0;
-        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau,ngayKetThuc);
-        for(int i=0;i<list.size();i++){
-            soLuongHoaDon +=1;
+        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau, ngayKetThuc);
+        for (int i = 0; i < list.size(); i++) {
+            soLuongHoaDon += 1;
         }
         return soLuongHoaDon;
     }
 
     @Override
-    public double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
+    public double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         Double total = 0.0;
         ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau,ngayKetThuc);
-        for(int i=0;i<list.size();i++){
+        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau, ngayKetThuc);
+        for (int i = 0; i < list.size(); i++) {
             total += dao.TotalFoodCurrency(list.get(i));
         }
         return total;
     }
 
-
     @Override
-    public int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc) {
-        int soLuongMon=0;
+    public int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
+        int soLuongMon = 0;
         List<HoaDon> list1 = findHoaDonTuNgayDenNgay(ngayBatDau, ngayKetThuc);
         ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-        for(int i=0;i<list1.size();i++){
-            List<ChiTietHoaDon> list2 =new ArrayList<>();
-            list2=dao.getListByHoaDon(list1.get(i));
-            for(int j=0;j<list2.size();j++){
-                soLuongMon+= list2.get(j).getSoLuong();
+        for (int i = 0; i < list1.size(); i++) {
+            List<ChiTietHoaDon> list2 = new ArrayList<>();
+            list2 = dao.getListByHoaDon(list1.get(i));
+            for (int j = 0; j < list2.size(); j++) {
+                soLuongMon += list2.get(j).getSoLuong();
             }
         }
         return soLuongMon;
     }
-    
+
 }

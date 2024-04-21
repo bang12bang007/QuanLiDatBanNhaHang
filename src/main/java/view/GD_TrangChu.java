@@ -67,6 +67,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
         set_up_UI();
         label_AVT.setText(nhanVien.getHoTen());
         Notifications.getInstance().setJFrame(this);
+        setExtendedState(MAXIMIZED_BOTH);
         FlatIntelliJLaf.setup();
     }
 
@@ -346,7 +347,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
         mainJpanel.setLayout(new java.awt.BorderLayout());
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/background.jpg"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background.jpg"))); // NOI18N
         mainJpanel.add(background, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

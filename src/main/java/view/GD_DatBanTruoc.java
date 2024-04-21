@@ -56,7 +56,7 @@ import static utils.AppUtils.*;
  *
  * @author Laptop
  */
-public class GD_DatBanTruoc extends javax.swing.JPanel implements UIUpdatable {
+public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_DatBan

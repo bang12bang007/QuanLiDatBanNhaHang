@@ -93,7 +93,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo_2.png"))); // NOI18N
+        title.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_2.png"))); // NOI18N
 
         btnDangNhap.setBackground(new java.awt.Color(31, 29, 43));
         btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,7 +111,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
         });
 
         imgae.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgae.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bg.jpg"))); // NOI18N
+        imgae.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg.jpg"))); // NOI18N
 
         userNameContaier.setBackground(new java.awt.Color(235, 234, 232));
 

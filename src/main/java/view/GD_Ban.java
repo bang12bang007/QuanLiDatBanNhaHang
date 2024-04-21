@@ -41,11 +41,12 @@ import javax.swing.Timer;
 import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
 import static utils.AppUtils.*;
+
 /**
  *
  * @author dmx
  */
-public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
+public class GD_Ban extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_Ban
@@ -78,6 +79,7 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
         loadData();
 //        AppUtils.run(main, this);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -573,10 +575,5 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private component.PanelRound panelRound8;
     private javax.swing.JLabel tabLabel;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void setUI() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 }
