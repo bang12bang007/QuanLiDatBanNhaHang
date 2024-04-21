@@ -4,27 +4,17 @@
  */
 package component;
 
-import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
-import dao.IMonDAO;
-import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
-import dao.imlp.MonDAO;
-import entity.ChiTietHoaDon;
 import entity.HoaDon;
-import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
-import java.util.List;
-import javax.swing.JPanel;
-import jiconfont.swing.IconFontSwing;
 import utils.AppUtils;
-import static utils.AppUtils.setUI;
 import view.GD_DatMon;
 import java.text.DecimalFormat;
 import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
-import view.GD_QuanLyDatMon;
+import view.GD_DatBanTaiCho;
 import view.GD_ThanhToan;
 import static utils.AppUtils.*;
 
@@ -41,7 +31,7 @@ public class OrderCard extends javax.swing.JPanel {
     private HoaDon hoaDon;
     private Double total = 0.0;
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
-    private GD_QuanLyDatMon ql_datMon;//khai biến để back về không cần tạo mới
+    private GD_DatBanTaiCho ql_datMon;//khai biến để back về không cần tạo mới
     private IHoaDonDAO hoaDonDAO;
 
     public OrderCard() {
@@ -313,7 +303,7 @@ public class OrderCard extends javax.swing.JPanel {
                 gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
             } else {
                 hoaDonDAO = new HoaDonDAO();
-                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
+//                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
                 gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
             }
             return gD_DatMon;
@@ -336,11 +326,11 @@ public class OrderCard extends javax.swing.JPanel {
 //    NDK: T tính trong orderCard luôn á 
 //    NDK: xóa luôn đi
 //    duccuong1609 : ?? :DD
-    public GD_QuanLyDatMon getQl_datMon() {
+    public GD_DatBanTaiCho getQl_datMon() {
         return ql_datMon;
     }
 
-    public void setQl_datMon(GD_QuanLyDatMon ql_datMon) {
+    public void setQl_datMon(GD_DatBanTaiCho ql_datMon) {
         this.ql_datMon = ql_datMon;
     }
 

@@ -4,33 +4,16 @@
  */
 package component;
 
-import LIB.FadeEffect;
-import dao.IBanDAO;
-import dao.IHoaDonDAO;
-import dao.IPhieuDatBanDAO;
-import dao.imlp.BanDAO;
-import dao.imlp.HoaDonDAO;
-import dao.imlp.PhieuDatBanDAO;
 import entity.Ban;
-import entity.HoaDon;
 import entity.NhanVien;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.FlowLayout;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingWorker;
 import static utils.AppUtils.*;
-import view.Form_DatBan;
 import view.GD_Ban;
-import view.GD_DatBan;
 import view.GD_DatMon;
 
 /**
@@ -193,7 +176,7 @@ public class BanItem extends javax.swing.JPanel {
     }//GEN-LAST:event_myButton1ActionPerformed
 
     public void move() {
-        gD_Ban.moveTable(this.ban);
+//        gD_Ban.moveTable(this.ban);
     }
 
     public GD_DatMon getgD_datMon() {

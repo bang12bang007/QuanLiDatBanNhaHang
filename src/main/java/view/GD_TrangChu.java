@@ -190,7 +190,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
         buttonDatMon.setBorder(null);
         buttonDatMon.setForeground(new java.awt.Color(255, 255, 255));
-        buttonDatMon.setText("QUẢN LÝ ĐẶT MÓN");
+        buttonDatMon.setText("ĐẶT BÀN TẠI CHỖ");
         buttonDatMon.setBorderColor(new java.awt.Color(83, 86, 99));
         buttonDatMon.setColor(new java.awt.Color(83, 86, 99));
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
@@ -211,7 +211,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
         buttonDatBan.setBorder(null);
         buttonDatBan.setForeground(new java.awt.Color(255, 255, 255));
-        buttonDatBan.setText("QUẢN LÝ ĐẶT BÀN");
+        buttonDatBan.setText("ĐẶT BÀN TRƯỚC");
         buttonDatBan.setBorderColor(new java.awt.Color(83, 86, 99));
         buttonDatBan.setColor(new java.awt.Color(83, 86, 99));
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));
@@ -397,12 +397,12 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatMonActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, () -> new GD_QuanLyDatMon(mainJpanel, nhanVien));
+        utils.AppUtils.setUI(mainJpanel, () -> new GD_DatBanTaiCho(mainJpanel, nhanVien));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatMonActionPerformed
 
     private void buttonDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDatBanActionPerformed
-        utils.AppUtils.setUI(mainJpanel, () -> new GD_DatBan(mainJpanel));
+        utils.AppUtils.setUI(mainJpanel, () -> new GD_DatBanTruoc(mainJpanel));
         setActiveTab(evt);
     }//GEN-LAST:event_buttonDatBanActionPerformed
 
@@ -430,36 +430,36 @@ public class GD_TrangChu extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-//        Persistence.createEntityManagerFactory("QLNH_mssql");
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GD_TrangChu().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+////        Persistence.createEntityManagerFactory("QLNH_mssql");
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GD_TrangChu().setVisible(true);
+//            }
+//        });
+//    }
 
     public NhanVien getNhanVien() {
         return nhanVien;

@@ -32,7 +32,7 @@ import java.util.Vector;
  *
  * @author Laptop
  */
-public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
+public class GD_DatBanTaiCho extends javax.swing.JPanel implements UIUpdatable {
 
     /**
      * Creates new form GD_Order
@@ -46,7 +46,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 //    NDK create a list ccontains tabs
     private List<JButton> tabs = new ArrayList<>();
 
-    public GD_QuanLyDatMon(JPanel main, NhanVien nv) {
+    public GD_DatBanTaiCho(JPanel main, NhanVien nv) {
         this.mainPanel = main;
         initComponents();
         txtMaBan.setBackground(new Color(0, 0, 0, 1));
@@ -452,7 +452,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainPanel, () -> new GD_Ban(mainPanel, "DAT_MON", null));
+//        utils.AppUtils.setUI(mainPanel, () -> new GD_Ban(mainPanel, "DAT_MON", null));
 //        repaint();
 //        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed
@@ -486,7 +486,7 @@ public class GD_QuanLyDatMon extends javax.swing.JPanel implements UIUpdatable {
         main.add(loading, BorderLayout.CENTER);
         main.repaint();
         main.revalidate();
-        GD_QuanLyDatMon ql_datMon = this;
+        GD_DatBanTaiCho ql_datMon = this;
         SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
             @Override
             protected List<OrderCard> doInBackground() throws Exception {

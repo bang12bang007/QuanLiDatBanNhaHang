@@ -13,8 +13,6 @@ import entity.NhanVien;
 import entity.TaiKhoan;
 import icon.FontAwesome;
 import java.awt.Color;
-import java.util.Date;
-import javax.swing.JOptionPane;
 import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
 import static utils.AppUtils.*;
@@ -46,6 +44,9 @@ public class GD_DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Notifications.getInstance().setJFrame(this);
         FlatIntelliJLaf.setup();
+        //---------------------------------------------
+        tenDangNhap.setText("NV120060424290");
+        matKhau.setText("280920003");
     }
 
     /**

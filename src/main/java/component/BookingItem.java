@@ -4,37 +4,18 @@
  */
 package component;
 
-import dao.IBanDAO;
-import dao.IHoaDonDAO;
-import dao.IKhachHangDAO;
-import dao.IPhieuDatBanDAO;
-import dao.imlp.BanDAO;
-import dao.imlp.ChiTietHoaDonDAO;
-import dao.imlp.HoaDonDAO;
-import dao.imlp.KhachHangDAO;
-import dao.imlp.PhieuDatBanDAO;
 import entity.ChiTietHoaDon;
-import entity.HoaDon;
-import entity.KhachHang;
-import entity.Mon;
-import entity.NhanVien;
-import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
-import utils.AppUtils;
 import view.GD_Ban;
-import view.GD_DatBan;
+import view.GD_DatBanTruoc;
 import view.GD_DatMon;
 import static utils.AppUtils.*;
 
@@ -47,9 +28,8 @@ public class BookingItem extends javax.swing.JPanel {
     /**
      * Creates new form BookingItem
      */
-    private GD_DatBan GD;
+    private GD_DatBanTruoc GD;
     private int index;
-    private PhieuDatBan phieuDatBan;
 
     public BookingItem() {
         initComponents();
@@ -64,7 +44,7 @@ public class BookingItem extends javax.swing.JPanel {
         }
     }
 
-    public BookingItem(int index, String[] data, int width, GD_DatBan GD) {
+    public BookingItem(int index, String[] data, int width, GD_DatBanTruoc GD) {
         this.index = index;
         this.GD = GD;
         initComponents();
@@ -95,17 +75,6 @@ public class BookingItem extends javax.swing.JPanel {
         trangThai.setText(data[3]);
         datCoc.setText(data[4] + "    ");
 
-    }
-
-    public PhieuDatBan getPhieuDatBan() {
-        return phieuDatBan;
-    }
-
-    public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
-        this.phieuDatBan = phieuDatBan;
-        if (phieuDatBan.getTrangThai().ordinal() == 1) {
-            hideButton();
-        }
     }
 
     public void setData(String[] data) {
@@ -232,13 +201,16 @@ public class BookingItem extends javax.swing.JPanel {
 
     private void btnSapChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapChoActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(GD.getMainJpanel(), () -> new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN", phieuDatBan));
+        //----------------------------------------------------------------------------------------//
+//        utils.AppUtils.setUI(GD.getMainJpanel(), () -> new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN", phieuDatBan));
     }//GEN-LAST:event_btnSapChoActionPerformed
 
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
         // TODO add your handling code here:
         GD.setBookingActive(index);
-        GD.setInfoForActiveItem(phieuDatBan);
+        
+        //------------------------------------------------//
+//        GD.setInfoForActiveItem(phieuDatBan);
     }//GEN-LAST:event_wrapperMouseClicked
 
     private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
@@ -250,13 +222,13 @@ public class BookingItem extends javax.swing.JPanel {
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
         // TODO add your handling code here:
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+//            GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
             //duccuong1609 : còn lag, vẫn phải fix
             @Override
             protected Void doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
-                List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
-                datMon.setHoaDon(list.get(0).getHoaDon());
+//                List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
+//                datMon.setHoaDon(list.get(0).getHoaDon());
                 return null;
             }
 
@@ -265,7 +237,7 @@ public class BookingItem extends javax.swing.JPanel {
                 datMon.setGd_datBan(GD);
                 btnGoiMon.setBackground(new Color(255, 255, 255, 0));
                 datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-                datMon.setPhieuDatBan(phieuDatBan);
+//                datMon.setPhieuDatBan(phieuDatBan);
                 datMon.setBack_toUI_DatBan(true);
                 utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
             }

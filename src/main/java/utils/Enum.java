@@ -25,10 +25,6 @@ public class Enum {
         DANG_KINH_DOANH, NGUNG_KINH_DOANH, TAM_DUNG_PHUC_VU;
     };
 
-    public static enum LoaiTrangThaiDichVu {
-        DANG_KINH_DOANH, NGUNG_KINH_DOANH, TAM_DUNG_PHUC_VU;
-    };
-
     public static enum LoaiTrangThaiHoaDon {
         DA_THANH_TOAN, HUY_BO, CHO_THANH_TOAN, CHUA_THANH_TOAN, DAT_TRUOC;
     };
@@ -38,15 +34,11 @@ public class Enum {
     };
 
     public static enum LoaiTheThanhVien {
-        STANDARD, BRONZE, SILVER, GOLD, DIAMOND;
+        TIEUCHUAN, DONG, BAC, VANG, KIMCUONG;
     };
 
     public static enum LoaiKhuyenMai {
         SU_KIEN_DAC_BIET, SAN_PHAM, MEM_BRONZE, MEM_SILVER, MEM_GOLD, MEM_DIAMOND;
-    };
-
-    public static enum LoaiTrangThaiKhuyenMai {
-        HET_HAN, CON_AP_DUNG, TAM_NGUNG;
     };
 
     public static enum DatMon_ThemMon {
@@ -56,8 +48,4 @@ public class Enum {
     public static enum TypeDatMon_Branch {
         DATMON, THEMMON, DAT_TRUOC_MON;
     };
-
-    public static enum LoaiTrangThaiPhieu {
-        CHUA_NHAN, DA_NHAN, DA_HUY
-    }
 }

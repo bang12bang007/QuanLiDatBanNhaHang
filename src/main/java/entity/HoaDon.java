@@ -12,8 +12,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -38,7 +36,6 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai"),
     @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
-    @NamedQuery(name = "HoaDon.getPhieuDatBan",query = "SELECT p FROM HoaDon h INNER JOIN Ban b on b.maBan = h.ban.maBan INNER JOIN PhieuDatBan p on p.ban.maBan = b.maBan WHERE h.maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.findHoaDonTuNgayDenNgay",query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
 
 })
@@ -53,18 +50,8 @@ public class HoaDon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhachHang", nullable = true)
     private KhachHang khachHang;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "ChiTietKhuyenMai",
-            joinColumns = {
-                @JoinColumn(name = "MaHoaDon")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "MaKhuyenMai")}
-    )
-    private List<KhuyenMai> khuyenMai;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaDichVu", nullable = true)
-    private DichVu dichVu;
+    @OneToMany(mappedBy = "hoaDon",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ChiTietKhuyenMai> chiTietKhuyenMai;
     @Column(name = "NgayLapHoaDon", nullable = false)
     private LocalDateTime ngayLapHoaDon;
     @ManyToOne
@@ -73,8 +60,16 @@ public class HoaDon {
     @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiHoaDon trangThai;
-    @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hoaDon",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
+    @Column(name = "NgayDatBan", nullable = true)
+    private LocalDateTime ngayDatBan;
+    @Column(name = "NgayGioNhanBan", nullable = true)
+    private LocalDateTime ngayGioNhanBan;
+    @Column(name = "TongThanhToan", nullable = true)
+    private Double tongThanhToan;
+    @Column(name = "TienPhaiThu", nullable = true)
+    private Double tienPhaiThu;
 
     public HoaDon(NhanVien nhanVien, LocalDateTime ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
         this.nhanVien = nhanVien;
@@ -88,4 +83,5 @@ public class HoaDon {
         this.khachHang = khachHang;
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
+    
 }

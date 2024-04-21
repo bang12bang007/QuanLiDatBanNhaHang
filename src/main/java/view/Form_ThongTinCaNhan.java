@@ -10,7 +10,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
-import view.GD_DatBan;
+import view.GD_DatBanTruoc;
 import static utils.AppUtils.NHANVIEN;
 import utils.AppUtils;
 

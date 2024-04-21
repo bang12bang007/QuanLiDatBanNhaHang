@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import utils.Enum.LoaiVaiTro;
 import java.util.List;
 import lombok.Getter;
@@ -45,7 +46,7 @@ public class NhanVien {
     @Column(name = "SoDienThoai", nullable = false)
     private String soDienThoai;
     @Column(name = "NgayBatDauLam", nullable = false)
-    private Date ngayBatDauLam;
+    private LocalDateTime ngayBatDauLam;
     @Column(name = "VaiTro", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiVaiTro vaiTro;
@@ -57,7 +58,7 @@ public class NhanVien {
     @ToString.Exclude
     private TaiKhoan taiKhoan;
 
-    public NhanVien(String hoTen, String diaChi, boolean trangThai, int tuoi, String soDienThoai, Date ngayBatDauLam, LoaiVaiTro vaiTro, boolean gioiTinh) {
+    public NhanVien(String hoTen, String diaChi, boolean trangThai, int tuoi, String soDienThoai, LocalDateTime ngayBatDauLam, LoaiVaiTro vaiTro, boolean gioiTinh) {
         this.hoTen = hoTen;
         this.diaChi = diaChi;
         this.trangThai = trangThai;

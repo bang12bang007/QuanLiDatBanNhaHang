@@ -657,7 +657,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán thành công");
                 jFrame.setVisible(false);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                utils.AppUtils.setUI(mainJPanel, () -> new GD_QuanLyDatMon(mainJPanel, NHANVIEN));
+                utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
             }
 
         };
@@ -686,7 +686,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 createHoaDon();
                 jFrame.setVisible(false);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                utils.AppUtils.setUI(mainJPanel, () -> new GD_QuanLyDatMon(mainJPanel, NHANVIEN));
+                utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
             }
 
         };
@@ -763,25 +763,26 @@ public class Form_ThuTien extends javax.swing.JPanel {
         double tienThua = Double.parseDouble(tien);
         hoaDonDAO.createInvoice(hoaDon, total + tienThua, tienThua);
     }
-
+    
+    //duccuong1609 : khuyenmai thanh nhieu nhieu voi hoa don roi
     private void pay() {
         if (theThanhVien != null) {
             double diemTichLuy = theThanhVien.getDiemTich() + ((int) total / 100000);
             if (diemTichLuy >= 100.0) {
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.BRONZE);
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.DONG);
             } else if (diemTichLuy >= 500.0) {
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.SILVER);
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.BAC);
             } else if (diemTichLuy >= 2000.0) {
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.GOLD);
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.VANG);
             } else if (diemTichLuy >= 10000.0) {
                 System.out.println("VCL dcmm");
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.DIAMOND);
+                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.KIMCUONG);
             }
             // Làm tròn số với hai chữ số thập phân
             theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
             theThanhVienDAO.update(theThanhVien);
         }
-        hoaDon.setKhuyenMai(khuyenMais);
+//        hoaDon.setKhuyenMai(khuyenMais);
         hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
         hoaDonDAO.update(hoaDon);
         banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);

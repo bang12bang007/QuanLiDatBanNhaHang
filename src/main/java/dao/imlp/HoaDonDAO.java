@@ -32,7 +32,6 @@ import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Mon;
 import entity.NhanVien;
-import entity.PhieuDatBan;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -150,16 +149,6 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     }
 
     @Override
-    public PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon) {
-        return em.createNamedQuery("HoaDon.getPhieuDatBan", PhieuDatBan.class)
-                .setParameter("maHoaDon", hoaDon.getMaHoaDon())
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
     public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
         PdfWriter pdfWriter = null;
 
@@ -215,9 +204,9 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
                 table.addCell(stt++ + "");
                 table.addCell(chiTietHoaDon.getMon().getTenMon());
                 table.addCell(chiTietHoaDon.getSoLuong() + "");
-                table.addCell(formatter.format(chiTietHoaDon.getMon().getGia()) + "");
+                table.addCell(formatter.format(chiTietHoaDon.getMon().getGiaBan()) + "");
                 table.addCell(" ");
-                table.addCell(formatter.format(chiTietHoaDon.getSoLuong() * chiTietHoaDon.getMon().getGia()) + "");
+                table.addCell(formatter.format(chiTietHoaDon.getSoLuong() * chiTietHoaDon.getMon().getGiaBan()) + "");
             }
             document.add(table);
 //          -----Tổng thanh toán----

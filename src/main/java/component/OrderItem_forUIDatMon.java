@@ -56,7 +56,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     public OrderItem_forUIDatMon(GD_DatMon datMon, Mon mon, int width, int index, String[] data, ArrayList<Mon> orders) {
         this.data = data;
-        this.gia = mon.getGia();
+        this.gia = mon.getGiaBan();
         this.orders = orders;
         this.datMon = datMon;
         this.mon = mon;
@@ -116,7 +116,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     public void updateTongTien() {
         double tong = 0.0;
         for (int i = 0; i < orders.size(); i++) {
-            tong += orders.get(i).getGia() * datMon.getList_quantity().get(i);
+            tong += orders.get(i).getGiaBan()* datMon.getList_quantity().get(i);
         }
         if (tong != 0) {
             datMon.setLabelTongTien(tien_format.format(tong));
@@ -139,9 +139,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     private void setLastItem(String data) {
         IconFontSwing.register(FontAwesome.getIconFont());
-        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
+        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 20, Color.white));
         increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, Color.white));
         decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, Color.white));
+//        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.white));
     }
 
 //    public OrderItem(int index) {
@@ -164,7 +165,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         donGia = new javax.swing.JLabel();
         huy = new javax.swing.JLabel();
 
-        setLayout(new java.awt.GridLayout(1, 0));
+        setLayout(new java.awt.GridLayout());
 
         tenMon.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
@@ -251,6 +252,36 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         });
         add(huy);
     }// </editor-fold>//GEN-END:initComponents
+    public void checkTextField() {
+        try {
+            if (initialized) {
+                if (!soLuong.getText().trim().equals("")) {
+                    int quantity = Integer.parseInt(soLuong.getText().trim());
+                    datMon.setList_quantity(getListQuantity());
+                    donGia.setText(tien_format.format(gia * quantity));
+                    updateTongTien();
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(datMon, "Số Lượng nhập phải vào phải là số");
+            soLuong.requestFocus();
+        }
+    }
+
+    ;
+    private void huyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseExited
+        // TODO add your handling code here:
+        //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 14));
+        IconFontSwing.register(FontAwesome.getIconFont());
+        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
+    }//GEN-LAST:event_huyMouseExited
+
+    private void huyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseEntered
+        // TODO add your handling code here:
+        //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 20));
+        IconFontSwing.register(FontAwesome.getIconFont());
+        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, new Color(234, 124, 105)));
+    }//GEN-LAST:event_huyMouseEntered
 
     private void huyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseClicked
         // TODO add your handling code here:
@@ -261,21 +292,21 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
                 datMon.getList_CancelFood().add(mon);
             }
         }
-        if (datMon.getBranch().equals(TypeDatMon_Branch.THEMMON)) {
-            if (type_orderItem.equals("PRELOAD")) {
-                JFrame jFrame = new JFrame();
-                jFrame.setUndecorated(true);
-                jFrame.setExtendedState(MAXIMIZED_BOTH);
-                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_HuyMon form_HuyMon = new Form_HuyMon(jFrame, this);
-                jFrame.add(form_HuyMon, BorderLayout.CENTER);
-                jFrame.setBackground(new Color(0, 0, 0, 0));
-                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-                jFrame.setVisible(true);
-            } else {
-                update_PanelOrder(true);
-            }
-        }
+        //        if (datMon.getBranch().equals(TypeDatMon_Branch.THEMMON)) {
+            //            if (type_orderItem.equals("PRELOAD")) {
+                //                JFrame jFrame = new JFrame();
+                //                jFrame.setUndecorated(true);
+                //                jFrame.setExtendedState(MAXIMIZED_BOTH);
+                //                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                //                Form_HuyMon form_HuyMon = new Form_HuyMon(jFrame, this);
+                //                jFrame.add(form_HuyMon, BorderLayout.CENTER);
+                //                jFrame.setBackground(new Color(0, 0, 0, 0));
+                //                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+                //                jFrame.setVisible(true);
+                //            } else {
+                //                update_PanelOrder(true);
+                //            }
+            //        }
         if (datMon.getBranch().equals(TypeDatMon_Branch.DATMON)) {
             datMon.getList_quantity().remove(datMon.getOrders().indexOf(mon));
             listPreOrder = new ArrayList<>();
@@ -283,19 +314,38 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_huyMouseClicked
 
-    private void huyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseEntered
+    private void decreaseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseMouseExited
         // TODO add your handling code here:
-//        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 20));
-        IconFontSwing.register(FontAwesome.getIconFont());
-        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, new Color(234, 124, 105)));
-    }//GEN-LAST:event_huyMouseEntered
+        decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, Color.white));
+    }//GEN-LAST:event_decreaseMouseExited
 
-    private void huyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseExited
+    private void decreaseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseMouseEntered
         // TODO add your handling code here:
-//        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 14));
-        IconFontSwing.register(FontAwesome.getIconFont());
-        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
-    }//GEN-LAST:event_huyMouseExited
+        decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, new Color(234, 124, 105)));
+    }//GEN-LAST:event_decreaseMouseEntered
+
+    private void decreaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseMouseClicked
+        // TODO add your handling code here:
+        decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, new Color(234, 124, 105)));
+        try {
+            int quantity = Integer.parseInt(soLuong.getText().trim());
+            if (quantity > 1) {
+                quantity--;
+            }
+            soLuong.setText(Integer.toString(quantity));
+            tongTien = quantity * gia;
+            donGia.setText(tien_format.format(tongTien));
+            datMon.setList_quantity(getListQuantity());
+            updateTongTien();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_decreaseMouseClicked
+
+    private void increaseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_increaseMouseExited
+        // TODO add your handling code here:
+        increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, Color.white));
+    }//GEN-LAST:event_increaseMouseExited
 
     private void increaseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_increaseMouseEntered
         // TODO add your handling code here:
@@ -318,39 +368,6 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_increaseMouseClicked
 
-    private void increaseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_increaseMouseExited
-        // TODO add your handling code here:
-        increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, Color.white));
-    }//GEN-LAST:event_increaseMouseExited
-
-    private void decreaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseMouseClicked
-        // TODO add your handling code here:
-        decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, new Color(234, 124, 105)));
-        try {
-            int quantity = Integer.parseInt(soLuong.getText().trim());
-            if (quantity > 1) {
-                quantity--;
-            }
-            soLuong.setText(Integer.toString(quantity));
-            tongTien = quantity * gia;
-            donGia.setText(tien_format.format(tongTien));
-            datMon.setList_quantity(getListQuantity());
-            updateTongTien();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_decreaseMouseClicked
-
-    private void decreaseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseMouseEntered
-        // TODO add your handling code here:
-        decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, new Color(234, 124, 105)));
-    }//GEN-LAST:event_decreaseMouseEntered
-
-    private void decreaseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseMouseExited
-        // TODO add your handling code here:
-        decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, Color.white));
-    }//GEN-LAST:event_decreaseMouseExited
-
     private void soLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soLuongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_soLuongActionPerformed
@@ -362,23 +379,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private void soLuongMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_soLuongMouseExited
-    public void checkTextField() {
-        try {
-            if (initialized) {
-                if (!soLuong.getText().trim().equals("")) {
-                    int quantity = Integer.parseInt(soLuong.getText().trim());
-                    datMon.setList_quantity(getListQuantity());
-                    donGia.setText(tien_format.format(gia * quantity));
-                    updateTongTien();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(datMon, "Số Lượng nhập phải vào phải là số");
-            soLuong.requestFocus();
-        }
-    }
 
-    ;
     private void soLuongMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_soLuongMouseEntered
@@ -395,7 +396,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             datMon.getPanelOrder().removeAll();
 
             for (int i = 0; i < orders.size(); i++) {
-                String[] title = new String[]{orders.get(i).getTenMon(), datMon.getList_quantity().get(i).toString(), tien_format.format(orders.get(i).getGia() * datMon.getList_quantity().get(i)), ""};
+                String[] title = new String[]{orders.get(i).getTenMon(), datMon.getList_quantity().get(i).toString(), tien_format.format(orders.get(i).getGiaBan()* datMon.getList_quantity().get(i)), ""};
                 OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datMon, orders.get(i), datMon.getPanelOrder().getWidth(), i + 1, title, orders);
                 for (OrderItem_forUIDatMon order_item : listPreOrder) {
                     if (item.getTenMon().getText().trim().equals(order_item.getTenMon().getText().trim())) {

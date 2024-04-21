@@ -17,14 +17,11 @@ import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IBanDAO;
 import dao.IHoaDonDAO;
-import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.HoaDonDAO;
-import dao.imlp.PhieuDatBanDAO;
 import entity.Ban;
 import entity.HoaDon;
 import entity.NhanVien;
-import entity.PhieuDatBan;
 import icon.FontAwesome;
 import jakarta.persistence.Entity;
 import java.awt.Color;
@@ -58,21 +55,18 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     private IBanDAO banDAO = new BanDAO();
     private List<JButton> floors = new ArrayList<>();
     private NhanVien nv;
-    private PhieuDatBan phieuDatBan;
     private Ban ban;
-    private IPhieuDatBanDAO phieuDatBanDAO = new PhieuDatBanDAO();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private JFrame jFrameForm;
     private GD_DatMon gd_Datmon; //sử dụng để khi back từ món về vô lại nhanh
 
 //    NDK: Them phieu dat ban de chuyen ban
 //    NDK: Bi do GD_DatBan, DatMon, QuanLyDatMon, TrangChu
-    public GD_Ban(JPanel main, String type, PhieuDatBan phieuDatBan) {
+    public GD_Ban(JPanel main, String type) {
         this.type = type;
         this.main = main;
         this.nv = AppUtils.NHANVIEN;
-        this.phieuDatBan = phieuDatBan;
-        this.ban = phieuDatBan != null ? phieuDatBan.getBan() : null;
+//        this.ban = phieuDatBan != null ? phieuDatBan.getBan() : null;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
@@ -500,25 +494,21 @@ public class GD_Ban extends javax.swing.JPanel implements UIUpdatable {
     public Ban getBanActive() {
         return this.ban;
     }
-
-    public PhieuDatBan getPhieuDatBan() {
-        return this.phieuDatBan;
-    }
-
-    public void moveTable(Ban ban) {
-        HoaDon hoaDon = null;
-        for (HoaDon hd : this.phieuDatBan.getBan().getHoaDon()) {
-            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-                hoaDon = hd;
-                break;
-            }
-        }
-        phieuDatBanDAO.updateBanById(this.phieuDatBan.getMaPhieuDatBan(), ban);
-        hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
-        banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
-        banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
-
-    }
+    //chuyenban : mat phieu dat roi
+//    public void moveTable(Ban ban) {
+//        HoaDon hoaDon = null;
+//        for (HoaDon hd : this.phieuDatBan.getBan().getHoaDon()) {
+//            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+//                hoaDon = hd;
+//                break;
+//            }
+//        }
+//        phieuDatBanDAO.updateBanById(this.phieuDatBan.getMaPhieuDatBan(), ban);
+//        hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
+//        banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
+//        banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
+//
+//    }
 
     public void setFormDatBan(Ban ban) {
         if (jFrameForm == null || !jFrameForm.isVisible()) {

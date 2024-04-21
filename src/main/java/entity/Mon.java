@@ -43,10 +43,7 @@ public class Mon {
     @Column(name = "TenMon", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String tenMon;
     @Column(name = "GiaBan", nullable = false)
-    private Double gia;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaKhuyenMai", nullable = true)
-    private KhuyenMai khuyenMai;
+    private Double giaBan;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaLoaiMon", nullable = false)
     private LoaiMon loaiMon;
@@ -59,18 +56,16 @@ public class Mon {
     private Double giaGoc;
     @OneToMany(mappedBy = "mon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
+    @Column(name = "DonVi", nullable = false)
+    private String donVi;
 
-    public Mon(String tenMon, Double giaGoc, KhuyenMai khuyenMai, LoaiMon loaiMon, String hinhAnh, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
+    public Mon(String tenMon, Double giaGoc, LoaiMon loaiMon, String hinhAnh, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {
         this.tenMon = tenMon;
         this.giaGoc = giaGoc;
-        this.khuyenMai = khuyenMai;
         this.loaiMon = loaiMon;
         this.hinhAnh = hinhAnh;
         this.trangThai = trangThai;
         this.chiTietHoaDon = chiTietHoaDon;
-        if(khuyenMai!=null)
-            this.gia = giaGoc - giaGoc*khuyenMai.getChietKhau();
-        else
-            this.gia = giaGoc;
+        this.giaBan = giaGoc;
     }
 }

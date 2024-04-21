@@ -21,7 +21,7 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
         List<ChiTietHoaDon> details = getListByHoaDon(hoaDon);
         Double total = 0.0;
         for (int i = 0; i < details.size(); i++) {
-            total += details.get(i).getSoLuong() * details.get(i).getMon().getGia();
+            total += details.get(i).getSoLuong() * details.get(i).getMon().getGiaBan();
         }
         return total;
     }
