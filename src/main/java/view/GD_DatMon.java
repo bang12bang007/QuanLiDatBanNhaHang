@@ -1116,12 +1116,12 @@ public class GD_DatMon extends javax.swing.JPanel {
                     Double total = 0.0;
                     listPreOrderItem = new ArrayList<>();
                     for (int i = 0; i < orders.size(); i++) {
-                        String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGiaBan()* gd_mon.getList_quantity().get(i)), ""};
+                        String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGiaBan() * gd_mon.getList_quantity().get(i)), ""};
                         OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders);
                         item.setType_orderItem("PRELOAD");//có ở dưới data base load lên
                         listPreOrderItem.add(item);
                         gd_mon.getPanelOrder().add(item);
-                        total += orders.get(i).getGiaBan()* list_quantity.get(i);
+                        total += orders.get(i).getGiaBan() * list_quantity.get(i);
                     }
                     for (int i = 0; i < gd_mon.PanelOrder.getComponentCount(); i++) {
                         OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) gd_mon.PanelOrder.getComponent(i);
@@ -1166,11 +1166,19 @@ public class GD_DatMon extends javax.swing.JPanel {
             Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
             HoaDon hoaDon = new HoaDon(nv, LocalDateTime.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
             if (loai.equals(DatMon_ThemMon.DATMON)) {
-                hoaDonDAO.insertHoaDon(hoaDon);
+                List<ChiTietHoaDon> list = new ArrayList<>();
+
                 for (int i = 0; i < orders.size(); i++) {
                     ChiTietHoaDon chiTiet = new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i));
+                    list.add(chiTiet);
+                }
+                hoaDon.setChiTietHoaDon(list);
+                hoaDonDAO.insertHoaDon(hoaDon);
+
+                for (ChiTietHoaDon chiTiet : list) {
                     chitietDAO.insert(chiTiet);
                 }
+
             }
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
             banDAO.update(ban);
@@ -1247,7 +1255,6 @@ public class GD_DatMon extends javax.swing.JPanel {
 //            }
 //        }
 //    }
-
     public void setOrders(ArrayList<Mon> orders) {
         this.orders = orders;
     }

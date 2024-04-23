@@ -18,6 +18,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -60,6 +61,7 @@ public class HoaDon {
     @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiHoaDon trangThai;
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "hoaDon",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
     @Column(name = "NgayDatBan", nullable = true)
@@ -67,6 +69,7 @@ public class HoaDon {
     @Column(name = "NgayGioNhanBan", nullable = true)
     private LocalDateTime ngayGioNhanBan;
     @Column(name = "TongThanhToan", nullable = true)
+    @Setter(AccessLevel.NONE)
     private Double tongThanhToan;
     @Column(name = "TienPhaiThu", nullable = true)
     private Double tienPhaiThu;
@@ -84,4 +87,23 @@ public class HoaDon {
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
     
+    private void setTongThanhToan(){
+        Double total = 0.0;
+        for(ChiTietHoaDon detail : chiTietHoaDon){
+            total += detail.getThanhTien();
+        }
+        this.tongThanhToan = total;
+        if(this.chiTietKhuyenMai == null){
+            this.tienPhaiThu = this.tongThanhToan;
+        }
+    }
+
+    public void setChiTietHoaDon(List<ChiTietHoaDon> chiTietHoaDon) {
+        this.chiTietHoaDon = chiTietHoaDon;
+        setTongThanhToan();
+    }
+    
+    public Double getTongThanhToan(){
+        return this.tongThanhToan;
+    }
 }
