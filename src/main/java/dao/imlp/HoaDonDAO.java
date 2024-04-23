@@ -374,7 +374,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 
     @Override
     public List<HoaDon> filterByDate(LocalDate date) {
-        TypedQuery<HoaDon> query = em.createNamedQuery("PhieuDatBan.filterByDate", HoaDon.class);
+        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.filterByDate", HoaDon.class);
         query.setParameter("date", date);
 
         return query.getResultList();

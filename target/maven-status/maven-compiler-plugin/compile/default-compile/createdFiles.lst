@@ -154,6 +154,7 @@ entity\Ban.class
 component\Food.class
 component\OrderCard$3.class
 datechooser\DateChooser.class
+component\OrderItem_forUIDatMon$9.class
 view\GD_DatBanTaiCho$8.class
 component\ComboSuggestionUI$ArrowButton.class
 view\GD_DatMon$7.class

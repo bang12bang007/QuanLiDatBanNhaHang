@@ -431,9 +431,9 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-//        utils.AppUtils.setUI(mainPanel, () -> new GD_Ban(mainPanel, "DAT_MON", null));
-//        repaint();
-//        revalidate();
+        utils.AppUtils.setUI(mainPanel, () -> new GD_Ban(mainPanel, "DAT_MON"));
+        repaint();
+        revalidate();
     }//GEN-LAST:event_myButton1ActionPerformed
 
     private void filterBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBanActionPerformed

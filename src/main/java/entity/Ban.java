@@ -16,14 +16,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import utils.Enum.LoaiTrangThai;
-import utils.Enum.LoaiViTri;
 
 /**
  *
@@ -36,8 +34,8 @@ import utils.Enum.LoaiViTri;
 @ToString
 @NamedQueries({
     @NamedQuery(name = "Ban.groupByMaTang", query = "SELECT b.tang, COUNT(b.tang) AS soBan FROM Ban b GROUP BY b.tang"),
-    @NamedQuery(name = "Ban.findByFloor", query = "SELECT b FROM Ban b WHERE b.tang = :tang"),
-    @NamedQuery(name = "Ban.findTableByStateAndFloor", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai AND b.tang = :tang"),
+    @NamedQuery(name = "Ban.findByFloor", query = "SELECT b FROM Ban b WHERE b.tang = :maTang"),
+    @NamedQuery(name = "Ban.findTableByStateAndFloor", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai AND b.tang = :maTang"),
     @NamedQuery(name = "Ban.findTableByState", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai"),
     @NamedQuery(name = "Ban.updateStateById", query = "UPDATE Ban SET trangThai = :trangThai WHERE maBan = :maBan")
 })
@@ -54,7 +52,7 @@ public class Ban {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBanGop", nullable = true)
     private Ban banGop;
-    @Column(name = "tang", nullable = false)
+    @Column(name = "Tang", nullable = false)
     private String tang;
     @OneToMany(mappedBy = "ban",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;

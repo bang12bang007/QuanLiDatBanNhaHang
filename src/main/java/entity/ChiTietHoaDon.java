@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,10 +42,12 @@ public class ChiTietHoaDon {
     @ManyToOne
     @JoinColumn(name = "MaHoaDon", nullable = false)
     private HoaDon hoaDon;
+    @Setter(AccessLevel.NONE)
     @Column(name = "SoLuong", nullable = false)
     private int soLuong;
     @Column(name = "GhiChu",columnDefinition = "NVARCHAR(255)")
     private String ghiChu;
+    @Setter(AccessLevel.NONE)
     @Column(name = "ThanhTien")
     private Double thanhTien;
 
@@ -52,12 +55,23 @@ public class ChiTietHoaDon {
         this.mon = mon;
         this.hoaDon = hoaDon;
         this.soLuong = soLuong;
+        setThanhTien();
     }
-    
     public ChiTietHoaDon(Mon mon, HoaDon hoaDon,String ghiChu, int soLuong) {
         this.mon = mon;
         this.hoaDon = hoaDon;
         this.soLuong = soLuong;
         this.ghiChu = ghiChu;
+        setThanhTien();
+    }
+    
+    private void setThanhTien(){
+        Double tong = this.mon.getGiaBan() * this.soLuong;
+        this.thanhTien = tong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+        setThanhTien();
     }
 }

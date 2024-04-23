@@ -4,20 +4,16 @@
  */
 package component;
 
-import LIB.FadeEffect;
 import entity.ChiTietHoaDon;
 import entity.Mon;
 import icon.FontAwesome;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -26,7 +22,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import jiconfont.swing.IconFontSwing;
 import utils.Enum.TypeDatMon_Branch;
-import view.Form_HuyMon;
 import view.GD_DatMon;
 import static utils.AppUtils.*;
 /**
@@ -139,10 +134,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     private void setLastItem(String data) {
         IconFontSwing.register(FontAwesome.getIconFont());
-        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 20, Color.white));
+        huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
         increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, Color.white));
         decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, Color.white));
-//        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.white));
+        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, Color.white));
     }
 
 //    public OrderItem(int index) {
@@ -163,9 +158,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         increase = new javax.swing.JLabel();
         decrease = new javax.swing.JLabel();
         donGia = new javax.swing.JLabel();
+        ghi = new javax.swing.JLabel();
         huy = new javax.swing.JLabel();
 
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
 
         tenMon.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         tenMon.setForeground(new java.awt.Color(255, 255, 255));
@@ -237,8 +233,23 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         donGia.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 0));
         add(donGia);
 
+        ghi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ghi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ghiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ghiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ghiMouseExited(evt);
+            }
+        });
+        add(ghi);
+
         huy.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         huy.setForeground(new java.awt.Color(255, 255, 255));
+        huy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         huy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 huyMouseClicked(evt);
@@ -383,6 +394,21 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private void soLuongMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soLuongMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_soLuongMouseEntered
+
+    private void ghiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseClicked
+        // TODO add your handling code here:
+        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, new Color(234, 124, 105)));
+    }//GEN-LAST:event_ghiMouseClicked
+
+    private void ghiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseEntered
+        // TODO add your handling code here:
+        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, new Color(234, 124, 105)));
+    }//GEN-LAST:event_ghiMouseEntered
+
+    private void ghiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseExited
+        // TODO add your handling code here:
+        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, Color.white));
+    }//GEN-LAST:event_ghiMouseExited
     public void update_PanelOrder(boolean update) {
         if (update) {
             ArrayList<Mon> replace_orders = new ArrayList<Mon>();
@@ -452,6 +478,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel decrease;
     private javax.swing.JLabel donGia;
+    private javax.swing.JLabel ghi;
     private javax.swing.JLabel huy;
     private javax.swing.JLabel increase;
     private component.PanelRound panelRound1;

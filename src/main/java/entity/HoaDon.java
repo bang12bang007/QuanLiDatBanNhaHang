@@ -18,6 +18,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,7 +38,7 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.findHoaDonTuNgayDenNgay",query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
-    @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.NgayDatBan AS date) = CAST(:date AS date)")
+    @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date)")
 })
 public class HoaDon {
 
@@ -60,19 +61,21 @@ public class HoaDon {
     @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiHoaDon trangThai;
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "hoaDon",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
     @Column(name = "NgayDatBan", nullable = true)
     private LocalDateTime ngayDatBan;
     @Column(name = "SoLuongNguoi", nullable = true)
     private int soLuongNguoi;
-    @Column(name = "SoLuongNguoi", nullable = true)
+    @Column(name = "YeuCauDatMon", nullable = true)
     private String yeuCauDatMon;
-    @Column(name = "SoLuongNguoi", nullable = true)
+    @Column(name = "YeuCauKhac", nullable = true)
     private String yeuCauKhac;
     @Column(name = "NgayGioNhanBan", nullable = true)
     private LocalDateTime ngayGioNhanBan;
     @Column(name = "TongThanhToan", nullable = true)
+    @Setter(AccessLevel.NONE)
     private Double tongThanhToan;
     @Column(name = "TienPhaiThu", nullable = true)
     private Double tienPhaiThu;
@@ -90,4 +93,23 @@ public class HoaDon {
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
     
+    private void setTongThanhToan(){
+        Double total = 0.0;
+        for(ChiTietHoaDon detail : chiTietHoaDon){
+            total += detail.getThanhTien();
+        }
+        this.tongThanhToan = total;
+        if(this.chiTietKhuyenMai == null){
+            this.tienPhaiThu = this.tongThanhToan;
+        }
+    }
+
+    public void setChiTietHoaDon(List<ChiTietHoaDon> chiTietHoaDon) {
+        this.chiTietHoaDon = chiTietHoaDon;
+        setTongThanhToan();
+    }
+    
+    public Double getTongThanhToan(){
+        return this.tongThanhToan;
+    }
 }
