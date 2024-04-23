@@ -16,6 +16,7 @@ import dao.IHoaDonDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.HoaDonDAO;
 import entity.Ban;
+import entity.HoaDon;
 import entity.NhanVien;
 import icon.FontAwesome;
 import java.awt.Color;
@@ -51,6 +52,7 @@ public class GD_Ban extends javax.swing.JPanel {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private JFrame jFrameForm;
     private GD_DatMon gd_Datmon; //sử dụng để khi back từ món về vô lại nhanh
+    private HoaDon hoaDon;
 
 //    NDK: Them phieu dat ban de chuyen ban
 //    NDK: Bi do GD_DatBan, DatMon, QuanLyDatMon, TrangChu
@@ -487,21 +489,18 @@ public class GD_Ban extends javax.swing.JPanel {
     public Ban getBanActive() {
         return this.ban;
     }
+
     //chuyenban : mat phieu dat roi
-//    public void moveTable(Ban ban) {
-//        HoaDon hoaDon = null;
-//        for (HoaDon hd : this.phieuDatBan.getBan().getHoaDon()) {
-//            if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-//                hoaDon = hd;
-//                break;
-//            }
-//        }
-//        phieuDatBanDAO.updateBanById(this.phieuDatBan.getMaPhieuDatBan(), ban);
-//        hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
-//        banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
-//        banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
-//
-//    }
+    public void moveTable(Ban ban) {
+        hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
+        banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
+        banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
+    }
+
+    public void setHoaDon(HoaDon hoaDon) {
+        this.hoaDon = hoaDon;
+        this.ban = hoaDon.getBan();
+    }
 
     public void setFormDatBan(Ban ban) {
         if (jFrameForm == null || !jFrameForm.isVisible()) {

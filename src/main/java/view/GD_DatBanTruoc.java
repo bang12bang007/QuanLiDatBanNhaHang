@@ -106,54 +106,6 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     }
 
-    public void setUI() {
-        initComponents();
-        IconFontSwing.register(FontAwesome.getIconFont());
-        btnDatCho.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, Color.WHITE));
-        btnThayDoi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
-        tableBody.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-        tableScroll.setVerticalScrollBar(new ScrollBarCustom());
-        tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
-        btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 24, Color.WHITE));
-        dateChooser.addEventDateChooser(new EventDateChooser() {
-            public void dateSelected(SelectedAction action, SelectedDate date) {
-                if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
-//                    filterByDate(date.getDay(), date.getMonth(), date.getYear());
-                }
-            }
-
-        });
-        FirstTimeLoadItem();
-    }
-
-    private void FirstTimeLoadItem() {
-//        GD_DatBan dat_ban = this;
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây
-                Timer hideTimer = new Timer(1520, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-//                        loadData();
-                        tableBody.repaint();
-                        tableBody.revalidate();
-                    }
-                });
-                hideTimer.setRepeats(false);
-                hideTimer.start();
-
-                return null;
-            }
-
-            @Override
-            protected void done() {
-            }
-        };
-        worker.execute();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -735,7 +687,7 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     private void btnDatChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatChoMouseClicked
         // TODO add your handling code here:
-//        utils.AppUtils.setUI(mainJPanel, () -> new GD_Ban(mainJPanel, "DAT_BAN", null));
+        utils.AppUtils.setUI(mainJPanel, () -> new GD_Ban(mainJPanel, "DAT_BAN"));
     }//GEN-LAST:event_btnDatChoMouseClicked
 
     private void tableBodyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBodyMouseClicked
@@ -800,7 +752,7 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     private void trangThaiComboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangThaiComboxActionPerformed
         // TODO add your handling code here:
-//        filterByState(trangThaiCombox.getSelectedIndex());
+        filterByState(trangThaiCombox.getSelectedIndex());
     }//GEN-LAST:event_trangThaiComboxActionPerformed
 
     private void calenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calenderMouseClicked
@@ -810,16 +762,10 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     public void deleteBooking() {
         if (active >= 0) {
-            if (bookingItems.get(active).getHoaDon().getTrangThai().ordinal() == utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN.ordinal()) {
+            if (bookingItems.get(active).getHoaDon().getTrangThai().ordinal() == utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC.ordinal()) {
                 hoaDonDAO.updateStateById(bookingItems.get(active).getHoaDon().getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
                 banDAO.updateStateById(bookingItems.get(active).getHoaDon().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
                 HoaDon hoaDon = bookingItems.get(active).getHoaDon();
-//                for (HoaDon hd : bookingItems.get(active).getPhieuDatBan().getBan().getHoaDon()) {
-//                    if (hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-//                        hoaDon = hd;
-//                        break;
-//                    }
-//                }
                 if (hoaDon != null) {
                     hoaDonDAO.updateStateById(hoaDon.getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
                 }

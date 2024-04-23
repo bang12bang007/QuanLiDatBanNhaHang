@@ -119,7 +119,6 @@ public class BanItem extends javax.swing.JPanel {
     public void setActive() {
 //       Hien thi de test
         myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
-
     }
 
     public void setGDBan(GD_Ban gD_Ban) {
@@ -176,7 +175,7 @@ public class BanItem extends javax.swing.JPanel {
     }//GEN-LAST:event_myButton1ActionPerformed
 
     public void move() {
-//        gD_Ban.moveTable(this.ban);
+        gD_Ban.moveTable(this.ban);
     }
 
     public GD_DatMon getgD_datMon() {

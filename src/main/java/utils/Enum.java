@@ -26,7 +26,7 @@ public class Enum {
     };
 
     public static enum LoaiTrangThaiHoaDon {
-        DA_THANH_TOAN, HUY_BO, CHO_THANH_TOAN, CHUA_THANH_TOAN, DAT_TRUOC;
+        DAT_TRUOC, CHUA_THANH_TOAN, DA_THANH_TOAN, HUY_BO, CHO_THANH_TOAN;
     };
 
     public static enum LoaiVaiTro {

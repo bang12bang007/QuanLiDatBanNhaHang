@@ -29,6 +29,7 @@ import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,6 @@ public class Form_DatBan extends javax.swing.JPanel {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
-
     private final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String type = "INSERT";
 
@@ -695,9 +695,9 @@ public class Form_DatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXemThucDonActionPerformed
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         if (type.equals("INSERT")) {
-
+            insertPhieuDatBan();
         } else if (type.equals("UPDATE")) {
-
+            updatePhieuDatBan();
         }
     }//GEN-LAST:event_btnCatActionPerformed
 
@@ -731,43 +731,21 @@ public class Form_DatBan extends javax.swing.JPanel {
         return kh;
     }
 
-    private HoaDon createHoaDon(KhachHang kh) {
+    private void updateMenu(HoaDon phieuDatBan) {
         if (!dsMon.isEmpty()) {
-            hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
-            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-            hoaDon.setBan(ban);
-            hoaDonDAO.insertHoaDon(hoaDon);
+            List<ChiTietHoaDon> details = chiTietHoaDonDAO.getListByHoaDon(phieuDatBan);
+            for (ChiTietHoaDon detail : details) {
+                chiTietHoaDonDAO.deleteChiTiet(detail);
+            }
             for (MenuItem item : dsMon) {
                 ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-                chiTietHoaDon.setHoaDon(hoaDon);
+                chiTietHoaDon.setHoaDon(phieuDatBan);
                 chiTietHoaDon.setMon(item.getMon());
                 chiTietHoaDon.setSoLuong(item.getSoLuong());
-                chiTietHoaDonDAO.insert(chiTietHoaDon);
+                chiTietHoaDonDAO.update(chiTietHoaDon);
             }
         }
-        return hoaDon;
     }
-
-//    private void updateMenu(PhieuDatBan phieuDatBan) {
-//        HoaDon hoaDon = getHoaDonByBan(phieuDatBan.getBan());
-//        if (hoaDon == null) {
-//            KhachHang kh = khachHangDAO.findByPhoneNumber(phieuDatBan.getSdt());
-//            createHoaDon(kh);
-//        }
-//        if (!dsMon.isEmpty()) {
-//            List<ChiTietHoaDon> details = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
-//            for (ChiTietHoaDon detail : details) {
-//                chiTietHoaDonDAO.deleteChiTiet(detail);
-//            }
-//            for (MenuItem item : dsMon) {
-//                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-//                chiTietHoaDon.setHoaDon(hoaDon);
-//                chiTietHoaDon.setMon(item.getMon());
-//                chiTietHoaDon.setSoLuong(item.getSoLuong());
-//                chiTietHoaDonDAO.update(chiTietHoaDon);
-//            }
-//        }
-//    }
 
     private void txtSoNguoiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoNguoiKeyTyped
         // TODO add your handling code here:
@@ -809,11 +787,77 @@ public class Form_DatBan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtKhachHangKeyReleased
 
+    private void updatePhieuDatBan() {
+        if (isValidate()) {
+            HoaDon hoaDon = createHoaDon();
+            hoaDon.setMaHoaDon(this.hoaDon.getMaHoaDon());
+            boolean isSuccess = hoaDonDAO.update(hoaDon);
+            updateMenu(hoaDon);
+            if (isSuccess) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn thành công");
+                this.jFrame.setVisible(false);
+                this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBanTruoc(this.mainJpanel));
+            } else {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn không thành công");
+            }
+        }
+    }
+
+    private void insertPhieuDatBan() {
+        if (isValidate()) {
+            HoaDon phieuDatBan = createHoaDon();
+            boolean isSuccess = hoaDonDAO.insertHoaDon(phieuDatBan);
+            if (isSuccess) {
+                for (MenuItem item : dsMon) {
+                    ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+                    chiTietHoaDon.setHoaDon(phieuDatBan);
+                    chiTietHoaDon.setMon(item.getMon());
+                    chiTietHoaDon.setSoLuong(item.getSoLuong());
+                    chiTietHoaDon.thanhTien();
+                    chiTietHoaDonDAO.insert(chiTietHoaDon);
+                }
+                banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Đặt bàn thành công");
+                jFrame.setVisible(false);
+                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                utils.AppUtils.setUI(mainJpanel, () -> new GD_DatBanTruoc(mainJpanel));
+            } else {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Đặt bàn không thành công");
+            }
+        }
+    }
+
+    private HoaDon createHoaDon() {
+        HoaDon hoaDon = null;
+        KhachHang kh = khachHangDAO.findByPhoneNumber(txtSoDienThoai.getText());
+        if (kh == null) {
+            khachHangDAO.insert(createKhachHang());
+        }
+        SelectedDate date = dateChooser.getSelectedDate();
+        String gioDenString = txtGioDen.getSelectedItem() + "";
+        int soLuong = Integer.parseInt(txtSoNguoi.getText());
+        String yeuCauKhac = txtYeuCau.getText();
+        String yeuCauDatMon = txtYeuCauDatMon.getText();
+        LocalDate ngayString = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+        LocalDate ngay = LocalDate.parse(FORMATTER.format(ngayString), DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalTime gioDen = LocalTime.parse(gioDenString, DateTimeFormatter.ofPattern("h:mm a"));
+        LocalDateTime ngayGio = LocalDateTime.of(ngay, gioDen);
+        hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
+        hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+        hoaDon.setBan(ban);
+        hoaDon.setYeuCauKhac(yeuCauKhac);
+        hoaDon.setSoLuongNguoi(soLuong);
+        hoaDon.setNgayDatBan(ngayGio);
+        hoaDon.setYeuCauDatMon(yeuCauDatMon);
+        return hoaDon;
+    }
+
     void setData(HoaDon hoaDon) {
         this.hoaDon = hoaDon;
         LocalDateTime date = hoaDon.getNgayDatBan();
         String yeuCauDatMon = "";
-        List<ChiTietHoaDon> dsChiTietHoaDon = getChiTietHoaDonByBan(hoaDon.getBan());
+        List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(hoaDon);
         for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
             String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
             yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
@@ -823,7 +867,7 @@ public class Form_DatBan extends javax.swing.JPanel {
         txtYeuCau.setText(hoaDon.getYeuCauKhac());
         txtSoNguoi.setText(hoaDon.getSoLuongNguoi() + "");
         dateChooser.setSelectedDate(new SelectedDate(date.getDayOfMonth(), date.getMonthValue(), date.getYear()));
-        txtGioDen.setSelectedItem(forrmater(hoaDon.getNgayGioNhanBan().toString()));
+        txtGioDen.setSelectedItem(forrmater(hoaDon.getNgayDatBan().toString()));
         txtYeuCauDatMon.setText(yeuCauDatMon);
     }
 
@@ -831,37 +875,6 @@ public class Form_DatBan extends javax.swing.JPanel {
         LocalDateTime inputDateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         String formattedDateTime = inputDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
         return formattedDateTime;
-    }
-
-    private List<ChiTietHoaDon> getChiTietHoaDonByBan(Ban ban) {
-        HoaDon _hoaDon = null;
-        for (HoaDon hoaDon : ban.getHoaDon()) {
-//            if (phieuDatBan.getTrangThai().ordinal() == 0) {
-//                if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
-//                    _hoaDon = hoaDon;
-//                    break;
-//                }
-//            }
-//            if (phieuDatBan.getTrangThai().ordinal() == 1) {
-//                if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-//                    _hoaDon = hoaDon;
-//                    break;
-//                }
-//            }
-        }
-        List<ChiTietHoaDon> dsChiTietHoaDon = chiTietHoaDonDAO.getListByHoaDon(_hoaDon);
-        return dsChiTietHoaDon;
-    }
-
-    private HoaDon getHoaDonByBan(Ban ban) {
-        HoaDon _hoaDon = null;
-        for (HoaDon hoaDon : ban.getHoaDon()) {
-            if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC) || hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
-                _hoaDon = hoaDon;
-                break;
-            }
-        }
-        return _hoaDon;
     }
 
     public void setType(String type) {

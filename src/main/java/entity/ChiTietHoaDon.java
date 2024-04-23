@@ -28,10 +28,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @NamedQueries({
     @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon"),
-    @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong",query= "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
-    @NamedQuery(name = "ChiTietHoaDon.DS_MonThinhHanh",query= "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon h WHERE h.trangThai = 0 GROUP BY c.mon"),
-    
-})
+    @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
+    @NamedQuery(name = "ChiTietHoaDon.DS_MonThinhHanh", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon h WHERE h.trangThai = 0 GROUP BY c.mon"),})
 public class ChiTietHoaDon {
 
     @Id
@@ -45,7 +43,7 @@ public class ChiTietHoaDon {
     @Setter(AccessLevel.NONE)
     @Column(name = "SoLuong", nullable = false)
     private int soLuong;
-    @Column(name = "GhiChu",columnDefinition = "NVARCHAR(255)")
+    @Column(name = "GhiChu", columnDefinition = "NVARCHAR(255)")
     private String ghiChu;
     @Setter(AccessLevel.NONE)
     @Column(name = "ThanhTien")
@@ -55,23 +53,28 @@ public class ChiTietHoaDon {
         this.mon = mon;
         this.hoaDon = hoaDon;
         this.soLuong = soLuong;
-        setThanhTien();
+        thanhTien();
     }
-    public ChiTietHoaDon(Mon mon, HoaDon hoaDon,String ghiChu, int soLuong) {
+
+    public ChiTietHoaDon(Mon mon, HoaDon hoaDon, String ghiChu, int soLuong) {
         this.mon = mon;
         this.hoaDon = hoaDon;
         this.soLuong = soLuong;
         this.ghiChu = ghiChu;
-        setThanhTien();
+        thanhTien();
     }
-    
-    private void setThanhTien(){
-        Double tong = this.mon.getGiaBan() * this.soLuong;
-        this.thanhTien = tong;
+
+    private void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
     }
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-        setThanhTien();
+        thanhTien();
+    }
+
+    public void thanhTien() {
+        Double tong = this.mon.getGiaBan() * this.soLuong;
+        setThanhTien(tong);
     }
 }
