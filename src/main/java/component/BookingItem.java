@@ -204,21 +204,27 @@ public class BookingItem extends javax.swing.JPanel {
     private void btnSapChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapChoActionPerformed
         // TODO add your handling code here:
         //----------------------------------------------------------------------------------------//
-//        utils.AppUtils.setUI(GD.getMainJpanel(), () -> new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN", phieuDatBan));
+        utils.AppUtils.setUI(GD.getMainJpanel(), () -> {
+            GD_Ban gD_Ban = new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN");
+            gD_Ban.setHoaDon(hoaDon);
+            return gD_Ban;
+        });
     }//GEN-LAST:event_btnSapChoActionPerformed
 
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
         // TODO add your handling code here:
         GD.setBookingActive(index);
-
         //------------------------------------------------//
-//        GD.setInfoForActiveItem(phieuDatBan);
+        GD.setInfoForActiveItem(hoaDon);
     }//GEN-LAST:event_wrapperMouseClicked
 
     public void setHoaDon(HoaDon hoaDon) {
         this.hoaDon = hoaDon;
+        if (hoaDon.getTrangThai().ordinal() == 1) {
+            hideButton();
+        }
     }
-    
+
     public HoaDon getHoaDon() {
         return this.hoaDon;
     }
@@ -301,7 +307,6 @@ public class BookingItem extends javax.swing.JPanel {
     public void setTrangThai(String trangThai) {
         this.trangThai.setText(trangThai);
         hideButton();
-
     }
 
     private void hideButton() {

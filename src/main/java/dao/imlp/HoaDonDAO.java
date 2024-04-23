@@ -232,7 +232,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             JPanel viewerComponentPanel = factory.buildViewerPanel();
             controller.getDocumentViewController().setAnnotationCallback(new org.icepdf.ri.common.MyAnnotationCallback(controller.getDocumentViewController()));
             JFrame frame = new JFrame("PDF Viewer");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setExtendedState(MAXIMIZED_BOTH);
             frame.setLocationRelativeTo(null);
             controller.openDocument(path);

@@ -76,7 +76,6 @@ view\GD_Ban.class
 component\Food$1.class
 view\Form_DatBan$6.class
 view\GD_ThanhToan$11.class
-view\GD_DatBanTruoc$4$1.class
 entity\ChiTietKhuyenMai.class
 component\BookingItem$5.class
 icon\FontAwesome.class
@@ -108,7 +107,6 @@ datechooser\Months.class
 dao\IKhuyenMaiDAO.class
 component\RoundJTextField.class
 dao\imlp\TheThanhVienDAO.class
-view\GD_DatBanTruoc$15.class
 view\GD_TrangChu$6.class
 datechooser\DateChooser$1.class
 component\MyJMenuItem$1.class
@@ -166,7 +164,6 @@ view\Form_DatBan$5.class
 view\Form_ThuTien$5.class
 view\GD_TrangChu$5.class
 component\OrderItem_forUIDatMon$3.class
-view\GD_DatBanTruoc$14.class
 component\Food$2.class
 view\GD_ThanhToan.class
 view\Form_XemThucDon$5.class
