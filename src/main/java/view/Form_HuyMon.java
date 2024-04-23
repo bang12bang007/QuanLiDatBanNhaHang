@@ -265,7 +265,7 @@ public class Form_HuyMon extends javax.swing.JPanel {
         for(ChiTietHoaDon c : list){
             if(c.getMon().getTenMon().equals(monHuy.getTenMon())){
                 //chỗ này bỏ ghi chú vào
-                c.setLyDoHuy(BoxLyDo.getSelectedItem().toString());
+//                c.setLyDoHuy(BoxLyDo.getSelectedItem().toString());
                 c.setSoLuong(0);
             }
         }

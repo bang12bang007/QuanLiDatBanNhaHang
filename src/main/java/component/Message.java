@@ -9,7 +9,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import raven.toast.Notifications;
-import view.GD_DatBan;
+import view.GD_DatBanTruoc;
 import static utils.AppUtils.*;
 
 /**
@@ -229,7 +229,7 @@ public class Message extends javax.swing.JPanel {
         Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Chuyển bàn thành công");
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        utils.AppUtils.setUI(banItem.getMain(), () -> new GD_DatBan(banItem.getMain()));
+        utils.AppUtils.setUI(banItem.getMain(), () -> new GD_DatBanTruoc(banItem.getMain()));
     }//GEN-LAST:event_btnDongYActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed

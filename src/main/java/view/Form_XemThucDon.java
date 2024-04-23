@@ -725,7 +725,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
     }
 
     private String[] getContents(Mon mon) {
-        return new String[]{mon.getTenMon(), mon.getGia() + ""};
+        return new String[]{mon.getTenMon(), mon.getGiaBan()+ ""};
     }
 
     public void themMon(MenuItem menuItem) {
@@ -802,7 +802,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         double price = 0;
         for (Mon mon : dsMon) {
             if (mon.getTenMon().equals(name)) {
-                price = mon.getGia();
+                price = mon.getGiaBan();
             }
         }
 

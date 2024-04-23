@@ -28,16 +28,16 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.sdt = :sdt")
+    @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.soDienThoai = :sdt")
 })
 public class KhachHang {
     @Id
     @Column(name="MaKhachHang",nullable = false)
-    private String maKH;
+    private String maKhachHang;
     @Column(name="TenKhachHang",columnDefinition = "NVARCHAR(50)",nullable = false)
-    private String tenKH;
+    private String hoTen;
     @Column(name="SoDienThoai",nullable = false)
-    private String sdt;
+    private String soDienThoai;
     @Column(name="DiaChi",columnDefinition = "NVARCHAR(255)",nullable = true)
     private String diaChi;
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
@@ -45,9 +45,9 @@ public class KhachHang {
     @OneToOne(mappedBy = "khachHang", cascade = CascadeType.ALL)
     private TheThanhVien theThanhVien;
 
-    public KhachHang(String tenKH, String sdt, String diaChi) {
-        this.tenKH = tenKH;
-        this.sdt = sdt;
+    public KhachHang(String tenKhachHang, String sdt, String diaChi) {
+        this.hoTen = tenKhachHang;
+        this.soDienThoai = sdt;
         this.diaChi = diaChi;
     }
 }

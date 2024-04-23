@@ -44,6 +44,9 @@ public class GD_DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Notifications.getInstance().setJFrame(this);
         FlatIntelliJLaf.setup();
+        //---------------------------------------------
+        tenDangNhap.setText("NV120060424290");
+        matKhau.setText("280920003");
     }
 
     /**

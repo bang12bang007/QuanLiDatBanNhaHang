@@ -17,18 +17,16 @@ import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
 import dao.IMonDAO;
-import dao.IPhieuDatBanDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
-import dao.imlp.PhieuDatBanDAO;
+import datechooser.SelectedDate;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Mon;
 import entity.NhanVien;
-import entity.PhieuDatBan;
 import icon.FontAwesome;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,6 +34,8 @@ import java.awt.FlowLayout;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -81,18 +81,16 @@ public class GD_DatMon extends javax.swing.JPanel {
     private DecimalFormat tien_format = new DecimalFormat("###,###.0 VNĐ");
     private HoaDon hoaDon;
     private GD_Ban gD_Ban;//duccuong1609 : load thẳng vào nếu có 
-    private GD_QuanLyDatMon gd_qlDatMon;//load thẳng vào nếu có 
-    private GD_DatBan gd_datBan;//load thẳng vào nếu có 
+    private GD_DatBanTaiCho gd_qlDatMon;//load thẳng vào nếu có 
+    private GD_DatBanTruoc gd_datBan;//load thẳng vào nếu có 
     private List<ChiTietHoaDon> details; //ds chi tiết hóa đơn (luồng thêm món)
     private GD_DatMon gd_mon = this;
     private List<OrderItem_forUIDatMon> listPreOrderItem;
     private List<Mon> list_CancelFood = new ArrayList<>();
-    private PhieuDatBan phieuDatBan;
 //    NDK: Di chuyển lên đây nè
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private IBanDAO banDAO = new BanDAO();
     private IChiTietHoaDonDAO chitietDAO = new ChiTietHoaDonDAO();
-    private IPhieuDatBanDAO phieudatDAO = new PhieuDatBanDAO();
     private boolean back_toUI_DatBan;
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
@@ -128,9 +126,10 @@ public class GD_DatMon extends javax.swing.JPanel {
         labelTongTien.setText("0,0 VNĐ");
         nhanVienName.setText(nv.getHoTen());
         First_LoadData();
-
         Notifications.getInstance();
         FlatIntelliJLaf.setup();
+        First_LoadData();
+
     }
 
     /**
@@ -187,6 +186,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Scroll_Order = new javax.swing.JScrollPane();
         PanelOrder = new javax.swing.JPanel();
@@ -772,8 +772,15 @@ public class GD_DatMon extends javax.swing.JPanel {
         jLabel6.setText("THÀNH TIỀN");
         HEADER_ORDER.add(jLabel6);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("GHI CHÚ");
+        HEADER_ORDER.add(jLabel2);
+
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("HỦY");
         HEADER_ORDER.add(jLabel7);
 
@@ -1109,12 +1116,12 @@ public class GD_DatMon extends javax.swing.JPanel {
                     Double total = 0.0;
                     listPreOrderItem = new ArrayList<>();
                     for (int i = 0; i < orders.size(); i++) {
-                        String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGia() * gd_mon.getList_quantity().get(i)), ""};
+                        String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGiaBan()* gd_mon.getList_quantity().get(i)), ""};
                         OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders);
                         item.setType_orderItem("PRELOAD");//có ở dưới data base load lên
                         listPreOrderItem.add(item);
                         gd_mon.getPanelOrder().add(item);
-                        total += orders.get(i).getGia() * list_quantity.get(i);
+                        total += orders.get(i).getGiaBan()* list_quantity.get(i);
                     }
                     for (int i = 0; i < gd_mon.PanelOrder.getComponentCount(); i++) {
                         OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) gd_mon.PanelOrder.getComponent(i);
@@ -1141,17 +1148,17 @@ public class GD_DatMon extends javax.swing.JPanel {
                 } catch (ExecutionException ex) {
                     Logger.getLogger(GD_DatMon.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
         };
         worker.execute();
+
     }
 
     public void Create_OrUpdate_Order() {
 //  NDK: t di chuyển lên trên lúc tạo biến rồi
         using_for_DatMon(banDAO, hoaDonDAO, chitietDAO);
-        using_for_ThemMon(banDAO, hoaDonDAO, chitietDAO);
-        using_for_DatTruocMon(chitietDAO, phieudatDAO);
+//        using_for_ThemMon(banDAO, hoaDonDAO, chitietDAO);
+//        using_for_DatTruocMon(chitietDAO, phieudatDAO);
     }
 
     public void using_for_DatMon(IBanDAO banDAO, IHoaDonDAO hoaDonDAO, IChiTietHoaDonDAO chitietDAO) {
@@ -1167,7 +1174,7 @@ public class GD_DatMon extends javax.swing.JPanel {
             }
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
             banDAO.update(ban);
-            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            AppUtils.setUI(main, () -> new GD_DatBanTaiCho(main, nv));
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Cất Thành Công");
         }
     }
@@ -1200,44 +1207,46 @@ public class GD_DatMon extends javax.swing.JPanel {
                     chitietDAO.insert(chiTiet);
                 }
             }
-            AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+            AppUtils.setUI(main, () -> new GD_DatBanTaiCho(main, nv));
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
         }
 
     }
 
-    public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO, IPhieuDatBanDAO phieudatDAO) {
-        if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
-            if (hoaDon == null) {
-                hoaDon = new HoaDon(NHANVIEN, LocalDateTime.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-                hoaDonDAO.insertHoaDon(hoaDon);
-            }
-            details = chitietDAO.getListByHoaDon(hoaDon);
-            for (ChiTietHoaDon detail : details) {
-                chitietDAO.deleteChiTiet(detail);
-            }
-            for (int i = 0; i < orders.size(); i++) {
-                chitietDAO.insert(new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i)));
-            }
-
-            List<ChiTietHoaDon> dsChiTietHoaDon = chitietDAO.getListByHoaDon(hoaDon);
-            String yeuCauDatMon = "";
-            for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
-                String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
-                yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
-            }
-
-            phieuDatBan.setYeuCauDatMon(yeuCauDatMon);
-            phieudatDAO.update(phieuDatBan);
-            if (back_toUI_DatBan == false) {
-                AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
-            } else {
-                AppUtils.setUI(main, () -> new GD_DatBan(main));
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
-            }
-        }
-    }
+//    public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO, IPhieuDatBanDAO phieudatDAO) {
+//        if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+//
+//            if (hoaDon == null) {
+//                hoaDon = new HoaDon(NHANVIEN, LocalDateTime.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+//                hoaDonDAO.insertHoaDon(hoaDon);
+//            }
+//
+//            details = chitietDAO.getListByHoaDon(hoaDon);
+//            for (ChiTietHoaDon detail : details) {
+//                chitietDAO.deleteChiTiet(detail);
+//            }
+//            for (int i = 0; i < orders.size(); i++) {
+//                chitietDAO.insert(new ChiTietHoaDon(orders.get(i), hoaDon, list_quantity.get(i)));
+//            }
+//
+//            List<ChiTietHoaDon> dsChiTietHoaDon = chitietDAO.getListByHoaDon(hoaDon);
+//            String yeuCauDatMon = "";
+//            for (ChiTietHoaDon chiTiet : dsChiTietHoaDon) {
+//                String isQuote = chiTiet.equals(dsChiTietHoaDon.get(dsChiTietHoaDon.size() - 1)) ? "" : ", ";
+//                yeuCauDatMon += chiTiet.getMon().getTenMon() + " (" + chiTiet.getSoLuong() + " Suất)" + isQuote;
+//            }
+//
+//            phieuDatBan.setYeuCauDatMon(yeuCauDatMon);
+//            phieudatDAO.update(phieuDatBan);
+//            if (back_toUI_DatBan == false) {
+//                AppUtils.setUI(main, () -> new GD_QuanLyDatMon(main, nv));
+//                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
+//            } else {
+//                AppUtils.setUI(main, () -> new GD_DatBanTruoc(main));
+//                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
+//            }
+//        }
+//    }
 
     public void setOrders(ArrayList<Mon> orders) {
         this.orders = orders;
@@ -1300,11 +1309,11 @@ public class GD_DatMon extends javax.swing.JPanel {
         return btnBack;
     }
 
-    public void setGd_qlDatMon(GD_QuanLyDatMon gd_qlDatMon) {
+    public void setGd_qlDatMon(GD_DatBanTaiCho gd_qlDatMon) {
         this.gd_qlDatMon = gd_qlDatMon;
     }
 
-    public void setGd_datBan(GD_DatBan gd_datBan) {
+    public void setGd_datBan(GD_DatBanTruoc gd_datBan) {
         this.gd_datBan = gd_datBan;
     }
 
@@ -1332,15 +1341,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         return orders;
     }
 
-    public PhieuDatBan getPhieuDatBan() {
-        return phieuDatBan;
-    }
-
-    public void setPhieuDatBan(PhieuDatBan phieuDatBan) {
-        this.phieuDatBan = phieuDatBan;
-    }
-
-    public GD_QuanLyDatMon getGd_qlDatMon() {
+    public GD_DatBanTaiCho getGd_qlDatMon() {
         return gd_qlDatMon;
     }
 
@@ -1380,6 +1381,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     private component.MyButton btnTinhTien;
     private component.MyButton btnUp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

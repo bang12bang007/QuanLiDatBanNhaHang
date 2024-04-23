@@ -969,7 +969,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mJPanel, () -> new GD_QuanLyDatMon(mJPanel, utils.AppUtils.NHANVIEN));
+        utils.AppUtils.setUI(mJPanel, () -> new GD_DatBanTaiCho(mJPanel, utils.AppUtils.NHANVIEN));
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
@@ -1012,7 +1012,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         String value = txtTenThanhVien.getText();
         if (items.contains(value)) {
             for (TheThanhVien the : theThanhViens) {
-                if (the.getKhachHang().getTenKH().equals(value)) {
+                if (the.getKhachHang().getHoTen().equals(value)) {
                     theThanhVien = the;
                     setThe(theThanhVien);
                     break;
@@ -1030,7 +1030,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         for (Object item : chiTietHoaDonDAO.getListByHoaDon(hoaDon)) {
             ChiTietHoaDon chiTiet = (ChiTietHoaDon) item;
             Mon mon = (Mon) monDAO.findById(chiTiet.getMon().getMaMon(), Mon.class);
-            tableContainer.add(new OrderItem(width, index, new String[]{mon.getTenMon(), chiTiet.getSoLuong() + "", mon.getGia() + "", chiTiet.getSoLuong() * mon.getGia() + ""}));
+            tableContainer.add(new OrderItem(width, index, new String[]{mon.getTenMon(), chiTiet.getSoLuong() + "", mon.getGiaBan()+ "", chiTiet.getSoLuong() * mon.getGiaBan()+ ""}));
             index = index == 1 ? 2 : 1;
         }
     }
@@ -1055,8 +1055,8 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         if (theThanhVien != null) {
             KhachHang khachHang = theThanhVien.getKhachHang();
             txtMTV.setText(theThanhVien.getMaThe());
-            if (!txtTenThanhVien.getText().trim().equals(khachHang.getTenKH())) {
-                txtTenThanhVien.setText(khachHang.getTenKH());
+            if (!txtTenThanhVien.getText().trim().equals(khachHang.getHoTen())) {
+                txtTenThanhVien.setText(khachHang.getHoTen());
             }
             txtHangThe.setText(loaiThe.get(theThanhVien.getLoaiThe().ordinal()));
             diem.setText("Điểm: " + theThanhVien.getDiemTich());
@@ -1089,7 +1089,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private void autoComplete() {
         theThanhViens = theThanhVienDAO.findAll(TheThanhVien.class);
         for (TheThanhVien theThanhVien : theThanhViens) {
-            items.add(theThanhVien.getKhachHang().getTenKH());
+            items.add(theThanhVien.getKhachHang().getHoTen());
         }
         AutoCompleteDecorator.decorate(txtTenThanhVien, items, false);
     }

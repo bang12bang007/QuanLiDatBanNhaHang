@@ -35,9 +35,9 @@ import utils.Enum.LoaiViTri;
 @Setter
 @ToString
 @NamedQueries({
-    @NamedQuery(name = "Ban.groupByMaTang", query = "SELECT b.maTang, COUNT(b.maTang) AS soBan FROM Ban b GROUP BY b.maTang"),
-    @NamedQuery(name = "Ban.findByFloor", query = "SELECT b FROM Ban b WHERE b.maTang = :maTang"),
-    @NamedQuery(name = "Ban.findTableByStateAndFloor", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai AND b.maTang = :maTang"),
+    @NamedQuery(name = "Ban.groupByMaTang", query = "SELECT b.tang, COUNT(b.tang) AS soBan FROM Ban b GROUP BY b.tang"),
+    @NamedQuery(name = "Ban.findByFloor", query = "SELECT b FROM Ban b WHERE b.tang = :tang"),
+    @NamedQuery(name = "Ban.findTableByStateAndFloor", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai AND b.tang = :tang"),
     @NamedQuery(name = "Ban.findTableByState", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai"),
     @NamedQuery(name = "Ban.updateStateById", query = "UPDATE Ban SET trangThai = :trangThai WHERE maBan = :maBan")
 })
@@ -46,9 +46,6 @@ public class Ban {
     @Id
     @Column(name = "MaBan", nullable = false)
     private String maBan;
-    @Column(name = "ViTri", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private LoaiViTri viTri;
     @Column(name = "SoGhe", nullable = false)
     private int soGhe;
     @Column(name = "TrangThai", nullable = false)
@@ -57,10 +54,8 @@ public class Ban {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBanGop", nullable = true)
     private Ban banGop;
-    @Column(name = "MaTang", nullable = false)
-    private String maTang;
-    @OneToMany(mappedBy = "ban", cascade = CascadeType.ALL)
+    @Column(name = "tang", nullable = false)
+    private String tang;
+    @OneToMany(mappedBy = "ban",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
-    @OneToMany(mappedBy = "ban", cascade = CascadeType.ALL)
-    private List<PhieuDatBan> phieuDatBan;
 }
