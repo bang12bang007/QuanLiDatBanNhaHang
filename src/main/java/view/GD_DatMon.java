@@ -128,8 +128,6 @@ public class GD_DatMon extends javax.swing.JPanel {
         First_LoadData();
         Notifications.getInstance();
         FlatIntelliJLaf.setup();
-        First_LoadData();
-
     }
 
     /**
@@ -1089,29 +1087,24 @@ public class GD_DatMon extends javax.swing.JPanel {
             protected List<Food> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<Food> list = new ArrayList<>();
-                List<ChiTietHoaDon> replace_details = new ArrayList<>();
                 orders = new ArrayList<Mon>();
                 //lấy danh sách chi tiết hóa đơn từ luồng thêm món nhờ hóa đơn (từ ordercard --> đặt món)
-                if (branch.equals(TypeDatMon_Branch.THEMMON)) {
+                if (!branch.equals(TypeDatMon_Branch.DATMON)) {
                     IChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
                     details = dao.getListByHoaDon(hoaDon);
-                    for (ChiTietHoaDon chitiet : details) {
-                        if (chitiet.getSoLuong() != 0) {
-                            replace_details.add(chitiet);
-                        }
-                    }
-                    details = replace_details;
                     for (ChiTietHoaDon d : details) { //duccuong1609 : này load trước mấy chi tiết hóa đơn lên
                         orders.add(d.getMon());
                         list_quantity.add(d.getSoLuong());
                     }
                 }
+
                 mons = new ArrayList<Mon>();
                 IMonDAO dao = new MonDAO();
                 mons = dao.findService();
                 for (Mon mon : mons) {
                     list.add(new Food(gd_mon, mon, PanelOrder, mons, orders));
                 }
+
                 if (!branch.equals(TypeDatMon_Branch.DATMON)) {
                     Double total = 0.0;
                     listPreOrderItem = new ArrayList<>();
@@ -1157,7 +1150,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     public void Create_OrUpdate_Order() {
 //  NDK: t di chuyển lên trên lúc tạo biến rồi
         using_for_DatMon(banDAO, hoaDonDAO, chitietDAO);
-//        using_for_ThemMon(banDAO, hoaDonDAO, chitietDAO);
+        using_for_ThemMon(banDAO, hoaDonDAO, chitietDAO);
 //        using_for_DatTruocMon(chitietDAO, phieudatDAO);
     }
 
@@ -1191,6 +1184,21 @@ public class GD_DatMon extends javax.swing.JPanel {
         if (branch.equals(TypeDatMon_Branch.THEMMON)) {
             List<Mon> pre_order = new ArrayList<>();
             List<ChiTietHoaDon> list_canceled = chitietDAO.getListBySoLuong(0);
+
+            for (int i = 0; i < orders.size(); i++) {
+                int count = 0;
+                for (int j = 0; j < orders.size(); j++) {
+                    if(orders.get(i).getMaMon().equals(orders.get(j).getMaMon())){
+                        count++;
+                        if(count>=2){
+                            int tong = list_quantity.get(i) + list_quantity.get(j);
+                            list_quantity.set(i, tong);
+                            orders.remove(j);
+                            list_quantity.remove(j);
+                        }
+                    }
+                }
+            }
 
             for (int i = 0; i < orders.size(); i++) {
                 for (ChiTietHoaDon detail : details) {
