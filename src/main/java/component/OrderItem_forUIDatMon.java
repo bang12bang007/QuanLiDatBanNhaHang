@@ -140,8 +140,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private void setLastItem(String data) {
         IconFontSwing.register(FontAwesome.getIconFont());
         huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
-        if(type_orderItem.equals("PRE_LOAD")){
-           huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white)); 
+        if (type_orderItem.equals("PRE_LOAD")) {
+            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white));
         }
         increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, Color.white));
         decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, Color.white));
@@ -292,10 +292,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 14));
         IconFontSwing.register(FontAwesome.getIconFont());
-        if(type_orderItem.equals("PRELOAD")){
+        if (type_orderItem.equals("PRELOAD")) {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white));
-        }
-        else{
+        } else {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
         }
     }//GEN-LAST:event_huyMouseExited
@@ -304,10 +303,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 20));
         IconFontSwing.register(FontAwesome.getIconFont());
-        if(type_orderItem.equals("PRELOAD")){
+        if (type_orderItem.equals("PRELOAD")) {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, new Color(234, 124, 105)));
-        }
-        else{
+        } else {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, new Color(234, 124, 105)));
         }
     }//GEN-LAST:event_huyMouseEntered
@@ -324,8 +322,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         if (datMon.getBranch().equals(TypeDatMon_Branch.THEMMON)) {
             if (!type_orderItem.equals("PRELOAD")) {
                 update_PanelOrder(true);
-            }
-            else{
+            } else {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Bạn không thể thay đổi món đã đặt");
             }
         }
@@ -431,12 +428,19 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     public void update_PanelOrder(boolean update) {
         if (update) {
             ArrayList<Mon> replace_orders = new ArrayList<Mon>();
+
             int size = listPreOrder.size();
             for (int i = 0; i < orders.size(); i++) {
-                if (i < size) {
-                    OrderItem_forUIDatMon item = listPreOrder.get(i);
-                    if (item.getType_orderItem().equals("PRELOAD")) {
-                        replace_orders.add(orders.get(i));
+                if (datMon.getBranch().equals(TypeDatMon_Branch.THEMMON)) {
+                    if (i < size) {
+                        OrderItem_forUIDatMon item = listPreOrder.get(i);
+                        if (item.getType_orderItem().equals("PRELOAD")) {
+                            replace_orders.add(orders.get(i));
+                        } else {
+                            if (!orders.get(i).getTenMon().equals(mon.getTenMon())) {
+                                replace_orders.add(orders.get(i));
+                            }
+                        }
                     } else {
                         if (!orders.get(i).getTenMon().equals(mon.getTenMon())) {
                             replace_orders.add(orders.get(i));
@@ -457,7 +461,9 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
                 OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datMon, orders.get(i), datMon.getPanelOrder().getWidth(), i + 1, title, orders);
                 for (OrderItem_forUIDatMon order_item : listPreOrder) {
                     if (item.getTenMon().getText().trim().equals(order_item.getTenMon().getText().trim())) {
-                        item.setType_orderItem("PRELOAD");
+                        if (datMon.getBranch().equals(TypeDatMon_Branch.THEMMON)) {
+                            item.setType_orderItem("PRELOAD");
+                        }
                     }
                 }
                 item.setListPreOrder(listPreOrder);
@@ -479,7 +485,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     public void setType_orderItem(String type_orderItem) {
         this.type_orderItem = type_orderItem;
-        if(type_orderItem.equals("PRELOAD")){
+        if (type_orderItem.equals("PRELOAD")) {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white));
         }
     }
