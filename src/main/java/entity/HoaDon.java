@@ -78,6 +78,7 @@ public class HoaDon {
     @Setter(AccessLevel.NONE)
     private Double tongThanhToan;
     @Column(name = "TienPhaiThu", nullable = true)
+    @Setter(AccessLevel.NONE)
     private Double tienPhaiThu;
 
     public HoaDon(NhanVien nhanVien, LocalDateTime ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
@@ -93,23 +94,37 @@ public class HoaDon {
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
 
-    private void setTongThanhToan() {
-        Double total = 0.0;
-        for (ChiTietHoaDon detail : chiTietHoaDon) {
-            total += detail.getThanhTien();
-        }
-        this.tongThanhToan = total;
-        if (this.chiTietKhuyenMai == null) {
-            this.tienPhaiThu = this.tongThanhToan;
-        }
+    private void setTongThanhToan(double tongThanhToan) {
+        this.tongThanhToan = tongThanhToan;
+    }
+
+    private void setTienPhaiThu(double tienPhaiThu) {
+        this.tienPhaiThu = tienPhaiThu;
     }
 
     public void setChiTietHoaDon(List<ChiTietHoaDon> chiTietHoaDon) {
         this.chiTietHoaDon = chiTietHoaDon;
-        setTongThanhToan();
+        tongThanhToan();
     }
 
     public Double getTongThanhToan() {
         return this.tongThanhToan;
+    }
+
+    public void tienPhaiThu() {
+        double total = tongThanhToan;
+        for (ChiTietKhuyenMai chiTiet : chiTietKhuyenMai) {
+            total -= chiTiet.getThanhTien();
+        }
+        setTienPhaiThu(total);
+    }
+
+    public void tongThanhToan() {
+        Double total = 0.0;
+        for (ChiTietHoaDon detail : chiTietHoaDon) {
+            total += detail.getThanhTien();
+        }
+        setTongThanhToan(total);
+        this.tienPhaiThu = this.tongThanhToan;
     }
 }

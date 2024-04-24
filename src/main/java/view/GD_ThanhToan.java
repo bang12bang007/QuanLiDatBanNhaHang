@@ -5,21 +5,24 @@
 package view;
 
 import LIB.FadeEffect;
-import component.KhuyenMaiItem;
+import component.DiscountItem;
 import component.OrderItem;
 import component.ScrollBarCustom;
 import component.WrapLayout;
 import dao.IChiTietHoaDonDAO;
+import dao.IChiTietKhuyenMaiDAO;
 import dao.IKhachHangDAO;
 import dao.IKhuyenMaiDAO;
 import dao.IMonDAO;
 import dao.ITheThanhVienDAO;
 import dao.imlp.ChiTietHoaDonDAO;
+import dao.imlp.ChiTietKhuyenMaiDAO;
 import dao.imlp.KhachHangDAO;
 import dao.imlp.KhuyenMainDAO;
 import dao.imlp.MonDAO;
 import dao.imlp.TheThanhVienDAO;
 import entity.ChiTietHoaDon;
+import entity.ChiTietKhuyenMai;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.KhuyenMai;
@@ -37,8 +40,11 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import static utils.AppUtils.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -56,24 +62,27 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private IMonDAO monDAO = new MonDAO();
     private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
     private IKhuyenMaiDAO khuyenMaiDAO = new KhuyenMainDAO();
+
     private JPanel mJPanel;
     private DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     private JFrame thuTienJFrame;
+
     private List<String> loaiThe = List.of("STANDARD", "BRONZE", "SILVER", "GOLD", "DIAMOND");
+    private List<DiscountItem> discountItems = new ArrayList<>();
     private List<String> items = new ArrayList<>();
     private List<TheThanhVien> theThanhViens = new ArrayList<>();
     private List<KhuyenMai> khuyenMais = new ArrayList<>();
-    private double tienPhaiThu = 0;
+    private List<ChiTietKhuyenMai> chiTietKhuyenMais = new ArrayList<>();
     private TheThanhVien theThanhVien = null;
+    private int indexIsActive = -1;
 //  Quản lý đặt món hoặc là đặt món
     private JPanel branch;
 
     public GD_ThanhToan(HoaDon hoaDon, JPanel mJPanel) {
         this.hoaDon = hoaDon;
         this.mJPanel = mJPanel;
-        this.tienPhaiThu = chiTietHoaDonDAO.TotalFoodCurrency(hoaDon);
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         theThanhVienLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CREDIT_CARD, 20, Color.WHITE));
@@ -117,7 +126,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             }
         });
         maHoaDon.setText(hoaDon.getMaHoaDon() + " - " + hoaDon.getBan().getMaBan());
-        tienThu.setText(tien_format.format(this.tienPhaiThu));
+        tienThu.setText(tien_format.format(hoaDon.getTienPhaiThu()));
         ngayGioHienTai.setText(myFormatObj.format(LocalDateTime.now()));
         thanhTien.setText(tien_format.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)));
         btnInTamTinh.setIcon(IconFontSwing.buildIcon(FontAwesome.PRINT, 20, Color.WHITE));
@@ -984,9 +993,8 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
             thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             Form_ThuTien form_ThuTien = new Form_ThuTien(thuTienJFrame, hoaDon);
-            form_ThuTien.setTienPhaiThu(tienPhaiThu);
+            form_ThuTien.setTienPhaiThu(hoaDon.getTienPhaiThu());
             form_ThuTien.setMainJPanel(mJPanel);
-            form_ThuTien.setListKhuyenMai(khuyenMais);
             form_ThuTien.setTheThanhVien(theThanhVien);
             thuTienJFrame.add(form_ThuTien);
             thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
@@ -1030,19 +1038,45 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         for (Object item : chiTietHoaDonDAO.getListByHoaDon(hoaDon)) {
             ChiTietHoaDon chiTiet = (ChiTietHoaDon) item;
             Mon mon = (Mon) monDAO.findById(chiTiet.getMon().getMaMon(), Mon.class);
-            tableContainer.add(new OrderItem(width, index, new String[]{mon.getTenMon(), chiTiet.getSoLuong() + "", mon.getGiaBan()+ "", chiTiet.getSoLuong() * mon.getGiaBan()+ ""}));
+            tableContainer.add(new OrderItem(width, index, new String[]{mon.getTenMon(), chiTiet.getSoLuong() + "", mon.getGiaBan() + "", chiTiet.getSoLuong() * mon.getGiaBan() + ""}));
             index = index == 1 ? 2 : 1;
         }
     }
 
     private void loadDataMKM() {
-
         int width = MKMcontainer.getWidth();
-        for (Object object : khuyenMaiDAO.findAll(KhuyenMai.class)) {
-            KhuyenMai khuyenMai = (KhuyenMai) object;
-            KhuyenMaiItem khuyenMaiItem = new KhuyenMaiItem(width, khuyenMai);
-            khuyenMaiItem.setGDThanhToan(this);
-            MKMcontainer.add(khuyenMaiItem);
+        AtomicInteger index = new AtomicInteger(0);
+        khuyenMaiDAO.findAll(KhuyenMai.class)
+                .stream()
+                .sorted(Comparator.comparingDouble(KhuyenMai::getChietKhau).reversed())
+                .toList().forEach((object) -> {
+                    KhuyenMai khuyenMai = (KhuyenMai) object;
+                    DiscountItem khuyenMaiItem = new DiscountItem(index.getAndIncrement(), width, khuyenMai);
+                    khuyenMaiItem.setGDThanhToan(this);
+                    if (khuyenMaiItem.getIndex() == 0) {
+                        khuyenMaiItem.active();
+                        setIndexIsActive(khuyenMaiItem.getIndex());
+                    }
+                    discountItems.add(khuyenMaiItem);
+                    MKMcontainer.add(khuyenMaiItem);
+                });
+    }
+
+    public void setActive(int index) {
+        boolean isAllNotActive = true;
+        chiTietKhuyenMais = new ArrayList<>();
+        onChange();
+        for (DiscountItem discountItem : discountItems) {
+            if (discountItem.getIndex() == index && index != indexIsActive()) {
+                discountItem.active();
+                setIndexIsActive(index);
+                isAllNotActive = false;
+            } else {
+                discountItem.notActive();
+            }
+        }
+        if (isAllNotActive) {
+            setIndexIsActive(-1);
         }
     }
 
@@ -1068,22 +1102,20 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     }
 
     public void addKM(KhuyenMai khuyenMai) {
-        khuyenMais.add(khuyenMai);
+        ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(hoaDon, khuyenMai);
+        chiTietKhuyenMais.add(chiTietKhuyenMai);
         onChange();
     }
 
     public void removeKM(KhuyenMai khuyenMai) {
-        khuyenMais.remove(khuyenMai);
+        chiTietKhuyenMais.removeIf(detail -> detail.getKhuyenMai().getMaKhuyenMai().equals(khuyenMai.getMaKhuyenMai()) && detail.getHoaDon().getMaHoaDon().equals(hoaDon.getMaHoaDon()));
         onChange();
     }
 
     private void onChange() {
-        double total = chiTietHoaDonDAO.TotalFoodCurrency(hoaDon);
-        for (KhuyenMai khuyenMai : khuyenMais) {
-            total -= total * khuyenMai.getChietKhau();
-        }
-        this.tienPhaiThu = total;
-        tienThu.setText(tien_format.format(this.tienPhaiThu));
+        hoaDon.setChiTietKhuyenMai(chiTietKhuyenMais);
+        hoaDon.tienPhaiThu();
+        tienThu.setText(tien_format.format(hoaDon.getTienPhaiThu()));
     }
 
     private void autoComplete() {
@@ -1092,6 +1124,14 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             items.add(theThanhVien.getKhachHang().getHoTen());
         }
         AutoCompleteDecorator.decorate(txtTenThanhVien, items, false);
+    }
+
+    public int indexIsActive() {
+        return this.indexIsActive;
+    }
+
+    public void setIndexIsActive(int indexIsActive) {
+        this.indexIsActive = indexIsActive;
     }
 
 

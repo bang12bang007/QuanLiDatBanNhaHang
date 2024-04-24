@@ -737,14 +737,21 @@ public class Form_DatBan extends javax.swing.JPanel {
             for (ChiTietHoaDon detail : details) {
                 chiTietHoaDonDAO.deleteChiTiet(detail);
             }
-            for (MenuItem item : dsMon) {
-                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-                chiTietHoaDon.setHoaDon(phieuDatBan);
-                chiTietHoaDon.setMon(item.getMon());
-                chiTietHoaDon.setSoLuong(item.getSoLuong());
-                chiTietHoaDonDAO.update(chiTietHoaDon);
-            }
+            phieuDatBan.setChiTietHoaDon(getListDetails(phieuDatBan));
         }
+    }
+
+    private List<ChiTietHoaDon> getListDetails(HoaDon hoaDon) {
+        List<ChiTietHoaDon> details = new ArrayList<>();
+        for (MenuItem item : dsMon) {
+            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+            chiTietHoaDon.setHoaDon(hoaDon);
+            chiTietHoaDon.setMon(item.getMon());
+            chiTietHoaDon.setSoLuong(item.getSoLuong());
+            chiTietHoaDon.thanhTien();
+            details.add(chiTietHoaDon);
+        }
+        return details;
     }
 
     private void txtSoNguoiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoNguoiKeyTyped
@@ -791,8 +798,8 @@ public class Form_DatBan extends javax.swing.JPanel {
         if (isValidate()) {
             HoaDon hoaDon = createHoaDon();
             hoaDon.setMaHoaDon(this.hoaDon.getMaHoaDon());
-            boolean isSuccess = hoaDonDAO.update(hoaDon);
             updateMenu(hoaDon);
+            boolean isSuccess = hoaDonDAO.update(hoaDon);
             if (isSuccess) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn thành công");
                 this.jFrame.setVisible(false);
@@ -807,16 +814,9 @@ public class Form_DatBan extends javax.swing.JPanel {
     private void insertPhieuDatBan() {
         if (isValidate()) {
             HoaDon phieuDatBan = createHoaDon();
+            phieuDatBan.setChiTietHoaDon(getListDetails(phieuDatBan));
             boolean isSuccess = hoaDonDAO.insertHoaDon(phieuDatBan);
             if (isSuccess) {
-                for (MenuItem item : dsMon) {
-                    ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-                    chiTietHoaDon.setHoaDon(phieuDatBan);
-                    chiTietHoaDon.setMon(item.getMon());
-                    chiTietHoaDon.setSoLuong(item.getSoLuong());
-                    chiTietHoaDon.thanhTien();
-                    chiTietHoaDonDAO.insert(chiTietHoaDon);
-                }
                 banDAO.updateStateById(ban.getMaBan(), utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT);
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Đặt bàn thành công");
                 jFrame.setVisible(false);
