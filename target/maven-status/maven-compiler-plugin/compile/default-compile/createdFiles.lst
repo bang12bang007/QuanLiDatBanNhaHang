@@ -22,6 +22,7 @@ component\Message.class
 view\Form_DoiSoLuongNguoi$4.class
 view\Form_XemThucDon$8.class
 view\GD_TrangChu$2.class
+component\DiscountItem.class
 view\GD_ThanhToan$15.class
 component\WrapLayout.class
 component\OrderCard.class
@@ -30,6 +31,7 @@ utils\Enum$LoaiVaiTro.class
 view\GD_DatBanTruoc$11.class
 view\GD_TrangChu$8.class
 utils\Enum$LoaiTrangThaiMon.class
+view\Form_GhiChu$3.class
 view\Form_DatBan$8.class
 view\Form_ThuTien$8.class
 view\GD_DatBanTaiCho.class
@@ -41,6 +43,7 @@ view\GD_BaoCao$3.class
 component\ComboSuggestionUI$1.class
 utils\ModelColor.class
 view\GD_ThanhToan$16.class
+view\Form_GhiChu.class
 view\Form_ThuTien$1.class
 view\GD_DatBanTruoc$9.class
 component\Message$3.class
@@ -51,6 +54,7 @@ component\OrderCard$5.class
 dao\ITaiKhoanDAO.class
 view\GD_DangNhap$1.class
 view\GD_TrangChu$9.class
+view\Form_GhiChu$2.class
 view\Form_ThuTien$7.class
 component\OrderItem_forUIDatMon$1.class
 datechooser\EventDateChooser.class
@@ -71,6 +75,7 @@ dao\imlp\KhuyenMainDAO.class
 component\MenuItem$3.class
 view\Form_XemThucDon$7.class
 dao\imlp\NhanVienDAO.class
+view\Form_GhiChu$8.class
 entity\KhuyenMai.class
 view\GD_DatMon$3.class
 view\GD_TrangChu$3.class
@@ -83,6 +88,7 @@ component\BookingItem$5.class
 icon\FontAwesome.class
 view\GD_ThanhToan$8.class
 utils\Enum$LoaiViTri.class
+component\DiscountItem$1.class
 entity\KhachHang.class
 entity\HoaDon.class
 view\Form_ThuTien$6.class
@@ -92,6 +98,8 @@ view\Form_DatBan$10.class
 entity\ChiTietHoaDon.class
 view\GD_TrangChu$4.class
 view\Form_ThemMonKhac.class
+view\Form_GhiChu$4.class
+view\Form_GhiChu$7.class
 view\Form_ThemMonKhac$1.class
 component\BookingItem$2.class
 component\OrderItem$1.class
@@ -109,15 +117,15 @@ datechooser\Months.class
 dao\IKhuyenMaiDAO.class
 component\RoundJTextField.class
 dao\imlp\TheThanhVienDAO.class
+view\Form_GhiChu$5.class
 view\GD_TrangChu$6.class
 datechooser\DateChooser$1.class
 component\MyJMenuItem$1.class
+dao\imlp\ChiTietKhuyenMaiDAO.class
 utils\Enum$LoaiTrangThai.class
 view\GD_DatBanTaiCho$6.class
-component\KhuyenMaiItem.class
 entity\TheThanhVien.class
 icon\FontAwesome$1.class
-component\KhuyenMaiItem$1.class
 view\Form_DoiSoLuongNguoi$2.class
 view\GD_DatMon$10.class
 view\Form_ThuTien$4.class
@@ -137,6 +145,7 @@ datechooser\DateChooser$2.class
 view\GD_ThanhToan$14.class
 dao\ITheThanhVienDAO.class
 view\Form_ThuTien$3.class
+dao\IChiTietKhuyenMaiDAO.class
 component\BookingItem$3.class
 component\ModernScrollBarUI.class
 utils\AppUtils.class
@@ -164,6 +173,7 @@ component\BookingItem$4.class
 component\MenuItem$1.class
 datechooser\DateChooser$7.class
 view\GD_DatBanTruoc$1.class
+view\Form_GhiChu$6.class
 view\Form_DatBan$5.class
 view\Form_ThuTien$5.class
 view\GD_TrangChu$5.class
@@ -175,7 +185,6 @@ view\Form_XemThucDon$5.class
 view\GD_ThanhToan$12.class
 view\GD_DatMon$20$1.class
 utils\Enum$TypeDatMon_Branch.class
-view\Form_HuyMon.class
 view\GD_DatBanTruoc$2.class
 entity\LoaiMon.class
 component\ScrollBarCustom.class
@@ -188,13 +197,13 @@ datechooser\Slider$2.class
 view\Form_DatBan.class
 view\GD_DatBanTaiCho$3.class
 component\OrderItem.class
-view\Form_HuyMon$1.class
 view\GD_DatBanTaiCho$2.class
 utils\AppUtils$1.class
 entity\Mon.class
 view\GD_DatBanTaiCho$9.class
 view\GD_BaoCao$4.class
 view\GD_DatBanTruoc$8.class
+view\Form_GhiChu$1.class
 view\GD_ThanhToan$9.class
 component\OrderItem_forUIDatMon$2.class
 component\OrderItem_forUIDatMon$8.class
@@ -204,7 +213,6 @@ view\GD_ThanhToan$3.class
 view\Form_ThemMonKhac$2.class
 view\GD_DatBanTaiCho$1.class
 view\GD_DatMon$15.class
-view\Form_HuyMon$5.class
 view\GD_DatBanTruoc$10.class
 view\GD_TrangChu$1.class
 view\GD_DatBanTaiCho$10.class
@@ -220,7 +228,6 @@ view\GD_DangNhap$2.class
 view\GD_DatMon$8.class
 component\OrderCard$4.class
 component\Message$1.class
-view\Form_HuyMon$2.class
 view\GD_DatMon$6.class
 component\OrderItem_forUIDatMon$4.class
 view\Form_ThongTinCaNhan$2.class
@@ -228,11 +235,9 @@ view\Form_DatBan$1.class
 component\BanItem$1.class
 component\OrderCard$2.class
 view\GD_DatMon$16.class
-view\Form_HuyMon$3.class
 view\GD_DatBanTruoc$6.class
 view\GD_DangNhap$3.class
 component\BanItem$2.class
-view\Form_HuyMon$4.class
 view\GD_DatMon$17.class
 view\GD_DatBanTruoc$5.class
 view\GD_BaoCao$1.class

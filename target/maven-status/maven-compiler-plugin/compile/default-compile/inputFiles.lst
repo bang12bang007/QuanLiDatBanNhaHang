@@ -7,6 +7,7 @@ D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\imlp\ChiTietHoaDo
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\entity\Mon.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\imlp\BanDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\GD_ThongKe.java
+D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\DiscountItem.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\Food.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\WrapLayout.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\GD_DangNhap.java
@@ -23,8 +24,9 @@ D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\Form_ThuTien.jav
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\GD_ThanhToan.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\IChiTietHoaDonDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\GD_DatBanTaiCho.java
-D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\KhuyenMaiItem.java
+D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\imlp\ChiTietKhuyenMaiDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\datechooser\Button.java
+D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\IChiTietKhuyenMaiDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\imlp\TheThanhVienDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\entity\NhanVien.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\utils\AppUtils.java
@@ -36,7 +38,6 @@ D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\IMonDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\Form_ThemMonKhac.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\Form_QRCODE.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\entity\ChiTietHoaDon.java
-D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\Form_HuyMon.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\Form_DatBan.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\Message.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\entity\LoaiMon.java
@@ -51,6 +52,7 @@ D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\RoundJTextF
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\OrderItem_forUIDatMon.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\imlp\AbstractDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\component\MenuItem.java
+D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\view\Form_GhiChu.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\imlp\NhanVienDAO.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\entity\KhuyenMai.java
 D:\PhatTrienUngDung\QLNH\QuanLiDatBanNhaHang\src\main\java\dao\INhanVienDAO.java

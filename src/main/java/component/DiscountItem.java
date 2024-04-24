@@ -16,16 +16,19 @@ import view.GD_ThanhToan;
  *
  * @author Laptop
  */
-public class KhuyenMaiItem extends javax.swing.JPanel {
+public class DiscountItem extends javax.swing.JPanel {
 
     /**
      * Creates new form KhuyenMaiItem
      */
     private GD_ThanhToan gD_ThanhToan;
     private KhuyenMai khuyenMai;
+    private int index;
 
-    public KhuyenMaiItem(int width, KhuyenMai khuyenMai) {
+
+    public DiscountItem(int index, int width, KhuyenMai khuyenMai) {
         this.khuyenMai = khuyenMai;
+        this.index = index;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         checkbox.setBackground(new Color(0, 0, 0, 0));
@@ -127,14 +130,29 @@ public class KhuyenMaiItem extends javax.swing.JPanel {
 
     private void checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxActionPerformed
         // TODO add your handling code here:
-        boolean isCheckbox = checkbox.getIcon() == null;
-        checkbox.setIcon(isCheckbox ? IconFontSwing.buildIcon(FontAwesome.CHECK, 24, new Color(31, 29, 43)) : null);
-        if (isCheckbox) {
-            gD_ThanhToan.addKM(khuyenMai);
-        } else {
-            gD_ThanhToan.removeKM(khuyenMai);
-        }
+//        boolean isCheckbox = checkbox.getIcon() == null;
+//        checkbox.setIcon(isCheckbox ? IconFontSwing.buildIcon(FontAwesome.CHECK, 24, new Color(31, 29, 43)) : null);
+//        if (isCheckbox) {
+//            gD_ThanhToan.addKM(khuyenMai);
+//        } else {
+//            gD_ThanhToan.removeKM(khuyenMai);
+//        }
+        gD_ThanhToan.setActive(index);
     }//GEN-LAST:event_checkboxActionPerformed
+
+    public void active() {
+        checkbox.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK, 24, new Color(31, 29, 43)));
+        gD_ThanhToan.addKM(khuyenMai);
+    }
+
+    public void notActive() {
+        checkbox.setIcon(null);
+        gD_ThanhToan.removeKM(khuyenMai);
+    }
+
+    public int getIndex() {
+        return this.index;
+    }
 
     private void push(KhuyenMai khuyenMai) {
         tenKM.setText(khuyenMai.getTenKhuyenMai());

@@ -32,7 +32,6 @@ public class OrderCard extends javax.swing.JPanel {
     private Double total = 0.0;
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private GD_DatBanTaiCho ql_datMon;//khai biến để back về không cần tạo mới
-    private IHoaDonDAO hoaDonDAO;
 
     public OrderCard() {
         initComponents();
@@ -45,7 +44,7 @@ public class OrderCard extends javax.swing.JPanel {
         initComponents();
         setIconBtn();
         maBan.setText(hoaDon.getBan().getMaBan());
-        setSoLuong(hoaDon);
+        soLuongNguoi.setText(hoaDon.getSoLuongNguoi() + "");
 //        jLabel2.setText(hoaDon.getBan().getMaBan());
 //        jLabel3.setText(tien_format.format(total));
 //        loadData();
@@ -299,8 +298,15 @@ public class OrderCard extends javax.swing.JPanel {
             GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
             gD_DatMon.setHoaDon(this.hoaDon);
             gD_DatMon.setGd_qlDatMon(ql_datMon);
+//<<<<<<< HEAD
+//            if (ql_datMon.isWaitForPayment()) {
+//                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+//            } else {
+////                hoaDonDAO = new HoaDonDAO();
+////                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
+//=======
             if (!ql_datMon.isWaitForPayment()) {
-                hoaDonDAO = new HoaDonDAO();
+//                hoaDonDAO = new HoaDonDAO();
                 gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
             }
             return gD_DatMon;
@@ -321,9 +327,6 @@ public class OrderCard extends javax.swing.JPanel {
     }
 
     private void setSoLuong(HoaDon hoaDon) {
-        if (hoaDon != null) {
-            soLuongNguoi.setText(hoaDon.getSoLuongNguoi() + "");
-        }
     }
 
 //    NDK: T tính trong orderCard luôn á 

@@ -55,7 +55,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private IBanDAO banDAO = new BanDAO();
     private HoaDon hoaDon;
     private JPanel mainJPanel;
-    private List<KhuyenMai> khuyenMais = new ArrayList<>();
     private TheThanhVien theThanhVien;
 
     public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
@@ -790,9 +789,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
         this.mainJPanel = jPanel;
     }
 
-    public void setListKhuyenMai(List<KhuyenMai> khuyenMais) {
-        this.khuyenMais = khuyenMais;
-    }
 
     public void setTheThanhVien(TheThanhVien theThanhVien) {
         this.theThanhVien = theThanhVien;
