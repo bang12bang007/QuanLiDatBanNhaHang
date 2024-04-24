@@ -7,7 +7,6 @@ package component;
 import dao.IHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import entity.HoaDon;
-import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
 import utils.AppUtils;
@@ -295,16 +294,19 @@ public class OrderCard extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCheckActionPerformed
     private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
         // TODO add your handling code here:
-
         AppUtils.setUI(mainPanel, () -> {
             GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-            gD_DatMon.setHoaDon(hoaDon);
+            gD_DatMon.setHoaDon(this.hoaDon);
             gD_DatMon.setGd_qlDatMon(ql_datMon);
-            if (ql_datMon.isWaitForPayment()) {
-                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
-            } else {
+//<<<<<<< HEAD
+//            if (ql_datMon.isWaitForPayment()) {
+//                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
+//            } else {
+////                hoaDonDAO = new HoaDonDAO();
+////                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
+//=======
+            if (!ql_datMon.isWaitForPayment()) {
 //                hoaDonDAO = new HoaDonDAO();
-//                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
                 gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
             }
             return gD_DatMon;
@@ -325,10 +327,6 @@ public class OrderCard extends javax.swing.JPanel {
     }
 
     private void setSoLuong(HoaDon hoaDon) {
-//        PhieuDatBan phieuDatBan = hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon);
-//        if (phieuDatBan != null) {
-//            soLuongNguoi.setText(phieuDatBan.getSoLuongNguoi() + "");
-//        }
     }
 
 //    NDK: T tính trong orderCard luôn á 

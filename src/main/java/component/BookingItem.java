@@ -12,6 +12,9 @@ import java.awt.Dimension;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
@@ -233,65 +236,29 @@ public class BookingItem extends javax.swing.JPanel {
         GD.received();
     }//GEN-LAST:event_btnNhanBanActionPerformed
 
-    GD_DatMon datMon = null;
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
         // TODO add your handling code here:
-//        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-//            GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-//            //duccuong1609 : còn lag, vẫn phải fix
-//            @Override
-//            protected Void doInBackground() throws Exception {
-//                // Thực hiện công việc lâu dài ở đây
-//                List<ChiTietHoaDon> list = GD.getChiTietHoaDonByBan(phieuDatBan.getBan());
-//                datMon.setHoaDon(list.get(0).getHoaDon());
-//                return null;
-//            }
-//
-//            @Override
-//            protected void done() {
-//                datMon.setGd_datBan(GD);
-//                btnGoiMon.setBackground(new Color(255, 255, 255, 0));
-//                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-//                datMon.setPhieuDatBan(phieuDatBan);
-//                datMon.setBack_toUI_DatBan(true);
-//                utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
-//            }
-//        };
-//        worker.execute();
-        SwingWorker<HoaDon, Void> worker = new SwingWorker<HoaDon, Void>() {
+        SwingWorker<GD_DatMon, Void> worker = new SwingWorker<GD_DatMon, Void>() {
             @Override
-            protected HoaDon doInBackground() throws Exception {
-                //---------------------------------------------------------------------------//
-                List<ChiTietHoaDon> list = null;
-                return list.get(0).getHoaDon();
+            protected GD_DatMon doInBackground() throws Exception {
+                GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+                return datMon;
             }
 
             @Override
             protected void done() {
-                datMon.setGd_datBan(GD);
-                btnGoiMon.setBackground(new Color(255, 255, 255, 0));
-                datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-//                datMon.setPhieuDatBan(phieuDatBan);
-                datMon.setBack_toUI_DatBan(true);
-                utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
-//                utils.AppUtils.setUI(GD.getMainJpanel(), () -> {
-//                    GD_DatMon datMon = null;
-//                    try {
-//                        datMon = new GD_DatMon(GD.getMainJpanel(), phieuDatBan.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-//                        // Thực hiện công việc lâu dài ở đây
-//                        ArrayList<Mon> mons = new ArrayList<Mon>();
-//                        ArrayList<Integer> quantity = new ArrayList<Integer>();
-//                        datMon.setHoaDon(get());
-//                        datMon.setGd_datBan(GD);
-//                        btnGoiMon.setBackground(new Color(255, 255, 255, 0));
-//                        datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-//                        datMon.setPhieuDatBan(phieuDatBan);
-//                        datMon.setBack_toUI_DatBan(true);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();;
-//                    }
-//                    return datMon;
-//                });
+                GD_DatMon datMon;
+                try {
+                    datMon = get();
+                    datMon.setGd_datBan(GD);
+                    btnGoiMon.setBackground(new Color(255, 255, 255, 0));
+                    datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+                    datMon.setHoaDon(hoaDon);
+                    datMon.setBack_toUI_DatBan(true);
+                    utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
+                } catch (InterruptedException | ExecutionException ex) {
+                    Logger.getLogger(BookingItem.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
         worker.execute();
