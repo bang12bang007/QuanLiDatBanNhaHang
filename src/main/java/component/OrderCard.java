@@ -7,7 +7,6 @@ package component;
 import dao.IHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import entity.HoaDon;
-import entity.Mon;
 import icon.FontAwesome;
 import java.awt.Color;
 import utils.AppUtils;
@@ -322,11 +321,9 @@ public class OrderCard extends javax.swing.JPanel {
     }
 
     private void setSoLuong(HoaDon hoaDon) {
-        hoaDonDAO = new HoaDonDAO();
-//        PhieuDatBan phieuDatBan = hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon);
-//        if (phieuDatBan != null) {
-//            soLuongNguoi.setText(phieuDatBan.getSoLuongNguoi() + "");
-//        }
+        if (hoaDon != null) {
+            soLuongNguoi.setText(hoaDon.getSoLuongNguoi() + "");
+        }
     }
 
 //    NDK: T tính trong orderCard luôn á 

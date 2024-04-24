@@ -426,11 +426,14 @@ public class GD_DatMon extends javax.swing.JPanel {
             }
         });
 
+        btnNV.setForeground(new java.awt.Color(255, 255, 255));
+        btnNV.setText("1");
         btnNV.setColor(new java.awt.Color(83, 86, 99));
         btnNV.setColorClick(new java.awt.Color(234, 124, 105));
         btnNV.setColorOver(new java.awt.Color(234, 124, 105));
-        btnNV.setFont(utils.AppUtils.getFont(12f, _BOLD_)
+        btnNV.setFont(utils.AppUtils.getFont(15f, _BOLD_)
         );
+        btnNV.setIconTextGap(15);
         btnNV.setRadius(10);
         btnNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -929,6 +932,15 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed
         // TODO add your handling code here:
+        JFrame jFrame = new JFrame();
+        jFrame.setUndecorated(true);
+        jFrame.setExtendedState(MAXIMIZED_BOTH);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Form_DoiSoLuongNguoi form_doisonguoi = new Form_DoiSoLuongNguoi(jFrame,this);
+        jFrame.add(form_doisonguoi, BorderLayout.CENTER);
+        jFrame.setBackground(new Color(0, 0, 0, 0));
+        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+        jFrame.setVisible(true);
     }//GEN-LAST:event_btnNVActionPerformed
 
     private void banTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_banTextFieldActionPerformed
@@ -1017,8 +1029,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Gửi Bếp Thành Công !");
                 guiBep = true;
             }
-        }
-        else{
+        } else {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Vui Lòng Chọn Ít Nhất 1 Món Ăn Để Gửi Bếp !");
         }
 
@@ -1177,6 +1188,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         if (branch.equals(TypeDatMon_Branch.DATMON)) {
             Ban ban = (Ban) banDAO.findById(this.ban.getMaBan(), Ban.class);
             HoaDon hoaDon = new HoaDon(nv, LocalDateTime.now(), ban, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+            hoaDon.setSoLuongNguoi(getSoLuong());
             if (loai.equals(DatMon_ThemMon.DATMON)) {
                 List<ChiTietHoaDon> list = new ArrayList<>();
 
@@ -1203,7 +1215,8 @@ public class GD_DatMon extends javax.swing.JPanel {
         if (branch.equals(TypeDatMon_Branch.THEMMON)) {
             List<Mon> pre_order = new ArrayList<>();
             List<ChiTietHoaDon> list_canceled = chitietDAO.getListBySoLuong(0);
-
+            hoaDon.setSoLuongNguoi(getSoLuong());
+            hoaDonDAO.update(hoaDon);
             for (int i = 0; i < orders.size(); i++) {
                 int count = 0;
                 for (int j = 0; j < orders.size(); j++) {
@@ -1250,7 +1263,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     public void using_for_DatTruocMon(IChiTietHoaDonDAO chitietDAO, IHoaDonDAO hoadonDAO) {
         if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
-
+            hoaDon.setSoLuongNguoi(getSoLuong());
             details = chitietDAO.getListByHoaDon(hoaDon);
             for (ChiTietHoaDon detail : details) {
                 chitietDAO.deleteChiTiet(detail);
@@ -1381,6 +1394,14 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     public void setBack_toUI_DatBan(boolean back_toUI_DatBan) {
         this.back_toUI_DatBan = back_toUI_DatBan;
+    }
+    
+    public void setSoLuong(int soluong){
+        btnNV.setText(Integer.toString(soluong));
+    }
+    
+    public int getSoLuong(){
+        return Integer.parseInt(btnNV.getText());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
