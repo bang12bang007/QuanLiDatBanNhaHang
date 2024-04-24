@@ -58,6 +58,7 @@ import static utils.AppUtils.*;
  *
  * @author Laptop
  */
+
 public class GD_DatMon extends javax.swing.JPanel {
 
     /**
@@ -895,7 +896,6 @@ public class GD_DatMon extends javax.swing.JPanel {
                 for (Mon mon : popular) {
                     FoodList.add(new Food(datmon, mon, PanelOrder, mons, orders));
                 }
-                System.out.println(mons.size());
                 FoodList.revalidate();
 
                 Timer hideTimer = new Timer(500, new ActionListener() {
@@ -1124,26 +1124,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                 for (Mon mon : mons) {
                     list.add(new Food(gd_mon, mon, PanelOrder, mons, orders));
                 }
-
-                if (!branch.equals(TypeDatMon_Branch.DATMON)) {
-                    Double total = 0.0;
-                    listPreOrderItem = new ArrayList<>();
-                    for (int i = 0; i < orders.size(); i++) {
-                        String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGiaBan() * gd_mon.getList_quantity().get(i)), ""};
-                        OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders);
-                        if (branch.equals(TypeDatMon_Branch.THEMMON)) {
-                            item.setType_orderItem("PRELOAD");//có ở dưới data base load lên
-                        }
-                        listPreOrderItem.add(item);
-                        gd_mon.getPanelOrder().add(item);
-                        total += orders.get(i).getGiaBan() * list_quantity.get(i);
-                    }
-                    for (int i = 0; i < gd_mon.PanelOrder.getComponentCount(); i++) {
-                        OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) gd_mon.PanelOrder.getComponent(i);
-                        item.setListPreOrder(listPreOrderItem);
-                    }
-                    labelTongTien.setText(tien_format.format(total));
-                }
+                displayPreOrder();
                 return list;
             }
 
@@ -1167,6 +1148,29 @@ public class GD_DatMon extends javax.swing.JPanel {
         };
         worker.execute();
 
+    }
+    //Hien thi danh sach mon da dat
+    public void displayPreOrder(){
+        if (!branch.equals(TypeDatMon_Branch.DATMON)) {
+                    Double total = 0.0;
+                    setSoLuong(hoaDon.getSoLuongNguoi());
+                    listPreOrderItem = new ArrayList<>();
+                    for (int i = 0; i < orders.size(); i++) {
+                        String[] title = new String[]{orders.get(i).getTenMon(), list_quantity.get(i).toString(), tien_format.format(orders.get(i).getGiaBan() * gd_mon.getList_quantity().get(i)), ""};
+                        OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(gd_mon, orders.get(i), gd_mon.getPanelOrder().getWidth(), i + 1, title, orders);
+                        if (branch.equals(TypeDatMon_Branch.THEMMON)) {
+                            item.setType_orderItem("PRELOAD");//có ở dưới data base load lên
+                        }
+                        listPreOrderItem.add(item);
+                        gd_mon.getPanelOrder().add(item);
+                        total += orders.get(i).getGiaBan() * list_quantity.get(i);
+                    }
+                    for (int i = 0; i < gd_mon.PanelOrder.getComponentCount(); i++) {
+                        OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) gd_mon.PanelOrder.getComponent(i);
+                        item.setListPreOrder(listPreOrderItem);
+                    }
+                    labelTongTien.setText(tien_format.format(total));
+                }
     }
 
     public void Create_OrUpdate_Order() {
@@ -1216,6 +1220,7 @@ public class GD_DatMon extends javax.swing.JPanel {
             List<Mon> pre_order = new ArrayList<>();
             List<ChiTietHoaDon> list_canceled = chitietDAO.getListBySoLuong(0);
             hoaDon.setSoLuongNguoi(getSoLuong());
+
             hoaDonDAO.update(hoaDon);
             for (int i = 0; i < orders.size(); i++) {
                 int count = 0;
