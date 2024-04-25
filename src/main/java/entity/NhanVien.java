@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import utils.Enum.LoaiVaiTro;
@@ -30,7 +31,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class NhanVien {
+public class NhanVien implements Serializable{
 
     @Id
     @Column(name = "MaNhanVien", nullable = false)

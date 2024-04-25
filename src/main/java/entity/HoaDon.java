@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AccessLevel;
@@ -40,7 +41,7 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.findHoaDonTuNgayDenNgay", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
     @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date)")
 })
-public class HoaDon {
+public class HoaDon implements Serializable{
 
     @Id
     @Column(name = "MaHoaDon", nullable = false)

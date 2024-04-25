@@ -12,6 +12,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,7 @@ import lombok.ToString;
 @NamedQueries({
     @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.soDienThoai = :sdt")
 })
-public class KhachHang {
+public class KhachHang implements Serializable{
     @Id
     @Column(name="MaKhachHang",nullable = false)
     private String maKhachHang;

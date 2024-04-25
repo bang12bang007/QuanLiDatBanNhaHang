@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class LoaiMon {
+public class LoaiMon implements Serializable{
     @Id
     @Column(name = "MaLoaiMon",length = 4,nullable = false)
     private String maLoaiMon;

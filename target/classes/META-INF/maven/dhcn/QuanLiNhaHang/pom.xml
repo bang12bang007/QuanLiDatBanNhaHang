@@ -156,6 +156,11 @@
             <artifactId>font-awesome</artifactId>
             <version>6.5.2</version>
         </dependency>
+        <dependency>
+        	<groupId>DHCN</groupId>
+        	<artifactId>NguyenDucCuong_21114721_05</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -163,4 +168,5 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+    <name>QuanLiNhaHang_Server</name>
 </project>

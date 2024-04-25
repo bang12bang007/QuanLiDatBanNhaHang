@@ -217,6 +217,7 @@ view\GD_DatBanTruoc$10.class
 view\GD_TrangChu$1.class
 view\GD_DatBanTaiCho$10.class
 view\GD_DatMon$18.class
+view\Form_XemThucDon$6.class
 component\ComboSuggestionUI$2.class
 component\OrderCard$1.class
 view\GD_DatBanTruoc$3.class
@@ -236,9 +237,11 @@ component\BanItem$1.class
 component\OrderCard$2.class
 view\GD_DatMon$16.class
 view\GD_DatBanTruoc$6.class
+view\Form_XemThucDon$3.class
 view\GD_DangNhap$3.class
 component\BanItem$2.class
 view\GD_DatMon$17.class
+view\Form_XemThucDon$4.class
 view\GD_DatBanTruoc$5.class
 view\GD_BaoCao$1.class
 component\OrderItem_forUIDatMon$5.class

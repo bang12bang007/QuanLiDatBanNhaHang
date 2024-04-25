@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +27,8 @@ import utils.Enum.LoaiTheThanhVien;
 @Setter
 @ToString
 @NoArgsConstructor
-public class TheThanhVien {
+
+public class TheThanhVien implements Serializable{
     @Id
     @Column(name="MaThe",nullable = false)
     private String maThe;
