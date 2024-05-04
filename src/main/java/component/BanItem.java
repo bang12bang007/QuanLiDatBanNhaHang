@@ -13,8 +13,8 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import static utils.AppUtils.*;
-import view.GD_Ban;
-import view.GD_DatMon;
+import view.employee.GD_Ban;
+import view.employee.GD_DatMon;
 
 /**
  *

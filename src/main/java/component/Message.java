@@ -9,8 +9,9 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import raven.toast.Notifications;
-import view.GD_DatBanTruoc;
+import view.employee.GD_DatBanTruoc;
 import static utils.AppUtils.*;
+import view.employee.GD_DatBanTaiCho;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Message extends javax.swing.JPanel {
     private JFrame jFrame;
     private BanItem banItem;
 //    NDK: branch GD_QLDATMON GD_QLDATBAN
-    private JPanel branch;
+    private String branch;
 
     public Message(JFrame jFrame, BanItem banItem) {
         this.jFrame = jFrame;
@@ -229,7 +230,12 @@ public class Message extends javax.swing.JPanel {
         Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Chuyển bàn thành công");
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        utils.AppUtils.setUI(banItem.getMain(), () -> new GD_DatBanTruoc(banItem.getMain()));
+        if (branch.equals("DAT_TAI_CHO")) {
+            utils.AppUtils.setUI(banItem.getMain(), () -> new GD_DatBanTaiCho(banItem.getMain(), NHANVIEN));
+        } else {
+            utils.AppUtils.setUI(banItem.getMain(), () -> new GD_DatBanTruoc(banItem.getMain()));
+
+        }
     }//GEN-LAST:event_btnDongYActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -238,6 +244,9 @@ public class Message extends javax.swing.JPanel {
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnHuyActionPerformed
 
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnDongY;

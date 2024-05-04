@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import jiconfont.swing.IconFontSwing;
-import view.GD_Ban;
-import view.GD_DatBanTruoc;
-import view.GD_DatMon;
+import view.employee.GD_Ban;
+import view.employee.GD_DatBanTruoc;
+import view.employee.GD_DatMon;
 import static utils.AppUtils.*;
 
 /**
@@ -84,6 +84,15 @@ public class BookingItem extends javax.swing.JPanel {
 
     public void setData(String[] data) {
         push(data);
+    }
+
+    public void warning() {
+        if (hoaDon != null) {
+            if (hoaDon.getNgayDatBan().isEqual(LocalDateTime.now())) {
+                left.setBackground(new Color(234, 124, 105));
+                right.setBackground(new Color(234, 124, 105));
+            }
+        }
     }
 
     /**
@@ -237,31 +246,15 @@ public class BookingItem extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNhanBanActionPerformed
 
     private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
-        // TODO add your handling code here:
-        SwingWorker<GD_DatMon, Void> worker = new SwingWorker<GD_DatMon, Void>() {
-            @Override
-            protected GD_DatMon doInBackground() throws Exception {
-                GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-                return datMon;
-            }
-
-            @Override
-            protected void done() {
-                GD_DatMon datMon;
-                try {
-                    datMon = get();
-                    datMon.setGd_datBan(GD);
-                    btnGoiMon.setBackground(new Color(255, 255, 255, 0));
-                    datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-                    datMon.setHoaDon(hoaDon);
-                    datMon.setBack_toUI_DatBan(true);
-                    utils.AppUtils.setUI(GD.getMainJpanel(), () -> datMon);
-                } catch (InterruptedException | ExecutionException ex) {
-                    Logger.getLogger(BookingItem.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-        worker.execute();
+        utils.AppUtils.setUI(GD.getMainJpanel(), () -> {
+            GD_DatMon datMon = new GD_DatMon(GD.getMainJpanel(), hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+            datMon.setGd_datBan(GD);
+            btnGoiMon.setBackground(new Color(255, 255, 255, 0));
+            datMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+            datMon.setHoaDon(hoaDon);
+            datMon.setBack_toUI_DatBan(true);
+            return datMon;
+        });
     }//GEN-LAST:event_btnGoiMonActionPerformed
 
 //    NDK: sửa Date thành LocalDateTime

@@ -150,6 +150,28 @@
 			<artifactId>icepdf-viewer</artifactId>
 			<version>1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-core -->
+		<dependency>
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout-core</artifactId>
+			<version>11.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-swing -->
+		<dependency>
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout-swing</artifactId>
+			<version>11.3</version>
+		</dependency>
+		<dependency>
+			<groupId>swing-glasspane-popup</groupId>
+			<artifactId>swing-glasspane-popup</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>swing-chart</groupId>
+			<artifactId>swing-chart</artifactId>
+			<version>1.1.0</version>
+		</dependency>
 	</dependencies>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

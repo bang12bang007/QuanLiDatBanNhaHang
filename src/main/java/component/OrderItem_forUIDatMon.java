@@ -24,7 +24,7 @@ import javax.swing.event.DocumentListener;
 import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
 import utils.Enum.TypeDatMon_Branch;
-import view.GD_DatMon;
+import view.employee.GD_DatMon;
 import static utils.AppUtils.*;
 
 /**
