@@ -277,6 +277,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         maTheContainer1.setRoundTopLeft(8);
         maTheContainer1.setRoundTopRight(8);
 
+        txtTenThanhVien.setBackground(java.awt.Color.white);
         txtTenThanhVien.setFont(utils.AppUtils.getFont(14f, _NORMAL_)
         );
         txtTenThanhVien.setBorder(null);
@@ -358,7 +359,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         );
 
         btnAddKM.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddKM.setText("SỬ DỤNG ĐIỂM");
+        btnAddKM.setText("KHUYẾN MÃI KHÁC");
         btnAddKM.setColor(new java.awt.Color(31, 29, 43));
         btnAddKM.setColorClick(new java.awt.Color(234, 124, 105));
         btnAddKM.setColorOver(new java.awt.Color(234, 124, 105));
@@ -936,19 +937,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     private void btnAddKMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddKMActionPerformed
         // TODO add your handling code here:
-        if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
-            thuTienJFrame = new JFrame();
-            thuTienJFrame.setUndecorated(true);
-            thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
-            thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            Form_SuDungDiem form_SuDungDiem = new Form_SuDungDiem(thuTienJFrame, theThanhVien);
-            thuTienJFrame.add(form_SuDungDiem);
-            thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
-            FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
-            thuTienJFrame.setVisible(true);
-        } else {
-            thuTienJFrame.toFront();
-        }
     }//GEN-LAST:event_btnAddKMActionPerformed
 
     private void btnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownActionPerformed
@@ -1015,6 +1003,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         } else {
             thuTienJFrame.toFront();
         }
+
     }//GEN-LAST:event_btnThuTienActionPerformed
 
     private void btnLuuTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuTamActionPerformed

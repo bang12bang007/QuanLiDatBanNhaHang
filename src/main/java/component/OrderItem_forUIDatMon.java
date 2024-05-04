@@ -4,19 +4,22 @@
  */
 package component;
 
+import LIB.FadeEffect;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import entity.ChiTietHoaDon;
 import entity.Mon;
 import icon.FontAwesome;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
@@ -26,6 +29,7 @@ import raven.toast.Notifications;
 import utils.Enum.TypeDatMon_Branch;
 import view.employee.GD_DatMon;
 import static utils.AppUtils.*;
+import view.Form_GhiChu;
 
 /**
  *
@@ -413,17 +417,36 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     private void ghiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseClicked
         // TODO add your handling code here:
-        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, new Color(234, 124, 105)));
+        JFrame jFrame = new JFrame();
+        jFrame.setUndecorated(true);
+        jFrame.setExtendedState(MAXIMIZED_BOTH);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Form_GhiChu form_ghiChu = new Form_GhiChu(jFrame, this);
+        jFrame.add(form_ghiChu, BorderLayout.CENTER);
+        jFrame.setBackground(new Color(0, 0, 0, 0));
+        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
+        jFrame.setVisible(true);
     }//GEN-LAST:event_ghiMouseClicked
 
     private void ghiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseEntered
         // TODO add your handling code here:
-        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, new Color(234, 124, 105)));
+        
+        if (type_orderItem.equals("PRELOAD")){
+            ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOKMARK, 30, new Color(234, 124, 105)));
+        }
+        else{
+            ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, new Color(234, 124, 105)));
+        }
     }//GEN-LAST:event_ghiMouseEntered
 
     private void ghiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseExited
         // TODO add your handling code here:
-        ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, Color.white));
+        
+        if (type_orderItem.equals("PRELOAD")){
+            ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOKMARK, 30, Color.white));
+        }else{
+            ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, Color.white));
+        }
     }//GEN-LAST:event_ghiMouseExited
     public void update_PanelOrder(boolean update) {
         if (update) {
@@ -487,6 +510,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         this.type_orderItem = type_orderItem;
         if (type_orderItem.equals("PRELOAD")) {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white));
+            ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOKMARK, 30, Color.white));
+            soLuong.setEditable(false);
         }
     }
 
@@ -512,6 +537,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     public GD_DatMon getDatMon() {
         return datMon;
+    }
+    
+    public int getSoLuong(){
+        return Integer.parseInt(soLuong.getText());
     }
 
 

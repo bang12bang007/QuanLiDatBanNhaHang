@@ -30,13 +30,11 @@ D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\Qua
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\BookingItem.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\utils\Enum.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\manager\menu\Menu.java
-D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_HuyMon.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\IKhachHangDAO.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_TrangChu.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\BanItem.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\entity\TaiKhoan.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\imlp\ChiTietKhuyenMaiDAO.java
-D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_DangNhap.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\manager\utils\UndoRedo.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\datechooser\Years.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_DoiSoLuongNguoi.java
@@ -87,8 +85,10 @@ D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\Qua
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\imlp\KhuyenMainDAO.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\imlp\MonDAO.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\entity\LoaiMon.java
+D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\GD_DangNhap.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\PanelGradient.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\INhanVienDAO.java
+D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_GhiChu.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\ITheThanhVienDAO.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\IHoaDonDAO.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\entity\TheThanhVien.java

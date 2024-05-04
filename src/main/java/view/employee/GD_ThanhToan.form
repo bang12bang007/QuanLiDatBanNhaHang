@@ -393,7 +393,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="S&#x1eec; D&#x1ee4;NG &#x110;I&#x1ec2;M"/>
+            <Property name="text" type="java.lang.String" value="KHUY&#x1ebe;N M&#xc3;I KH&#xc1;C"/>
             <Property name="color" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="1d" red="1f" type="rgb"/>
             </Property>

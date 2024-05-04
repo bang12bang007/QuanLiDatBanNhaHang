@@ -10,8 +10,6 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.EntityManager;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 /**
@@ -20,12 +18,7 @@ import java.util.List;
  */
 public class AbstractDAO<T> implements GenericDAO<T> {
 
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	protected EntityManagerFactory emf = Persistence.createEntityManagerFactory("QLNH_mssql");
+    protected EntityManagerFactory emf = Persistence.createEntityManagerFactory("QLNH_mssql");
     protected EntityManager em = emf.createEntityManager();
 
     public boolean insert(T t) {

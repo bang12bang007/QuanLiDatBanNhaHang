@@ -25,7 +25,8 @@ import javax.swing.JScrollPane;
  * @author Laptop
  */
 public class AppUtils {
-    public static BanDAO BANDAO = new BanDAO();
+//    public static BanDAO BANDAO = new BanDAO();
+
     public static NhanVien NHANVIEN = null;
     public static DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     public static String _NORMAL_ = "src/main/java/font/OpenSans-VariableFont_wdth,wght.ttf";

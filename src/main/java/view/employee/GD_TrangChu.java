@@ -461,7 +461,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-
     public NhanVien getNhanVien() {
         return nhanVien;
     }
