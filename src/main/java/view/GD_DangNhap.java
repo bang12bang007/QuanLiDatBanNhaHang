@@ -17,6 +17,7 @@ import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
 import view.employee.GD_TrangChu;
 import static utils.AppUtils.*;
+import view.manager.application.GD_Dashboard;
 
 /**
  *
@@ -243,7 +244,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
         String matKhau = this.matKhau.getText().trim();
         TaiKhoan tk = (TaiKhoan) tk_dao.findById(tenDangNhap, TaiKhoan.class);
         if (tk == null) {
-//            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Đăng nhập thất bại");
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Đăng nhập thất bại");
         } else {
             if (tk.getMatKhau().equals(matKhau)) {
                 NhanVien nv = (NhanVien) nhanVienDAO.findById(tenDangNhap, NhanVien.class);
@@ -251,7 +252,8 @@ public class GD_DangNhap extends javax.swing.JFrame {
                 setVisible(false);
                 if (nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
                     //                Chuyen qua gd quan ly
-                    new GD_TrangChu().setVisible(true);
+//                    new GD_TrangChu().setVisible(true);
+                    new GD_Dashboard().run();
                 } else {
                     //                Chuyen qua gd nhan vien
                     new GD_TrangChu().setVisible(true);
