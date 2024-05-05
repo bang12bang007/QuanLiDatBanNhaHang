@@ -20,6 +20,7 @@ component\BanItem.class
 utils\ModelColor.class
 view\employee\Form_ThemMonKhac.class
 view\employee\GD_TrangChu$3.class
+component\MessageOrderConfirm$3.class
 view\employee\Form_DoiSoLuongNguoi$5.class
 view\employee\GD_Ban.class
 view\employee\Form_XemThucDon$7.class
@@ -30,7 +31,6 @@ view\employee\GD_BaoCao$4.class
 component\OrderItem_forUIDatMon$1.class
 datechooser\EventDateChooser.class
 view\employee\Form_ThuTien$5.class
-component\Message$2.class
 component\PanelGradient.class
 view\employee\Form_DatBan$9.class
 view\employee\Form_XemThucDon$2.class
@@ -63,13 +63,13 @@ view\employee\Form_XemThucDon$4.class
 view\employee\GD_DatMon$20$1.class
 view\employee\GD_DatMon$11.class
 view\employee\GD_DatMon$4.class
-component\Message$4.class
 datechooser\DateChooser$3.class
 datechooser\Slider$1.class
 dao\IKhuyenMaiDAO.class
 view\employee\GD_ThanhToan$7.class
 component\RoundJTextField.class
 view\employee\GD_DatBanTruoc$3.class
+component\MessageOrderConfirm.class
 dao\imlp\TheThanhVienDAO.class
 utils\Enum$LoaiTrangThai.class
 view\employee\GD_DatMon$14.class
@@ -87,11 +87,13 @@ view\employee\Form_ThuTien$7.class
 view\employee\GD_DatMon$12.class
 view\employee\Form_XemThucDon$5.class
 dao\IChiTietHoaDonDAO.class
+component\MessageMoveTable$2.class
 entity\Ban.class
 view\employee\GD_TrangChu$1.class
 component\Food.class
 component\OrderCard$3.class
 datechooser\DateChooser.class
+component\MessageOrderConfirm$1.class
 component\MenuItem$1.class
 view\employee\GD_DatBanTaiCho$8.class
 view\employee\GD_ThanhToan$1.class
@@ -104,6 +106,7 @@ utils\Enum$TypeDatMon_Branch.class
 view\employee\GD_DatBanTaiCho$2.class
 view\employee\Form_DatBan$10.class
 component\ScrollBarCustom.class
+component\MessageMoveTable$1.class
 dao\IHoaDonDAO.class
 view\employee\GD_DatBanTruoc$15.class
 view\employee\GD_DatMon$3.class
@@ -140,6 +143,7 @@ utils\Enum$LoaiKhuyenMai.class
 view\employee\Form_XemThucDon$9.class
 component\OrderCard$1.class
 utils\Enum$DatMon_ThemMon.class
+component\MessageOrderConfirm$2.class
 view\employee\Form_ThuTien$8.class
 datechooser\SelectedDate.class
 datechooser\Slider$4.class
@@ -149,6 +153,7 @@ dao\IKhachHangDAO.class
 view\manager\swing\slider\PanelSlider.class
 component\OrderItem_forUIDatMon.class
 component\OrderCard$4.class
+component\MessageMoveTable$4.class
 datechooser\Slider$5.class
 entity\TaiKhoan.class
 view\employee\GD_ThanhToan$15.class
@@ -159,6 +164,7 @@ view\employee\GD_TrangChu$6.class
 view\manager\forms\InboxForm$1.class
 datechooser\Slider$6.class
 view\GD_DangNhap$3.class
+component\MessageMoveTable$3.class
 view\manager\menu\MyDrawerBuilder$2.class
 component\BookingItem.class
 view\employee\Form_SuDungDiem.class
@@ -172,10 +178,10 @@ view\employee\GD_BaoCao.class
 view\employee\GD_DatMon$15.class
 view\manager\components\MainForm.class
 datechooser\Button$1.class
+component\MessageOrderConfirm$4.class
 entity\NhanVien.class
 view\employee\GD_ThanhToan$16.class
 datechooser\SelectedAction.class
-component\Message.class
 component\WrapLayout.class
 view\employee\GD_TrangChu$4.class
 view\employee\Form_ThuTien$4.class
@@ -190,7 +196,6 @@ view\employee\Form_ThuTien.class
 view\employee\Form_XemThucDon$3.class
 view\Form_GhiChu.class
 view\employee\GD_DatMon$10.class
-component\Message$3.class
 component\OrderCard$5.class
 view\employee\Form_DatBan$8.class
 view\employee\GD_DatBanTaiCho.class
@@ -291,12 +296,12 @@ component\ComboSuggestionUI$2.class
 view\employee\Form_DatBan$4.class
 view\employee\GD_DatBanTruoc$9.class
 view\manager\menu\Menu$1.class
+component\MessageMoveTable.class
 component\OrderItem_forUIDatMon$7.class
 view\employee\GD_DatBanTruoc$6.class
 view\employee\Form_DatBan$7.class
 component\PanelRound.class
 view\employee\Form_DoiSoLuongNguoi$3.class
-component\Message$1.class
 datechooser\DateChooser$8.class
 component\OrderItem_forUIDatMon$4.class
 component\BanItem$1.class

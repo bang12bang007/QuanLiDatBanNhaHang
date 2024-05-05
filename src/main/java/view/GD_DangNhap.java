@@ -256,7 +256,6 @@ public class GD_DangNhap extends javax.swing.JFrame {
                 setVisible(false);
                 if (nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
                     //                Chuyen qua gd quan ly
-//                    new GD_TrangChu().setVisible(true);
                     new GD_Dashboard().run();
                 } else {
                     //                Chuyen qua gd nhan vien

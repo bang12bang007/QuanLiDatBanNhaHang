@@ -17,7 +17,7 @@ import view.employee.GD_DatBanTaiCho;
  *
  * @author Laptop
  */
-public class Message extends javax.swing.JPanel {
+public class MessageMoveTable extends javax.swing.JPanel {
 
     /**
      * Creates new form Message
@@ -27,7 +27,7 @@ public class Message extends javax.swing.JPanel {
 //    NDK: branch GD_QLDATMON GD_QLDATBAN
     private String branch;
 
-    public Message(JFrame jFrame, BanItem banItem) {
+    public MessageMoveTable(JFrame jFrame, BanItem banItem) {
         this.jFrame = jFrame;
         this.banItem = banItem;
         initComponents();

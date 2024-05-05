@@ -5,6 +5,7 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import java.awt.*;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -44,11 +45,11 @@ public class MainForm extends JPanel {
 
     private JPanel createHeader() {
         JPanel panel = new JPanel(new MigLayout("gap rel 0", "grow"));
-        panel.setBackground(new Color(83,86,99));
+        panel.setBackground(new Color(83, 86, 99));
         JPanel leftPanel = new JPanel(new MigLayout());
-        leftPanel.setBackground(new Color(83,86,99));
+        leftPanel.setBackground(new Color(83, 86, 99));
         JPanel rightPanel = new JPanel(new MigLayout());
-        rightPanel.setBackground(new Color(83,86,99));
+        rightPanel.setBackground(new Color(83, 86, 99));
 
         cmdMenu = createButton(new FlatSVGIcon("view/manager/resources/icon/menu.svg"));
         cmdUndo = createButton(new FlatSVGIcon("view/manager/resources/icon/undo.svg"));
@@ -73,7 +74,7 @@ public class MainForm extends JPanel {
         leftPanel.add(cmdRedo);
         leftPanel.add(cmdRefresh);
 
-        JButton cmdClose = createButton(new FlatSVGIcon("view/manager/resources/icon/refresh.svg"));
+        JButton cmdClose = createButton(new ImageIcon("./src/main/java/icon/icon_close.png"));
         cmdClose.addActionListener(e -> {
             FormManager.getFrame().dispose();
             FormManager.getFrame().setVisible(false);
