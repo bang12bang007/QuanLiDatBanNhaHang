@@ -8,6 +8,8 @@ import dao.IChiTietHoaDonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -59,8 +61,21 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
             return false;
         }
     }
-;
 
-    
+    ;
+
+    @Override
+    public List<Object[]> sumSoLuongByMaMon() {
+        return em.createNamedQuery("ChiTietHoaDon.sumSoLuongByMaMon", Object[].class)
+                .getResultList();
+
+    }
+
+    @Override
+    public List<Object[]> sumSoLuongByMaMonByDate(LocalDateTime ngayYeuCau) {
+        TypedQuery<Object[]> query = em.createNamedQuery("ChiTietHoaDon.sumSoLuongByMaMonByDate", Object[].class);
+        query.setParameter("ngayYeuCau", ngayYeuCau);
+        return query.getResultList();
+    }
 
 }

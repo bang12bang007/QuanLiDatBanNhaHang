@@ -28,7 +28,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.soDienThoai = :sdt")
+    @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.soDienThoai = :sdt"),
 })
 public class KhachHang {
     @Id

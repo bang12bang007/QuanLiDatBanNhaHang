@@ -270,7 +270,6 @@ view\Form_GhiChu$6.class
 view\employee\GD_DatMon$18.class
 view\manager\components\Background.class
 component\OrderItem_forUIDatMon$3.class
-view\manager\forms\DashboardForm$1.class
 view\employee\Form_ThongTinCaNhan.class
 view\employee\Form_SuDungDiem$2.class
 entity\LoaiMon.class

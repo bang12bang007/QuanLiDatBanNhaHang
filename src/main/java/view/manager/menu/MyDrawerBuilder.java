@@ -25,6 +25,7 @@ import view.manager.forms.DashboardForm;
 import view.manager.forms.InboxForm;
 import view.manager.forms.ReadForm;
 import raven.swing.AvatarIcon;
+import static utils.AppUtils.*;
 
 /**
  * @author Raven
@@ -42,8 +43,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
-                .setTitle("Ngô Đăng Khoa")
-                .setDescription("ndk271103@gmail.com")
+                .setTitle(NHANVIEN.getHoTen())
+                .setDescription(NHANVIEN.getMaNV())
                 .setHeaderStyle(new SimpleHeaderStyle() {
 
                     @Override

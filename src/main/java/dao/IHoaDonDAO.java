@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
@@ -32,13 +32,19 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
     boolean updateBanById(String id, Ban ban);
 
     void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
+
     double getTongDoanhThu(NhanVien nv);
-    List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
-    
-    int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
-    double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
-    int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau,LocalDateTime ngayKetThuc);
-    
+
     List<HoaDon> filterByDate(LocalDate date);
+
+    List<HoaDon> findFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+
+    double getTotalRevenueFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+
+    List<HoaDon> findOrdersByMonth(int month);
+
+    double getTotalRevenueByMonth(int month);
+
+    int getTotalInVoicesByMonth(int month);
 
 }

@@ -25,16 +25,18 @@ public class GD_BaoCao extends javax.swing.JPanel {
      */
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private HoaDonDAO dao = new HoaDonDAO();
+
     public GD_BaoCao() {
         initComponents();
         calender3.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
         calender4.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
         set_up_UI();
-    } 
-    void set_up_UI(){
-    tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
-        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
-        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
+    }
+
+    void set_up_UI() {
+//        tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
+//        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
+//        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
         dateChooser1.addEventDateChooser(new EventDateChooser() {
             public void dateSelected(SelectedAction action, SelectedDate date) {
                 if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
@@ -52,15 +54,17 @@ public class GD_BaoCao extends javax.swing.JPanel {
             }
         });
     }
+
     void setup_Date(datechooser.DateChooser dateChooser1, datechooser.DateChooser dateChooser2) {
         SelectedDate dateSelect1 = dateChooser1.getSelectedDate();
         LocalDateTime ngayBatDau = LocalDateTime.of(dateSelect1.getYear(), dateSelect1.getMonth(), dateSelect1.getDay(), 0, 0);
         SelectedDate dateSelect2 = dateChooser2.getSelectedDate();
         LocalDateTime ngayKetThuc = LocalDateTime.of(dateSelect2.getYear(), dateSelect2.getMonth(), dateSelect2.getDay(), 0, 0);
-        tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
-        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
-        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(ngayBatDau, ngayKetThuc)));
+//        tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
+//        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
+//        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(ngayBatDau, ngayKetThuc)));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
