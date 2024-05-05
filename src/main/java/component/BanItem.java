@@ -6,12 +6,20 @@ package component;
 
 import entity.Ban;
 import entity.NhanVien;
+import icon.FontAwesome;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import static javax.swing.SwingConstants.LEFT;
+import javax.swing.SwingUtilities;
+import jiconfont.swing.IconFontSwing;
 import static utils.AppUtils.*;
 import view.employee.GD_Ban;
 import view.employee.GD_DatMon;
@@ -42,7 +50,11 @@ public class BanItem extends javax.swing.JPanel {
         this.trangThai = trangThai;
         initComponents();
         jLabel1.setText(ban.getMaBan());
-
+        tacVuList.setPreferredSize(new Dimension(250, 50));
+        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        tacVuList.add(createTacVu("Đặt món", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
+            gD_Ban.setFormMessageOrderConfirm(this);
+        }));
         if (trangThai == utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal()) {
             image_type = "/images/my_table.png";
         } else if (trangThai == utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
@@ -54,6 +66,22 @@ public class BanItem extends javax.swing.JPanel {
         myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_type)));
     }
 
+    private MyButton createTacVu(String content, Icon icon, ActionListener action) {
+        IconFontSwing.register(FontAwesome.getIconFont());
+        MyButton button = new MyButton();
+        button.setIcon(icon);
+        button.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        button.setForeground(Color.WHITE);
+        button.setColor(new Color(83, 86, 99));
+        button.setColorOver(new Color(234, 124, 105));
+        button.setColorClick(new Color(234, 124, 105));
+        button.setPreferredSize(new Dimension(250, 50));
+        button.setText(content);
+        button.setHorizontalAlignment(LEFT);
+        button.addActionListener(action);
+        return button;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,8 +91,41 @@ public class BanItem extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menu = new javax.swing.JPopupMenu();
+        morePanel = new javax.swing.JPanel();
+        tacVuList = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        check_icon = new javax.swing.JLabel();
         myButton1 = new component.MyButton();
+
+        menu.setBackground(new java.awt.Color(83, 86, 99));
+        menu.setBorder(null);
+
+        morePanel.setBackground(new java.awt.Color(83, 86, 99));
+
+        tacVuList.setBackground(new java.awt.Color(83, 86, 99));
+
+        javax.swing.GroupLayout tacVuListLayout = new javax.swing.GroupLayout(tacVuList);
+        tacVuList.setLayout(tacVuListLayout);
+        tacVuListLayout.setHorizontalGroup(
+            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 256, Short.MAX_VALUE)
+        );
+        tacVuListLayout.setVerticalGroup(
+            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout morePanelLayout = new javax.swing.GroupLayout(morePanel);
+        morePanel.setLayout(morePanelLayout);
+        morePanelLayout.setHorizontalGroup(
+            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tacVuList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        morePanelLayout.setVerticalGroup(
+            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tacVuList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         setBackground(new java.awt.Color(83, 86, 99));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -77,6 +138,9 @@ public class BanItem extends javax.swing.JPanel {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 300, 40));
 
+        check_icon.setForeground(new java.awt.Color(0, 0, 0));
+        add(check_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 50, 50));
+
         myButton1.setBackground(new java.awt.Color(83, 86, 99));
         myButton1.setBorder(null);
         myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/my_table.png"))); // NOI18N
@@ -84,6 +148,9 @@ public class BanItem extends javax.swing.JPanel {
         myButton1.setColorClick(new java.awt.Color(83, 86, 99));
         myButton1.setColorOver(new java.awt.Color(83, 86, 99));
         myButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                myButton1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 myButton1MouseEntered(evt);
             }
@@ -96,7 +163,7 @@ public class BanItem extends javax.swing.JPanel {
                 myButton1ActionPerformed(evt);
             }
         });
-        add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 250));
+        add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 300, 250));
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
@@ -107,18 +174,28 @@ public class BanItem extends javax.swing.JPanel {
                     handIcon.getImage(), new Point(0, 0), "Hand Cursor");
             myButton1.setCursor(handCursor);
         }
-//        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
     }//GEN-LAST:event_myButton1MouseEntered
 
     private void myButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseExited
         // TODO add your handling code here:
 //        myButton1.setBorder(null);
-
     }//GEN-LAST:event_myButton1MouseExited
 
     public void setActive() {
-//       Hien thi de test
-        myButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255), new java.awt.Color(204, 255, 255), new java.awt.Color(255, 255, 255)));
+        ImageIcon icon = new ImageIcon("./src/main/java/icon/check_50.png");
+        check_icon.setIcon(icon);
+    }
+
+    public void setSelected() {
+        ImageIcon icon = new ImageIcon("./src/main/java/icon/check_50.png");
+        boolean isSelected = check_icon.getIcon() != null ? true : false;
+        if (!isSelected) {
+            check_icon.setIcon(icon);
+            gD_Ban.addBanItem(this);
+        } else {
+            check_icon.setIcon(null);
+            gD_Ban.removeBanItem(this);
+        }
     }
 
     public void setGDBan(GD_Ban gD_Ban) {
@@ -150,18 +227,7 @@ public class BanItem extends javax.swing.JPanel {
             }
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
-                    utils.AppUtils.setUI(main, () -> {
-                        GD_DatMon gd;
-                        if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo
-                            gd = new GD_DatMon(main, ban, utils.Enum.DatMon_ThemMon.DATMON);
-                            gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
-                            gd.setgD_Ban(gD_Ban);
-                        } else {//có load vào rồi thì gọi lại
-                            gd = gD_Ban.getGd_Datmon();
-                            gd.getBtnBack().setBackground(new Color(83, 86, 99));
-                        }
-                        return gd;
-                    });
+                    setSelected();
                 }
                 break;
             }
@@ -173,6 +239,35 @@ public class BanItem extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_myButton1ActionPerformed
+
+    private void myButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseClicked
+        // TODO add your handling code here:
+        if (SwingUtilities.isRightMouseButton(evt) && check_icon.getIcon() != null) {
+            menu.add(morePanel);
+            menu.show(this, 20, this.getHeight() / 2);
+        }
+    }//GEN-LAST:event_myButton1MouseClicked
+
+    public void order() {
+        Ban mainBan = gD_Ban.getBanItems().get(0).getBan();
+        for (BanItem banItem : gD_Ban.getBanItems()) {
+            Ban ban = banItem.getBan();
+            ban.setBanGop(mainBan);
+            gD_Ban.update(ban);
+        }
+        utils.AppUtils.setUI(main, () -> {
+            GD_DatMon gd;
+            if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo
+                gd = new GD_DatMon(main, mainBan, utils.Enum.DatMon_ThemMon.DATMON);
+                gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
+                gd.setgD_Ban(gD_Ban);
+            } else {//có load vào rồi thì gọi lại
+                gd = gD_Ban.getGd_Datmon();
+                gd.getBtnBack().setBackground(new Color(83, 86, 99));
+            }
+            return gd;
+        });
+    }
 
     public void move() {
         gD_Ban.moveTable(this.ban);
@@ -187,8 +282,12 @@ public class BanItem extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel check_icon;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPopupMenu menu;
+    private javax.swing.JPanel morePanel;
     private component.MyButton myButton1;
+    private javax.swing.JPanel tacVuList;
     // End of variables declaration//GEN-END:variables
 
 }

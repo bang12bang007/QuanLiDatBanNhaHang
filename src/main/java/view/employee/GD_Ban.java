@@ -7,7 +7,8 @@ package view.employee;
 import LIB.FadeEffect;
 import javax.swing.JFrame;
 import component.BanItem;
-import component.Message;
+import component.MessageMoveTable;
+import component.MessageOrderConfirm;
 import component.MyButton;
 import component.ScrollBarCustom;
 import component.WrapLayout;
@@ -53,6 +54,7 @@ public class GD_Ban extends javax.swing.JPanel {
     private JFrame jFrameForm;
     private GD_DatMon gd_Datmon; //sử dụng để khi back từ món về vô lại nhanh
     private HoaDon hoaDon;
+    private List<BanItem> banItems = new ArrayList<>();
 
 //    NDK: Them phieu dat ban de chuyen ban
 //    NDK: Bi do GD_DatBan, DatMon, QuanLyDatMon, TrangChu
@@ -533,7 +535,7 @@ public class GD_Ban extends javax.swing.JPanel {
             jFrameForm.setUndecorated(true);
             jFrameForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
             jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            Message message = new Message(jFrameForm, banItem);
+            MessageMoveTable message = new MessageMoveTable(jFrameForm, banItem);
             message.setBranch("DAT_TAI_CHO");
             jFrameForm.add(message);
             jFrameForm.setBackground(new Color(0, 0, 0, 0));
@@ -542,6 +544,39 @@ public class GD_Ban extends javax.swing.JPanel {
         } else {
             jFrameForm.toFront();
         }
+    }
+
+    public void setFormMessageOrderConfirm(BanItem banItem) {
+        if (jFrameForm == null || !jFrameForm.isVisible()) {
+            jFrameForm = new JFrame();
+            jFrameForm.setUndecorated(true);
+            jFrameForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jFrameForm.setAlwaysOnTop(true);
+            MessageOrderConfirm message = new MessageOrderConfirm(jFrameForm, banItem);
+            jFrameForm.add(message);
+            jFrameForm.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(jFrameForm, 8, 0.1f);
+            jFrameForm.setVisible(true);
+        } else {
+            jFrameForm.toFront();
+        }
+    }
+
+    public void addBanItem(BanItem banItem) {
+        banItems.add(banItem);
+    }
+
+    public void removeBanItem(BanItem banItem) {
+        banItems.remove(banItem);
+    }
+
+    public List<BanItem> getBanItems() {
+        return this.banItems;
+    }
+
+    public void update(Ban ban) {
+        banDAO.update(ban);
     }
 
     public GD_DatMon getGd_Datmon() {
