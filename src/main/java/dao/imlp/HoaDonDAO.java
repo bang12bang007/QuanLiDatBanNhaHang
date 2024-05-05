@@ -11,7 +11,6 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -19,11 +18,9 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.TabStop;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.TabAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
@@ -31,21 +28,27 @@ import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.NhanVien;
-import entity.PhieuDatBan;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
-import java.awt.Color;
-import java.awt.Font;
+import jakarta.persistence.TypedQuery;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
 import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
@@ -148,18 +151,10 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     }
 
     @Override
-    public PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon) {
-        return em.createNamedQuery("HoaDon.getPhieuDatBan", PhieuDatBan.class)
-                .setParameter("maHoaDon", hoaDon.getMaHoaDon())
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
     public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
+
         PdfWriter pdfWriter = null;
+
         try {
             String path = "invoice.pdf";
             pdfWriter = new PdfWriter(path);
@@ -173,15 +168,18 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             document.add(new Paragraph("KTQD Gò vấp - 244 Lê Văn Thọ").setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
             document.add(new Paragraph("246, Lê Văn Thọ, Phường 11, Q.Gò Vấp").setTextAlignment(TextAlignment.CENTER).setMargin(0));
             document.add(new Paragraph("Thành phố Hồ Chí Minh    Hotline: 0902 777 600").setTextAlignment(TextAlignment.CENTER).setMargin(0));
-            document.add(new Image(ImageDataFactory.create("./src/main/java/image/logo_2.png")).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            document.add(new Image(ImageDataFactory.create("./src/main/resources/images/logo_2.png")).setHorizontalAlignment(HorizontalAlignment.CENTER));
             document.add(new Paragraph("PHIẾU HÓA ĐƠN").setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
             document.add(new Paragraph("Số: " + hoaDon.getMaHoaDon()).setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
 //          ---Ngày---
             LocalDateTime inputDateTime = LocalDateTime.parse(LocalDateTime.now().toString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             String formattedDateTime = inputDateTime.format(DateTimeFormatter.ofPattern("hh:mma"));
+            DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime createDate = LocalDateTime.parse(hoaDon.getNgayLapHoaDon().toString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            String formatCreateDate = createDate.format(DateTimeFormatter.ofPattern("hh:mma"));
             Paragraph paragraphDate = new Paragraph().setMargin(0);
             paragraphDate.add(new Text("Ngày: ").setBold());
-            paragraphDate.add(new Text(hoaDon.getNgayLapHoaDon() + " (11:45AM  " + formattedDateTime + ")"));
+            paragraphDate.add(new Text(formatterDate.format(hoaDon.getNgayLapHoaDon()) + " (" + formatCreateDate + "  " + formattedDateTime + ")"));
             document.add(paragraphDate);
 //          ---Bàn---
             Paragraph paragraphTable = new Paragraph().setMargin(0);
@@ -209,15 +207,15 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
                 table.addCell(stt++ + "");
                 table.addCell(chiTietHoaDon.getMon().getTenMon());
                 table.addCell(chiTietHoaDon.getSoLuong() + "");
-                table.addCell(formatter.format(chiTietHoaDon.getMon().getGia()) + "");
+                table.addCell(formatter.format(chiTietHoaDon.getMon().getGiaBan()) + "");
                 table.addCell(" ");
-                table.addCell(formatter.format(chiTietHoaDon.getSoLuong() * chiTietHoaDon.getMon().getGia()) + "");
+                table.addCell(formatter.format(chiTietHoaDon.getSoLuong() * chiTietHoaDon.getMon().getGiaBan()) + "");
             }
             document.add(table);
 //          -----Tổng thanh toán----
             document.add(createCost(new Paragraph("Tổng thanh toán").setBold(), formatter.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)), pageWidth));
 //          -----Còn phải thu----
-            document.add(createCost(new Paragraph("Còn phải thu").setBold(), formatter.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)), pageWidth));
+            document.add(createCost(new Paragraph("Còn phải thu").setBold(), formatter.format(tienKhachTra - tienThua), pageWidth));
 //          -----Tiền Khách trả----
             document.add(createCost(new Paragraph("Tiền khách trả").setBold(), formatter.format(tienKhachTra), pageWidth));
 //          -----Tiền thừa----
@@ -226,8 +224,20 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             document.add(new Paragraph("Quý khách vui lòng kiểm tra kỹ lại nội dung trước khi thanh toán! Trân trọng cảm ơn!").setTextAlignment(TextAlignment.CENTER).setBold());
             document.add(new Paragraph("HẸN GẶP LẠI QUÝ KHÁCH").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(20f));
             document.add(new Paragraph("Một sản phẩm của Team The Chosen Ones - NDK").setTextAlignment(TextAlignment.CENTER));
-
             document.close();
+
+            SwingController controller = new SwingController();
+            SwingViewBuilder factory = new SwingViewBuilder(controller);
+            JPanel viewerComponentPanel = factory.buildViewerPanel();
+            controller.getDocumentViewController().setAnnotationCallback(new org.icepdf.ri.common.MyAnnotationCallback(controller.getDocumentViewController()));
+            JFrame frame = new JFrame("PDF Viewer");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setExtendedState(MAXIMIZED_BOTH);
+            frame.setLocationRelativeTo(null);
+            controller.openDocument(path);
+            frame.add(viewerComponentPanel);
+            frame.setVisible(true);
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {
@@ -235,10 +245,14 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         } catch (IOException ex) {
             Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                pdfWriter.close();
-            } catch (IOException ex) {
-                Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            // Đóng PdfWriter
+            if (pdfWriter != null) {
+                try {
+                    pdfWriter.close();
+                    Files.deleteIfExists(Paths.get("invoice.pdf"));
+                } catch (IOException ex) {
+                    Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -261,15 +275,17 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return table;
     }
 
-    @Override
+    
+
     public int getTongHoaDon(NhanVien nv) {
         int hd = 0;
         String ngay = generateTime.substring(0, 6);
         List<HoaDon> hoaDons = findAll(HoaDon.class);
-        for(HoaDon h : hoaDons){
-            if(nv.getMaNV().equals(h.getNhanVien().getMaNV())){
-                if(ngay.equals(h.getMaHoaDon().substring(2, 8)))
+        for (HoaDon h : hoaDons) {
+            if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {
+                if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
                     hd += 1;
+                }
             }
         }
         return hd;
@@ -278,56 +294,75 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     @Override
     public double getTongDoanhThu(NhanVien nv) {
         double sum = 0.0;
-        String day = generateTime.substring(0,6);
+        String day = generateTime.substring(0, 6);
         ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO();
         List<HoaDon> hd = findAll(HoaDon.class);
-        for(HoaDon hd_total : hd){
-            if(nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())){
-                if(day.equals(hd_total.getMaHoaDon().substring(2, 8)))
-                    sum+= tien.TotalFoodCurrency(hd_total);
+        for (HoaDon hd_total : hd) {
+            if (nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
+                if (day.equals(hd_total.getMaHoaDon().substring(2, 8))) {
+                    sum += tien.TotalFoodCurrency(hd_total);
+                }
 //                Chưa áp mã khuyễn mãi và VAT
             }
-        }  
+        }
         return sum;
     }
+
     public DecimalFormat getFormatter() {
         return formatter;
     }
 
-    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay){
-        List<HoaDon> list = findAll(HoaDon.class);
-        List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
-        String month_format = String.format("%02d", ngay.getMonthValue());
-        String date_format = String.format("%02d", ngay.getDayOfMonth());
-        String ngayString = Integer.toString(ngay.getYear()).substring(2,4) + month_format+ date_format;
-        for(int i=0;i<list.size();i++){
-            String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
-            if(ngayString.equals(ngay_hoadon)){
-                listHoaDonTheoNgay.add(list.get(i));
-            }
-        }
-        System.out.println(listHoaDonTheoNgay.size());
-        return listHoaDonTheoNgay;
-    };
     @Override
-    public int getTongHoaDonTheoNgay(LocalDateTime ngay) {
-        int soLuongHoaDon = 0;
-        List<HoaDon> list = findHoaDonTheoNgay(ngay);
-        for(int i=0;i<list.size();i++){
-            soLuongHoaDon +=1;
-        }
-        return soLuongHoaDon;
+    public List<HoaDon> findFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
+        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findFromDateToDate", HoaDon.class);
+        query.setParameter("ngayBatDau", ngayBatDau);
+        query.setParameter("ngayKetThuc", ngayKetThuc);
+        return query.getResultList();
     }
+    
     @Override
-    public double getTongTienHoaDonTheoNgay(LocalDateTime ngay) {
+    public double getTotalRevenueFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         Double total = 0.0;
         ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-        List<HoaDon> list = findHoaDonTheoNgay(ngay);
-        for(int i=0;i<list.size();i++){
-            total += dao.TotalFoodCurrency(list.get(i));
+        List<HoaDon> list = findFromDateToDate(ngayBatDau, ngayKetThuc);
+        for (int i = 0; i < list.size(); i++) {
+            total += list.get(i).getTienPhaiThu();
         }
         return total;
     }
-    
-    
+
+    @Override
+    public List<HoaDon> filterByDate(LocalDate date) {
+        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.filterByDate", HoaDon.class);
+        query.setParameter("date", date);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<HoaDon> findOrdersByMonth(int month) {
+        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findOrdersByMonth", HoaDon.class);
+        query.setParameter("month", month);
+        return query.getResultList();
+    }
+
+    @Override
+    public double getTotalRevenueByMonth(int month) {
+        Double total = 0.0;
+        List<HoaDon> list = findOrdersByMonth(month);
+        for (int i = 0; i < list.size(); i++) {
+            total += list.get(i).getTienPhaiThu();
+        }
+        return total;
+    }
+
+    @Override
+    public int getTotalInVoicesByMonth(int month) {
+        int soLuongHoaDon = 0;
+        List<HoaDon> list = findOrdersByMonth(month);
+        for (HoaDon h : list) {
+            soLuongHoaDon += 1;
+        }
+        return soLuongHoaDon;
+    }
 }

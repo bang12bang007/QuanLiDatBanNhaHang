@@ -12,17 +12,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,7 +37,9 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai"),
     @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
-    @NamedQuery(name = "HoaDon.getPhieuDatBan", query = "SELECT p FROM HoaDon h INNER JOIN Ban b on b.maBan = h.ban.maBan INNER JOIN PhieuDatBan p on p.ban.maBan = b.maBan WHERE h.maHoaDon = :maHoaDon")
+    @NamedQuery(name = "HoaDon.findFromDateToDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
+    @NamedQuery(name = "HoaDon.findOrdersByMonth", query = "SELECT h FROM HoaDon h WHERE MONTH(h.ngayLapHoaDon) = :month") ,
+    @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date)")
 })
 public class HoaDon {
 
@@ -54,18 +52,8 @@ public class HoaDon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaKhachHang", nullable = true)
     private KhachHang khachHang;
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "ChiTietKhuyenMai",
-            joinColumns = {
-                @JoinColumn(name = "MaHoaDon")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "MaKhuyenMai")}
-    )
-    private List<KhuyenMai> khuyenMai;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaDichVu", nullable = true)
-    private DichVu dichVu;
+    @OneToMany(mappedBy = "hoaDon", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ChiTietKhuyenMai> chiTietKhuyenMai;
     @Column(name = "NgayLapHoaDon", nullable = false)
     private LocalDateTime ngayLapHoaDon;
     @ManyToOne
@@ -74,8 +62,25 @@ public class HoaDon {
     @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThaiHoaDon trangThai;
-    @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "hoaDon", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
+    @Column(name = "NgayDatBan", nullable = true)
+    private LocalDateTime ngayDatBan;
+    @Column(name = "SoLuongNguoi", nullable = true)
+    private int soLuongNguoi;
+    @Column(name = "YeuCauDatMon", nullable = true, columnDefinition = "NVARCHAR(255)")
+    private String yeuCauDatMon;
+    @Column(name = "YeuCauKhac", nullable = true, columnDefinition = "NVARCHAR(255)")
+    private String yeuCauKhac;
+    @Column(name = "NgayGioNhanBan", nullable = true)
+    private LocalDateTime ngayGioNhanBan;
+    @Column(name = "TongThanhToan", nullable = true)
+    @Setter(AccessLevel.NONE)
+    private Double tongThanhToan;
+    @Column(name = "TienPhaiThu", nullable = true)
+    @Setter(AccessLevel.NONE)
+    private Double tienPhaiThu;
 
     public HoaDon(NhanVien nhanVien, LocalDateTime ngayLapHoaDon, Ban ban, LoaiTrangThaiHoaDon trangThai) {
         this.nhanVien = nhanVien;
@@ -88,5 +93,39 @@ public class HoaDon {
         this.nhanVien = nhanVien;
         this.khachHang = khachHang;
         this.ngayLapHoaDon = ngayLapHoaDon;
+    }
+
+    private void setTongThanhToan(double tongThanhToan) {
+        this.tongThanhToan = tongThanhToan;
+    }
+
+    private void setTienPhaiThu(double tienPhaiThu) {
+        this.tienPhaiThu = tienPhaiThu;
+    }
+
+    public void setChiTietHoaDon(List<ChiTietHoaDon> chiTietHoaDon) {
+        this.chiTietHoaDon = chiTietHoaDon;
+        tongThanhToan();
+    }
+
+    public Double getTongThanhToan() {
+        return this.tongThanhToan;
+    }
+
+    public void tienPhaiThu() {
+        double total = tongThanhToan;
+        for (ChiTietKhuyenMai chiTiet : chiTietKhuyenMai) {
+            total -= chiTiet.getThanhTien();
+        }
+        setTienPhaiThu(total);
+    }
+
+    public void tongThanhToan() {
+        Double total = 0.0;
+        for (ChiTietHoaDon detail : chiTietHoaDon) {
+            total += detail.getThanhTien();
+        }
+        setTongThanhToan(total);
+        this.tienPhaiThu = this.tongThanhToan;
     }
 }

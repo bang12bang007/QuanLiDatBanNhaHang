@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import jiconfont.swing.IconFontSwing;
 import javax.swing.Icon;
-import view.Form_XemThucDon;
+import view.employee.Form_XemThucDon;
 import static utils.AppUtils.*;
 
 /**

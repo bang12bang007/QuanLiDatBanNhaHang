@@ -7,12 +7,8 @@ package dao;
 import entity.Ban;
 import entity.HoaDon;
 import entity.NhanVien;
-import entity.PhieuDatBan;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import java.util.ArrayList;
-
 import java.util.List;
 
 /**
@@ -35,23 +31,20 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
 //    use to move from this table to other table
     boolean updateBanById(String id, Ban ban);
 
-    PhieuDatBan getPhieuDatBanByHoaDon(HoaDon hoaDon);
-
-    
-
-
-
     void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
 
-    
-    int getTongHoaDon(NhanVien nv);
-    
     double getTongDoanhThu(NhanVien nv);
 
+    List<HoaDon> filterByDate(LocalDate date);
 
-    List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay);
-    
-    int getTongHoaDonTheoNgay(LocalDateTime ngay);
-    
-    double getTongTienHoaDonTheoNgay(LocalDateTime ngay);
+    List<HoaDon> findFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+
+    double getTotalRevenueFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+
+    List<HoaDon> findOrdersByMonth(int month);
+
+    double getTotalRevenueByMonth(int month);
+
+    int getTotalInVoicesByMonth(int month);
+
 }

@@ -4,15 +4,14 @@
  */
 package component;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import entity.Mon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import view.GD_DatMon;
+import raven.toast.Notifications;
+import view.employee.GD_DatMon;
 import static utils.AppUtils.*;
 
 /**
@@ -38,7 +37,7 @@ public class Food extends javax.swing.JPanel {
         initComponents();
         this.orderPanel = panelOrder;
         this.ten = mon.getTenMon();
-        this.gia = mon.getGia().toString();
+        this.gia = mon.getGiaBan().toString();
         this.orders = orders;
         this.mon = mon;
         this.mons = mons;
@@ -52,6 +51,8 @@ public class Food extends javax.swing.JPanel {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
+        Notifications.getInstance();
+        FlatIntelliJLaf.setup();
     }
 
     public List<Mon> getOrders() {
@@ -86,7 +87,6 @@ public class Food extends javax.swing.JPanel {
         });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/GaChienBo.png"))); // NOI18N
         btnFood.setColor(new java.awt.Color(31, 29, 43));
         btnFood.setColorClick(new java.awt.Color(31, 29, 43));
         btnFood.setColorOver(new java.awt.Color(31, 29, 43));
@@ -159,8 +159,11 @@ public class Food extends javax.swing.JPanel {
         boolean found = false;
         for (int i = 0; i < orders.size(); i++) {
             if (orders.get(i).getTenMon().equals(mon.getTenMon())) {
-                found = true;
-//                System.out.println("yes");   //duccuong1609: chỗ này tính làm thông báo 
+                OrderItem_forUIDatMon item = (OrderItem_forUIDatMon) datmon.getPanelOrder().getComponent(i);
+                if (!item.getType_orderItem().equals("PRELOAD")) {
+                    found = true;
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Món Đã Được Chọn, Vui Lòng Không Chọn Lại !");
+                }
             }
         }
         if (found == false) {
@@ -186,7 +189,7 @@ public class Food extends javax.swing.JPanel {
     public void updateTongTien() {
         double tong = 0.0;
         for (int i = 0; i < orders.size(); i++) {
-            tong += orders.get(i).getGia() * datmon.getList_quantity().get(i);
+            tong += orders.get(i).getGiaBan() * datmon.getList_quantity().get(i);
         }
         if (tong != 0) {
             datmon.setLabelTongTien(tien_format.format(tong));

@@ -4,12 +4,13 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import utils.Enum.LoaiKhuyenMai;
-import utils.Enum.LoaiTrangThaiKhuyenMai;
 
 /**
  *
@@ -47,22 +47,15 @@ public class KhuyenMai {
     private LoaiKhuyenMai loaiKhuyenMai;
     @Column(name = "GhiChu", nullable = true, columnDefinition = "NVARCHAR(255)")
     private String ghiChu;
-    @Column(name = "TrangThai", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private LoaiTrangThaiKhuyenMai trangThai;
-    @OneToMany(mappedBy = "khuyenMai")
-    private List<Mon> mon;
-    @ManyToMany(mappedBy = "khuyenMai")
-    private List<HoaDon> hoaDon;
+    @OneToMany(mappedBy = "khuyenMai",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ChiTietKhuyenMai> chiTietKhuyenMai;
 
-    public KhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Double chietKhau, LoaiKhuyenMai loaiKhuyenMai, String ghiChu, LoaiTrangThaiKhuyenMai trangThai, List<Mon> mon) {
+    public KhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Double chietKhau, LoaiKhuyenMai loaiKhuyenMai, String ghiChu) {
         this.tenKhuyenMai = tenKhuyenMai;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
         this.chietKhau = chietKhau;
         this.loaiKhuyenMai = loaiKhuyenMai;
         this.ghiChu = ghiChu;
-        this.trangThai = trangThai;
-        this.mon = mon;
     }
 }

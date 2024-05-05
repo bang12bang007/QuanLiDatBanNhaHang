@@ -8,6 +8,7 @@ import dao.IChiTietHoaDonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
         List<ChiTietHoaDon> details = getListByHoaDon(hoaDon);
         Double total = 0.0;
         for (int i = 0; i < details.size(); i++) {
-            total += details.get(i).getSoLuong() * details.get(i).getMon().getGia();
+            total += details.get(i).getSoLuong() * details.get(i).getMon().getGiaBan();
         }
         return total;
     }
@@ -37,7 +38,7 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
 
     ;
 
-    @Override
+    @Override // lấy danh sách số lượng tương ứng với món trong chi tiết hoá đơn
     public List<ChiTietHoaDon> getListBySoLuong(int soLuong) {
         return em.createNamedQuery("ChiTietHoaDon.DS_SoLuong", ChiTietHoaDon.class)
                 .setParameter("soLuong", soLuong)
@@ -60,8 +61,21 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
             return false;
         }
     }
-;
 
-    
+    ;
+
+    @Override
+    public List<Object[]> sumSoLuongByMaMon() {
+        return em.createNamedQuery("ChiTietHoaDon.sumSoLuongByMaMon", Object[].class)
+                .getResultList();
+
+    }
+
+    @Override
+    public List<Object[]> sumSoLuongByMaMonByDate(LocalDateTime ngayYeuCau) {
+        TypedQuery<Object[]> query = em.createNamedQuery("ChiTietHoaDon.sumSoLuongByMaMonByDate", Object[].class);
+        query.setParameter("ngayYeuCau", ngayYeuCau);
+        return query.getResultList();
+    }
 
 }

@@ -11,6 +11,6 @@ import entity.TaiKhoan;
  *
  * @author dmx
  */
-public class TaiKhoanDAO extends AbstractDAO<TaiKhoan> implements ITaiKhoanDAO<TaiKhoan>{
-    
+public class TaiKhoanDAO extends AbstractDAO<TaiKhoan> implements ITaiKhoanDAO<TaiKhoan> {
+
 }

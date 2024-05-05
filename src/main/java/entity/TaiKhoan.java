@@ -9,7 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class TaiKhoan {
     @Column(name = "MatKhau", nullable = false)
     private String matKhau;
     @Column(name = "NgayTaoTaiKhoan", nullable = false)
-    private Date ngayTao;
+    private LocalDateTime ngayTao;
     @Column(name = "NgayKetThuc", nullable = true)
-    private Date ngayKetThuc;
+    private LocalDateTime ngayKetThuc;
 }
