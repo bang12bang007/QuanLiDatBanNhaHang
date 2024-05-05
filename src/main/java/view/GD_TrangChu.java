@@ -194,7 +194,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
         buttonDatMon.setBorder(null);
         buttonDatMon.setForeground(new java.awt.Color(255, 255, 255));
-        buttonDatMon.setText("QL ĐẶT MÓN");
+        buttonDatMon.setText("QUẢN LÝ ĐẶT MÓN");
         buttonDatMon.setBorderColor(new java.awt.Color(83, 86, 99));
         buttonDatMon.setColor(new java.awt.Color(83, 86, 99));
         buttonDatMon.setColorClick(new java.awt.Color(31, 29, 43));
@@ -215,7 +215,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
         buttonDatBan.setBorder(null);
         buttonDatBan.setForeground(new java.awt.Color(255, 255, 255));
-        buttonDatBan.setText("QL ĐẶT BÀN");
+        buttonDatBan.setText("QUẢN LÝ ĐẶT BÀN");
         buttonDatBan.setBorderColor(new java.awt.Color(83, 86, 99));
         buttonDatBan.setColor(new java.awt.Color(83, 86, 99));
         buttonDatBan.setColorClick(new java.awt.Color(31, 29, 43));

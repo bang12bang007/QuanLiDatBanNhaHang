@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.time.LocalDateTime;
 import javax.swing.JLabel;
 import jiconfont.swing.IconFontSwing;
-
+import static utils.AppUtils.*;
 /**
  *
  * @author Lenovo
@@ -77,11 +77,13 @@ public class GD_BaoCao extends javax.swing.JPanel {
 
         wrapper.setBackground(new java.awt.Color(0, 0, 0));
 
-        fromDateJLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        fromDateJLabel.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         fromDateJLabel.setForeground(new java.awt.Color(255, 255, 255));
         fromDateJLabel.setText("Từ ");
 
-        toDateJLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        toDateJLabel.setFont(utils.AppUtils.getFont(16f, _BOLD_)
+        );
         toDateJLabel.setForeground(new java.awt.Color(255, 255, 255));
         toDateJLabel.setText("Đến");
 
@@ -92,10 +94,12 @@ public class GD_BaoCao extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(51, 153, 255));
         jPanel5.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel3.setText("TỔNG SỐ HOÁ ĐƠN");
 
-        TotalBillJLabel.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        TotalBillJLabel.setFont(utils.AppUtils.getFont(20f, _BOLD_)
+        );
         TotalBillJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TotalBillJLabel.setText("0");
 
@@ -125,10 +129,12 @@ public class GD_BaoCao extends javax.swing.JPanel {
 
         jPanel8.setBackground(new java.awt.Color(51, 153, 255));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel8.setText("TỔNG SỐ MÓN BÁN RA");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel11.setFont(utils.AppUtils.getFont(20f, _BOLD_)
+        );
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("0");
 
@@ -159,10 +165,12 @@ public class GD_BaoCao extends javax.swing.JPanel {
         jPanel9.setBackground(new java.awt.Color(51, 153, 255));
         jPanel9.setForeground(new java.awt.Color(50, 100, 255));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel7.setText("TỔNG DOANH THU");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel10.setFont(utils.AppUtils.getFont(20f, _BOLD_)
+        );
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("0");
 
@@ -214,12 +222,15 @@ public class GD_BaoCao extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel4.setText("Top 3 món thịnh hành");
 
         jPanel6.setBackground(new java.awt.Color(0, 0, 0));
 
         jPanel11.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel11.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -233,6 +244,8 @@ public class GD_BaoCao extends javax.swing.JPanel {
         );
 
         jPanel13.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel13.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -266,7 +279,8 @@ public class GD_BaoCao extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel5.setText("BXH Khách hàng thân thiết");
 
         jPanel7.setBackground(new java.awt.Color(0, 0, 0));
@@ -277,28 +291,32 @@ public class GD_BaoCao extends javax.swing.JPanel {
         tableHaderLeft.setBackground(new java.awt.Color(31, 29, 43));
         tableHaderLeft.setLayout(new java.awt.GridLayout(1, 5));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Xếp hạng");
         jLabel12.setToolTipText("");
         tableHaderLeft.add(jLabel12);
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Thành viên");
         jLabel13.setToolTipText("");
         tableHaderLeft.add(jLabel13);
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Điểm tích luỹ");
         jLabel14.setToolTipText("");
         tableHaderLeft.add(jLabel14);
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel15.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Cấp thẻ thành viên");
@@ -321,10 +339,11 @@ public class GD_BaoCao extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(tableHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addContainerGap(396, Short.MAX_VALUE))
         );
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setFont(utils.AppUtils.getFont(18f, _NORMAL_)
+        );
         jLabel6.setText("Doanh thu");
 
         javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
@@ -337,7 +356,7 @@ public class GD_BaoCao extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(containerLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -351,7 +370,7 @@ public class GD_BaoCao extends javax.swing.JPanel {
                             .addGroup(containerLayout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel4)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 1038, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         containerLayout.setVerticalGroup(
@@ -393,6 +412,8 @@ public class GD_BaoCao extends javax.swing.JPanel {
 
         calender3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        txtNgay3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         txtNgay3.setBorder(null);
 
         javax.swing.GroupLayout date3Layout = new javax.swing.GroupLayout(date3);
@@ -419,6 +440,8 @@ public class GD_BaoCao extends javax.swing.JPanel {
 
         calender4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        txtNgay4.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         txtNgay4.setBorder(null);
 
         javax.swing.GroupLayout date4Layout = new javax.swing.GroupLayout(date4);

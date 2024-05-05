@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import jiconfont.swing.IconFontSwing;
 import view.GD_DatBan;
 import static utils.AppUtils.NHANVIEN;
+import static utils.AppUtils.*;
 /**
  *
  * @author Laptop
@@ -124,7 +125,8 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setFont(utils.AppUtils.getFont(20f, _BOLD_)
+        );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Thông tin tài khoản");
 
@@ -157,11 +159,13 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         destop.setBackground(new java.awt.Color(0, 0, 0));
         destop.setForeground(java.awt.Color.white);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel9.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
+        );
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("jLabel09");
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel29.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
+        );
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("jLabel29");
 
@@ -187,11 +191,11 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
                 .addComponent(btnAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(destopLayout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
+                .addContainerGap(144, Short.MAX_VALUE)
                 .addGroup(destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel29)
                     .addComponent(jLabel9))
-                .addGap(0, 125, Short.MAX_VALUE))
+                .addGap(0, 145, Short.MAX_VALUE))
         );
         destopLayout.setVerticalGroup(
             destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,35 +209,43 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setFont(utils.AppUtils.getFont(20f, _BOLD_)
+        );
         jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Thông tin cá nhân");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel4.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Giới tính");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel5.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Ngày bắt đầu");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel6.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Số điện thoại");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel7.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("Vai trò ");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel8.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Trạng thái");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel10.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel10.setForeground(java.awt.Color.white);
         jLabel10.setText("Địa chỉ");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel11.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel11.setForeground(java.awt.Color.white);
         jLabel11.setText("Tuổi");
 
@@ -267,31 +279,38 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         jLabel21.setForeground(java.awt.Color.white);
         jLabel21.setText(":");
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel22.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel22.setForeground(java.awt.Color.white);
         jLabel22.setText("jLabel22");
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel23.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel23.setForeground(java.awt.Color.white);
         jLabel23.setText("jLabel22");
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel24.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel24.setForeground(java.awt.Color.white);
         jLabel24.setText("jLabel22");
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel25.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel25.setForeground(java.awt.Color.white);
         jLabel25.setText("jLabel22");
 
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel26.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel26.setForeground(java.awt.Color.white);
         jLabel26.setText("jLabel22");
 
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel27.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel27.setForeground(java.awt.Color.white);
         jLabel27.setText("jLabel22");
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel28.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
+        );
         jLabel28.setForeground(java.awt.Color.white);
         jLabel28.setText("jLabel22");
 
@@ -420,9 +439,9 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(349, Short.MAX_VALUE)
+                .addContainerGap(354, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addContainerGap(443, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
