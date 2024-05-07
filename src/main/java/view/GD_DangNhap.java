@@ -15,7 +15,9 @@ import icon.FontAwesome;
 import java.awt.Color;
 import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
+import view.employee.GD_TrangChu;
 import static utils.AppUtils.*;
+import view.manager.application.GD_Dashboard;
 
 /**
  *
@@ -23,8 +25,13 @@ import static utils.AppUtils.*;
  */
 public class GD_DangNhap extends javax.swing.JFrame {
 
+    private static final long serialVersionUID = 1L;
 //    TK: NV120060424290
 //    MK: 280920003
+    
+//    TK: NV121100624291
+//    MK: 11122003    
+    
     /**
      * Creates new form GD_DangNhap
      */
@@ -44,6 +51,10 @@ public class GD_DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Notifications.getInstance().setJFrame(this);
         FlatIntelliJLaf.setup();
+        //---------------------------------------------
+//        mẹ mày có mỗi việc copy ra rồi comment lại cũng để thằng khác làm dùm, m chỉ biết mỗi m thôi
+//        tenDangNhap.setText("NV121100624291");   
+//        matKhau.setText("11122003");
         //---------------------------------------------
         tenDangNhap.setText("NV120060424290");
         matKhau.setText("280920003");
@@ -249,7 +260,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
                 setVisible(false);
                 if (nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
                     //                Chuyen qua gd quan ly
-                    new GD_TrangChu().setVisible(true);
+                    new GD_Dashboard().run();
                 } else {
                     //                Chuyen qua gd nhan vien
                     new GD_TrangChu().setVisible(true);

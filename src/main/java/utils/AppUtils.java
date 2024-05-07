@@ -6,6 +6,7 @@ package utils;
 
 import java.awt.Font;
 import component.Loading;
+import dao.imlp.BanDAO;
 import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -28,6 +29,7 @@ import javax.swing.JScrollPane;
  * @author Laptop
  */
 public class AppUtils {
+//    public static BanDAO BANDAO = new BanDAO();
 
     public static NhanVien NHANVIEN = null;
     public static DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");

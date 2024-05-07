@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="view/raven/|view/raven/|view/manager/application/" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -51,5 +51,14 @@
 	<classpathentry kind="lib" path="src/main/java/lib/swing-worker-1.1.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/swingx-1.6.1.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="D:/Dowload/New folder/QuanLiDatBanNhaHang/src/main/java/lib/jiconfont-1.0.0_1.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="jiconfont"/>
+			<attribute name="maven.artifactId" value="jiconfont"/>
+			<attribute name="maven.version" value="1"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

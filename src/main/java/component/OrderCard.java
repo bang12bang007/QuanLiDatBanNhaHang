@@ -4,19 +4,26 @@
  */
 package component;
 
-import dao.IHoaDonDAO;
-import dao.imlp.HoaDonDAO;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import entity.Ban;
 import entity.HoaDon;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 import utils.AppUtils;
-import view.GD_DatMon;
+import view.employee.GD_DatMon;
 import java.text.DecimalFormat;
+import javax.swing.Icon;
 import javax.swing.JPanel;
+import static javax.swing.SwingConstants.LEFT;
 import jiconfont.swing.IconFontSwing;
-import view.GD_DatBanTaiCho;
-import view.GD_ThanhToan;
+import raven.toast.Notifications;
+import view.employee.GD_DatBanTaiCho;
+import view.employee.GD_ThanhToan;
 import static utils.AppUtils.*;
+import view.employee.GD_Ban;
 
 /**
  *
@@ -45,9 +52,60 @@ public class OrderCard extends javax.swing.JPanel {
         setIconBtn();
         maBan.setText(hoaDon.getBan().getMaBan());
         soLuongNguoi.setText(hoaDon.getSoLuongNguoi() + "");
-//        jLabel2.setText(hoaDon.getBan().getMaBan());
-//        jLabel3.setText(tien_format.format(total));
-//        loadData();
+        tacVuList.setPreferredSize(new Dimension(250, 150));
+        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        Notifications.getInstance();
+        FlatIntelliJLaf.setup();
+        createListTacVu();
+        setWarning();
+    }
+
+    private void createListTacVu() {
+        tacVuList.add(createTacVu("Gửi bếp", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
+            sendCook();
+        }));
+        tacVuList.add(createTacVu("Chuyển bàn", IconFontSwing.buildIcon(FontAwesome.REFRESH, 25, Color.WHITE), (e) -> {
+            moveTable();
+        }));
+        tacVuList.add(createTacVu("Ghép hóa đơn", IconFontSwing.buildIcon(FontAwesome.BOOK, 25, Color.WHITE), (e) -> {
+            mergeOrder();
+        }));
+    }
+
+    private MyButton createTacVu(String content, Icon icon, ActionListener action) {
+        IconFontSwing.register(FontAwesome.getIconFont());
+        MyButton button = new MyButton();
+        button.setIcon(icon);
+        button.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        button.setForeground(Color.WHITE);
+        button.setColor(new Color(83, 86, 99));
+        button.setColorOver(new Color(234, 124, 105));
+        button.setColorClick(new Color(234, 124, 105));
+        button.setPreferredSize(new Dimension(250, 50));
+        button.setText(content);
+        button.setHorizontalAlignment(LEFT);
+        button.addActionListener(action);
+        return button;
+    }
+
+    private void moveTable() {
+        utils.AppUtils.setUI(mainPanel, () -> {
+            GD_Ban gD_Ban = new GD_Ban(mainPanel, "CHUYEN_BAN");
+            gD_Ban.setHoaDon(hoaDon);
+            return gD_Ban;
+        });
+        menu.setVisible(false);
+    }
+
+    private void sendCook() {
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Gửi Bếp Thành Công !");
+        menu.setVisible(false);
+
+    }
+
+    private void mergeOrder() {
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Ghép hóa đơn");
+        menu.setVisible(false);
     }
 
     /**
@@ -59,9 +117,13 @@ public class OrderCard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        morePanel = new javax.swing.JPanel();
+        tacVuList = new javax.swing.JPanel();
+        menu = new javax.swing.JPopupMenu();
         panelRound1 = new component.PanelRound();
         panelRound2 = new component.PanelRound();
         soLuongNguoi = new javax.swing.JLabel();
+        warning = new javax.swing.JLabel();
         panelRound3 = new component.PanelRound();
         maBan = new javax.swing.JLabel();
         panelRound8 = new component.PanelRound();
@@ -72,6 +134,35 @@ public class OrderCard extends javax.swing.JPanel {
         btnThanhToan = new component.MyButton();
         btnTacVu = new component.MyButton();
         btnCheck = new component.MyButton();
+
+        morePanel.setBackground(new java.awt.Color(83, 86, 99));
+
+        tacVuList.setBackground(new java.awt.Color(83, 86, 99));
+
+        javax.swing.GroupLayout tacVuListLayout = new javax.swing.GroupLayout(tacVuList);
+        tacVuList.setLayout(tacVuListLayout);
+        tacVuListLayout.setHorizontalGroup(
+            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 256, Short.MAX_VALUE)
+        );
+        tacVuListLayout.setVerticalGroup(
+            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout morePanelLayout = new javax.swing.GroupLayout(morePanel);
+        morePanel.setLayout(morePanelLayout);
+        morePanelLayout.setHorizontalGroup(
+            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tacVuList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        morePanelLayout.setVerticalGroup(
+            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tacVuList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        menu.setBackground(new java.awt.Color(83, 86, 99));
+        menu.setBorder(null);
 
         setBackground(new java.awt.Color(83, 86, 99));
 
@@ -94,7 +185,9 @@ public class OrderCard extends javax.swing.JPanel {
         panelRound2Layout.setHorizontalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(warning, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(soLuongNguoi)
                 .addContainerGap())
         );
@@ -102,7 +195,9 @@ public class OrderCard extends javax.swing.JPanel {
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(soLuongNguoi)
+                .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(soLuongNguoi)
+                    .addComponent(warning, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -287,6 +382,11 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnTacVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTacVuActionPerformed
         // TODO add your handling code here:
+        tacVuList.removeAll();
+        createListTacVu();
+        menu.removeAll();
+        menu.add(morePanel);
+        menu.show(btnTacVu, 0, btnTacVu.getHeight() + 5);
     }//GEN-LAST:event_btnTacVuActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
@@ -298,15 +398,7 @@ public class OrderCard extends javax.swing.JPanel {
             GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
             gD_DatMon.setHoaDon(this.hoaDon);
             gD_DatMon.setGd_qlDatMon(ql_datMon);
-//<<<<<<< HEAD
-//            if (ql_datMon.isWaitForPayment()) {
-//                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.THEMMON);
-//            } else {
-////                hoaDonDAO = new HoaDonDAO();
-////                gD_DatMon.setPhieuDatBan(hoaDonDAO.getPhieuDatBanByHoaDon(hoaDon));
-//=======
             if (!ql_datMon.isWaitForPayment()) {
-//                hoaDonDAO = new HoaDonDAO();
                 gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
             }
             return gD_DatMon;
@@ -326,18 +418,23 @@ public class OrderCard extends javax.swing.JPanel {
         tongTien.setText(tien_format.format(total));
     }
 
-    private void setSoLuong(HoaDon hoaDon) {
-    }
-
-//    NDK: T tính trong orderCard luôn á 
-//    NDK: xóa luôn đi
-//    duccuong1609 : ?? :DD
     public GD_DatBanTaiCho getQl_datMon() {
         return ql_datMon;
     }
 
     public void setQl_datMon(GD_DatBanTaiCho ql_datMon) {
         this.ql_datMon = ql_datMon;
+    }
+
+    private void setWarning() {
+        Ban ban = hoaDon.getBan();
+        if (ban.getBanGop() == null) {
+            if (ban.getSoGhe() < hoaDon.getSoLuongNguoi()) {
+                warning.setText("Số ghế không đủ cho " + hoaDon.getSoLuongNguoi() + " người");
+            }
+        } else {
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -348,11 +445,15 @@ public class OrderCard extends javax.swing.JPanel {
     private javax.swing.JLabel iconEadting;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel maBan;
+    private javax.swing.JPopupMenu menu;
+    private javax.swing.JPanel morePanel;
     private component.PanelRound panelRound1;
     private component.PanelRound panelRound2;
     private component.PanelRound panelRound3;
     private component.PanelRound panelRound8;
     private javax.swing.JLabel soLuongNguoi;
+    private javax.swing.JPanel tacVuList;
     private javax.swing.JLabel tongTien;
+    private javax.swing.JLabel warning;
     // End of variables declaration//GEN-END:variables
 }

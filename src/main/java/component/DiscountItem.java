@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import jiconfont.swing.IconFontSwing;
 import utils.*;
-import view.GD_ThanhToan;
+import view.employee.GD_ThanhToan;
 
 /**
  *

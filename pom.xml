@@ -150,11 +150,38 @@
             <artifactId>icepdf-viewer</artifactId>
             <version>1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
+        <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-core -->
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>font-awesome</artifactId>
-            <version>6.5.2</version>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-core</artifactId>
+            <version>11.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-swing -->
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-swing</artifactId>
+            <version>11.3</version>
+        </dependency>
+        <dependency>
+            <groupId>swing-glasspane-popup</groupId>
+            <artifactId>swing-glasspane-popup</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>swing-chart</groupId>
+            <artifactId>swing-chart</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+         <dependency>
+            <groupId>com.miglayout</groupId>
+                <artifactId>miglayout</artifactId>
+                <version>5.1-ALPHA</version>
+                <type>jar</type>
+        </dependency>
+        <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>CurveLineChart</artifactId>
+                <version>1.0</version>
         </dependency>
     </dependencies>
     <properties>
@@ -163,5 +190,5 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-    <name>QuanLiNhaHang_Server</name>
+    <name>QuanLiNhaHang</name>
 </project>

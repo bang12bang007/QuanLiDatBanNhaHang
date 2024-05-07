@@ -6,6 +6,8 @@ package dao.imlp;
 
 import dao.ITheThanhVienDAO;
 import entity.TheThanhVien;
+import jakarta.persistence.TypedQuery;
+import java.util.List;
 
 /**
  *
@@ -13,4 +15,5 @@ import entity.TheThanhVien;
  */
 public class TheThanhVienDAO extends AbstractDAO<TheThanhVien> implements ITheThanhVienDAO<TheThanhVien> {
 
+   
 }

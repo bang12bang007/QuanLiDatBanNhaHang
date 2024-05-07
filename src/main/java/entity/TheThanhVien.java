@@ -11,7 +11,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,16 +28,17 @@ import utils.Enum.LoaiTheThanhVien;
 @NoArgsConstructor
 
 public class TheThanhVien {
+
     @Id
-    @Column(name="MaThe",nullable = false)
+    @Column(name = "MaThe", nullable = false)
     private String maThe;
-    @Column(name="DiemTich",nullable = false)
+    @Column(name = "DiemTich", nullable = false)
     private Double diemTich;
     @OneToOne
-    @JoinColumn(name="MaKhachHang",unique = true,nullable = false)
+    @JoinColumn(name = "MaKhachHang", unique = true, nullable = false)
     private KhachHang khachHang;
     @Enumerated(EnumType.ORDINAL)
-    @Column(name="LoaiThe")
+    @Column(name = "LoaiThe")
     private LoaiTheThanhVien loaiThe;
 
     public TheThanhVien(Double diemTich, KhachHang khachHang, LoaiTheThanhVien loaiThe) {
