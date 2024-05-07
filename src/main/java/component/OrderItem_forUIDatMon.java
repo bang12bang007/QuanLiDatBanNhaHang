@@ -55,6 +55,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     private ArrayList<Mon> list_MonHuy; //duccuong1609 : danh sách món đã gửi bếp nhưng lại hủy (case thêm món, case đặt trước)
     private List<OrderItem_forUIDatMon> listPreOrder; //duccuong1609 : cái này giữ lại cái danh sách cũ tại có món nó preload và có món mới thêm
     private List<Integer> list_quantity;
+    private int index;
 
     public OrderItem_forUIDatMon(GD_DatMon datMon, Mon mon, int width, int index, String[] data, ArrayList<Mon> orders) {
         this.data = data;
@@ -62,6 +63,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         this.orders = orders;
         this.datMon = datMon;
         this.mon = mon;
+        this.index = index;
         this.details = datMon.getDetails();
         this.list_quantity = datMon.getList_quantity();
         initComponents();
@@ -451,6 +453,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     public void update_PanelOrder(boolean update) {
         if (update) {
             ArrayList<Mon> replace_orders = new ArrayList<Mon>();
+            List<OrderItem_forUIDatMon> forward_item = new ArrayList<>();
 
             int size = listPreOrder.size();
             for (int i = 0; i < orders.size(); i++) {
@@ -483,9 +486,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
                 String[] title = new String[]{orders.get(i).getTenMon(), datMon.getList_quantity().get(i).toString(), tien_format.format(orders.get(i).getGiaBan() * datMon.getList_quantity().get(i)), ""};
                 OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datMon, orders.get(i), datMon.getPanelOrder().getWidth(), i + 1, title, orders);
                 for (OrderItem_forUIDatMon order_item : listPreOrder) {
-                    if (item.getTenMon().getText().trim().equals(order_item.getTenMon().getText().trim())) {
+                    if (item.getTenMon().getText().trim().equals(order_item.getTenMon().getText().trim()) && !forward_item.contains(order_item)) {
                         if (datMon.getBranch().equals(TypeDatMon_Branch.THEMMON)) {
                             item.setType_orderItem("PRELOAD");
+                            forward_item.add(order_item);
                         }
                     }
                 }
@@ -541,6 +545,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     
     public int getSoLuong(){
         return Integer.parseInt(soLuong.getText());
+    }
+
+    public int getIndex() {
+        return index;
     }
 
 

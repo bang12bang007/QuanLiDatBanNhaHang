@@ -36,7 +36,7 @@ import utils.Enum.LoaiTrangThaiMon;
     @NamedQuery(name = "Mon.Popular5",query = "SELECT SUM(c.soLuong) as SoLuong, c.mon as Mon FROM ChiTietHoaDon c inner join HoaDon h on c.hoaDon = h where h.trangThai = 0 group by c.mon ORDER BY SoLuong DESC LIMIT 5"),
     @NamedQuery(name = "Mon.Other",query = "SELECT m FROM Mon m inner join LoaiMon l on m.loaiMon = l WHERE m.trangThai = 0 AND l.maLoaiMon = 'ML06'")
 })
-public class Mon implements Serializable{
+public class Mon {
 
     @Id
     @Column(name = "MaMon", length = 12, nullable = false)

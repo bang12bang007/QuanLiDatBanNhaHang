@@ -28,7 +28,7 @@ import utils.Enum.LoaiTheThanhVien;
 @ToString
 @NoArgsConstructor
 
-public class TheThanhVien implements Serializable{
+public class TheThanhVien {
     @Id
     @Column(name="MaThe",nullable = false)
     private String maThe;

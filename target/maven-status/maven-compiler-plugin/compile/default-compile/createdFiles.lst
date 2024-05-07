@@ -197,6 +197,7 @@ datechooser\Slider$2.class
 view\Form_DatBan.class
 view\GD_DatBanTaiCho$3.class
 component\OrderItem.class
+server\Server$ClientHandler.class
 view\GD_DatBanTaiCho$2.class
 utils\AppUtils$1.class
 entity\Mon.class
@@ -238,6 +239,7 @@ component\OrderCard$2.class
 view\GD_DatMon$16.class
 view\GD_DatBanTruoc$6.class
 view\Form_XemThucDon$3.class
+server\Server.class
 view\GD_DangNhap$3.class
 component\BanItem$2.class
 view\GD_DatMon$17.class

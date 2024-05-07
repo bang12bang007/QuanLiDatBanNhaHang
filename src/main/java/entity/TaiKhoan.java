@@ -26,7 +26,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class TaiKhoan implements Serializable{
+public class TaiKhoan {
     @Id
     @OneToOne
     @JoinColumn(name = "MaNhanVien", unique = true, nullable = false)

@@ -25,7 +25,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class LoaiMon implements Serializable{
+public class LoaiMon {
     @Id
     @Column(name = "MaLoaiMon",length = 4,nullable = false)
     private String maLoaiMon;

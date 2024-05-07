@@ -12,7 +12,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
@@ -30,7 +29,7 @@ import utils.Enum.LoaiKhuyenMai;
 @Setter
 @ToString
 @NoArgsConstructor
-public class KhuyenMai implements Serializable{
+public class KhuyenMai {
 
     @Id
     @Column(name = "MaKhuyenMai", length = 21, nullable = false)

@@ -59,8 +59,4 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
             return false;
         }
     }
-;
-
-    
-
 }

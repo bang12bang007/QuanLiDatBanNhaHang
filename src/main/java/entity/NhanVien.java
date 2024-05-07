@@ -31,7 +31,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class NhanVien implements Serializable{
+public class NhanVien {
 
     @Id
     @Column(name = "MaNhanVien", nullable = false)
