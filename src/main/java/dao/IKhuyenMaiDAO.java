@@ -5,7 +5,6 @@
 package dao;
 
 /**
- *
  * @author Laptop
  */
 public interface IKhuyenMaiDAO<T> extends GenericDAO<T> {

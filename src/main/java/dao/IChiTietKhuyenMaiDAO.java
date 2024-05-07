@@ -8,9 +8,8 @@ import entity.HoaDon;
 import entity.KhuyenMai;
 
 /**
- *
  * @author Laptop
  */
 public interface IChiTietKhuyenMaiDAO<T> extends GenericDAO<T> {
-    
+
 }

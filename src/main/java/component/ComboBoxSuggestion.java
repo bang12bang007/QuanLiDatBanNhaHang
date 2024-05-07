@@ -5,9 +5,9 @@ package component;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 /**
- *
  * @author Laptop
  */
+
 import javax.swing.JComboBox;
 
 public class ComboBoxSuggestion<E> extends JComboBox<E> {

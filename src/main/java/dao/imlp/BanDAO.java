@@ -9,10 +9,10 @@ import entity.Ban;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+
 import java.util.List;
 
 /**
- *
  * @author Laptop
  */
 public class BanDAO extends AbstractDAO<Ban> implements IBanDAO<Ban> {

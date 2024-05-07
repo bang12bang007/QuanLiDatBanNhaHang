@@ -21,6 +21,7 @@ utils\ModelColor.class
 view\employee\Form_ThemMonKhac.class
 view\employee\GD_TrangChu$3.class
 component\MessageOrderConfirm$3.class
+component\MessageReserve$3.class
 view\employee\Form_DoiSoLuongNguoi$5.class
 view\employee\GD_Ban.class
 view\employee\Form_XemThucDon$7.class
@@ -69,6 +70,7 @@ dao\IKhuyenMaiDAO.class
 view\employee\GD_ThanhToan$7.class
 component\RoundJTextField.class
 view\employee\GD_DatBanTruoc$3.class
+component\MessageReserve$1.class
 component\MessageOrderConfirm.class
 dao\imlp\TheThanhVienDAO.class
 utils\Enum$LoaiTrangThai.class
@@ -135,6 +137,7 @@ dao\imlp\TaiKhoanDAO.class
 datechooser\Slider.class
 dao\imlp\AbstractDAO.class
 view\employee\GD_DatBanTaiCho$7.class
+view\employee\GD_DatBanTruoc$16.class
 view\employee\GD_TrangChu$8.class
 view\employee\GD_DatMon$1.class
 view\manager\forms\ReadForm$1.class
@@ -143,6 +146,7 @@ utils\Enum$LoaiKhuyenMai.class
 view\employee\Form_XemThucDon$9.class
 component\OrderCard$1.class
 utils\Enum$DatMon_ThemMon.class
+component\MessageReserve$4.class
 component\MessageOrderConfirm$2.class
 view\employee\Form_ThuTien$8.class
 datechooser\SelectedDate.class
@@ -174,6 +178,7 @@ component\ComboBoxSuggestion.class
 view\employee\GD_DatMon$5.class
 view\employee\Form_DatBan$3.class
 dao\IMonDAO.class
+component\MessageReserve$2.class
 view\employee\GD_BaoCao.class
 view\employee\GD_DatMon$15.class
 view\manager\components\MainForm.class
@@ -230,6 +235,7 @@ datechooser\Dates.class
 view\employee\Form_XemThucDon$6.class
 view\manager\menu\Menu.class
 dao\imlp\BanDAO.class
+component\MessageReserve.class
 datechooser\Months.class
 view\employee\Form_DatBan.class
 view\employee\GD_DatMon$7.class

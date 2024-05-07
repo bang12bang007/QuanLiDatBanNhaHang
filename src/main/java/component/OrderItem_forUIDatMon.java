@@ -9,10 +9,13 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import entity.ChiTietHoaDon;
 import entity.Mon;
 import icon.FontAwesome;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+
 import static java.awt.Frame.MAXIMIZED_BOTH;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -24,15 +27,17 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
 import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
 import utils.Enum.TypeDatMon_Branch;
 import view.employee.GD_DatMon;
+
 import static utils.AppUtils.*;
+
 import view.Form_GhiChu;
 
 /**
- *
  * @author Laptop
  */
 public class OrderItem_forUIDatMon extends javax.swing.JPanel {
@@ -116,7 +121,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     }
 
     ;
-    
+
     public void updateTongTien() {
         double tong = 0.0;
         for (int i = 0; i < orders.size(); i++) {
@@ -155,6 +160,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 //    public OrderItem(int index) {
 //        initComponents();
 //    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -180,10 +186,10 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         tenMon.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0));
         add(tenMon);
 
-        panelRound1.setBackground(new java.awt.Color(255, 255, 255,0));
+        panelRound1.setBackground(new java.awt.Color(255, 255, 255, 0));
         panelRound1.setLayout(new java.awt.GridLayout(1, 0));
 
-        soLuong.setBackground(new java.awt.Color(204, 255, 255,0));
+        soLuong.setBackground(new java.awt.Color(204, 255, 255, 0));
         soLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         soLuong.setForeground(new java.awt.Color(255, 255, 255));
         soLuong.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -192,6 +198,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 soLuongMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 soLuongMouseExited(evt);
             }
@@ -199,6 +206,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         soLuong.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
+
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 soLuongInputMethodTextChanged(evt);
             }
@@ -215,9 +223,11 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 increaseMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 increaseMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 increaseMouseExited(evt);
             }
@@ -229,9 +239,11 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 decreaseMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 decreaseMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 decreaseMouseExited(evt);
             }
@@ -250,9 +262,11 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ghiMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ghiMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 ghiMouseExited(evt);
             }
@@ -266,15 +280,18 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 huyMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 huyMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 huyMouseExited(evt);
             }
         });
         add(huy);
     }// </editor-fold>//GEN-END:initComponents
+
     public void checkTextField() {
         try {
             if (initialized) {
@@ -292,6 +309,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     }
 
     ;
+
     private void huyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huyMouseExited
         // TODO add your handling code here:
         //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 14));
@@ -430,24 +448,24 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
 
     private void ghiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseEntered
         // TODO add your handling code here:
-        
-        if (type_orderItem.equals("PRELOAD")){
+
+        if (type_orderItem.equals("PRELOAD")) {
             ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOKMARK, 30, new Color(234, 124, 105)));
-        }
-        else{
+        } else {
             ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, new Color(234, 124, 105)));
         }
     }//GEN-LAST:event_ghiMouseEntered
 
     private void ghiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ghiMouseExited
         // TODO add your handling code here:
-        
-        if (type_orderItem.equals("PRELOAD")){
+
+        if (type_orderItem.equals("PRELOAD")) {
             ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOKMARK, 30, Color.white));
-        }else{
+        } else {
             ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 30, Color.white));
         }
     }//GEN-LAST:event_ghiMouseExited
+
     public void update_PanelOrder(boolean update) {
         if (update) {
             ArrayList<Mon> replace_orders = new ArrayList<Mon>();
@@ -538,8 +556,8 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     public GD_DatMon getDatMon() {
         return datMon;
     }
-    
-    public int getSoLuong(){
+
+    public int getSoLuong() {
         return Integer.parseInt(soLuong.getText());
     }
 

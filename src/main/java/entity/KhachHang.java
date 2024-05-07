@@ -12,14 +12,15 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+
 import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
- *
  * @author Laptop
  */
 @Entity
@@ -28,17 +29,17 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.soDienThoai = :sdt")
+        @NamedQuery(name = "KhachHang.findByPhoneNumber", query = "SELECT k FROM KhachHang k WHERE k.soDienThoai = :sdt")
 })
 public class KhachHang {
     @Id
-    @Column(name="MaKhachHang",nullable = false)
+    @Column(name = "MaKhachHang", nullable = false)
     private String maKhachHang;
-    @Column(name="TenKhachHang",columnDefinition = "NVARCHAR(50)",nullable = false)
+    @Column(name = "TenKhachHang", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String hoTen;
-    @Column(name="SoDienThoai",nullable = false)
+    @Column(name = "SoDienThoai", nullable = false)
     private String soDienThoai;
-    @Column(name="DiaChi",columnDefinition = "NVARCHAR(255)",nullable = true)
+    @Column(name = "DiaChi", columnDefinition = "NVARCHAR(255)", nullable = true)
     private String diaChi;
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;

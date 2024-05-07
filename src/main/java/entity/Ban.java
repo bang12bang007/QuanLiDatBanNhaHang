@@ -16,7 +16,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+
 import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +26,6 @@ import lombok.ToString;
 import utils.Enum.LoaiTrangThai;
 
 /**
- *
  * @author Laptop
  */
 @Entity
@@ -54,6 +55,10 @@ public class Ban {
     private Ban banGop;
     @Column(name = "Tang", nullable = false)
     private String tang;
-    @OneToMany(mappedBy = "ban",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "OldBanGop", nullable = true)
+    private String oldBanGop;
+    @Column(name = "OldState", nullable = true)
+    private String oldState;
+    @OneToMany(mappedBy = "ban", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
 }

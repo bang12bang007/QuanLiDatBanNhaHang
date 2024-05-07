@@ -5,10 +5,10 @@
 package dao;
 
 import entity.Ban;
+
 import java.util.List;
 
 /**
- *
  * @author Laptop
  */
 public interface IBanDAO<T> extends GenericDAO<T> {

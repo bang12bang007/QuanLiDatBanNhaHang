@@ -8,9 +8,8 @@ import dao.INhanVienDAO;
 import entity.NhanVien;
 
 /**
- *
  * @author Laptop
  */
 public class NhanVienDAO extends AbstractDAO<NhanVien> implements INhanVienDAO<NhanVien> {
-       
+
 }

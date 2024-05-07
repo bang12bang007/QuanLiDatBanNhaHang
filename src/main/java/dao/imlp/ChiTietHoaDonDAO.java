@@ -8,11 +8,10 @@ import dao.IChiTietHoaDonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import jakarta.persistence.EntityTransaction;
+
 import java.util.List;
 
 /**
- *
- *
  * @author dmx
  */
 public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChiTietHoaDonDAO<ChiTietHoaDon> {
@@ -59,8 +58,8 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
             return false;
         }
     }
-;
 
-    
+    ;
+
 
 }

@@ -5,10 +5,12 @@ import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,6 +57,11 @@ public class DashboardForm extends SimpleForm {
     }
 
     private void init() {
+        Locale.setDefault(Locale.US);
+
+        // Sử dụng NumberFormat trong toàn bộ ứng dụng
+        double number = 123456.789;
+        NumberFormat nf = NumberFormat.getInstance();
         setLayout(new MigLayout("wrap,fill,gap 10", "fill"));
         setBackground(new Color(83, 86, 99));
         createPieChart();

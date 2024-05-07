@@ -1,8 +1,14 @@
 package view.manager.menu;
 
+import component.Loading;
+
 import java.awt.Image;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 import view.manager.components.MainForm;
 import view.manager.components.SimpleForm;
 import view.manager.swing.slider.PanelSlider;
@@ -10,7 +16,6 @@ import view.manager.swing.slider.SimpleTransition;
 import view.manager.utils.UndoRedo;
 
 /**
- *
  * @author Raven
  */
 public class FormManager {
@@ -54,6 +59,38 @@ public class FormManager {
                 instance.mainForm.showForm(component);
             }
             instance.forms.getCurrent().formInitAndOpen();
+        }
+    }
+
+    public static void showForm(Supplier<SimpleForm> componentSupplier) {
+        if (isNewFormAble()) {
+            Loading loading = new Loading();
+            instance.forms.add(loading);
+            if (instance.menuShowing) {
+                instance.menuShowing = false;
+                Image oldImage = instance.panelSlider.createOldImage();
+                instance.mainForm.setForm(loading);
+                instance.panelSlider.addSlide(instance.mainForm, SimpleTransition.getSwitchFormTransition(oldImage, instance.menu.getDrawerBuilder().getDrawerWidth()));
+            } else {
+                instance.mainForm.showForm(loading);
+            }
+            instance.forms.getCurrent().formInitAndOpen();
+            CompletableFuture<SimpleForm> formFuture = CompletableFuture.supplyAsync(componentSupplier);
+
+            formFuture.thenAccept(panel -> {
+                instance.forms.remove(loading);
+
+                instance.forms.add(panel);
+                if (instance.menuShowing) {
+                    instance.menuShowing = false;
+                    Image oldImage = instance.panelSlider.createOldImage();
+                    instance.mainForm.setForm(panel);
+                    instance.panelSlider.addSlide(instance.mainForm, SimpleTransition.getSwitchFormTransition(oldImage, instance.menu.getDrawerBuilder().getDrawerWidth()));
+                } else {
+                    instance.mainForm.showForm(panel);
+                }
+                instance.forms.getCurrent().formInitAndOpen();
+            });
         }
     }
 

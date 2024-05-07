@@ -1,16 +1,17 @@
 package view.manager.menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 import net.miginfocom.swing.MigLayout;
 import raven.drawer.component.DrawerBuilder;
 import raven.drawer.component.DrawerPanel;
 
 /**
- *
  * @author Raven
  */
 public class Menu extends JPanel {

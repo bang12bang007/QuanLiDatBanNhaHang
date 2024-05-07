@@ -9,14 +9,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+
 import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
- *
  * @author dmx
  */
 @Entity
@@ -26,13 +27,13 @@ import lombok.ToString;
 @ToString
 public class LoaiMon {
     @Id
-    @Column(name = "MaLoaiMon",length = 4,nullable = false)
+    @Column(name = "MaLoaiMon", length = 4, nullable = false)
     private String maLoaiMon;
-    @Column(name = "TenLoai",columnDefinition = "NVARCHAR(50)",nullable = false)
+    @Column(name = "TenLoai", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String tenLoai;
-    @Column(name = "ChuThich",columnDefinition = "NVARCHAR(255)")
+    @Column(name = "ChuThich", columnDefinition = "NVARCHAR(255)")
     private String chuThich;
-    @OneToMany(mappedBy = "loaiMon",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "loaiMon", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Mon> mon;
 

@@ -13,7 +13,6 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 
 /**
- *
  * @author Laptop
  */
 public class AbstractDAO<T> implements GenericDAO<T> {

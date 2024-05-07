@@ -7,9 +7,8 @@ package dao;
 import entity.NhanVien;
 
 /**
- *
  * @author Laptop
  */
 public interface INhanVienDAO<T> extends GenericDAO<T> {
-    
+
 }

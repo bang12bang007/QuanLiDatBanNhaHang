@@ -5,9 +5,8 @@
 package dao;
 
 /**
- *
  * @author dmx
  */
-public interface ITaiKhoanDAO<T> extends GenericDAO<T>{
-    
+public interface ITaiKhoanDAO<T> extends GenericDAO<T> {
+
 }

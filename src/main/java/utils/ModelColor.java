@@ -7,7 +7,6 @@ package utils;
 import java.awt.Color;
 
 /**
- *
  * @author dmx
  */
 public class ModelColor {

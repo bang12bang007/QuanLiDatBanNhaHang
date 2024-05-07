@@ -31,11 +31,10 @@ import raven.swing.AvatarIcon;
  */
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
-
     public MyDrawerBuilder() {
 
     }
-    
+
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
         AvatarIcon icon = new AvatarIcon(getClass().getResource("/view/manager/resources/image/profile.png"), 60, 60, 999);
@@ -141,21 +140,20 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 if (index.length == 1) {
                     switch (((Item) items[index[0]]).getName()) {
                         case "Dashboard": {
-                            FormManager.showForm(new DashboardForm());
+                            FormManager.showForm(() -> new DashboardForm());
                             break;
                         }
                     }
-                }
-//                Level 2
+                } //                Level 2
                 else if (index.length == 2) {
                     List<Item> _items_ = ((Item) items[index[0]]).getSubMenu();
                     switch (_items_.get(index[1]).getName()) {
                         case "Inbox": {
-                            FormManager.showForm(new InboxForm());
+                            FormManager.showForm(() -> new InboxForm());
                             break;
                         }
                         case "Read": {
-                            FormManager.showForm(new ReadForm());
+                            FormManager.showForm(() -> new ReadForm());
                             break;
                         }
                     }

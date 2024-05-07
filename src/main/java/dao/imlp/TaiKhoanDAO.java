@@ -8,7 +8,6 @@ import dao.ITaiKhoanDAO;
 import entity.TaiKhoan;
 
 /**
- *
  * @author dmx
  */
 public class TaiKhoanDAO extends AbstractDAO<TaiKhoan> implements ITaiKhoanDAO<TaiKhoan> {

@@ -1,12 +1,13 @@
 package view.manager.utils;
 
+import component.Loading;
+
 import java.util.Iterator;
 import java.util.Stack;
 
 /**
- *
- * @author Raven
  * @param <E>
+ * @author Raven
  */
 public class UndoRedo<E> implements Iterable<E> {
 
@@ -70,6 +71,10 @@ public class UndoRedo<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new MyIterator();
+    }
+
+    public void remove(E item) {
+        stack1.remove(item);
     }
 
     private class MyIterator implements Iterator<E> {

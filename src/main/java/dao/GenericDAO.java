@@ -7,7 +7,6 @@ package dao;
 import java.util.List;
 
 /**
- *
  * @author Laptop
  */
 public interface GenericDAO<T> {

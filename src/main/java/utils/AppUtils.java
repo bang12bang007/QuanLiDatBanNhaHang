@@ -5,9 +5,11 @@
 package utils;
 
 import java.awt.Font;
+
 import component.Loading;
 import dao.imlp.BanDAO;
 import entity.NhanVien;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
@@ -21,7 +23,6 @@ import javax.swing.SwingWorker;
 import javax.swing.JScrollPane;
 
 /**
- *
  * @author Laptop
  */
 public class AppUtils {

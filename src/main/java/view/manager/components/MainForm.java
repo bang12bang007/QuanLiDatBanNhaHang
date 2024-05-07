@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import net.miginfocom.swing.MigLayout;
 import view.manager.menu.FormManager;
 import view.manager.swing.slider.PanelSlider;
@@ -16,7 +17,6 @@ import view.manager.swing.slider.SimpleTransition;
 import view.manager.swing.slider.SliderTransition;
 
 /**
- *
  * @author Raven
  */
 public class MainForm extends JPanel {

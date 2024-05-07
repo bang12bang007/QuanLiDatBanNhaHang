@@ -8,7 +8,6 @@ import entity.KhachHang;
 import entity.NhanVien;
 
 /**
- *
  * @author Laptop
  */
 public interface IKhachHangDAO<T> extends GenericDAO<T> {

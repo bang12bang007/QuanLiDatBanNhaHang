@@ -8,7 +8,6 @@ import dao.IKhuyenMaiDAO;
 import entity.KhuyenMai;
 
 /**
- *
  * @author Laptop
  */
 public class KhuyenMainDAO extends AbstractDAO<KhuyenMai> implements IKhuyenMaiDAO<KhuyenMai> {

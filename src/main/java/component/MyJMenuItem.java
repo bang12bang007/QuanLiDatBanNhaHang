@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JMenuItem;
 
 /**
- *
  * @author dmx
  */
 public class MyJMenuItem extends JMenuItem {
@@ -37,22 +36,25 @@ public class MyJMenuItem extends JMenuItem {
         setHorizontalTextPosition(CENTER);
         setVerticalAlignment(CENTER);
         setVerticalTextPosition(CENTER);
-        setFont(new Font("Segoe UI",Font.BOLD,14));
-        
+        setFont(new Font("Segoe UI", Font.BOLD, 14));
+
         // Add mouse listener to handle color changes
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 setColor(color);
             }
+
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 setBackground(color);
             }
+
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 setBackground(colorClick);
             }
+
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 setBackground(color);
