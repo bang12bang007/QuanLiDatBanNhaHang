@@ -180,6 +180,7 @@ public class Food extends javax.swing.JPanel {
             }
             list_Quantity = datmon.getList_quantity();
             list_Quantity.add(1);
+            datmon.getGhiChus().add(null);
             String[] title = new String[]{ten, "1", tien_format.format(Double.parseDouble(gia)), ""};
             OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datmon, mon, orderPanel.getWidth(), orders.size(), title, orders);
             item.setListPreOrder(datmon.getListPreOrderItem());

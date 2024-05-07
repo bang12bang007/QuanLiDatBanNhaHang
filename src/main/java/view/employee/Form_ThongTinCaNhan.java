@@ -12,8 +12,12 @@ import jiconfont.swing.IconFontSwing;
 import view.employee.GD_DatBanTruoc;
 
 import static utils.AppUtils.NHANVIEN;
-
-import utils.AppUtils;
+//<<<<<<< HEAD
+//
+//import utils.AppUtils;
+//=======
+import static utils.AppUtils.*;
+//>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
 
 /**
  * @author Laptop
@@ -126,7 +130,9 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(utils.AppUtils.getFont(16f, AppUtils._NORMAL_)
+        jLabel1.setFont(utils.AppUtils.getFont(20f, _BOLD_)
+
+
         );
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Thông tin tài khoản");
@@ -157,14 +163,11 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
 
         destop.setBackground(new java.awt.Color(83, 86, 99));
         destop.setForeground(java.awt.Color.white);
-
-        jLabel9.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+        jLabel9.setFont(utils.AppUtils.getFont(20f, _NORMAL_));
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("jLabel09");
 
-        jLabel29.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+        jLabel29.setFont(utils.AppUtils.getFont(20f, _NORMAL_));
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("jLabel29");
 
@@ -184,17 +187,17 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         javax.swing.GroupLayout destopLayout = new javax.swing.GroupLayout(destop);
         destop.setLayout(destopLayout);
         destopLayout.setHorizontalGroup(
-                destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(destopLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(destopLayout.createSequentialGroup()
-                                .addContainerGap(147, Short.MAX_VALUE)
-                                .addGroup(destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel29)
-                                        .addComponent(jLabel9))
-                                .addGap(0, 148, Short.MAX_VALUE))
+            destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(destopLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(destopLayout.createSequentialGroup()
+                .addContainerGap(144, Short.MAX_VALUE)
+                .addGroup(destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel9))
+                .addGap(0, 145, Short.MAX_VALUE))
         );
         destopLayout.setVerticalGroup(
                 destopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,42 +211,35 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+        jLabel3.setFont(utils.AppUtils.getFont(20f, _BOLD_));
         jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Thông tin cá nhân");
-
-        jLabel4.setFont(utils.AppUtils.getFont(14f, AppUtils._BOLD_)
-        );
+        jLabel4.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Giới tính");
 
-        jLabel5.setFont(utils.AppUtils.getFont(14f, AppUtils._BOLD_)
-        );
+        jLabel5.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Ngày bắt đầu");
 
-        jLabel6.setFont(utils.AppUtils.getFont(14f, AppUtils._BOLD_)
-        );
+
+        jLabel6.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Số điện thoại");
 
-        jLabel7.setFont(utils.AppUtils.getFont(14f, AppUtils._BOLD_)
-        );
+        jLabel7.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("Vai trò ");
 
-        jLabel8.setFont(utils.AppUtils.getFont(14f, AppUtils._BOLD_)
-        );
+        jLabel8.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Trạng thái");
 
-        jLabel10.setFont(utils.AppUtils.getFont(14f, AppUtils._BOLD_)
-        );
+        jLabel10.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel10.setForeground(java.awt.Color.white);
         jLabel10.setText("Địa chỉ");
 
-        jLabel11.setFont(utils.AppUtils.getFont(14f, AppUtils._BOLD_)
+        jLabel11.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
         );
         jLabel11.setForeground(java.awt.Color.white);
         jLabel11.setText("Tuổi");
@@ -278,38 +274,37 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         jLabel21.setForeground(java.awt.Color.white);
         jLabel21.setText(":");
 
-        jLabel22.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+
+        jLabel22.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel22.setForeground(java.awt.Color.white);
         jLabel22.setText("jLabel22");
 
-        jLabel23.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+
+        jLabel23.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel23.setForeground(java.awt.Color.white);
         jLabel23.setText("jLabel22");
 
-        jLabel24.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+
+        jLabel24.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel24.setForeground(java.awt.Color.white);
         jLabel24.setText("jLabel22");
 
-        jLabel25.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+
+        jLabel25.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel25.setForeground(java.awt.Color.white);
         jLabel25.setText("jLabel22");
 
-        jLabel26.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+
+        jLabel26.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel26.setForeground(java.awt.Color.white);
         jLabel26.setText("jLabel22");
 
-        jLabel27.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+
+        jLabel27.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel27.setForeground(java.awt.Color.white);
         jLabel27.setText("jLabel22");
 
-        jLabel28.setFont(utils.AppUtils.getFont(14f, AppUtils._NORMAL_)
-        );
+        jLabel28.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
         jLabel28.setForeground(java.awt.Color.white);
         jLabel28.setText("jLabel22");
 
@@ -440,11 +435,12 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(349, Short.MAX_VALUE)
-                                .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(438, Short.MAX_VALUE))
+
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(354, Short.MAX_VALUE)
+                .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(443, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

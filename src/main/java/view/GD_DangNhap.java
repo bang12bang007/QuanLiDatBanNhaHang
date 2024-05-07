@@ -31,6 +31,10 @@ public class GD_DangNhap extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
 //    TK: NV120060424290
 //    MK: 280920003
+    
+//    TK: NV121100624291
+//    MK: 11122003    
+    
     /**
      * Creates new form GD_DangNhap
      */
@@ -50,6 +54,10 @@ public class GD_DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Notifications.getInstance().setJFrame(this);
         FlatIntelliJLaf.setup();
+        //---------------------------------------------
+//        mẹ mày có mỗi việc copy ra rồi comment lại cũng để thằng khác làm dùm, m chỉ biết mỗi m thôi
+//        tenDangNhap.setText("NV121100624291");   
+//        matKhau.setText("11122003");
         //---------------------------------------------
         tenDangNhap.setText("NV120060424290");
         matKhau.setText("280920003");
@@ -261,7 +269,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
                     new GD_TrangChu().setVisible(true);
                 }
             } else {
-//                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Mật khẩu không đúng");
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Mật khẩu không đúng");
             }
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed

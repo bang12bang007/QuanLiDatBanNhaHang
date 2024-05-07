@@ -886,7 +886,7 @@ public class Form_DatBan extends javax.swing.JPanel {
 //            
 //        }
         String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
-        oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() : null + ",";
+        oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
         ban.setBanGop(mainBan);
         ban.setOldBanGop(oldBanGop);
         String oldState = null;

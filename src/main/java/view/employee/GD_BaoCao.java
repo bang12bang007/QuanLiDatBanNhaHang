@@ -35,9 +35,9 @@ public class GD_BaoCao extends javax.swing.JPanel {
     }
 
     void set_up_UI() {
-        tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
-        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
-        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
+//        tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
+//        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
+//        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(LocalDateTime.now(), LocalDateTime.now())));
         dateChooser1.addEventDateChooser(new EventDateChooser() {
             public void dateSelected(SelectedAction action, SelectedDate date) {
                 if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
@@ -61,9 +61,9 @@ public class GD_BaoCao extends javax.swing.JPanel {
         LocalDateTime ngayBatDau = LocalDateTime.of(dateSelect1.getYear(), dateSelect1.getMonth(), dateSelect1.getDay(), 0, 0);
         SelectedDate dateSelect2 = dateChooser2.getSelectedDate();
         LocalDateTime ngayKetThuc = LocalDateTime.of(dateSelect2.getYear(), dateSelect2.getMonth(), dateSelect2.getDay(), 0, 0);
-        tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
-        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
-        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(ngayBatDau, ngayKetThuc)));
+//        tongSoHoaDonJLabel.setText(String.valueOf(dao.getTongHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
+//        tongSoHoaDonJLabel2.setText(tien_format.format(dao.getTongTienHoaDonTheoNgay(ngayBatDau, ngayKetThuc)));
+//        tongSoHoaDonJLabel1.setText(String.valueOf(dao.getTongSoLuongMonTheoNgay(ngayBatDau, ngayKetThuc)));
     }
 
     /**

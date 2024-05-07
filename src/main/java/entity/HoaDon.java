@@ -38,7 +38,8 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai"),
     @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
-    @NamedQuery(name = "HoaDon.findHoaDonTuNgayDenNgay", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
+    @NamedQuery(name = "HoaDon.findFromDateToDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
+    @NamedQuery(name = "HoaDon.findOrdersByMonth", query = "SELECT h FROM HoaDon h WHERE MONTH(h.ngayLapHoaDon) = :month") ,
     @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date)")
 })
 public class HoaDon {

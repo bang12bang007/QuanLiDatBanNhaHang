@@ -624,7 +624,7 @@ public class GD_Ban extends javax.swing.JPanel {
 //                }
 //                ban.setOldState(oldState);
             String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
-            oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() : null + ",";
+            oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
             ban.setBanGop(getBanItems().size() > 1 ? getMainBan() : null);
             ban.setOldBanGop(oldBanGop);
             String oldState = null;

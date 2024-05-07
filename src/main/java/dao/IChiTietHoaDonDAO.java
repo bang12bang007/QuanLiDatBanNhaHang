@@ -22,4 +22,9 @@ public interface IChiTietHoaDonDAO<T> extends GenericDAO<T> {
     List<ChiTietHoaDon> getListBySoLuong(int soLuong);
 
     boolean deleteChiTiet(ChiTietHoaDon t);
+
+    List<Object[]> sumSoLuongByMaMon();
+
+    List<Object[]> sumSoLuongByMaMonByDate(LocalDateTime ngayYeuCau);
+
 }

@@ -26,9 +26,16 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon"),
-        @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
-        @NamedQuery(name = "ChiTietHoaDon.DS_MonThinhHanh", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon h WHERE h.trangThai = 0 GROUP BY c.mon"),})
+//<<<<<<< HEAD
+//        @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon"),
+//        @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
+//        @NamedQuery(name = "ChiTietHoaDon.DS_MonThinhHanh", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon h WHERE h.trangThai = 0 GROUP BY c.mon"),})
+//=======
+    @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon"),
+    @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
+    @NamedQuery(name = "ChiTietHoaDon.sumSoLuongByMaMon", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c GROUP BY c.mon"),
+    @NamedQuery(name = "ChiTietHoaDon.sumSoLuongByMaMonByDate", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c inner JOIN HoaDon h on c.hoaDon =h WHERE CAST(h.ngayLapHoaDon AS date) = CAST(:ngayYeuCau AS date) GROUP BY c.mon"),
+})                                                                       
 public class ChiTietHoaDon {
 
     @Id
@@ -76,4 +83,5 @@ public class ChiTietHoaDon {
         Double tong = this.mon.getGiaBan() * this.soLuong;
         setThanhTien(tong);
     }
+
 }

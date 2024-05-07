@@ -5,7 +5,7 @@
 package dao;
 
 import entity.Ban;
-
+import entity.HoaDon;
 import java.util.List;
 
 /**
@@ -22,4 +22,6 @@ public interface IBanDAO<T> extends GenericDAO<T> {
     List<Ban> findTableByState(Enum state);
 
     List<Object[]> groupByMaTang();
+
+    List<HoaDon> findListOrderbyBan(Ban ban);
 }

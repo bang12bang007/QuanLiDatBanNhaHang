@@ -49,8 +49,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
+//<<<<<<< HEAD
+//import javax.swing.SwingUtilities;
+//
+//=======
+//>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import utils.Enum.LoaiTrangThaiHoaDon;
@@ -278,14 +281,6 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return table;
     }
 
-    @Override
-    public List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
-        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findHoaDonTuNgayDenNgay", HoaDon.class);
-        query.setParameter("ngayBatDau", ngayBatDau);
-        query.setParameter("ngayKetThuc", ngayKetThuc);
-        return query.getResultList();
-    }
-
     public int getTongHoaDon(NhanVien nv) {
         int hd = 0;
         String ngay = generateTime.substring(0, 6);
@@ -321,58 +316,41 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return formatter;
     }
 
-    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay) {
-        List<HoaDon> list = findAll(HoaDon.class);
-        List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
-        String month_format = String.format("%02d", ngay.getMonthValue());
-        String date_format = String.format("%02d", ngay.getDayOfMonth());
-        String ngayString = Integer.toString(ngay.getYear()).substring(2, 4) + month_format + date_format;
-        for (int i = 0; i < list.size(); i++) {
-            String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
-            if (ngayString.equals(ngay_hoadon)) {
-                listHoaDonTheoNgay.add(list.get(i));
-            }
-        }
-        System.out.println(listHoaDonTheoNgay.size());
-        return listHoaDonTheoNgay;
-    }
-
-    ;
-
+//    <<<<<<< HEAD
+//    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay) {
+//        List<HoaDon> list = findAll(HoaDon.class);
+//        List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
+//        String month_format = String.format("%02d", ngay.getMonthValue());
+//        String date_format = String.format("%02d", ngay.getDayOfMonth());
+//        String ngayString = Integer.toString(ngay.getYear()).substring(2, 4) + month_format + date_format;
+//        for (int i = 0; i < list.size(); i++) {
+//            String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
+//            if (ngayString.equals(ngay_hoadon)) {
+//                listHoaDonTheoNgay.add(list.get(i));
+//            }
+//        }
+//        System.out.println(listHoaDonTheoNgay.size());
+//        return listHoaDonTheoNgay;
+//    }
+//    =======
+//>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
     @Override
-    public int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
-        int soLuongHoaDon = 0;
-        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau, ngayKetThuc);
-        for (int i = 0; i < list.size(); i++) {
-            soLuongHoaDon += 1;
-        }
-        return soLuongHoaDon;
+    public List<HoaDon> findFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
+        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findFromDateToDate", HoaDon.class);
+        query.setParameter("ngayBatDau", ngayBatDau);
+        query.setParameter("ngayKetThuc", ngayKetThuc);
+        return query.getResultList();
     }
 
     @Override
-    public double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
+    public double getTotalRevenueFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         Double total = 0.0;
         ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-        List<HoaDon> list = findHoaDonTuNgayDenNgay(ngayBatDau, ngayKetThuc);
+        List<HoaDon> list = findFromDateToDate(ngayBatDau, ngayKetThuc);
         for (int i = 0; i < list.size(); i++) {
-            total += dao.TotalFoodCurrency(list.get(i));
+            total += list.get(i).getTienPhaiThu();
         }
         return total;
-    }
-
-    @Override
-    public int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
-        int soLuongMon = 0;
-        List<HoaDon> list1 = findHoaDonTuNgayDenNgay(ngayBatDau, ngayKetThuc);
-        ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
-        for (int i = 0; i < list1.size(); i++) {
-            List<ChiTietHoaDon> list2 = new ArrayList<>();
-            list2 = dao.getListByHoaDon(list1.get(i));
-            for (int j = 0; j < list2.size(); j++) {
-                soLuongMon += list2.get(j).getSoLuong();
-            }
-        }
-        return soLuongMon;
     }
 
     @Override
@@ -383,4 +361,30 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return query.getResultList();
     }
 
+    @Override
+    public List<HoaDon> findOrdersByMonth(int month) {
+        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findOrdersByMonth", HoaDon.class);
+        query.setParameter("month", month);
+        return query.getResultList();
+    }
+
+    @Override
+    public double getTotalRevenueByMonth(int month) {
+        Double total = 0.0;
+        List<HoaDon> list = findOrdersByMonth(month);
+        for (int i = 0; i < list.size(); i++) {
+            total += list.get(i).getTienPhaiThu();
+        }
+        return total;
+    }
+
+    @Override
+    public int getTotalInVoicesByMonth(int month) {
+        int soLuongHoaDon = 0;
+        List<HoaDon> list = findOrdersByMonth(month);
+        for (HoaDon h : list) {
+            soLuongHoaDon += 1;
+        }
+        return soLuongHoaDon;
+    }
 }

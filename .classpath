@@ -40,6 +40,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="src/main/java/lib/AbsoluteLayout.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/datechooser.jar"/>
+	<classpathentry kind="lib" path="src/main/java/lib/icepdf-core-6.2.2.jar"/>
+	<classpathentry kind="lib" path="src/main/java/lib/icepdf-viewer-6.2.2.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/jiconfont-1.0.0_1.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/jiconfont-swing-1.0.1.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/LIB_IDETS.jar"/>
@@ -49,14 +51,5 @@
 	<classpathentry kind="lib" path="src/main/java/lib/swing-worker-1.1.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/swingx-1.6.1.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/TimingFramework-0.55.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Laptop/.m2/repository/jiconfont/jiconfont/1/jiconfont-1.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="jiconfont"/>
-			<attribute name="maven.artifactId" value="jiconfont"/>
-			<attribute name="maven.version" value="1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

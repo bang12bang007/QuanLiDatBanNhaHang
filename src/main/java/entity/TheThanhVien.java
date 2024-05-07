@@ -25,7 +25,9 @@ import utils.Enum.LoaiTheThanhVien;
 @Setter
 @ToString
 @NoArgsConstructor
+
 public class TheThanhVien {
+
     @Id
     @Column(name = "MaThe", nullable = false)
     private String maThe;

@@ -25,6 +25,7 @@ import view.manager.forms.DashboardForm;
 import view.manager.forms.InboxForm;
 import view.manager.forms.ReadForm;
 import raven.swing.AvatarIcon;
+import static utils.AppUtils.*;
 
 /**
  * @author Raven
@@ -41,8 +42,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
-                .setTitle("Ngô Đăng Khoa")
-                .setDescription("ndk271103@gmail.com")
+                .setTitle(NHANVIEN.getHoTen())
+                .setDescription(NHANVIEN.getMaNV())
                 .setHeaderStyle(new SimpleHeaderStyle() {
 
                     @Override
@@ -68,36 +69,36 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     public SimpleMenuOption getSimpleMenuOption() {
 
         MenuItem items[] = new MenuItem[]{
-                new Item("Dashboard", "dashboard.svg"),
-                new Item("Email", "email.svg")
-                        .subMenu("Inbox")
-                        .subMenu("Read"),
-                new Item("Chat", "chat.svg"),
-                new Item("Calendar", "calendar.svg"),
-                new Item("Advanced UI", "ui.svg")
-                        .subMenu("Cropper")
-                        .subMenu("Owl Carousel")
-                        .subMenu("Sweet Alert"),
-                new Item("Forms", "forms.svg")
-                        .subMenu("Basic Elements")
-                        .subMenu("Advanced Elements")
-                        .subMenu("SEditors")
-                        .subMenu("Wizard"),
-                new Item("Charts", "chart.svg")
-                        .subMenu("Apex")
-                        .subMenu("Flot")
-                        .subMenu("Sparkline"),
-                new Item("Icons", "icon.svg")
-                        .subMenu("Feather Icons")
-                        .subMenu("Flag Icons")
-                        .subMenu("Mdi Icons"),
-                new Item("Special Pages", "page.svg")
-                        .subMenu("Blank page")
-                        .subMenu("Faq")
-                        .subMenu("Invoice")
-                        .subMenu("Profile")
-                        .subMenu("Pricing")
-                        .subMenu("Timeline")
+            new Item("Dashboard", "dashboard.svg"),
+            new Item("Email", "email.svg")
+            .subMenu("Inbox")
+            .subMenu("Read"),
+            new Item("Chat", "chat.svg"),
+            new Item("Calendar", "calendar.svg"),
+            new Item("Advanced UI", "ui.svg")
+            .subMenu("Cropper")
+            .subMenu("Owl Carousel")
+            .subMenu("Sweet Alert"),
+            new Item("Forms", "forms.svg")
+            .subMenu("Basic Elements")
+            .subMenu("Advanced Elements")
+            .subMenu("SEditors")
+            .subMenu("Wizard"),
+            new Item("Charts", "chart.svg")
+            .subMenu("Apex")
+            .subMenu("Flot")
+            .subMenu("Sparkline"),
+            new Item("Icons", "icon.svg")
+            .subMenu("Feather Icons")
+            .subMenu("Flag Icons")
+            .subMenu("Mdi Icons"),
+            new Item("Special Pages", "page.svg")
+            .subMenu("Blank page")
+            .subMenu("Faq")
+            .subMenu("Invoice")
+            .subMenu("Profile")
+            .subMenu("Pricing")
+            .subMenu("Timeline")
         };
 
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
@@ -140,7 +141,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 if (index.length == 1) {
                     switch (((Item) items[index[0]]).getName()) {
                         case "Dashboard": {
-                            FormManager.showForm(() -> new DashboardForm());
+                            FormManager.showForm(new DashboardForm());
                             break;
                         }
                     }
@@ -149,11 +150,11 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                     List<Item> _items_ = ((Item) items[index[0]]).getSubMenu();
                     switch (_items_.get(index[1]).getName()) {
                         case "Inbox": {
-                            FormManager.showForm(() -> new InboxForm());
+                            FormManager.showForm(new InboxForm());
                             break;
                         }
                         case "Read": {
-                            FormManager.showForm(() -> new ReadForm());
+                            FormManager.showForm(new ReadForm());
                             break;
                         }
                     }

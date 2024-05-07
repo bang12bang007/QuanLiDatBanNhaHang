@@ -6,6 +6,7 @@ package dao.imlp;
 
 import dao.IBanDAO;
 import entity.Ban;
+import entity.HoaDon;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -59,4 +60,10 @@ public class BanDAO extends AbstractDAO<Ban> implements IBanDAO<Ban> {
         }
     }
 
+    @Override
+    public List<HoaDon> findListOrderbyBan(Ban ban) {
+        return em.createNamedQuery("Ban.findHoaDon",HoaDon.class)
+                .setParameter("MaBanGop", ban.getBanGop())
+                .getResultList();
+    }
 }

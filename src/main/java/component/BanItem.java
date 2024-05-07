@@ -56,12 +56,6 @@ public class BanItem extends javax.swing.JPanel {
         this.trangThai = trangThai;
         initComponents();
         jLabel1.setText(ban.getMaBan());
-        tacVuList.setPreferredSize(new Dimension(250, 50));
-        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-        tacVuList.add(createTacVu("Đặt món", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
-            gD_Ban.setFormMessageOrderConfirm(this);
-            menu.setVisible(false);
-        }));
         if (trangThai == utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal()) {
             image_type = "/images/my_table.png";
         } else if (trangThai == utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
@@ -73,6 +67,15 @@ public class BanItem extends javax.swing.JPanel {
         }
 
         myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_type)));
+    }
+
+    private void createListTacVu() {
+        tacVuList.setPreferredSize(new Dimension(250, 50));
+        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        tacVuList.add(createTacVu("Đặt món", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
+            gD_Ban.setFormMessageOrderConfirm(this);
+            menu.setVisible(false);
+        }));
     }
 
     private MyButton createTacVu(String content, Icon icon, ActionListener action) {
@@ -262,6 +265,7 @@ public class BanItem extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (SwingUtilities.isRightMouseButton(evt) && check_icon.getIcon() != null) {
             tacVuList.removeAll();
+            createListTacVu();
             menu.removeAll();
             menu.add(morePanel);
             menu.show(this, 20, this.getHeight() / 2);

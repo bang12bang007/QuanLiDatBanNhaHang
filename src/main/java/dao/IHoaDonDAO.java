@@ -1,48 +1,70 @@
-    /*
-     * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-     * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
-     */
-    package dao;
 
-    import entity.Ban;
-    import entity.HoaDon;
-    import entity.NhanVien;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package dao;
 
-    import java.time.LocalDate;
-    import java.time.LocalDateTime;
-    import java.util.List;
+import entity.Ban;
+import entity.HoaDon;
+import entity.NhanVien;
 
-    /**
-     * @author dmx
-     */
-    public interface IHoaDonDAO<T> extends GenericDAO<T> {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-        HoaDon findLast();
+import java.util.List;
 
-        boolean insertHoaDon(HoaDon hoadon);
+/**
+ * @author dmx
+ */
+public interface IHoaDonDAO<T> extends GenericDAO<T> {
 
-        List<HoaDon> findOnOrder();
+    HoaDon findLast();
 
-        //    find by state (NDK)
-        List<HoaDon> findByState(Enum state);
+    boolean insertHoaDon(HoaDon hoadon);
 
-        boolean updateStateById(String id, Enum state);
+    List<HoaDon> findOnOrder();
 
-        //    use to move from this table to other table
-        boolean updateBanById(String id, Ban ban);
+    //    find by state (NDK)
+    List<HoaDon> findByState(Enum state);
 
-        void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
+    boolean updateStateById(String id, Enum state);
 
-        double getTongDoanhThu(NhanVien nv);
+    boolean updateBanById(String id, Ban ban);
 
-        List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+//    <<<<<< < HEAD //    use to move from this table to other table
+//         boolean updateBanById(String id, Ban ban);
+//
+//    void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
+//
+//    double getTongDoanhThu(NhanVien nv);
+//
+//    List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+//
+//    int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+//
+//    double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+//
+//    int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+//
+//    List<HoaDon> filterByDate(LocalDate date);
+//
+//}
+//=======
+    void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
 
-        int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+    double getTongDoanhThu(NhanVien nv);
 
-        double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+    List<HoaDon> filterByDate(LocalDate date);
 
-        int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
+    List<HoaDon> findFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
 
-        List<HoaDon> filterByDate(LocalDate date);
+    double getTotalRevenueFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
 
-    }
+    List<HoaDon> findOrdersByMonth(int month);
+
+    double getTotalRevenueByMonth(int month);
+
+    int getTotalInVoicesByMonth(int month);
+
+}
