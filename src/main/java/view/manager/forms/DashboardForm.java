@@ -3,42 +3,29 @@ package view.manager.forms;
 import com.formdev.flatlaf.FlatClientProperties;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
-import dao.imlp.KhachHangDAO;
-import dao.imlp.MonDAO;
 import dao.imlp.TheThanhVienDAO;
-import entity.ChiTietHoaDon;
-import entity.KhachHang;
 import entity.Mon;
 import entity.TheThanhVien;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Calendar;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
-import raven.chart.ChartLegendRenderer;
 import raven.chart.bar.HorizontalBarChart;
 import raven.chart.data.category.DefaultCategoryDataset;
 import raven.chart.data.pie.DefaultPieDataset;
 import raven.chart.line.LineChart;
 import raven.chart.pie.PieChart;
 import view.manager.components.SimpleForm;
-import view.manager.utils.DateCalculator;
 
 /**
  * @author Raven
@@ -194,8 +181,10 @@ public class DashboardForm extends SimpleForm {
         List<TheThanhVien> sortedListTTV = listTTV.stream()
                 .sorted(Comparator.comparingDouble(TheThanhVien::getDiemTich).reversed()) // Sắp xếp theo giảm dần
                 .collect(Collectors.toList());
-        for (int i = 0; i < 5; i++) {//--------------------------------------------------------------------------------------------- fix di-----------------------------------
-//            dataset.addValue(sortedListTTV.get(i).getKhachHang().getHoTen(), sortedListTTV.get(i).getDiemTich());
+        int i=0;
+        while (i < 5 && i<sortedListTTV.size()) {
+            dataset.addValue(sortedListTTV.get(i).getKhachHang().getHoTen(), sortedListTTV.get(i).getDiemTich());
+            i++;
         }
         return dataset;
     }
@@ -219,33 +208,6 @@ public class DashboardForm extends SimpleForm {
             }
             date = date.plusDays(1);
         }
-
-        /**
-         * Control the legend we do not show all legend
-         */
-//        DefaultCategoryDataset<String, String> categoryDataset = new DefaultCategoryDataset<>();
-//        LocalDateTime today = ();
-//        cal.add(Calendar.DATE, -30); // Giảm đi 30 ngày
-//        SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy");
-//
-//        int randomDate = 30;
-//        for (int i = 1; i <= randomDate; i++) {
-//            String date = df.format(cal.getTime());
-//            List<Object[]> listCTHD = daoCTHD.sumSoLuongByMaMonByDate();
-//            List<Object[]> sortedListCTHD = listCTHD.stream()
-//                    .sorted((arr1, arr2) -> ((Comparable) arr2[1]).compareTo(arr1[1])) // Sắp xếp theo giảm dần
-//                    .collect(Collectors.toList());
-//            for (Object[] x : sortedListCTHD) {
-//                Mon mon = (Mon) x[0];
-//                String tenMon = mon.getTenMon();
-//                Long tongSoLuong = (Long) x[1];
-//                categoryDataset.addValue(, "Income", date);
-//                categoryDataset.addValue(ran.nextInt(700) + 5, "Expense", date);
-//                categoryDataset.addValue(ran.nextInt(700) + 5, "Profit", date);
-//
-//                cal.add(Calendar.DATE, 1);
-//            }
-//        }
 //        try {
 //            Date date = df.parse(categoryDataset.getColumnKey(0));
 //            Date dateEnd = df.parse(categoryDataset.getColumnKey(categoryDataset.getColumnCount() - 1));
@@ -269,7 +231,7 @@ public class DashboardForm extends SimpleForm {
 //        }
         lineChart.setCategoryDataset(categoryDataset);
         lineChart.getChartColor().addColor(Color.decode("#38bdf8"), Color.decode("#fb7185"), Color.decode("#34d399"));
-        JLabel header = new JLabel("Income Data");
+        JLabel header = new JLabel("Top 3 món được sử dụng trong 30 ngày gần nhất");
         header.putClientProperty(FlatClientProperties.STYLE, "" + "font:+1;" + "border:0,0,5,0");
         lineChart.setHeader(header);
     }

@@ -25,7 +25,6 @@ import org.jfree.util.Rotation;
 import java.awt.Color;
 import java.util.List;
 import component.ModelChart;
-import raven.chart.CurveLineChart;
 
 /**
  * @author quanvo
