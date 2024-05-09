@@ -22,7 +22,6 @@ import dao.imlp.KhachHangDAO;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
-import entity.KhachHang;
 import icon.FontAwesome;
 
 import java.awt.Color;
@@ -34,7 +33,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -769,7 +767,6 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
     public void deleteBooking() {
         if (active >= 0) {
             if (bookingItems.get(active).getHoaDon().getTrangThai().ordinal() == utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC.ordinal()) {
-                hoaDonDAO.updateStateById(bookingItems.get(active).getHoaDon().getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
                 if (bookingItems.get(active).getHoaDon().getSoBanGop() > 1) {
                     HoaDon hoaDon = bookingItems.get(active).getHoaDon();
                     Ban banGop = hoaDon.getBan();
@@ -779,34 +776,42 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                         removeOnFielddMaBanGop();
                     } else if (banGops.size() < hoaDon.getSoBanGop()) {
                         removeOnFielddMaBanGop();
-                        Map<List<Ban>, List<Integer>> map = createToAddBanGops(banGops, banGop, bans);
+                        Map<List<Ban>, List<Integer>> map = createToAddBanGops(banGops, banGop, bans, 0);
                         List<Ban> banOlds = map.keySet().stream().toList().get(0);
                         int index = map.get(banOlds).get(0);
                         clearOld(banOlds, index);
                     } else {
-                        List<HoaDon> orders = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-                        orders = orders.stream().filter(order -> order.getBan().getMaBan().equals(banGop.getMaBan())).toList();
-                        for (int i = 0; i < orders.size(); i++) {
-                            Map<List<Ban>, List<Integer>> map = createToAddBanGops(new ArrayList<>(), banGop, bans);
-                            List<Ban> banOlds = map.keySet().stream().toList().get(0);
-                            int index = map.get(banOlds).get(0);
-                            if (i == orders.indexOf(hoaDon)) {
-                                clearOld(banOlds, index);
-                            }
+                        List<HoaDon> orders = hoaDonDAO.findByStateAndIdTable(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC, banGop.getMaBan());
+//                        orders = orders.stream().filter(order -> order.getBan().getMaBan().equals(banGop.getMaBan())).toList();
+                        List<Map<List<Ban>, List<Integer>>> list = new ArrayList<>();
+//                      i = 1 vì oldBanGop thì phần tử đầu tiên luôn luôn là null
+                        for (int i = 1; i < orders.size(); i++) {
+                            Map<List<Ban>, List<Integer>> map = createToAddBanGops(new ArrayList<>(), banGop, bans, i);
+//                            List<Ban> banOlds = map.keySet().stream().toList().get(0);
+//                            int index = map.get(banOlds).get(0);
+                            list.add(map);
+//                            if (i == orders.indexOf(hoaDon)) {
+//                                clearOld(banOlds, index);
+//                            }
                         }
+                        int i = orders.indexOf(hoaDon);
+                        List<Ban> banOlds = list.get(i).keySet().stream().toList().get(0);
+                        int index = list.get(i).get(banOlds).get(0);
+                        clearOld(banOlds, index);
+                        System.out.println("I: " + i + " INDEX: " + index);
+//                        for (int i = 0; i < list.size(); i++) { 
+//                            System.out.println("RESULTS" + orders.indexOf(hoaDon));
+//                            if (i == orders.indexOf(hoaDon)) {
+//
+//                                break;
+//                            }
+//                        }
                     }
                 } else {
                     Ban ban = bookingItems.get(active).getHoaDon().getBan();
                     removeOneOnFieldMaBanGop(ban);
-//                    if (!isContain(ban) && ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.KHAC)) {
-//                        ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
-//                    }
-//                    if (isOrderToday(bookingItems.get(active).getHoaDon()) && !isContain(ban) && ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT)) {
-//                        ban.setBanGop(null);
-//                        ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
-//                    }
-//                    banDAO.update(ban);
                 }
+                hoaDonDAO.updateStateById(bookingItems.get(active).getHoaDon().getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
                 reload();
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_RIGHT, 1500, "Hủy thành công");
             } else {
@@ -832,7 +837,7 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                     protected List<Ban> doInBackground() throws Exception {
                         List<Ban> bans = banDAO.findAll(Ban.class);
                         for (Ban ban : bans) {
-                            trangThai = receivOne(ban, banGop);
+                            trangThai = receivOne(ban, banGop, trangThai);
                         }
                         return bans;
                     }
@@ -858,10 +863,9 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                 };
                 worker.execute();
             } else {
-                utils.Enum.LoaiTrangThai trangThai = receivOne(banGop, null);
+                utils.Enum.LoaiTrangThai trangThai = receivOne(banGop, null, utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
                 banGop.setTrangThai(trangThai);
                 banDAO.update(banGop);
-//                banDAO.updateStateById(bookingItems.get(active).getHoaDon().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
             }
             bookingItems.get(active).setTrangThai("Đã nhận bàn");
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Khách " + bookingItems.get(active).getHoaDon().getKhachHang().getHoTen() + " đã nhận bàn vào lúc " + forrmater(LocalDateTime.now().toString()));
@@ -869,24 +873,23 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         }
     }
 
-    private utils.Enum.LoaiTrangThai receivOne(Ban ban, Ban banGop) {
-        utils.Enum.LoaiTrangThai trangThai = utils.Enum.LoaiTrangThai.BAN_CO_KHACH;
-        if (ban.getOldBanGop() != null) {
+    private utils.Enum.LoaiTrangThai receivOne(Ban ban, Ban banGop, utils.Enum.LoaiTrangThai trangThai) {
+        if (ban.getOldBanGop() != null && !ban.getOldBanGop().equals("null") && !ban.getOldBanGop().equals("null,")) {
             Map<List<String>, List<Integer>> results = createOld(ban.getOldBanGop(), ban.getOldState());
             List<String> oldBanGops = results.keySet().stream().toList().get(0);
             List<Integer> oldState = results.get(oldBanGops);
-            if (oldBanGops.get(0).equals(banGop != null ? banGop.getMaBan() : "null")) {
-                System.out.println(ban.getMaBan() + "DA VAO DAY ROI");
-                if (oldState.get(0) != utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
-                    trangThai = (utils.Enum.LoaiTrangThai.values()[oldState.get(0)]);
+            if (oldBanGops.get(1).equals(banGop != null ? banGop.getMaBan() : "null")) {
+                if (oldState.get(1) != utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
+                    trangThai = (utils.Enum.LoaiTrangThai.values()[oldState.get(1)]);
                 } else {
                     trangThai = utils.Enum.LoaiTrangThai.KHAC;
                 }
                 ban.setBanGop(banGop != null ? banGop : ban.getBanGop());
-                oldBanGops.remove(oldBanGops.get(0));
-                oldState.remove(oldState.get(0));
+                oldBanGops.remove(oldBanGops.get(1));
+                oldState.remove(oldState.get(1));
                 oldBanGops.add(oldBanGops.size(), banGop != null ? banGop.getBanGop().getMaBan() : null);
                 oldState.add(oldState.size(), banGop != null ? banGop.getTrangThai().ordinal() : ban.getTrangThai().ordinal());
+
                 ban.setOldBanGop(String.join(",", oldBanGops));
                 ban.setOldState(oldState.stream()
                         .map(Object::toString)
@@ -894,26 +897,12 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                 );
                 banDAO.update(ban);
             }
+        } else {
+            ban.setOldBanGop(null);
+            ban.setOldState(null);
         }
 
         return trangThai;
-    }
-
-    private boolean isContain(Ban ban) {
-        List<HoaDon> hoaDons = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
-        for (HoaDon hoaDon : hoaDons) {
-            if (hoaDon.getBan().getMaBan().equals(ban.getMaBan())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isOrderToday(HoaDon hoaDon) {
-        LocalDateTime dateTime = hoaDon.getNgayDatBan();
-        LocalDate date = LocalDate.of(dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
-        System.out.println(date + " " + dateTime + " " + date.isEqual(LocalDate.now()));
-        return date.isEqual(LocalDate.now());
     }
 
     private void reload() {
@@ -947,17 +936,27 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         return banGops;
     }
 
+    private int indexOf(HoaDon hoaDon, List<HoaDon> hoaDons) {
+        for (int i = 0; i < hoaDons.size(); i++) {
+            if (hoaDons.get(i).getMaHoaDon().equals(hoaDon.getMaHoaDon())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private void clearOld(List<Ban> banOlds, int index) {
         for (Ban ban : banOlds) {
             Map<List<String>, List<Integer>> results = createOld(ban.getOldBanGop(), ban.getOldState());
             List<String> oldBanGops = results.keySet().stream().toList().get(0);
             List<Integer> oldState = results.get(oldBanGops);
-            Collections.reverse(oldBanGops);
-            Collections.reverse(oldState);
+//            Collections.reverse(oldBanGops);
+//            Collections.reverse(oldState);
+//            System.out.println("SIZE OF OLD_BANGOP: " + oldBanGops.size() + " SIZE OF OLD_STATE: " + oldState.size());
             oldBanGops.remove(index);
             oldState.remove(index);
-            Collections.reverse(oldBanGops);
-            Collections.reverse(oldState);
+//            Collections.reverse(oldBanGops);
+//            Collections.reverse(oldState);
             String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
             String oldStateString = oldState.size() > 0 ? (oldState.stream()
                     .map(Object::toString)
@@ -982,24 +981,25 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         return results;
     }
 
-    private Map<List<Ban>, List<Integer>> createToAddBanGops(List<Ban> banGops, Ban banGop, List<Ban> bans) {
+    private Map<List<Ban>, List<Integer>> createToAddBanGops(List<Ban> banGops, Ban banGop, List<Ban> bans, int initIndex) {
         Map<List<Ban>, List<Integer>> results = new HashMap<>();
         List<Ban> banOlds = new ArrayList<>();
-        int index = 0;
+        int index = initIndex;
         while (banOlds.size() + banGops.size() != bookingItems.get(active).getHoaDon().getSoBanGop()) {
-            banOlds = new ArrayList<>();
+//            banOlds = new ArrayList<>();
             for (Ban ban : bans) {
                 if (ban.getOldBanGop() != null) {
                     Map<List<String>, List<Integer>> map = createOld(ban.getOldBanGop(), ban.getOldState());
                     List<String> oldBanGops = map.keySet().stream().toList().get(0);
                     List<Integer> oldState = map.get(oldBanGops);
-                    Collections.reverse(oldBanGops);
-                    Collections.reverse(oldState);
-                    if (oldBanGops.contains(banGop.getMaBan()) && index == oldBanGops.indexOf(banGop.getMaBan())) {
+//                    Collections.reverse(oldBanGops);
+//                    Collections.reverse(oldState);
+                    if (oldBanGops.contains(banGop.getMaBan()) && oldBanGops.get(index).equals(banGop.getMaBan())) {
                         banOlds.add(ban);
                     }
                 }
             }
+//            if(banOlds.size() + banGops.size() != bookingItems.get(active).getHoaDon().getSoBanGop())
             index++;
         }
         results.put(banOlds, List.of(index - 1));
@@ -1075,7 +1075,6 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         this.yeuCauDatMon.setText(hoaDon.getYeuCauDatMon());
         yeuCauKhac.setText(hoaDon.getYeuCauKhac());
     }
-//
 
     private String[] getContents(HoaDon hoaDon) {
         String trangThai = "Chưa nhận bàn";

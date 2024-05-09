@@ -36,12 +36,15 @@ import utils.Enum.LoaiTrangThai;
 @NamedQueries({
     @NamedQuery(name = "Ban.groupByMaTang", query = "SELECT b.tang, COUNT(b.tang) AS soBan FROM Ban b GROUP BY b.tang"),
     @NamedQuery(name = "Ban.findByFloor", query = "SELECT b FROM Ban b WHERE b.tang = :maTang"),
+    @NamedQuery(name = "Ban.findByBanGop", query = "SELECT b FROM Ban b WHERE b.banGop = :ban"),
     @NamedQuery(name = "Ban.findTableByStateAndFloor", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai AND b.tang = :maTang"),
     @NamedQuery(name = "Ban.findTableByState", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai"),
     @NamedQuery(name = "Ban.updateStateById", query = "UPDATE Ban SET trangThai = :trangThai WHERE maBan = :maBan"),
-    @NamedQuery(name = "Ban.findHoaDon",query = "SELECT h FROM Ban b inner join HoaDon h on h.ban = b where b.banGop = :MaBanGop")
+    @NamedQuery(name = "Ban.findHoaDon", query = "SELECT h FROM Ban b inner join HoaDon h on h.ban = b where b.banGop = :MaBanGop"),
+    @NamedQuery(name = "Ban.getListBanGopInvoice", query = "SELECT b FROM Ban b WHERE b.trangThai = LoaiTrangThai.KHAC OR (b.trangThai = LoaiTrangThai.BAN_CO_KHACH AND b.banGop.maBan = :maBan)")
 })
 public class Ban {
+
     @Id
     @Column(name = "MaBan", nullable = false)
     private String maBan;

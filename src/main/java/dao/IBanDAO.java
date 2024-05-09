@@ -24,4 +24,8 @@ public interface IBanDAO<T> extends GenericDAO<T> {
     List<Object[]> groupByMaTang();
 
     List<HoaDon> findListOrderbyBan(Ban ban);
+
+    public List<Ban> getListBanGopInvoice(String maBan);
+
+    public List<Ban> findByBanGop(Ban ban);
 }
