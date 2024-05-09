@@ -16,16 +16,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- *
  * @author Laptop
  */
+
 @Entity
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
 public class TaiKhoan {
-
     @Id
     @OneToOne
     @JoinColumn(name = "MaNhanVien", unique = true, nullable = false)

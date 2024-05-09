@@ -16,7 +16,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+
 import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +26,6 @@ import lombok.ToString;
 import utils.Enum.LoaiTrangThai;
 
 /**
- *
  * @author Laptop
  */
 @Entity
@@ -37,10 +38,10 @@ import utils.Enum.LoaiTrangThai;
     @NamedQuery(name = "Ban.findByFloor", query = "SELECT b FROM Ban b WHERE b.tang = :maTang"),
     @NamedQuery(name = "Ban.findTableByStateAndFloor", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai AND b.tang = :maTang"),
     @NamedQuery(name = "Ban.findTableByState", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai"),
-    @NamedQuery(name = "Ban.updateStateById", query = "UPDATE Ban SET trangThai = :trangThai WHERE maBan = :maBan")
+    @NamedQuery(name = "Ban.updateStateById", query = "UPDATE Ban SET trangThai = :trangThai WHERE maBan = :maBan"),
+    @NamedQuery(name = "Ban.findHoaDon",query = "SELECT h FROM Ban b inner join HoaDon h on h.ban = b where b.banGop = :MaBanGop")
 })
 public class Ban {
-
     @Id
     @Column(name = "MaBan", nullable = false)
     private String maBan;
@@ -54,6 +55,10 @@ public class Ban {
     private Ban banGop;
     @Column(name = "Tang", nullable = false)
     private String tang;
-    @OneToMany(mappedBy = "ban",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "OldBanGop", nullable = true)
+    private String oldBanGop;
+    @Column(name = "OldState", nullable = true)
+    private String oldState;
+    @OneToMany(mappedBy = "ban", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
 }

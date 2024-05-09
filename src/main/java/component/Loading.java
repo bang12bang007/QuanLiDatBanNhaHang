@@ -6,11 +6,12 @@ package component;
 
 import javax.swing.ImageIcon;
 
+import view.manager.components.SimpleForm;
+
 /**
- *
  * @author Laptop
  */
-public class Loading extends javax.swing.JPanel {
+public class Loading extends SimpleForm {
 
     /**
      * Creates new form Loading
@@ -23,8 +24,6 @@ public class Loading extends javax.swing.JPanel {
         ImageIcon icon = new javax.swing.ImageIcon(imagePath);
         this.icon.setIcon(icon);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,12 +43,12 @@ public class Loading extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, 1428, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, 1428, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -57,4 +56,8 @@ public class Loading extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel icon;
     // End of variables declaration//GEN-END:variables
+
+    public SimpleForm toSimpleForm() {
+        return (SimpleForm) this;
+    }
 }

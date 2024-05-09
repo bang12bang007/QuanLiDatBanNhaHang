@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
 import utils.ModelColor;
+
 import static utils.AppUtils.*;
+
 /**
- *
  * @author dmx
  */
 public class PanelGradient extends JPanel {
@@ -25,8 +27,9 @@ public class PanelGradient extends JPanel {
         //  Set false to make background panel as transparent
         setOpaque(false);
         colors = new ArrayList<>();
-        setBorder(new LineBorder(Color.BLACK,1));
+        setBorder(new LineBorder(Color.BLACK, 1));
     }
+
     private final List<ModelColor> colors;
 
     public void addColor(ModelColor... color) {
@@ -59,6 +62,7 @@ public class PanelGradient extends JPanel {
         }
         super.paintComponent(grphcs);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -68,12 +72,12 @@ public class PanelGradient extends JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 420, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

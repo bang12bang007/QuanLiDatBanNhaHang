@@ -6,12 +6,16 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+
 import static java.awt.Frame.MAXIMIZED_BOTH;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
 import view.manager.components.Background;
 import view.manager.forms.DashboardForm;
 import view.manager.menu.FormManager;
@@ -19,7 +23,6 @@ import raven.popup.GlassPanePopup;
 import utils.AppUtils;
 
 /**
- *
  * @author Raven
  */
 public class GD_Dashboard extends JFrame {

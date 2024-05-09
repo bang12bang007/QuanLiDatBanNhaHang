@@ -32,11 +32,10 @@ import static utils.AppUtils.*;
  */
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
-
     public MyDrawerBuilder() {
 
     }
-    
+
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
         AvatarIcon icon = new AvatarIcon(getClass().getResource("/view/manager/resources/image/profile.png"), 60, 60, 999);
@@ -70,36 +69,36 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     public SimpleMenuOption getSimpleMenuOption() {
 
         MenuItem items[] = new MenuItem[]{
-                new Item("Dashboard", "dashboard.svg"),
-                new Item("Email", "email.svg")
-                        .subMenu("Inbox")
-                        .subMenu("Read"),
-                new Item("Chat", "chat.svg"),
-                new Item("Calendar", "calendar.svg"),
-                new Item("Advanced UI", "ui.svg")
-                        .subMenu("Cropper")
-                        .subMenu("Owl Carousel")
-                        .subMenu("Sweet Alert"),
-                new Item("Forms", "forms.svg")
-                        .subMenu("Basic Elements")
-                        .subMenu("Advanced Elements")
-                        .subMenu("SEditors")
-                        .subMenu("Wizard"),
-                new Item("Charts", "chart.svg")
-                        .subMenu("Apex")
-                        .subMenu("Flot")
-                        .subMenu("Sparkline"),
-                new Item("Icons", "icon.svg")
-                        .subMenu("Feather Icons")
-                        .subMenu("Flag Icons")
-                        .subMenu("Mdi Icons"),
-                new Item("Special Pages", "page.svg")
-                        .subMenu("Blank page")
-                        .subMenu("Faq")
-                        .subMenu("Invoice")
-                        .subMenu("Profile")
-                        .subMenu("Pricing")
-                        .subMenu("Timeline")
+            new Item("Dashboard", "dashboard.svg"),
+            new Item("Email", "email.svg")
+            .subMenu("Inbox")
+            .subMenu("Read"),
+            new Item("Chat", "chat.svg"),
+            new Item("Calendar", "calendar.svg"),
+            new Item("Advanced UI", "ui.svg")
+            .subMenu("Cropper")
+            .subMenu("Owl Carousel")
+            .subMenu("Sweet Alert"),
+            new Item("Forms", "forms.svg")
+            .subMenu("Basic Elements")
+            .subMenu("Advanced Elements")
+            .subMenu("SEditors")
+            .subMenu("Wizard"),
+            new Item("Charts", "chart.svg")
+            .subMenu("Apex")
+            .subMenu("Flot")
+            .subMenu("Sparkline"),
+            new Item("Icons", "icon.svg")
+            .subMenu("Feather Icons")
+            .subMenu("Flag Icons")
+            .subMenu("Mdi Icons"),
+            new Item("Special Pages", "page.svg")
+            .subMenu("Blank page")
+            .subMenu("Faq")
+            .subMenu("Invoice")
+            .subMenu("Profile")
+            .subMenu("Pricing")
+            .subMenu("Timeline")
         };
 
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
@@ -146,8 +145,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                             break;
                         }
                     }
-                }
-//                Level 2
+                } //                Level 2
                 else if (index.length == 2) {
                     List<Item> _items_ = ((Item) items[index[0]]).getSubMenu();
                     switch (_items_.get(index[1]).getName()) {

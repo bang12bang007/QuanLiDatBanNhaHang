@@ -7,7 +7,6 @@ package dao;
 import entity.KhachHang;
 
 /**
- *
  * @author Laptop
  */
 public interface IKhachHangDAO<T> extends GenericDAO<T> {

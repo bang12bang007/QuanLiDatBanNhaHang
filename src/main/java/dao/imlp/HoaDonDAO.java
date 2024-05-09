@@ -31,7 +31,9 @@ import entity.NhanVien;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+
 import static java.awt.Frame.MAXIMIZED_BOTH;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -47,12 +49,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+//<<<<<<< HEAD
+//import javax.swing.SwingUtilities;
+//
+//=======
+//>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
- *
  * @author dmx
  */
 public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon> {
@@ -343,6 +349,24 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return formatter;
     }
 
+//    <<<<<<< HEAD
+//    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay) {
+//        List<HoaDon> list = findAll(HoaDon.class);
+//        List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
+//        String month_format = String.format("%02d", ngay.getMonthValue());
+//        String date_format = String.format("%02d", ngay.getDayOfMonth());
+//        String ngayString = Integer.toString(ngay.getYear()).substring(2, 4) + month_format + date_format;
+//        for (int i = 0; i < list.size(); i++) {
+//            String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
+//            if (ngayString.equals(ngay_hoadon)) {
+//                listHoaDonTheoNgay.add(list.get(i));
+//            }
+//        }
+//        System.out.println(listHoaDonTheoNgay.size());
+//        return listHoaDonTheoNgay;
+//    }
+//    =======
+//>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
     @Override
     public List<HoaDon> findFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findFromDateToDate", HoaDon.class);

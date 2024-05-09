@@ -6,34 +6,38 @@ package dao.imlp;
 
 import dao.IMonDAO;
 import entity.Mon;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Laptop
  */
-public class MonDAO extends AbstractDAO<Mon> implements IMonDAO<Mon>{
+public class MonDAO extends AbstractDAO<Mon> implements IMonDAO<Mon> {
     public List<Mon> findService() {
         return em.createNamedQuery("Mon.Service", Mon.class)
-                .setParameter("trangThai",utils.Enum.LoaiTrangThaiMon.DANG_KINH_DOANH)
+                .setParameter("trangThai", utils.Enum.LoaiTrangThaiMon.DANG_KINH_DOANH)
                 .getResultList();
-    };
+    }
 
-    public Map<Mon,Long> findPopular() {
-        Map<Mon,Long> map = new LinkedHashMap<>();
+    ;
+
+    public Map<Mon, Long> findPopular() {
+        Map<Mon, Long> map = new LinkedHashMap<>();
         List<?> list = em.createNamedQuery("Mon.Popular5")
                 .getResultList();
         list.stream()
-                .map(o->(Object[])o)
-                .forEach(a->{
+                .map(o -> (Object[]) o)
+                .forEach(a -> {
                     long soLuong = (long) a[0];
                     Mon mon = (Mon) a[1];
-                    map.put(mon,soLuong);
+                    map.put(mon, soLuong);
                 });
         return map;
-    };
+    }
+
+    ;
 
     @Override
     public List<Mon> findOthers() {

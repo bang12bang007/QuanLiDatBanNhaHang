@@ -10,8 +10,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +18,6 @@ import lombok.ToString;
 import utils.Enum.LoaiTheThanhVien;
 
 /**
- *
  * @author dmx
  */
 @Entity
@@ -28,6 +25,7 @@ import utils.Enum.LoaiTheThanhVien;
 @Setter
 @ToString
 @NoArgsConstructor
+
 public class TheThanhVien {
 
     @Id

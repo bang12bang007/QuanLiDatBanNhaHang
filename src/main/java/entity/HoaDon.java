@@ -16,8 +16,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,6 @@ import lombok.Setter;
 import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
- *
  * @author Laptop
  */
 @Getter
@@ -69,6 +70,8 @@ public class HoaDon {
     private LocalDateTime ngayDatBan;
     @Column(name = "SoLuongNguoi", nullable = true)
     private int soLuongNguoi;
+    @Column(name = "SoBanGop", nullable = true)
+    private int soBanGop;
     @Column(name = "YeuCauDatMon", nullable = true, columnDefinition = "NVARCHAR(255)")
     private String yeuCauDatMon;
     @Column(name = "YeuCauKhac", nullable = true, columnDefinition = "NVARCHAR(255)")

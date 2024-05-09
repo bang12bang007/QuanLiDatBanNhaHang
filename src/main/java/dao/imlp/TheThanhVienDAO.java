@@ -10,7 +10,6 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 /**
- *
  * @author Laptop
  */
 public class TheThanhVienDAO extends AbstractDAO<TheThanhVien> implements ITheThanhVienDAO<TheThanhVien> {

@@ -11,7 +11,6 @@ import java.awt.RenderingHints;
 import javax.swing.JTextField;
 
 /**
- *
  * @author dmx
  */
 public class RoundJTextField extends JTextField {

@@ -5,6 +5,7 @@
 package component;
 
 import icon.FontAwesome;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,10 +16,12 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.GapContent;
+
 import jiconfont.swing.IconFontSwing;
+
 import static utils.AppUtils.*;
+
 /**
- *
  * @author Laptop
  */
 public class OrderItem extends javax.swing.JPanel {
@@ -63,6 +66,7 @@ public class OrderItem extends javax.swing.JPanel {
 //    public OrderItem(int index) {
 //        initComponents();
 //    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,9 +101,11 @@ public class OrderItem extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 thanhTienMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 thanhTienMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 thanhTienMouseExited(evt);
             }

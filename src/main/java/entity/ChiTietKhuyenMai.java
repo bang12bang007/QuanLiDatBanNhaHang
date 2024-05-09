@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- *
  * @author Windows
  */
 @Entity
@@ -29,7 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @NamedQueries({
-    @NamedQuery(name = "ChiTietKhuyenMai.delete", query = "DELETE FROM ChiTietKhuyenMai ct WHERE ct.hoaDon = :hoaDon and ct.khuyenMai = :khuyenMai")
+        @NamedQuery(name = "ChiTietKhuyenMai.delete", query = "DELETE FROM ChiTietKhuyenMai ct WHERE ct.hoaDon = :hoaDon and ct.khuyenMai = :khuyenMai")
 })
 public class ChiTietKhuyenMai {
 

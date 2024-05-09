@@ -7,6 +7,7 @@ package component;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import icon.FontAwesome;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.time.LocalDateTime;
@@ -17,14 +18,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
+
 import jiconfont.swing.IconFontSwing;
 import view.employee.GD_Ban;
 import view.employee.GD_DatBanTruoc;
 import view.employee.GD_DatMon;
+
 import static utils.AppUtils.*;
 
 /**
- *
  * @author Laptop
  */
 public class BookingItem extends javax.swing.JPanel {
@@ -204,12 +206,12 @@ public class BookingItem extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -240,6 +242,7 @@ public class BookingItem extends javax.swing.JPanel {
     public HoaDon getHoaDon() {
         return this.hoaDon;
     }
+
     private void btnNhanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanBanActionPerformed
         GD.setBookingActive(index);
         GD.received();
@@ -257,7 +260,7 @@ public class BookingItem extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_btnGoiMonActionPerformed
 
-//    NDK: sửa Date thành LocalDateTime
+    //    NDK: sửa Date thành LocalDateTime
     private String forrmater(String date) {
         LocalDateTime inputDateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         String formattedDateTime = inputDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"));

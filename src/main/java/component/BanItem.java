@@ -7,6 +7,7 @@ package component;
 import entity.Ban;
 import entity.NhanVien;
 import icon.FontAwesome;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -14,18 +15,23 @@ import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
 import static javax.swing.SwingConstants.LEFT;
+
 import javax.swing.SwingUtilities;
+
 import jiconfont.swing.IconFontSwing;
+
 import static utils.AppUtils.*;
+
 import view.employee.GD_Ban;
 import view.employee.GD_DatMon;
 
 /**
- *
  * @author dmx
  */
 public class BanItem extends javax.swing.JPanel {
@@ -50,20 +56,26 @@ public class BanItem extends javax.swing.JPanel {
         this.trangThai = trangThai;
         initComponents();
         jLabel1.setText(ban.getMaBan());
-        tacVuList.setPreferredSize(new Dimension(250, 50));
-        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
-        tacVuList.add(createTacVu("Đặt món", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
-            gD_Ban.setFormMessageOrderConfirm(this);
-        }));
         if (trangThai == utils.Enum.LoaiTrangThai.BAN_CO_KHACH.ordinal()) {
             image_type = "/images/my_table.png";
         } else if (trangThai == utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
             image_type = "/images/my_table_gray.png";
         } else if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
             image_type = "/images/my_table_blue.png";
+        } else if (trangThai == utils.Enum.LoaiTrangThai.KHAC.ordinal()) {
+            image_type = "/images/my_table_grayv2.png";
         }
 
         myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(image_type)));
+    }
+
+    private void createListTacVu() {
+        tacVuList.setPreferredSize(new Dimension(250, 50));
+        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        tacVuList.add(createTacVu("Đặt món", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
+            gD_Ban.setFormMessageOrderConfirm(this);
+            menu.setVisible(false);
+        }));
     }
 
     private MyButton createTacVu(String content, Icon icon, ActionListener action) {
@@ -108,23 +120,23 @@ public class BanItem extends javax.swing.JPanel {
         javax.swing.GroupLayout tacVuListLayout = new javax.swing.GroupLayout(tacVuList);
         tacVuList.setLayout(tacVuListLayout);
         tacVuListLayout.setHorizontalGroup(
-            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+                tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 256, Short.MAX_VALUE)
         );
         tacVuListLayout.setVerticalGroup(
-            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+                tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 160, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout morePanelLayout = new javax.swing.GroupLayout(morePanel);
         morePanel.setLayout(morePanelLayout);
         morePanelLayout.setHorizontalGroup(
-            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tacVuList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tacVuList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         morePanelLayout.setVerticalGroup(
-            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tacVuList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tacVuList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setBackground(new java.awt.Color(83, 86, 99));
@@ -151,9 +163,11 @@ public class BanItem extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myButton1MouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 myButton1MouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 myButton1MouseExited(evt);
             }
@@ -168,7 +182,7 @@ public class BanItem extends javax.swing.JPanel {
 
     private void myButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseEntered
 
-        if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal()) {
+        if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal() || trangThai == utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
             ImageIcon handIcon = new ImageIcon("./src/main/java/icon/icon_close.png");
             Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
                     handIcon.getImage(), new Point(0, 0), "Hand Cursor");
@@ -220,7 +234,7 @@ public class BanItem extends javax.swing.JPanel {
 
         switch (type) {
             case "DAT_BAN": {
-                if (image_type.equals("/images/my_table_blue.png")) {
+                if (image_type.equals("/images/my_table_blue.png") || image_type.equals("/images/my_table_gray.png")) {
                     gD_Ban.setFormDatBan(ban);
                 }
                 break;
@@ -228,6 +242,13 @@ public class BanItem extends javax.swing.JPanel {
             case "DAT_MON": {
                 if (image_type.equals("/images/my_table_blue.png")) {
                     setSelected();
+                } else if (image_type.equals("/images/my_table_gray.png")) {
+                    Ban _ban_ = ban.getBanGop() != null ? ban.getBanGop() : ban;
+                    if (gD_Ban.checkTime(LocalDateTime.now(), gD_Ban.getTimeByBan(_ban_))) {
+                        setSelected();
+                    } else {
+                        gD_Ban.showMessage("Bàn đã đặt trước");
+                    }
                 }
                 break;
             }
@@ -243,22 +264,20 @@ public class BanItem extends javax.swing.JPanel {
     private void myButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseClicked
         // TODO add your handling code here:
         if (SwingUtilities.isRightMouseButton(evt) && check_icon.getIcon() != null) {
+            tacVuList.removeAll();
+            createListTacVu();
+            menu.removeAll();
             menu.add(morePanel);
             menu.show(this, 20, this.getHeight() / 2);
         }
     }//GEN-LAST:event_myButton1MouseClicked
 
-    public void order() {
-        Ban mainBan = gD_Ban.getBanItems().get(0).getBan();
-        for (BanItem banItem : gD_Ban.getBanItems()) {
-            Ban ban = banItem.getBan();
-            ban.setBanGop(mainBan);
-            gD_Ban.update(ban);
-        }
+    public void toGD_DatMon() {
+        //      Tách riêng ra một hàm khác
         utils.AppUtils.setUI(main, () -> {
             GD_DatMon gd;
             if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo
-                gd = new GD_DatMon(main, mainBan, utils.Enum.DatMon_ThemMon.DATMON);
+                gd = new GD_DatMon(main, gD_Ban.getMainBan(), utils.Enum.DatMon_ThemMon.DATMON);
                 gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
                 gd.setgD_Ban(gD_Ban);
             } else {//có load vào rồi thì gọi lại

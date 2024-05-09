@@ -13,10 +13,9 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 
 /**
- *
  * @author Laptop
  */
-public class AbstractDAO<T> implements GenericDAO<T> {
+public class AbstractDAO<T> implements GenericDAO<T>{
 
     protected EntityManagerFactory emf = Persistence.createEntityManagerFactory("QLNH_mssql");
     protected EntityManager em = emf.createEntityManager();

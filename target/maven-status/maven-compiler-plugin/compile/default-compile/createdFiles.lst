@@ -1,6 +1,5 @@
 component/LegendItem.class
 component/PanelShadow.class
-dao/imlp/ThongKeDao.class
 component/BlankPlotChart.class
 component/CurveLineChart.class
 component/ModelLegend.class

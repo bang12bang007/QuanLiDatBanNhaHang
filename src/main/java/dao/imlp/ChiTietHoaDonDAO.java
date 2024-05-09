@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- *
- *
  * @author dmx
  */
 public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChiTietHoaDonDAO<ChiTietHoaDon> {
@@ -28,15 +26,11 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
         return total;
     }
 
-    ;
-
     public List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon) {
         return em.createNamedQuery("ChiTietHoaDon.HoaDon", ChiTietHoaDon.class)
                 .setParameter("hoaDon", hoaDon)
                 .getResultList();
     }
-
-    ;
 
     @Override // lấy danh sách số lượng tương ứng với món trong chi tiết hoá đơn
     public List<ChiTietHoaDon> getListBySoLuong(int soLuong) {
@@ -62,8 +56,6 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
         }
     }
 
-    ;
-
     @Override
     public List<Object[]> sumSoLuongByMaMon() {
         return em.createNamedQuery("ChiTietHoaDon.sumSoLuongByMaMon", Object[].class)
@@ -77,5 +69,4 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
         query.setParameter("ngayYeuCau", ngayYeuCau);
         return query.getResultList();
     }
-
 }

@@ -2,6 +2,7 @@ package view.manager.swing.slider;
 
 import com.formdev.flatlaf.util.Animator;
 import com.formdev.flatlaf.util.CubicBezierEasing;
+
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -12,7 +13,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
 /**
- *
  * @author Raven
  */
 public class PanelSlider extends JLayeredPane {

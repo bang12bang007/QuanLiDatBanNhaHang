@@ -32,6 +32,7 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/entity/Mon.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/Form_ThemMonKhac.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/forms/DashboardForm.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/MessageReserve.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/entity/ChiTietKhuyenMai.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/GD_DatBanTruoc.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/Form_ThongTinCaNhan.java
@@ -65,6 +66,7 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/RoundJTextField.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/OrderCard.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/NiceScale.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/server/Server.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/IMonDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/LegendItem.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/GD_DatBanTaiCho.java
@@ -111,7 +113,6 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/menu/Menu.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/EventDateChooser.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/Slider.java
-/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/ThongKeDao.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/forms/InboxForm.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/GD_TrangChu.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/utils/DateCalculator.java

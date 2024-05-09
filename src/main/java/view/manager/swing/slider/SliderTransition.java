@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 /**
- *
  * @author Raven
  */
 public abstract class SliderTransition {

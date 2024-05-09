@@ -2,6 +2,7 @@ package view.manager.swing.slider;
 
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
+
 import java.awt.AlphaComposite;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -12,7 +13,6 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.UIManager;
 
 /**
- *
  * @author Raven
  */
 public class SimpleTransition {

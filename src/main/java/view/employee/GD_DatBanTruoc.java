@@ -24,6 +24,7 @@ import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
 import icon.FontAwesome;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
@@ -32,21 +33,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
+
 import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
 import utils.AppUtils;
+
 import static utils.AppUtils.*;
 
 /**
- *
  * @author Laptop
  */
 public class GD_DatBanTruoc extends javax.swing.JPanel {
@@ -193,17 +203,17 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout dateLayout = new javax.swing.GroupLayout(date);
         date.setLayout(dateLayout);
         dateLayout.setHorizontalGroup(
-            dateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dateLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtNgay, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(calender, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                dateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dateLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtNgay, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(calender, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         dateLayout.setVerticalGroup(
-            dateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(calender, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-            .addComponent(txtNgay)
+                dateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(calender, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(txtNgay)
         );
 
         jLabel2.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
@@ -218,7 +228,7 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         state.setRoundTopRight(8);
 
         trangThaiCombox.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
-        trangThaiCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa nhận bàn", "Đã nhận bàn" }));
+        trangThaiCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Chưa nhận bàn", "Đã nhận bàn"}));
         trangThaiCombox.setBorder(null);
         trangThaiCombox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,19 +239,19 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout stateLayout = new javax.swing.GroupLayout(state);
         state.setLayout(stateLayout);
         stateLayout.setHorizontalGroup(
-            stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
-            .addGroup(stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(stateLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(trangThaiCombox, 0, 174, Short.MAX_VALUE)
-                    .addContainerGap()))
+                stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 186, Short.MAX_VALUE)
+                        .addGroup(stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(stateLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(trangThaiCombox, 0, 174, Short.MAX_VALUE)
+                                        .addContainerGap()))
         );
         stateLayout.setVerticalGroup(
-            stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-            .addGroup(stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(trangThaiCombox, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 35, Short.MAX_VALUE)
+                        .addGroup(stateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(trangThaiCombox, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
@@ -267,15 +277,15 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout txtTKKHLayout = new javax.swing.GroupLayout(txtTKKH);
         txtTKKH.setLayout(txtTKKHLayout);
         txtTKKHLayout.setHorizontalGroup(
-            txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(txtTKKHLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                .addContainerGap())
+                txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(txtTKKHLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         txtTKKHLayout.setVerticalGroup(
-            txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                txtTKKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         btnSearch.setBorder(null);
@@ -292,47 +302,47 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(200, 200, 200)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTKKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(headerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(200, 200, 200)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTKKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
         headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(0, 5, Short.MAX_VALUE)
-                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(15, 15, 15))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(state, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtTKKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(headerLayout.createSequentialGroup()
-                                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel3))
-                                        .addGap(9, 9, 9)))
-                                .addContainerGap())))
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(headerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(headerLayout.createSequentialGroup()
+                                                .addGap(0, 5, Short.MAX_VALUE)
+                                                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                                                                .addComponent(jLabel1)
+                                                                .addGap(15, 15, 15))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                                                                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                        .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(state, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(txtTKKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addGroup(headerLayout.createSequentialGroup()
+                                                                                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                        .addComponent(jLabel2)
+                                                                                        .addComponent(jLabel3))
+                                                                                .addGap(9, 9, 9)))
+                                                                .addContainerGap())))
+                                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         container.setBackground(new java.awt.Color(31, 29, 43));
@@ -359,12 +369,12 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout tableBodyLayout = new javax.swing.GroupLayout(tableBody);
         tableBody.setLayout(tableBodyLayout);
         tableBodyLayout.setHorizontalGroup(
-            tableBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1140, Short.MAX_VALUE)
+                tableBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 1140, Short.MAX_VALUE)
         );
         tableBodyLayout.setVerticalGroup(
-            tableBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 717, Short.MAX_VALUE)
+                tableBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 717, Short.MAX_VALUE)
         );
 
         tableScroll.setViewportView(tableBody);
@@ -405,25 +415,25 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout tableServiceLayout = new javax.swing.GroupLayout(tableService);
         tableService.setLayout(tableServiceLayout);
         tableServiceLayout.setHorizontalGroup(
-            tableServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tableServiceLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnDatCho)
-                .addGap(30, 30, 30)
-                .addComponent(btnThayDoi)
-                .addGap(30, 30, 30)
-                .addComponent(btnHuyCho)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                tableServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(tableServiceLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnDatCho)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnThayDoi)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnHuyCho)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tableServiceLayout.setVerticalGroup(
-            tableServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tableServiceLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(tableServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThayDoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDatCho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHuyCho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
-                .addContainerGap())
+                tableServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(tableServiceLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(tableServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnThayDoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnDatCho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnHuyCho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                                .addContainerGap())
         );
 
         tableHeader.setBackground(new java.awt.Color(31, 29, 43));
@@ -504,36 +514,36 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout tableLayout = new javax.swing.GroupLayout(table);
         table.setLayout(tableLayout);
         tableLayout.setHorizontalGroup(
-            tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(tableService, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tableHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(tableService, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tableHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         tableLayout.setVerticalGroup(
-            tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tableLayout.createSequentialGroup()
-                .addComponent(tableService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(tableHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(tableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tableLayout.createSequentialGroup()
+                                .addComponent(tableService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(tableHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(tableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
         container.setLayout(containerLayout);
         containerLayout.setHorizontalGroup(
-            containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(containerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(containerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         containerLayout.setVerticalGroup(
-            containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
+                                .addGap(0, 0, 0)
+                                .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         footer.setBackground(new java.awt.Color(31, 29, 43));
@@ -567,39 +577,39 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
         footerLayout.setHorizontalGroup(
-            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(footerLayout.createSequentialGroup()
-                        .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(yeuCauDatMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(yeuCauKhac, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(footerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(footerLayout.createSequentialGroup()
+                                                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(yeuCauDatMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(yeuCauKhac, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         footerLayout.setVerticalGroup(
-            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(footerLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4))
-                .addGap(14, 14, 14)
-                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(yeuCauDatMon, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(14, 14, 14)
-                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(yeuCauKhac))
-                .addGap(22, 22, 22))
+                footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(footerLayout.createSequentialGroup()
+                                .addContainerGap(15, Short.MAX_VALUE)
+                                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel4))
+                                .addGap(14, 14, 14)
+                                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(yeuCauDatMon, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5))
+                                .addGap(14, 14, 14)
+                                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel6)
+                                        .addComponent(yeuCauKhac))
+                                .addGap(22, 22, 22))
         );
 
         btnDownTable.setBackground(new java.awt.Color(83, 86, 99));
@@ -629,41 +639,41 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         javax.swing.GroupLayout wrapperLayout = new javax.swing.GroupLayout(wrapper);
         wrapper.setLayout(wrapperLayout);
         wrapperLayout.setHorizontalGroup(
-            wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(wrapperLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnUpTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDownTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(wrapperLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnUpTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDownTable, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                        .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         wrapperLayout.setVerticalGroup(
-            wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(wrapperLayout.createSequentialGroup()
-                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUpTable, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDownTable, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(wrapperLayout.createSequentialGroup()
+                                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnUpTable, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnDownTable, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(42, 42, 42)
+                                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(wrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -740,7 +750,8 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                     tableBody.add(bookingItem);
                 }
             }
-        };
+        }
+        ;
         tableBody.repaint();
         tableBody.revalidate();
     }//GEN-LAST:event_txtSearchKeyReleased
@@ -759,21 +770,44 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         if (active >= 0) {
             if (bookingItems.get(active).getHoaDon().getTrangThai().ordinal() == utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC.ordinal()) {
                 hoaDonDAO.updateStateById(bookingItems.get(active).getHoaDon().getMaHoaDon(), utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
-                banDAO.updateStateById(bookingItems.get(active).getHoaDon().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
-                bookingItems.remove(active);
-                tableBody.removeAll();
-                int stt = 0;
-                if (!bookingItems.isEmpty()) {
-                    for (int i = 0; i < bookingItems.size(); i++) {
-                        if (bookingItems.get(i).getHoaDon().getTrangThai().ordinal() == statePhieuDatBan) {
-                            bookingItems.get(i).setColorByIndex(stt++);
-                            tableBody.add(bookingItems.get(i));
+                if (bookingItems.get(active).getHoaDon().getSoBanGop() > 1) {
+                    HoaDon hoaDon = bookingItems.get(active).getHoaDon();
+                    Ban banGop = hoaDon.getBan();
+                    List<Ban> banGops = getBanGops();
+                    List<Ban> bans = banDAO.findAll(Ban.class);
+                    if (banGops.size() == hoaDon.getSoBanGop()) {
+                        removeOnFielddMaBanGop();
+                    } else if (banGops.size() < hoaDon.getSoBanGop()) {
+                        removeOnFielddMaBanGop();
+                        Map<List<Ban>, List<Integer>> map = createToAddBanGops(banGops, banGop, bans);
+                        List<Ban> banOlds = map.keySet().stream().toList().get(0);
+                        int index = map.get(banOlds).get(0);
+                        clearOld(banOlds, index);
+                    } else {
+                        List<HoaDon> orders = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+                        orders = orders.stream().filter(order -> order.getBan().getMaBan().equals(banGop.getMaBan())).toList();
+                        for (int i = 0; i < orders.size(); i++) {
+                            Map<List<Ban>, List<Integer>> map = createToAddBanGops(new ArrayList<>(), banGop, bans);
+                            List<Ban> banOlds = map.keySet().stream().toList().get(0);
+                            int index = map.get(banOlds).get(0);
+                            if (i == orders.indexOf(hoaDon)) {
+                                clearOld(banOlds, index);
+                            }
                         }
                     }
+                } else {
+                    Ban ban = bookingItems.get(active).getHoaDon().getBan();
+                    removeOneOnFieldMaBanGop(ban);
+//                    if (!isContain(ban) && ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.KHAC)) {
+//                        ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+//                    }
+//                    if (isOrderToday(bookingItems.get(active).getHoaDon()) && !isContain(ban) && ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT)) {
+//                        ban.setBanGop(null);
+//                        ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
+//                    }
+//                    banDAO.update(ban);
                 }
-                tableBody.repaint();
-                tableBody.revalidate();
-                setBookingActive(-1);
+                reload();
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_RIGHT, 1500, "Hủy thành công");
             } else {
                 Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Khách đã vào bàn nên không thể hủy được");
@@ -785,25 +819,228 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     public void received() {
         if (active >= 0) {
-            String id = bookingItems.get(active).getHoaDon().getMaHoaDon();
             HoaDon hoaDon = bookingItems.get(active).getHoaDon();
-            if (hoaDon == null) {
-                KhachHang kh = (KhachHang) khachHangDAO.findByPhoneNumber(bookingItems.get(active).getHoaDon().getKhachHang().getSoDienThoai());
-                hoaDon = new HoaDon(utils.AppUtils.NHANVIEN, kh, LocalDateTime.now());
-                hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-                hoaDon.setBan(bookingItems.get(active).getHoaDon().getBan());
-                hoaDonDAO.insertHoaDon(hoaDon);
+            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+            hoaDon.setNgayGioNhanBan(LocalDateTime.now());
+            hoaDonDAO.update(hoaDon);
+            Ban banGop = bookingItems.get(active).getHoaDon().getBan();
+            if (bookingItems.get(active).getHoaDon().getSoBanGop() > 1) {
+                SwingWorker<List<Ban>, Void> worker = new SwingWorker<List<Ban>, Void>() {
+                    utils.Enum.LoaiTrangThai trangThai = utils.Enum.LoaiTrangThai.BAN_CO_KHACH;
+
+                    @Override
+                    protected List<Ban> doInBackground() throws Exception {
+                        List<Ban> bans = banDAO.findAll(Ban.class);
+                        for (Ban ban : bans) {
+                            trangThai = receivOne(ban, banGop);
+                        }
+                        return bans;
+                    }
+
+                    @Override
+                    protected void done() {
+                        try {
+                            for (Ban ban : get()) {
+                                if (ban.getBanGop() != null) {
+                                    if (ban.getBanGop().getMaBan().equals(banGop.getMaBan())) {
+                                        ban.setTrangThai(trangThai);
+                                        banDAO.update(ban);
+                                    }
+                                }
+                            }
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ExecutionException ex) {
+                            Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                };
+                worker.execute();
             } else {
-                hoaDon.setNgayGioNhanBan(LocalDateTime.now());
-                hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-                hoaDonDAO.update(hoaDon);
+                utils.Enum.LoaiTrangThai trangThai = receivOne(banGop, null);
+                banGop.setTrangThai(trangThai);
+                banDAO.update(banGop);
+//                banDAO.updateStateById(bookingItems.get(active).getHoaDon().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
             }
-            banDAO.updateStateById(bookingItems.get(active).getHoaDon().getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
-            hoaDonDAO.updateStateById(id, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
             bookingItems.get(active).setTrangThai("Đã nhận bàn");
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Khách " + bookingItems.get(active).getHoaDon().getKhachHang().getHoTen() + " đã nhận bàn vào lúc " + forrmater(LocalDateTime.now().toString()));
             setBookingActive(-1);
         }
+    }
+
+    private utils.Enum.LoaiTrangThai receivOne(Ban ban, Ban banGop) {
+        utils.Enum.LoaiTrangThai trangThai = utils.Enum.LoaiTrangThai.BAN_CO_KHACH;
+        if (ban.getOldBanGop() != null) {
+            Map<List<String>, List<Integer>> results = createOld(ban.getOldBanGop(), ban.getOldState());
+            List<String> oldBanGops = results.keySet().stream().toList().get(0);
+            List<Integer> oldState = results.get(oldBanGops);
+            if (oldBanGops.get(0).equals(banGop != null ? banGop.getMaBan() : "null")) {
+                System.out.println(ban.getMaBan() + "DA VAO DAY ROI");
+                if (oldState.get(0) != utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
+                    trangThai = (utils.Enum.LoaiTrangThai.values()[oldState.get(0)]);
+                } else {
+                    trangThai = utils.Enum.LoaiTrangThai.KHAC;
+                }
+                ban.setBanGop(banGop != null ? banGop : ban.getBanGop());
+                oldBanGops.remove(oldBanGops.get(0));
+                oldState.remove(oldState.get(0));
+                oldBanGops.add(oldBanGops.size(), banGop != null ? banGop.getBanGop().getMaBan() : null);
+                oldState.add(oldState.size(), banGop != null ? banGop.getTrangThai().ordinal() : ban.getTrangThai().ordinal());
+                ban.setOldBanGop(String.join(",", oldBanGops));
+                ban.setOldState(oldState.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(","))
+                );
+                banDAO.update(ban);
+            }
+        }
+
+        return trangThai;
+    }
+
+    private boolean isContain(Ban ban) {
+        List<HoaDon> hoaDons = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+        for (HoaDon hoaDon : hoaDons) {
+            if (hoaDon.getBan().getMaBan().equals(ban.getMaBan())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isOrderToday(HoaDon hoaDon) {
+        LocalDateTime dateTime = hoaDon.getNgayDatBan();
+        LocalDate date = LocalDate.of(dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
+        System.out.println(date + " " + dateTime + " " + date.isEqual(LocalDate.now()));
+        return date.isEqual(LocalDate.now());
+    }
+
+    private void reload() {
+        bookingItems.remove(active);
+        tableBody.removeAll();
+        int stt = 0;
+        if (!bookingItems.isEmpty()) {
+            for (int i = 0; i < bookingItems.size(); i++) {
+                if (bookingItems.get(i).getHoaDon().getTrangThai().ordinal() == statePhieuDatBan) {
+                    bookingItems.get(i).setColorByIndex(stt++);
+                    tableBody.add(bookingItems.get(i));
+                }
+            }
+        }
+        tableBody.repaint();
+        tableBody.revalidate();
+        setBookingActive(-1);
+    }
+
+    private List<Ban> getBanGops() {
+        Ban banGop = bookingItems.get(active).getHoaDon().getBan();
+        List<Ban> bans = banDAO.findAll(Ban.class);
+        List<Ban> banGops = new ArrayList<>();
+        for (Ban ban : bans) {
+            if (ban.getBanGop() != null) {
+                if (ban.getBanGop().getMaBan().equals(banGop.getMaBan())) {
+                    banGops.add(ban);
+                }
+            }
+        }
+        return banGops;
+    }
+
+    private void clearOld(List<Ban> banOlds, int index) {
+        for (Ban ban : banOlds) {
+            Map<List<String>, List<Integer>> results = createOld(ban.getOldBanGop(), ban.getOldState());
+            List<String> oldBanGops = results.keySet().stream().toList().get(0);
+            List<Integer> oldState = results.get(oldBanGops);
+            Collections.reverse(oldBanGops);
+            Collections.reverse(oldState);
+            oldBanGops.remove(index);
+            oldState.remove(index);
+            Collections.reverse(oldBanGops);
+            Collections.reverse(oldState);
+            String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+            String oldStateString = oldState.size() > 0 ? (oldState.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(",")))
+                    : null;
+            ban.setOldBanGop(oldBanGop);
+            ban.setOldState(oldStateString);
+            banDAO.update(ban);
+        }
+    }
+
+    private Map<List<String>, List<Integer>> createOld(String oldBanGop, String oldStateString) {
+        Map<List<String>, List<Integer>> results = new HashMap<>();
+        List<String> oldBanGops = new ArrayList<>(Arrays.asList(oldBanGop.split(",")));
+        List<Integer> oldState = new ArrayList<>();
+        String[] oldStateStrings = oldStateString.split(",");
+        for (String stateString : oldStateStrings) {
+            oldState.add(Integer.parseInt(stateString));
+        }
+        results.put(oldBanGops, oldState);
+
+        return results;
+    }
+
+    private Map<List<Ban>, List<Integer>> createToAddBanGops(List<Ban> banGops, Ban banGop, List<Ban> bans) {
+        Map<List<Ban>, List<Integer>> results = new HashMap<>();
+        List<Ban> banOlds = new ArrayList<>();
+        int index = 0;
+        while (banOlds.size() + banGops.size() != bookingItems.get(active).getHoaDon().getSoBanGop()) {
+            banOlds = new ArrayList<>();
+            for (Ban ban : bans) {
+                if (ban.getOldBanGop() != null) {
+                    Map<List<String>, List<Integer>> map = createOld(ban.getOldBanGop(), ban.getOldState());
+                    List<String> oldBanGops = map.keySet().stream().toList().get(0);
+                    List<Integer> oldState = map.get(oldBanGops);
+                    Collections.reverse(oldBanGops);
+                    Collections.reverse(oldState);
+                    if (oldBanGops.contains(banGop.getMaBan()) && index == oldBanGops.indexOf(banGop.getMaBan())) {
+                        banOlds.add(ban);
+                    }
+                }
+            }
+            index++;
+        }
+        results.put(banOlds, List.of(index - 1));
+        return results;
+    }
+
+    private void removeOnFielddMaBanGop() {
+        List<Ban> banGops = getBanGops();
+        for (Ban ban : banGops) {
+            removeOneOnFieldMaBanGop(ban);
+        }
+    }
+
+    private void removeOneOnFieldMaBanGop(Ban ban) {
+        List<String> oldBanGops = new ArrayList<>();
+        List<Integer> oldState = new ArrayList<>();
+        if (ban.getOldBanGop() != null) {
+            oldBanGops = new ArrayList<>(Arrays.asList(ban.getOldBanGop().split(",")));
+            String[] oldStateStrings = ban.getOldState().split(",");
+            for (String stateString : oldStateStrings) {
+                oldState.add(Integer.parseInt(stateString));
+            }
+        }
+        if (ban.getOldBanGop() == null) {
+            ban.setBanGop(null);
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
+        } else if (oldBanGops.size() > 0 && !oldBanGops.get(oldBanGops.size() - 1).equals(ban.getBanGop() != null ? ban.getBanGop().getMaBan() : null)) {
+            String lastItem = oldBanGops.get(oldBanGops.size() - 1);
+            ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
+            oldBanGops.remove(oldBanGops.size() - 1);
+            oldState.remove(oldState.size() - 1);
+            String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+            String oldStateString = oldState.size() > 0 ? (oldState.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(",")))
+                    : null;
+            ban.setOldBanGop(oldBanGop);
+            ban.setOldState(oldStateString);
+        }
+        banDAO.update(ban);
     }
 
     private String forrmater(String date) {

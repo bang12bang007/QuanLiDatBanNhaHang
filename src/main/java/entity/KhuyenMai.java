@@ -12,8 +12,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+
 import java.util.Date;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +23,6 @@ import lombok.ToString;
 import utils.Enum.LoaiKhuyenMai;
 
 /**
- *
  * @author Laptop
  */
 @Entity
@@ -47,7 +48,7 @@ public class KhuyenMai {
     private LoaiKhuyenMai loaiKhuyenMai;
     @Column(name = "GhiChu", nullable = true, columnDefinition = "NVARCHAR(255)")
     private String ghiChu;
-    @OneToMany(mappedBy = "khuyenMai",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "khuyenMai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ChiTietKhuyenMai> chiTietKhuyenMai;
 
     public KhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Double chietKhau, LoaiKhuyenMai loaiKhuyenMai, String ghiChu) {

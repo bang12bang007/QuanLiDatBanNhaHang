@@ -12,17 +12,18 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import java.sql.Date;
 import java.time.LocalDateTime;
+
 import utils.Enum.LoaiVaiTro;
+
 import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
- *
  * @author Laptop
  */
 @Entity

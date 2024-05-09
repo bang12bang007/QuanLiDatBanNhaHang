@@ -12,7 +12,6 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 
 /**
- *
  * @author Laptop
  */
 public class ChiTietKhuyenMaiDAO extends AbstractDAO<ChiTietKhuyenMai> implements IChiTietKhuyenMaiDAO<ChiTietKhuyenMai> {

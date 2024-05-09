@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- *
  * @author Laptop
  */
 public interface ITheThanhVienDAO<T> extends GenericDAO<T> {

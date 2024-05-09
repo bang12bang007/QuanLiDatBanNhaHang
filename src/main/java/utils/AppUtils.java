@@ -5,23 +5,28 @@
 package utils;
 
 import java.awt.Font;
+
 import component.Loading;
 import dao.imlp.BanDAO;
 import entity.NhanVien;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.JScrollPane;
 
 /**
- *
  * @author Laptop
  */
 public class AppUtils {
@@ -109,5 +114,12 @@ public class AppUtils {
         } else {
             return false;
         }
+    }
+    //loai bo trung lap bang khoa
+    public static <T> Predicate<T> distinctByKey(
+            Function<? super T, ?> keyExtractor) {
+
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 }

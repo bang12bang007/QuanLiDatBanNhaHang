@@ -11,7 +11,6 @@ import java.awt.Graphics2D;
 import javax.swing.JPopupMenu;
 
 /**
- *
  * @author dmx
  */
 public class TransparentPopupMenu extends JPopupMenu {

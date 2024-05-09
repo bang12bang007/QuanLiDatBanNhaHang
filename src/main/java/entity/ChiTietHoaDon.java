@@ -18,7 +18,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- *
  * @author dmx
  */
 @Entity
@@ -27,6 +26,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @NamedQueries({
+//<<<<<<< HEAD
+//        @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon"),
+//        @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
+//        @NamedQuery(name = "ChiTietHoaDon.DS_MonThinhHanh", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon h WHERE h.trangThai = 0 GROUP BY c.mon"),})
+//=======
     @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon"),
     @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
     @NamedQuery(name = "ChiTietHoaDon.sumSoLuongByMaMon", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c GROUP BY c.mon"),

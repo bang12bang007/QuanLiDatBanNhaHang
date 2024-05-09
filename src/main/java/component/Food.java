@@ -6,16 +6,18 @@ package component;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import entity.Mon;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+
 import raven.toast.Notifications;
 import view.employee.GD_DatMon;
+
 import static utils.AppUtils.*;
 
 /**
- *
  * @author dmx
  */
 public class Food extends javax.swing.JPanel {
@@ -78,9 +80,11 @@ public class Food extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 formMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 formMouseExited(evt);
             }
@@ -109,9 +113,11 @@ public class Food extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panelFoodMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 panelFoodMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 panelFoodMouseExited(evt);
             }
@@ -132,18 +138,18 @@ public class Food extends javax.swing.JPanel {
         javax.swing.GroupLayout panelFoodLayout = new javax.swing.GroupLayout(panelFood);
         panelFood.setLayout(panelFoodLayout);
         panelFoodLayout.setHorizontalGroup(
-            panelFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelGia, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-            .addComponent(jLabelTen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                panelFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelGia, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                        .addComponent(jLabelTen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelFoodLayout.setVerticalGroup(
-            panelFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFoodLayout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
-                .addComponent(jLabelGia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelTen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                panelFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFoodLayout.createSequentialGroup()
+                                .addContainerGap(118, Short.MAX_VALUE)
+                                .addComponent(jLabelGia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelTen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42))
         );
 
         add(panelFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 270, 240));
@@ -174,6 +180,7 @@ public class Food extends javax.swing.JPanel {
             }
             list_Quantity = datmon.getList_quantity();
             list_Quantity.add(1);
+            datmon.getGhiChus().add(null);
             String[] title = new String[]{ten, "1", tien_format.format(Double.parseDouble(gia)), ""};
             OrderItem_forUIDatMon item = new OrderItem_forUIDatMon(datmon, mon, orderPanel.getWidth(), orders.size(), title, orders);
             item.setListPreOrder(datmon.getListPreOrderItem());
@@ -186,6 +193,7 @@ public class Food extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_panelFoodMouseClicked
+
     public void updateTongTien() {
         double tong = 0.0;
         for (int i = 0; i < orders.size(); i++) {
@@ -197,6 +205,7 @@ public class Food extends javax.swing.JPanel {
             datmon.setLabelTongTien("0,0 VNĐ");
         }
     }
+
     private void panelFoodMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseEntered
         // TODO add your handling code here:
         panelFood.setBackground(new java.awt.Color(234, 124, 105));
