@@ -275,8 +275,6 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return table;
     }
 
-    
-
     public int getTongHoaDon(NhanVien nv) {
         int hd = 0;
         String ngay = generateTime.substring(0, 6);
@@ -291,6 +289,39 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return hd;
     }
 
+    public double[] getThongKeTheoCa(NhanVien nv) {
+        double dt = 0;
+        double hd = 0;
+        double kh = 0;
+        String ngay = generateTime.substring(0, 6);
+        List<HoaDon> hoaDons = findAll(HoaDon.class);
+        ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO();
+        for (HoaDon h : hoaDons) {
+            String time = h.getMaHoaDon().substring(8, 10);
+            int gio = Integer.parseInt(time);
+            if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {  //            KiemTraTheoMaNhanVien
+                if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
+                    if(gio >= 6 && gio <= 12){
+                        hd += 1;
+                        dt += tien.TotalFoodCurrency(h)/1000000;
+                        kh += h.getSoLuongNguoi();
+                    }
+                    if(gio > 12 && gio <= 18){
+                        hd += 1;
+                        dt += tien.TotalFoodCurrency(h)/100000;
+                        kh += h.getSoLuongNguoi();
+                    } 
+                    if(gio > 18 && gio <= 22){
+                        hd += 1;
+                        dt += tien.TotalFoodCurrency(h)/100000;
+                        kh += h.getSoLuongNguoi();
+                    } 
+                }
+            }
+        }
+        double[] result = {dt,hd,kh};
+        return result;
+    }
     @Override
     public double getTongDoanhThu(NhanVien nv) {
         double sum = 0.0;
@@ -319,7 +350,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         query.setParameter("ngayKetThuc", ngayKetThuc);
         return query.getResultList();
     }
-    
+
     @Override
     public double getTotalRevenueFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         Double total = 0.0;
