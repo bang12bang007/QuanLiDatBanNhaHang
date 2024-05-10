@@ -16,17 +16,13 @@ import org.jfree.data.general.DefaultPieDataset;
 import static utils.AppUtils.*;
 
 import entity.HoaDon;
-import entity.ChiTietHoaDon;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.util.Rotation;
 import java.awt.Color;
 import java.util.List;
 import component.ModelChart;
-import raven.chart.CurveLineChart;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import org.hibernate.boot.model.relational.Database;
+
 
 
 /**
@@ -36,7 +32,6 @@ public class GD_ThongKe extends javax.swing.JPanel {
 
     private JFrame jFrame;
     private List<HoaDon> hoaDon;
-    private ChiTietHoaDon info;
     private HoaDonDAO hd_Dao;
     /**
      * Creates new form GD_ThongKe
@@ -51,35 +46,37 @@ public class GD_ThongKe extends javax.swing.JPanel {
     private void setData(){
         hd_Dao = new HoaDonDAO();
         curveLineChart1.clear();
-        curveLineChart1.addData(new ModelChart("Ca Sáng",hd_Dao.getThongKeTheoCa(NHANVIEN)));
-        curveLineChart1.addData(new ModelChart("Ca Chiều",hd_Dao.getThongKeTheoCa(NHANVIEN)));
-        curveLineChart1.addData(new ModelChart("Ca Tối", hd_Dao.getThongKeTheoCa(NHANVIEN)));
+        curveLineChart1.addData(new ModelChart("Ca Sáng",hd_Dao.getThongKeTheoCa(NHANVIEN, 6, 12)));
+        curveLineChart1.addData(new ModelChart("Ca Chiều",hd_Dao.getThongKeTheoCa(NHANVIEN, 13, 18)));
+        curveLineChart1.addData(new ModelChart("Ca Tối", hd_Dao.getThongKeTheoCa(NHANVIEN, 19, 22)));
         curveLineChart1.start();
         
     }
     private void pieChart(){
-        Color cus = new Color(83, 86, 99);
-        Color cus1 = new Color(255, 255, 255);
+        Color cus = new Color(14,36,51);
+        Color cus1 = new Color(60,63,65);
         hd_Dao = new HoaDonDAO();
         jLabel5.setText(hd_Dao.getFormatter().format(hd_Dao.getTongDoanhThu(NHANVIEN)+5000000));
         jLabel8.setText(Integer.toString(hd_Dao.getTongHoaDon(NHANVIEN)));
         jLabel6.setText(hd_Dao.getFormatter().format(hd_Dao.getTongDoanhThu(NHANVIEN)));
         DefaultPieDataset dataset = new DefaultPieDataset();
-        JFreeChart chart = ChartFactory.createPieChart3D("BaoCao", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createPieChart3D("Báo Cáo", dataset, true, true, false);
         dataset.setValue("Nhân Viên",(hd_Dao.getTongDoanhThu(NHANVIEN)));
         dataset.setValue("Nhà Hàng", (hd_Dao.getTongDoanhThu(NHANVIEN)+5000000));
         PiePlot3D P = (PiePlot3D) chart.getPlot();
-        P.setLabelFont(utils.AppUtils.getFont(20f, _BOLD_));
-        P.setBackgroundPaint(Color.white);
-        P.setLabelPaint(cus);
+        P.setLabelFont(utils.AppUtils.getFont(12f, _NORMAL_));
+        P.setBackgroundPaint(cus);
+        P.setLabelPaint(cus1);
         P.setStartAngle(ABORT);
         P.setDirection(Rotation.CLOCKWISE);
         P.setForegroundAlpha(0.7f);
+        P.setBaseSectionPaint(cus);
         TextTitle title = chart.getTitle();
         title.setPaint(Color.WHITE);
-        chart.setBackgroundPaint(cus1);
+        title.setFont(utils.AppUtils.getFont(20f,_ITALIC_));
+        chart.setBackgroundPaint(cus);
         ChartPanel chartpanel = new ChartPanel(chart);
-        chartpanel.setSize(250, 200);
+        chartpanel.setSize(230, 200);
         jPanel2.add(chartpanel);
     }
     public GD_ThongKe() {
@@ -337,30 +334,7 @@ public class GD_ThongKe extends javax.swing.JPanel {
             .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-//    public static void main(String[] args) {
-//         try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GD_ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GD_ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GD_ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GD_ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//         
-//         java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GD_ThongKe().setVisible(true);
-//            }
-//        });
-//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.CurveLineChart curveLineChart1;
     private javax.swing.JLabel jLabel1;
@@ -379,11 +353,4 @@ public class GD_ThongKe extends javax.swing.JPanel {
     private component.PanelShadow panelShadow2;
     // End of variables declaration//GEN-END:variables
 }
-
-
-
-
-
-
-
 
