@@ -62,8 +62,22 @@ public class BanDAO extends AbstractDAO<Ban> implements IBanDAO<Ban> {
 
     @Override
     public List<HoaDon> findListOrderbyBan(Ban ban) {
-        return em.createNamedQuery("Ban.findHoaDon",HoaDon.class)
+        return em.createNamedQuery("Ban.findHoaDon", HoaDon.class)
                 .setParameter("MaBanGop", ban.getBanGop())
+                .getResultList();
+    }
+
+    @Override
+    public List<Ban> getListBanGopInvoice(String maBan) {
+        return em.createNamedQuery("Ban.getListBanGopInvoice", Ban.class)
+                .setParameter("maBan", maBan)
+                .getResultList();
+    }
+
+    @Override
+    public List<Ban> findByBanGop(Ban ban) {
+        return em.createNamedQuery("Ban.findByBanGop", Ban.class)
+                .setParameter("ban", ban)
                 .getResultList();
     }
 }

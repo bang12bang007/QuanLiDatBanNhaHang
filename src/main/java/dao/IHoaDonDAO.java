@@ -67,4 +67,6 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
 
     int getTotalInVoicesByMonth(int month);
 
+    public List<HoaDon> findByStateAndIdTable(Enum loaiTrangThai, String oldBanGop);
+
 }

@@ -885,6 +885,8 @@ public class Form_DatBan extends javax.swing.JPanel {
 //        if (ban.getBanGop() != null) {
 //            
 //        }
+
+//      
         String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
         oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
         ban.setBanGop(mainBan);
@@ -903,19 +905,27 @@ public class Form_DatBan extends javax.swing.JPanel {
         int isValidateFloor = -1;
         int peopleQuantity = Integer.parseInt(txtSoNguoi.getText());
         int chairQuantity = ban.getSoGhe();
+        List<Integer> floors = new ArrayList<>();
         List<Ban> bansAfterSum = new ArrayList<>();
+        List<Object[]> objects = banDAO.groupByMaTang();
+        floors.add(Integer.parseInt(ban.getTang()));
         bansAfterSum.add(ban);
-        List<Object[]> floors = banDAO.groupByMaTang();
-        for (Object[] object : floors) {
+        objects.stream().forEach(object -> {
             int floor = Integer.parseInt(object[0] + "");
+            if (!floors.contains(floor)) {
+                floors.add(floor);
+            }
+        });
+        for (Integer floor : floors) {
+//            int floor = Integer.parseInt(object[0] + "");
             List<Ban> bans = banDAO.findByFloor(floor);
             List<Ban> sortedBans = bans.stream()
                     .sorted(Comparator.comparingInt(Ban::getSoGhe))
                     .collect(Collectors.toList());
             for (Ban ban : sortedBans) {
 //                ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG) -> check table's time
-                boolean isCheck = gD_Ban.getTimeByBan(ban) != null ? gD_Ban.checkTime(createHoaDon().getNgayDatBan(), gD_Ban.getTimeByBan(ban)) : ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG);
-                if (peopleQuantity > chairQuantity && !ban.getMaBan().equals(this.ban.getMaBan()) && isCheck) {
+//                boolean isCheck = gD_Ban.getTimeByBan(ban) != null ? gD_Ban.checkTime(createHoaDon().getNgayDatBan(), gD_Ban.getTimeByBan(ban)) : ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG);
+                if (peopleQuantity > chairQuantity && !ban.getMaBan().equals(this.ban.getMaBan()) && (gD_Ban.isTimeValidate(createHoaDon().getNgayDatBan(), ban) || ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG))) {
                     bansAfterSum.add(ban);
                     chairQuantity += ban.getSoGhe();
                 }

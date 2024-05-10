@@ -78,6 +78,16 @@ public class BanItem extends javax.swing.JPanel {
         }));
     }
 
+    private void createListTacVuForMergeInvoice() {
+        tacVuList.setPreferredSize(new Dimension(250, 50));
+        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        tacVuList.add(createTacVu("Ghép hóa đơn", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
+            gD_Ban.mergeInvoice();
+//            gD_Ban.setFormMessageOrderConfirm(this);
+            menu.setVisible(false);
+        }));
+    }
+
     private MyButton createTacVu(String content, Icon icon, ActionListener action) {
         IconFontSwing.register(FontAwesome.getIconFont());
         MyButton button = new MyButton();
@@ -198,6 +208,7 @@ public class BanItem extends javax.swing.JPanel {
     public void setActive() {
         ImageIcon icon = new ImageIcon("./src/main/java/icon/check_50.png");
         check_icon.setIcon(icon);
+        gD_Ban.addBanItem(this);
     }
 
     public void setSelected() {
@@ -243,8 +254,7 @@ public class BanItem extends javax.swing.JPanel {
                 if (image_type.equals("/images/my_table_blue.png")) {
                     setSelected();
                 } else if (image_type.equals("/images/my_table_gray.png")) {
-                    Ban _ban_ = ban.getBanGop() != null ? ban.getBanGop() : ban;
-                    if (gD_Ban.checkTime(LocalDateTime.now(), gD_Ban.getTimeByBan(_ban_))) {
+                    if (gD_Ban.isTimeValidate(LocalDateTime.now(), ban)) {
                         setSelected();
                     } else {
                         gD_Ban.showMessage("Bàn đã đặt trước");
@@ -258,6 +268,18 @@ public class BanItem extends javax.swing.JPanel {
                 }
                 break;
             }
+            case "GHEP_HOA_DON": {
+                if (image_type.equals("/images/my_table_gray.png")) {
+                    if (gD_Ban.isTimeValidate(LocalDateTime.now(), ban)) {
+                        setSelected();
+                    } else {
+                        gD_Ban.showMessage("Bàn đã đặt trước");
+                    }
+                } else {
+                    setSelected();
+                }
+                break;
+            }
         }
     }//GEN-LAST:event_myButton1ActionPerformed
 
@@ -265,7 +287,11 @@ public class BanItem extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (SwingUtilities.isRightMouseButton(evt) && check_icon.getIcon() != null) {
             tacVuList.removeAll();
-            createListTacVu();
+            if (type.equals("GHEP_HOA_DON")) {
+                createListTacVuForMergeInvoice();
+            } else {
+                createListTacVu();
+            }
             menu.removeAll();
             menu.add(morePanel);
             menu.show(this, 20, this.getHeight() / 2);
@@ -273,7 +299,6 @@ public class BanItem extends javax.swing.JPanel {
     }//GEN-LAST:event_myButton1MouseClicked
 
     public void toGD_DatMon() {
-        //      Tách riêng ra một hàm khác
         utils.AppUtils.setUI(main, () -> {
             GD_DatMon gd;
             if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo

@@ -409,4 +409,12 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         }
         return soLuongHoaDon;
     }
+
+    @Override
+    public List<HoaDon> findByStateAndIdTable(Enum loaiTrangThai, String oldBanGop) {
+        return em.createNamedQuery("HoaDon.findStateAndTableId", HoaDon.class)
+                .setParameter("ban", oldBanGop)
+                .setParameter("trangThai", loaiTrangThai)
+                .getResultList();
+    }
 }

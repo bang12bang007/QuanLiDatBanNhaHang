@@ -33,7 +33,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import javax.swing.JButton;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
@@ -413,12 +416,15 @@ public class GD_Ban extends javax.swing.JPanel {
         }
         GheTrongTang.setText("Tầng " + floor + ": Trống " + dsBanTrong.size() + "/" + bans.size() + " bàn - " + quantityOfChair + " ghế");
         ListBan.removeAll();
+        String maBanGop = this.ban != null ? this.ban.getMaBan() : "";
         for (Ban ban : bans) {
             BanItem banItem = new BanItem(ban, ban.getTrangThai().ordinal(), main, type);
             banItem.setGDBan(this);
-            if (this.ban != null && this.ban.getMaBan().equals(ban.getMaBan())) {
+            if (maBanGop.equals(ban.getBanGop() == null ? ban.getMaBan() : ban.getBanGop().getMaBan())) {
                 banItem.setActive();
-                setBanActive(ban);
+                if (type.equals("CHUYEN_BAN")) {
+                    setBanActive(ban);
+                }
             }
             ListBan.add(banItem);
         }
@@ -517,6 +523,15 @@ public class GD_Ban extends javax.swing.JPanel {
         hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
         banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
         banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
+        List<String> oldBanGops = new ArrayList<>();
+        if (ban.getOldBanGop() != null) {
+            oldBanGops = new ArrayList<>(Arrays.asList(this.ban.getOldBanGop().split(",")));
+        }
+        if (oldBanGops.size() == 1) {
+            this.ban.setOldBanGop(null);
+            this.ban.setOldState(null);
+            banDAO.update(this.ban);
+        }
     }
 
     public void setHoaDon(HoaDon hoaDon) {
@@ -576,21 +591,35 @@ public class GD_Ban extends javax.swing.JPanel {
         }
     }
 
-    public LocalDateTime getTimeByBan(Ban ban) {
-        HoaDon hoaDon = null;
-        for (HoaDon hd : ban.getHoaDon()) {
-            if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT)) {
-                hoaDon = hd;
-                break;
-            }
+    private List<HoaDon> getListHoaDon(Ban ban) {
+        List<HoaDon> results = new ArrayList<>();
+        List<String> oldBanGops = ban.getOldBanGop() != null ? new ArrayList<>(Arrays.asList(ban.getOldBanGop().split(","))) : new ArrayList<>();
+        if (ban.getBanGop() != null) {
+            oldBanGops.add(ban.getBanGop().getMaBan());
         }
-        return hoaDon != null ? hoaDon.getNgayDatBan() : null;
+        for (String old : oldBanGops) {
+            hoaDonDAO.findByStateAndIdTable(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC, old).stream().forEach(hoaDon -> results.add((HoaDon) hoaDon));
+        }
+        if (oldBanGops.size() == 1) {
+            hoaDonDAO.findByStateAndIdTable(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC, ban.getMaBan()).stream().forEach(hoaDon -> results.add((HoaDon) hoaDon));
+        }
+        return results;
     }
 
     public boolean checkTime(LocalDateTime from, LocalDateTime to) {
         Duration duration = Duration.between(from, to);
         long hours = duration.toHours();
         return Math.abs(hours) >= 8;
+    }
+
+    public boolean isTimeValidate(LocalDateTime from, Ban ban) {
+        List<HoaDon> hoaDons = getListHoaDon(ban);
+        for (HoaDon hoaDon : hoaDons) {
+            if (!checkTime(from, hoaDon.getNgayDatBan())) {
+                return false;
+            }
+        }
+        return hoaDons.size() == 0 ? false : true;
     }
 
     public Ban getMainBan() {
@@ -608,38 +637,125 @@ public class GD_Ban extends javax.swing.JPanel {
     }
 
     public void order() {
+//        String oldBanGop = null;
+//        if (ban.getBanGop() != null) {
+//            oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
+//            oldBanGop += ban.getBanGop().getMaBan() + ",";
+//        }
+//        ban.setBanGop(mainBan);
+//        ban.setOldBanGop(oldBanGop);
+//        String oldState = null;
+//        if (oldBanGop != null) {
+//            oldState = ban.getOldState() == null ? "" : ban.getOldState();
+//            oldState += ban.getTrangThai().ordinal() + ",";
+//        }
+//        ban.setOldState(oldState);
+        Ban mainBan = getMainBan();
         for (BanItem banItem : getBanItems()) {
             Ban ban = banItem.getBan();
-//                String oldBanGop = null;
-//                if (ban.getBanGop() != null) {
-//                    oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
-//                    oldBanGop += ban.getBanGop().getMaBan() + ",";
-//                }
-//                ban.setBanGop(mainBan);
-//                ban.setOldBanGop(oldBanGop);
-//                String oldState = null;
-//                if (oldBanGop != null) {
-//                    oldState = ban.getOldState() == null ? "" : ban.getOldState();
-//                    oldState += ban.getTrangThai().ordinal() + ",";
-//                }
-//                ban.setOldState(oldState);
-            String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
-            oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
-            ban.setBanGop(getBanItems().size() > 1 ? getMainBan() : null);
-            ban.setOldBanGop(oldBanGop);
-            String oldState = null;
-            if (oldBanGop != null) {
-                oldState = ban.getOldState() == null ? "" : ban.getOldState();
-                oldState += ban.getTrangThai().ordinal() + ",";
-            }
-            ban.setOldState(oldState);
-            if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT)) {
-                ban.setTrangThai(utils.Enum.LoaiTrangThai.KHAC);
-            } else if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG)) {
-                ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+            mergeTable(ban, mainBan);
+            banDAO.update(ban);
+        }
+    }
+
+    private void mergeTable(Ban ban, Ban mainBan) {
+        String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
+        oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
+        ban.setBanGop(getBanItems().size() > 1 ? mainBan : null);
+        ban.setOldBanGop(oldBanGop);
+        String oldState = null;
+        if (oldBanGop != null) {
+            oldState = ban.getOldState() == null ? "" : ban.getOldState();
+            oldState += ban.getTrangThai().ordinal() + ",";
+        }
+        ban.setOldState(oldState);
+        if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT)) {
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.KHAC);
+        } else if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG)) {
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+        }
+    }
+
+    public void mergeInvoice() {
+        String maBanGop = hoaDon.getBan().getMaBan();
+        reloadTableMergeInvoice();
+        Ban mainBan = getMainBan();
+        for (BanItem banItem : getBanItems()) {
+            Ban ban = banItem.getBan();
+            if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT) || ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG)) {
+                mergeTable(ban, mainBan);
+            } else {
+                ban.getHoaDon().forEach(hoaDon -> {
+                    if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                        hoaDon.setBan(mainBan);
+                        hoaDonDAO.update(hoaDon);
+                    }
+                });
+                if (ban.getBanGop() == null) {
+                    ban.setBanGop(mainBan);
+                } else {
+                    List<Ban> listBanGop = banDAO.findByBanGop(ban);
+                    listBanGop.forEach(banGop -> {
+                        banGop.setBanGop(mainBan);
+                        banDAO.update(banGop);
+                    });
+                }
             }
             banDAO.update(ban);
         }
+        this.hoaDon.setBan(mainBan);
+        hoaDonDAO.update(hoaDon);
+        List<HoaDon> orders = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        for (HoaDon order : orders) {
+            if (order.getBan().getMaBan().equals(maBanGop)) {
+                order.setBan(mainBan);
+                hoaDonDAO.update(order);
+            }
+        }
+    }
+
+    private void reloadTableMergeInvoice() {
+        List<Ban> bans = banDAO.findAll(Ban.class);
+        String maBanGop = hoaDon.getBan().getMaBan();
+        bans.forEach(ban -> {
+            if (ban.getBanGop() != null) {
+                if (ban.getBanGop().getMaBan().equals(maBanGop)) {
+                    updateBanAfterMerge(ban);
+                }
+            }
+        });
+    }
+
+    private void updateBanAfterMerge(Ban ban) {
+        List<String> oldBanGops = new ArrayList<>();
+        List<Integer> oldState = new ArrayList<>();
+        if (ban.getOldBanGop() != null) {
+            oldBanGops = new ArrayList<>(Arrays.asList(ban.getOldBanGop().split(",")));
+            oldState = new ArrayList<>();
+            String[] oldStateStrings = ban.getOldState().split(",");
+            for (String stateString : oldStateStrings) {
+                oldState.add(Integer.parseInt(stateString));
+            }
+        }
+        if (oldBanGops.size() == 0) {
+            ban.setBanGop(null);
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
+        } else if (oldBanGops.size() > 0) {
+            String lastItem = oldBanGops.get(oldBanGops.size() - 1);
+            ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
+            oldBanGops.remove(oldBanGops.size() - 1);
+            oldState.remove(oldState.size() - 1);
+            String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+            String oldStateString = oldState.size() > 0 ? (oldState.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(",")))
+                    : null;
+            ban.setOldBanGop(oldBanGop);
+            ban.setOldState(oldStateString);
+        }
+
+        banDAO.update(ban);
     }
 
     public void addBanItem(BanItem banItem) {

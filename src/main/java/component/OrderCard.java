@@ -110,7 +110,11 @@ public class OrderCard extends javax.swing.JPanel {
     }
 
     private void mergeOrder() {
-        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Ghép hóa đơn");
+        utils.AppUtils.setUI(mainPanel, () -> {
+            GD_Ban gD_Ban = new GD_Ban(mainPanel, "GHEP_HOA_DON");
+            gD_Ban.setHoaDon(hoaDon);
+            return gD_Ban;
+        });
         menu.setVisible(false);
     }
 
