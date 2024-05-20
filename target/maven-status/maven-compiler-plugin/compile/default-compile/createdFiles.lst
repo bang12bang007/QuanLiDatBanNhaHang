@@ -13,6 +13,7 @@ view\manager\swing\slider\SimpleTransition$2.class
 component\DiscountItem.class
 view\employee\GD_DatBanTruoc$12.class
 component\OrderCard.class
+view\manger\table\Table.class
 view\employee\GD_ThanhToan$4.class
 view\manager\swing\slider\PanelSlider$PanelSnapshot.class
 utils\Enum$LoaiTrangThaiMon.class
@@ -28,6 +29,7 @@ view\employee\GD_Ban.class
 view\employee\Form_XemThucDon$7.class
 dao\ITaiKhoanDAO.class
 view\GD_DangNhap$1.class
+view\manager\forms\GD_QuanLyBan$1.class
 view\employee\GD_BaoCao$4.class
 component\OrderItem_forUIDatMon$1.class
 component\LegendItem.class
@@ -80,6 +82,7 @@ entity\TheThanhVien.class
 view\employee\GD_DatMon$19$1.class
 view\employee\GD_DatMon$6.class
 dao\GenericDAO.class
+view\manger\table\ModelAction.class
 view\employee\Form_ThongTinCaNhan$1.class
 view\employee\Form_ThuTien$3.class
 utils\Enum.class
@@ -91,6 +94,7 @@ view\employee\GD_DatMon$12.class
 view\employee\Form_XemThucDon$5.class
 dao\IChiTietHoaDonDAO.class
 component\MessageMoveTable$2.class
+view\manger\table\Button$2.class
 entity\Ban.class
 view\employee\Form_GhiChu$1.class
 view\employee\GD_TrangChu$1.class
@@ -113,9 +117,13 @@ view\employee\Form_DatBan$10.class
 component\ScrollBarCustom.class
 component\MessageMoveTable$1.class
 dao\IHoaDonDAO.class
+view\employee\Form_GhiChu.class
 view\employee\GD_DatBanTruoc$15.class
 view\employee\GD_DatMon$3.class
+view\manger\table\TableCellAction.class
 component\MenuItem$2.class
+view\manger\table\Button.class
+view\manger\table\TableHeader.class
 view\employee\Form_GhiChu$6.class
 view\employee\GD_DatBanTaiCho$9.class
 datechooser\Slider$2.class
@@ -144,7 +152,6 @@ view\employee\GD_DatBanTaiCho$7.class
 view\employee\GD_DatBanTruoc$16.class
 view\employee\GD_TrangChu$8.class
 view\employee\GD_DatMon$1.class
-view\manager\forms\ReadForm$1.class
 view\manager\swing\slider\SimpleTransition.class
 utils\Enum$LoaiKhuyenMai.class
 view\employee\Form_XemThucDon$9.class
@@ -156,6 +163,7 @@ view\employee\Form_ThuTien$8.class
 datechooser\SelectedDate.class
 view\employee\Form_GhiChu$5.class
 datechooser\Slider$4.class
+view\manger\table\Button$1.class
 component\MyButton.class
 component\BlankPlotChatRender.class
 view\employee\Form_GhiChu$2.class
@@ -169,7 +177,6 @@ datechooser\Slider$5.class
 entity\TaiKhoan.class
 view\employee\GD_ThanhToan$15.class
 component\OrderCard$2.class
-view\manager\forms\ReadForm.class
 view\employee\GD_DatBanTaiCho$6.class
 view\employee\GD_TrangChu$6.class
 view\manager\forms\InboxForm$1.class
@@ -193,9 +200,11 @@ view\employee\GD_DatMon$15.class
 view\manager\components\MainForm.class
 datechooser\Button$1.class
 component\MessageOrderConfirm$4.class
+view\manger\table\Table$1.class
 entity\NhanVien.class
 view\employee\GD_ThanhToan$16.class
 datechooser\SelectedAction.class
+view\manger\table\ModelProfile.class
 component\WrapLayout.class
 view\employee\GD_TrangChu$4.class
 view\employee\Form_ThuTien$4.class
@@ -219,6 +228,7 @@ view\employee\GD_ThanhToan$3.class
 view\employee\GD_DatMon$21.class
 view\employee\GD_ThanhToan$11.class
 view\employee\Form_DoiSoLuongNguoi$4.class
+view\manger\table\EventAction.class
 component\WrapGridLayout.class
 view\employee\GD_TrangChu$9.class
 view\employee\GD_BaoCao$3.class
@@ -232,6 +242,7 @@ icon\FontAwesome.class
 component\DiscountItem$1.class
 view\employee\GD_ThanhToan.class
 component\BlankPlotChart.class
+view\manger\table\Action.class
 view\employee\GD_DatBanTruoc$1.class
 view\manager\swing\slider\SimpleTransition$3.class
 view\manager\utils\UndoRedo$MyIterator.class
@@ -258,6 +269,7 @@ component\MyJMenuItem$1.class
 dao\imlp\ChiTietKhuyenMaiDAO.class
 view\employee\Form_ThuTien$2.class
 view\manager\swing\slider\SliderTransition.class
+view\manager\forms\GD_QuanLyBan.class
 icon\FontAwesome$1.class
 view\employee\Form_ThongTinCaNhan$2.class
 utils\Enum$LoaiTheThanhVien.class
