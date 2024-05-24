@@ -7,10 +7,13 @@ package dao.imlp;
 import dao.IChiTietHoaDonDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.Mon;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dmx
@@ -68,5 +71,17 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
         TypedQuery<Object[]> query = em.createNamedQuery("ChiTietHoaDon.sumSoLuongByMaMonByDate", Object[].class);
         query.setParameter("ngayYeuCau", ngayYeuCau);
         return query.getResultList();
+    }
+
+    @Override
+    public Map<Mon, Long> getListByBan(HoaDon hoaDon) {
+        List<Object[]> list = em.createNamedQuery("ChiTietHoaDon.listChiTietByBan", Object[].class)
+                .setParameter("ban", hoaDon.getBan())
+                .getResultList();
+        Map<Mon, Long> map = new HashMap<>();
+        for(Object[] objects : list) {
+            map.put((Mon) objects[0], (Long) objects[1]);
+        }
+        return map;
     }
 }

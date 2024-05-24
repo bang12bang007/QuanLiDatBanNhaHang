@@ -27,6 +27,7 @@ import dao.IHoaDonDAO;
 import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.Mon;
 import entity.NhanVien;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
@@ -45,15 +46,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-//<<<<<<< HEAD
-//import javax.swing.SwingUtilities;
-//
-//=======
-//>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import utils.Enum.LoaiTrangThaiHoaDon;
@@ -160,6 +157,12 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
 
         PdfWriter pdfWriter = null;
+        double tongThanhToan = 0;
+//      asyn await chỗ này
+        Map<Mon, Long> map = chiTietHoaDonDAO.getListByBan(hoaDon);
+        for (HoaDon hd : getListHoaDonGhep(hoaDon)) {
+            tongThanhToan += chiTietHoaDonDAO.TotalFoodCurrency(hd);
+        }
 
         try {
             String path = "invoice.pdf";
@@ -208,18 +211,18 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             table.addCell(new Paragraph("KM (%)").setBold());
             table.addCell(new Paragraph("TT").setBold());
             int stt = 1;
-            for (Object object : chiTietHoaDonDAO.getListByHoaDon(hoaDon)) {
-                ChiTietHoaDon chiTietHoaDon = (ChiTietHoaDon) object;
+            System.out.println("Map<Mon, Long>: " + map.entrySet().size());
+            for (Map.Entry<Mon, Long> entry : map.entrySet()) {
                 table.addCell(stt++ + "");
-                table.addCell(chiTietHoaDon.getMon().getTenMon());
-                table.addCell(chiTietHoaDon.getSoLuong() + "");
-                table.addCell(formatter.format(chiTietHoaDon.getMon().getGiaBan()) + "");
+                table.addCell(entry.getKey().getTenMon());
+                table.addCell(entry.getValue() + "");
+                table.addCell(formatter.format(entry.getKey().getGiaBan()) + "");
                 table.addCell(" ");
-                table.addCell(formatter.format(chiTietHoaDon.getSoLuong() * chiTietHoaDon.getMon().getGiaBan()) + "");
+                table.addCell(formatter.format(entry.getValue() * entry.getKey().getGiaBan()) + "");
             }
             document.add(table);
 //          -----Tổng thanh toán----
-            document.add(createCost(new Paragraph("Tổng thanh toán").setBold(), formatter.format(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon)), pageWidth));
+            document.add(createCost(new Paragraph("Tổng thanh toán").setBold(), formatter.format(tongThanhToan), pageWidth));
 //          -----Còn phải thu----
             document.add(createCost(new Paragraph("Còn phải thu").setBold(), formatter.format(tienKhachTra - tienThua), pageWidth));
 //          -----Tiền Khách trả----
@@ -307,27 +310,28 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             int gio = Integer.parseInt(time);
             if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {  //            KiemTraTheoMaNhanVien
                 if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
-                    if(gio >= 6 && gio <= 12){
+                    if (gio >= 6 && gio <= 12) {
                         hd += 1;
-                        dt += tien.TotalFoodCurrency(h)/1000000;
+                        dt += tien.TotalFoodCurrency(h) / 1000000;
                         kh += h.getSoLuongNguoi();
                     }
-                    if(gio > 12 && gio <= 18){
+                    if (gio > 12 && gio <= 18) {
                         hd += 1;
-                        dt += tien.TotalFoodCurrency(h)/100000;
+                        dt += tien.TotalFoodCurrency(h) / 100000;
                         kh += h.getSoLuongNguoi();
-                    } 
-                    if(gio > 18 && gio <= 22){
+                    }
+                    if (gio > 18 && gio <= 22) {
                         hd += 1;
-                        dt += tien.TotalFoodCurrency(h)/100000;
+                        dt += tien.TotalFoodCurrency(h) / 100000;
                         kh += h.getSoLuongNguoi();
-                    } 
+                    }
                 }
             }
         }
-        double[] result = {dt,hd,kh};
+        double[] result = {dt, hd, kh};
         return result;
     }
+
     @Override
     public double getTongDoanhThu(NhanVien nv) {
         double sum = 0.0;
@@ -426,6 +430,13 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return em.createNamedQuery("HoaDon.findStateAndTableId", HoaDon.class)
                 .setParameter("ban", oldBanGop)
                 .setParameter("trangThai", loaiTrangThai)
+                .getResultList();
+    }
+
+    @Override
+    public List<HoaDon> getListHoaDonGhep(HoaDon hoaDon) {
+        return em.createNamedQuery("HoaDon.getListHoaDonGhep", HoaDon.class)
+                .setParameter("ban", hoaDon.getBan())
                 .getResultList();
     }
 }

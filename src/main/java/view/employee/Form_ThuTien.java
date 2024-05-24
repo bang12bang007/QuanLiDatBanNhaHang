@@ -58,14 +58,14 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
     private IMonDAO monDAO = new MonDAO();
     private IBanDAO banDAO = new BanDAO();
-    private HoaDon hoaDon;
+    private List<HoaDon> hoaDons;
     private JPanel mainJPanel;
     private TheThanhVien theThanhVien;
 
-    public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
+    public Form_ThuTien(JFrame jFrame, List<HoaDon> hoaDons) {
         initComponents();
         this.jFrame = jFrame;
-        this.hoaDon = hoaDon;
+        this.hoaDons = hoaDons;
         this.setBackground(new Color(0, 0, 0, 0.6f));
         wrapper.setBackground(new Color(0, 0, 0, 0));
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -651,6 +651,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             @Override
             protected Void doInBackground() throws Exception {
                 pay();
+                updateHoaDon();
                 return null;
             }
 
@@ -686,6 +687,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             protected void done() {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán và tạo hóa đơn thành công");
                 createHoaDon();
+                updateHoaDon();
                 jFrame.setVisible(false);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
@@ -763,12 +765,11 @@ public class Form_ThuTien extends javax.swing.JPanel {
         String tien = tienPhaiTra.getText().replace("VNĐ", "");
         tien = tien.replace(",", "");
         double tienThua = Double.parseDouble(tien);
-        hoaDonDAO.createInvoice(hoaDon, total + tienThua, tienThua);
+        hoaDonDAO.createInvoice(hoaDons.get(0), total + tienThua, tienThua);
     }
 
     //duccuong1609 : khuyenmai thanh nhieu nhieu voi hoa don roi
     private void pay() {
-        System.out.println("PAYING....");
         if (theThanhVien != null) {
             double diemTichLuy = theThanhVien.getDiemTich() + ((int) total / 100000);
             if (diemTichLuy >= 100.0) {
@@ -778,15 +779,12 @@ public class Form_ThuTien extends javax.swing.JPanel {
             } else if (diemTichLuy >= 2000.0) {
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.VANG);
             } else if (diemTichLuy >= 10000.0) {
-                System.out.println("VCL dcmm");
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.KIMCUONG);
             }
-            // Làm tròn số với hai chữ số thập phân
             theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
             theThanhVienDAO.update(theThanhVien);
         }
-//        hoaDon.setKhuyenMai(khuyenMais);
-        Ban _ban_ = hoaDon.getBan();
+        Ban _ban_ = hoaDons.get(0).getBan();
         List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
         listBanGop.forEach(ban -> {
             updateBanAfterPay(ban);
@@ -794,9 +792,13 @@ public class Form_ThuTien extends javax.swing.JPanel {
         if (listBanGop.size() == 0) {
             updateBanAfterPay(_ban_);
         }
-        hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
-        hoaDonDAO.update(hoaDon);
-//        banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
+    }
+
+    private void updateHoaDon() {
+        hoaDons.forEach(hoaDon -> {
+            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+            hoaDonDAO.update(hoaDon);
+        });
     }
 
     private void updateBanAfterPay(Ban ban) {

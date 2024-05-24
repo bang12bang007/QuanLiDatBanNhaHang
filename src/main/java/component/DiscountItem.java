@@ -26,7 +26,6 @@ public class DiscountItem extends javax.swing.JPanel {
     private KhuyenMai khuyenMai;
     private int index;
 
-
     public DiscountItem(int index, int width, KhuyenMai khuyenMai) {
         this.khuyenMai = khuyenMai;
         this.index = index;
@@ -149,6 +148,10 @@ public class DiscountItem extends javax.swing.JPanel {
     public void notActive() {
         checkbox.setIcon(null);
         gD_ThanhToan.removeKM(khuyenMai);
+    }
+
+    public KhuyenMai getKhuyenMai() {
+        return this.khuyenMai;
     }
 
     public int getIndex() {

@@ -1273,6 +1273,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 //            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
 //            banDAO.update(ban);
             hoaDon.setChiTietHoaDon(list);
+            hoaDon.setSoBanGop(gD_Ban.getBanItems().size());
             hoaDonDAO.insertHoaDon(hoaDon);
             gD_Ban.order();
 //=======

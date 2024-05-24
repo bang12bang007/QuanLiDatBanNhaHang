@@ -73,7 +73,6 @@ public class GD_Ban extends javax.swing.JPanel {
         this.type = type;
         this.main = main;
         this.nv = AppUtils.NHANVIEN;
-//        this.ban = phieuDatBan != null ? phieuDatBan.getBan() : null;
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         tabLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_RIGHT, 20, Color.WHITE));
@@ -83,7 +82,6 @@ public class GD_Ban extends javax.swing.JPanel {
         containerFloors.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         containerFloors.setPreferredSize(new Dimension(200, containerFloors.getHeight()));
         loadData();
-//        AppUtils.run(main, this);
     }
 
     /**
@@ -637,19 +635,6 @@ public class GD_Ban extends javax.swing.JPanel {
     }
 
     public void order() {
-//        String oldBanGop = null;
-//        if (ban.getBanGop() != null) {
-//            oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
-//            oldBanGop += ban.getBanGop().getMaBan() + ",";
-//        }
-//        ban.setBanGop(mainBan);
-//        ban.setOldBanGop(oldBanGop);
-//        String oldState = null;
-//        if (oldBanGop != null) {
-//            oldState = ban.getOldState() == null ? "" : ban.getOldState();
-//            oldState += ban.getTrangThai().ordinal() + ",";
-//        }
-//        ban.setOldState(oldState);
         Ban mainBan = getMainBan();
         for (BanItem banItem : getBanItems()) {
             Ban ban = banItem.getBan();
@@ -685,7 +670,8 @@ public class GD_Ban extends javax.swing.JPanel {
             if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT) || ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG)) {
                 mergeTable(ban, mainBan);
             } else {
-                ban.getHoaDon().forEach(hoaDon -> {
+                Ban banTemp = ban.getBanGop() != null ? ban.getBanGop() : ban;
+                banTemp.getHoaDon().forEach(hoaDon -> {
                     if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
                         hoaDon.setBan(mainBan);
                         hoaDonDAO.update(hoaDon);
@@ -694,7 +680,7 @@ public class GD_Ban extends javax.swing.JPanel {
                 if (ban.getBanGop() == null) {
                     ban.setBanGop(mainBan);
                 } else {
-                    List<Ban> listBanGop = banDAO.findByBanGop(ban);
+                    List<Ban> listBanGop = banDAO.findByBanGop(ban.getBanGop());
                     listBanGop.forEach(banGop -> {
                         banGop.setBanGop(mainBan);
                         banDAO.update(banGop);

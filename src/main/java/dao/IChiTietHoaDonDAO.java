@@ -4,11 +4,14 @@
  */
 package dao;
 
+import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.Mon;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dmx
@@ -18,6 +21,8 @@ public interface IChiTietHoaDonDAO<T> extends GenericDAO<T> {
     Double TotalFoodCurrency(HoaDon hoaDon);
 
     List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon);
+
+    Map<Mon, Long> getListByBan(HoaDon hoaDon);
 
     List<ChiTietHoaDon> getListBySoLuong(int soLuong);
 
