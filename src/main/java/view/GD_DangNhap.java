@@ -53,7 +53,9 @@ public class GD_DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Notifications.getInstance().setJFrame(this);
         FlatIntelliJLaf.setup();
-        //---------------------------------------------
+//        mẹ mày có mỗi việc copy ra rồi comment lại cũng để thằng khác làm dùm, m chỉ biết mỗi m thôi
+//        tenDangNhap.setText("NV121100624291");   
+//        matKhau.setText("11122003");
         tenDangNhap.setText("NV120060424290");
         matKhau.setText("280920003");
     }

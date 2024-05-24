@@ -297,41 +297,56 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         }
         return hd;
     }
-
-    public double[] getThongKeTheoCa(NhanVien nv) {
+    
+    public double[] getThongKeTheoCa(NhanVien nv, int startHour, int endHour) {
         double dt = 0;
         double hd = 0;
         double kh = 0;
-        String ngay = generateTime.substring(0, 6);
+       String ngay = generateTime.substring(0, 6);
         List<HoaDon> hoaDons = findAll(HoaDon.class);
-        ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO();
+        ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO(); 
         for (HoaDon h : hoaDons) {
             String time = h.getMaHoaDon().substring(8, 10);
             int gio = Integer.parseInt(time);
-            if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {  //            KiemTraTheoMaNhanVien
+             if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {  //            KiemTraTheoMaNhanVien
                 if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
-                    if (gio >= 6 && gio <= 12) {
+//<<<<<<< HEAD
+//                    if (gio >= 6 && gio <= 12) {
+//                        hd += 1;
+//                        dt += tien.TotalFoodCurrency(h) / 1000000;
+//                        kh += h.getSoLuongNguoi();
+//                    }
+//                    if (gio > 12 && gio <= 18) {
+//                        hd += 1;
+//                        dt += tien.TotalFoodCurrency(h) / 100000;
+//                        kh += h.getSoLuongNguoi();
+//                    }
+//                    if (gio > 18 && gio <= 22) {
+//                        hd += 1;
+//                        dt += tien.TotalFoodCurrency(h) / 100000;
+//                        kh += h.getSoLuongNguoi();
+//                    }
+//                }
+//            }
+//        }
+//        double[] result = {dt, hd, kh};
+//        return result;
+//    }
+//
+//=======
+                    if(gio >= startHour && gio <= endHour){
                         hd += 1;
-                        dt += tien.TotalFoodCurrency(h) / 1000000;
-                        kh += h.getSoLuongNguoi();
-                    }
-                    if (gio > 12 && gio <= 18) {
-                        hd += 1;
-                        dt += tien.TotalFoodCurrency(h) / 100000;
-                        kh += h.getSoLuongNguoi();
-                    }
-                    if (gio > 18 && gio <= 22) {
-                        hd += 1;
-                        dt += tien.TotalFoodCurrency(h) / 100000;
+                        dt += (tien.TotalFoodCurrency(h)/getTongDoanhThu(nv)) * 100;   // phần trăm theo tổng doanh thu
                         kh += h.getSoLuongNguoi();
                     }
                 }
             }
         }
-        double[] result = {dt, hd, kh};
+       double[] result = {dt,hd,kh};
         return result;
     }
-
+    
+//>>>>>>> b953876771280061a32ae3412be6052640ca67b7
     @Override
     public double getTongDoanhThu(NhanVien nv) {
         double sum = 0.0;
@@ -353,24 +368,22 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return formatter;
     }
 
-//    <<<<<<< HEAD
-//    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay) {
-//        List<HoaDon> list = findAll(HoaDon.class);
-//        List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
-//        String month_format = String.format("%02d", ngay.getMonthValue());
-//        String date_format = String.format("%02d", ngay.getDayOfMonth());
-//        String ngayString = Integer.toString(ngay.getYear()).substring(2, 4) + month_format + date_format;
-//        for (int i = 0; i < list.size(); i++) {
-//            String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
-//            if (ngayString.equals(ngay_hoadon)) {
-//                listHoaDonTheoNgay.add(list.get(i));
-//            }
-//        }
-//        System.out.println(listHoaDonTheoNgay.size());
-//        return listHoaDonTheoNgay;
-//    }
-//    =======
-//>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
+    public List<HoaDon> findHoaDonTheoNgay(LocalDateTime ngay) {
+        List<HoaDon> list = findAll(HoaDon.class);
+        List<HoaDon> listHoaDonTheoNgay = new ArrayList<>();
+        String month_format = String.format("%02d", ngay.getMonthValue());
+        String date_format = String.format("%02d", ngay.getDayOfMonth());
+        String ngayString = Integer.toString(ngay.getYear()).substring(2, 4) + month_format + date_format;
+        for (int i = 0; i < list.size(); i++) {
+            String ngay_hoadon = list.get(i).getMaHoaDon().substring(2, 8);
+            if (ngayString.equals(ngay_hoadon)) {
+                listHoaDonTheoNgay.add(list.get(i));
+            }
+        }
+        System.out.println(listHoaDonTheoNgay.size());
+        return listHoaDonTheoNgay;
+    }
+
     @Override
     public List<HoaDon> findFromDateToDate(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
         TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findFromDateToDate", HoaDon.class);
