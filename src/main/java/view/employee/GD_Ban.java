@@ -647,14 +647,14 @@ public class GD_Ban extends javax.swing.JPanel {
 
     private void mergeTable(Ban ban, Ban mainBan) {
         String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
-        oldBanGop = !oldBanGop.endsWith(",") ? oldBanGop + "," : oldBanGop;
+        oldBanGop = !oldBanGop.endsWith(",") && !oldBanGop.equals("") ? oldBanGop + "," : oldBanGop;
         oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
         ban.setBanGop(getBanItems().size() > 1 ? mainBan : null);
         ban.setOldBanGop(oldBanGop);
         String oldState = null;
         if (oldBanGop != null) {
             oldState = ban.getOldState() == null ? "" : ban.getOldState();
-            oldState = !oldState.endsWith(",") ? oldState + "," : oldState;
+            oldState = !oldState.endsWith(",") && !oldState.equals("") ? oldState + "," : oldState;
             oldState += ban.getTrangThai().ordinal() + ",";
         }
         ban.setOldState(oldState);
