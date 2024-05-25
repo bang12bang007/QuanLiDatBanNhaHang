@@ -23,7 +23,7 @@ public class GD_QuanLyBan extends SimpleForm {
 
     private void populateTable() {
         // Xóa tất cả các dòng hiện có trong bảng
-        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
 
         List<Ban> allBans = daoB.findAll(Ban.class);
@@ -47,8 +47,10 @@ public class GD_QuanLyBan extends SimpleForm {
 
         panelRound2 = new component.PanelRound();
         fromDateJLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table1 = new view.manger.table.Table();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(83, 86, 99));
 
@@ -62,44 +64,50 @@ public class GD_QuanLyBan extends SimpleForm {
         fromDateJLabel.setForeground(new java.awt.Color(255, 255, 255));
         fromDateJLabel.setText("QUẢN LÝ BÀN");
 
-        table1.setAutoCreateRowSorter(true);
-        table1.setBackground(new java.awt.Color(83, 86, 99));
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã bàn", "Số người", "Trạng thái", "Tầng"
+                "STT", "Mã bàn", "Số ghế ", "Trạng thái ", "Tầng"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(table1);
+        jLabel1.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel1.setText("Số ghế ");
+
+        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel2.setText("Mã bàn ");
 
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
         panelRound2Layout.setHorizontalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
+            .addGroup(panelRound2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1536, Short.MAX_VALUE)
                     .addComponent(fromDateJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelRound2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1939, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jLabel2)
+                        .addGap(123, 123, 123)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
                 .addComponent(fromDateJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addGap(100, 100, 100)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -110,7 +118,7 @@ public class GD_QuanLyBan extends SimpleForm {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,8 +131,10 @@ public class GD_QuanLyBan extends SimpleForm {
     private BanDAO daoB;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fromDateJLabel;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private component.PanelRound panelRound2;
-    private view.manger.table.Table table1;
     // End of variables declaration//GEN-END:variables
 }

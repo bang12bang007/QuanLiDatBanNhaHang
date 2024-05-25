@@ -16,7 +16,6 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\Message
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\BanItem.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\Slider.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\BanDAO.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\TableHeader.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\MessageReserve.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\ChiTietHoaDon.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\ITheThanhVienDAO.java
@@ -28,7 +27,6 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\KhuyenMai.
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\swing\slider\SimpleTransition.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\ChiTietKhuyenMaiDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThongTinCaNhan.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\ModelAction.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\components\Background.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\NhanVienDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\HoaDonDAO.java
@@ -63,7 +61,6 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ComboBo
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_DoiSoLuongNguoi.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\IMonDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ModernScrollBarUI.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\TableCellAction.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\PanelRound.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\icon\FontAwesome.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\SelectedDate.java
@@ -72,13 +69,11 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\Event
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\Years.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_Ban.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\SeriesSize.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\Button.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_QRCODE.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\TaiKhoan.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\application\GD_Dashboard.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\PanelShadow.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\utils\AppUtils.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\ModelProfile.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\TaiKhoanDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\TheThanhVienDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\NhanVien.java
@@ -87,7 +82,6 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\INhanVienDAO.
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThemMonKhac.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\IBanDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\IHoaDonDAO.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\Action.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\GD_DangNhap.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\IChiTietKhuyenMaiDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_DatBanTaiCho.java
@@ -108,8 +102,6 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\BlankPlotChatRender.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ComboSuggestionUI.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\swing\slider\SliderTransition.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\EventAction.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manger\table\Table.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\TransparentPopupMenu.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\Months.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\utils\DateCalculator.java
