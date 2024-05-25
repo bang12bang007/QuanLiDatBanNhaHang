@@ -40,7 +40,7 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
     private JLabel tienPhaiThu;
     private JLabel thanhTienKMKhac;
     private List<HoaDon> hoaDons = new ArrayList<>();
-    private double thanhTien = 0;
+    private double thue = 0;
 
     public Form_SuDungDiem(JFrame jFrame, TheThanhVien theThanhVien) {
         this.jFrame = jFrame;
@@ -399,7 +399,7 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
             for (HoaDon hd : hoaDons) {
                 tienPhaiThu += hd.getTienPhaiThu();
             }
-            this.tienPhaiThu.setText(FORMAT_MONEY.format(tienPhaiThu));
+            this.tienPhaiThu.setText(FORMAT_MONEY.format(tienPhaiThu + thue));
             this.thanhTienKMKhac.setText(FORMAT_MONEY.format(thanhTienKM));
             theThanhVien.setDiemTich(theThanhVien.getDiemTich() - Double.parseDouble(txtDiemSuDung.getText()));
             jFrame.setVisible(false);
@@ -445,8 +445,8 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
         this.hoaDons = hoaDons;
     }
 
-    void setThanhTien(Double thanhTien) {
-        this.thanhTien = thanhTien;
+    public void setThue(Double thue) {
+        this.thue = thue;
     }
 
 

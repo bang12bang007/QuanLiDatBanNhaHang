@@ -4,21 +4,12 @@
  */
 package component;
 
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import entity.Ban;
-
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import raven.toast.Notifications;
-import view.employee.GD_DatBanTruoc;
-
 import static utils.AppUtils.*;
-
 import view.employee.Form_DatBan;
-import view.employee.GD_DatBanTaiCho;
 
 /**
  * @author Laptop
