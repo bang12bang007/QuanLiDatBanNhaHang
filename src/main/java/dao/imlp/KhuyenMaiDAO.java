@@ -10,6 +10,6 @@ import entity.KhuyenMai;
 /**
  * @author Laptop
  */
-public class KhuyenMainDAO extends AbstractDAO<KhuyenMai> implements IKhuyenMaiDAO<KhuyenMai> {
+public class KhuyenMaiDAO extends AbstractDAO<KhuyenMai> implements IKhuyenMaiDAO<KhuyenMai> {
 
 }

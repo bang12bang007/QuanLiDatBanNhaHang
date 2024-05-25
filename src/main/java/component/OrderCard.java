@@ -124,7 +124,6 @@ public class OrderCard extends javax.swing.JPanel {
     private void cutInvoice() {
         ql_datMon.cutInvoice(hoaDon);
         menu.setVisible(false);
-        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Tách hóa đơn Thành Công !");
         utils.AppUtils.setUI(mainPanel, () -> new GD_DatBanTaiCho(mainPanel, NHANVIEN));
     }
 

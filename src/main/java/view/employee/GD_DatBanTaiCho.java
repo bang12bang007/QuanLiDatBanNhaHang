@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
+import raven.toast.Notifications;
 
 /**
  * @author Laptop
@@ -577,6 +578,7 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
     }
 
     public void cutInvoice(HoaDon hoaDon) {
+        boolean isSuccess = false;
         List<Ban> listBan = banDAO.findAll(Ban.class);
         for (Ban ban : listBan) {
             if (ban.getOldBanGop() != null && !ban.getOldBanGop().equals("null,") && !ban.getOldBanGop().equals("null")) {
@@ -601,10 +603,16 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
                     ban.setOldBanGop(!oldBanGop.endsWith(",") ? oldBanGop + "," : oldBanGop);
                     ban.setOldState(!oldState.endsWith(",") ? oldState + "," : oldState);
                     hoaDon.setBan((Ban) banDAO.findById(oldHoaDonAndBanGop.get(1), Ban.class));
+                    isSuccess = true;
                 }
                 banDAO.update(ban);
                 hoaDonDAO.update(hoaDon);
             }
+        }
+        if (!isSuccess) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Không thể tách hóa đơn gốc");
+        } else {
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Tách hóa đơn Thành Công !");
         }
     }
 

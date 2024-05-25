@@ -647,7 +647,7 @@
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel4" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="panelRound1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="voucher" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="panelRound2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -701,11 +701,9 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="panelRound2" max="32767" attributes="0"/>
-                              <Component id="panelRound1" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="thue" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel12" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="voucher" min="-2" max="-2" attributes="0"/>
+                              <Component id="thue" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel12" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -1146,7 +1144,7 @@
             <Property name="text" type="java.lang.String" value="1000000"/>
           </Properties>
         </Component>
-        <Container class="component.PanelRound" name="panelRound1">
+        <Container class="component.PanelRound" name="voucher">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="69" green="7c" red="ea" type="rgb"/>
@@ -1156,6 +1154,9 @@
             <Property name="roundTopLeft" type="int" value="12"/>
             <Property name="roundTopRight" type="int" value="12"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="voucherMouseClicked"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">

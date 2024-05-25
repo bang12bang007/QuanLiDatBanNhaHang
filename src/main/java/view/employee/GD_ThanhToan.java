@@ -18,7 +18,7 @@ import dao.ITheThanhVienDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.KhachHangDAO;
-import dao.imlp.KhuyenMainDAO;
+import dao.imlp.KhuyenMaiDAO;
 import dao.imlp.MonDAO;
 import dao.imlp.TheThanhVienDAO;
 import entity.ChiTietKhuyenMai;
@@ -57,12 +57,12 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private IMonDAO monDAO = new MonDAO();
     private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
-    private IKhuyenMaiDAO khuyenMaiDAO = new KhuyenMainDAO();
+    private IKhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
+    private IKhachHangDAO khachHangDAO = new KhachHangDAO();
 
     private JPanel mJPanel;
     private DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
-    private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     private JFrame thuTienJFrame;
 
     private List<String> loaiThe = List.of("STANDARD", "BRONZE", "SILVER", "GOLD", "DIAMOND");
@@ -74,6 +74,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private int indexIsActive = -1;
     private JPanel branch;
     private List<HoaDon> hoaDonGhep = new ArrayList<>();
+    private double oldPoint = 0;
 
     public GD_ThanhToan(HoaDon hoaDon, JPanel mJPanel) {
         this.hoaDon = hoaDon;
@@ -208,7 +209,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         tableBody = new javax.swing.JScrollPane();
         tableContainer = new javax.swing.JPanel();
         tongThanhToan = new javax.swing.JLabel();
-        panelRound1 = new component.PanelRound();
+        voucher = new component.PanelRound();
         jLabel10 = new javax.swing.JLabel();
         panelRound2 = new component.PanelRound();
         diem = new javax.swing.JLabel();
@@ -823,11 +824,16 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         tongThanhToan.setForeground(new java.awt.Color(255, 255, 255));
         tongThanhToan.setText("1000000");
 
-        panelRound1.setBackground(new java.awt.Color(234, 124, 105));
-        panelRound1.setRoundBottomLeft(12);
-        panelRound1.setRoundBottomRight(12);
-        panelRound1.setRoundTopLeft(12);
-        panelRound1.setRoundTopRight(12);
+        voucher.setBackground(new java.awt.Color(234, 124, 105));
+        voucher.setRoundBottomLeft(12);
+        voucher.setRoundBottomRight(12);
+        voucher.setRoundTopLeft(12);
+        voucher.setRoundTopRight(12);
+        voucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voucherMouseClicked(evt);
+            }
+        });
 
         jLabel10.setBackground(new java.awt.Color(234, 124, 105));
         jLabel10.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
@@ -836,14 +842,14 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("VOUCHER");
 
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout voucherLayout = new javax.swing.GroupLayout(voucher);
+        voucher.setLayout(voucherLayout);
+        voucherLayout.setHorizontalGroup(
+            voucherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        voucherLayout.setVerticalGroup(
+            voucherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
@@ -930,7 +936,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                             .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(rightContainerLayout.createSequentialGroup()
-                                    .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(voucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(6, 6, 6)))
@@ -972,10 +978,9 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                     .addGroup(rightContainerLayout.createSequentialGroup()
                         .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(thue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(voucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5))
                     .addGroup(rightContainerLayout.createSequentialGroup()
@@ -1016,7 +1021,8 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                 form_SuDungDiem.setTienPhaiThu(tienThu);
                 form_SuDungDiem.setThanhTienKMKhac(thanhTienKMKhac);
                 form_SuDungDiem.setHoaDons(hoaDonGhep);
-                form_SuDungDiem.setThue(getTotalAndSubTotal()[2]);
+                form_SuDungDiem.setGDThanhToan(this);
+                form_SuDungDiem.setTongThanhToan(Double.parseDouble(tongThanhToan.getText().replace("VNĐ", "").replace(",", "")));
                 thuTienJFrame.add(form_SuDungDiem);
                 thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
                 FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
@@ -1120,6 +1126,27 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtTenThanhVienKeyReleased
 
+    private void voucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voucherMouseClicked
+        // TODO add your handling code here:
+        if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
+            thuTienJFrame = new JFrame();
+            thuTienJFrame.setUndecorated(true);
+            thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
+            thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_Voucher form_Voucher = new Form_Voucher(thuTienJFrame);
+            form_Voucher.setHoaDons(hoaDonGhep);
+            form_Voucher.setThanhTienKMKhach(thanhTienKMKhac);
+            form_Voucher.setTienPhaiThu(tienThu);
+            form_Voucher.setTongThanhToan(tongThanhToan);
+            thuTienJFrame.add(form_Voucher);
+            thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
+            thuTienJFrame.setVisible(true);
+        } else {
+            thuTienJFrame.toFront();
+        }
+    }//GEN-LAST:event_voucherMouseClicked
+
     public void loadData() {
         int width = tableContainer.getWidth();
         int index = 1;
@@ -1137,6 +1164,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         AtomicInteger index = new AtomicInteger(0);
         khuyenMaiDAO.findAll(KhuyenMai.class)
                 .stream()
+                .filter((t) -> ((KhuyenMai) t).getLoaiKhuyenMai().equals(utils.Enum.LoaiKhuyenMai.SU_KIEN_DAC_BIET))
                 .sorted(Comparator.comparingDouble(KhuyenMai::getChietKhau).reversed())
                 .toList().forEach((object) -> {
                     KhuyenMai khuyenMai = (KhuyenMai) object;
@@ -1157,7 +1185,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         onChangeMutipl();
         for (DiscountItem discountItem : discountItems) {
             if (discountItem.getIndex() == index && index != indexIsActive()) {
-                System.out.println("ACTIVE: " + discountItem.getIndex());
                 discountItem.active();
                 setIndexIsActive(index);
                 isAllNotActive = false;
@@ -1218,6 +1245,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             onChange(hoaDon);
             tienPhaiThu += hoaDon.getTienPhaiThu();
         }
+        thanhTienKMKhac.setText("");
         thue.setText(tien_format.format(tienPhaiThu * THUE));
         tongThanhToan.setText(FORMAT_MONEY.format(tienPhaiThu * THUE + tienPhaiThu));
         tienThu.setText(tien_format.format(tienPhaiThu * THUE + tienPhaiThu));
@@ -1229,6 +1257,14 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             items.add(theThanhVien.getKhachHang().getHoTen());
         }
         AutoCompleteDecorator.decorate(txtTenThanhVien, items, false);
+    }
+
+    public double getOldPoint() {
+        return oldPoint;
+    }
+
+    public void setOldPoint(double oldPoint) {
+        this.oldPoint = oldPoint;
     }
 
     public int indexIsActive() {
@@ -1283,7 +1319,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private component.PanelRound maTheContainer2;
     private component.PanelRound maTheContainer3;
     private javax.swing.JLabel ngayGioHienTai;
-    private component.PanelRound panelRound1;
     private component.PanelRound panelRound2;
     private javax.swing.JPanel rightContainer;
     private javax.swing.JPanel table;
@@ -1301,5 +1336,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private javax.swing.JTextField txtMKM;
     private javax.swing.JTextField txtMTV;
     private javax.swing.JTextField txtTenThanhVien;
+    private component.PanelRound voucher;
     // End of variables declaration//GEN-END:variables
 }

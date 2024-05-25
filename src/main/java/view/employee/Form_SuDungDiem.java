@@ -40,7 +40,8 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
     private JLabel tienPhaiThu;
     private JLabel thanhTienKMKhac;
     private List<HoaDon> hoaDons = new ArrayList<>();
-    private double thue = 0;
+    private double tongThanhToan = 0;
+    private GD_ThanhToan gd_ThanhToan;
 
     public Form_SuDungDiem(JFrame jFrame, TheThanhVien theThanhVien) {
         this.jFrame = jFrame;
@@ -388,7 +389,6 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (Double.parseDouble(txtDiemSuDung.getText()) <= ((TheThanhVien) theThanhVienDAO.findById(theThanhVien.getMaThe(), TheThanhVien.class)).getDiemTich()) {
             String ghiChu = theThanhVien.getKhachHang().getHoTen() + " sử dụng " + txtDiemSuDung.getText();
-            double tienPhaiThu = 0;
             double thanhTienKM = (Double.parseDouble(txtDiemSuDung.getText()) * 20000 / 50);
             HoaDon hoaDon = hoaDons.get(0);
             KhuyenMai khuyenMai = new KhuyenMai("THE_THANH_VIEN", LocalDateTime.now(), LocalDateTime.now(), thanhTienKM, utils.Enum.LoaiKhuyenMai.SU_DUNG_DIEM, ghiChu);
@@ -396,11 +396,12 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
             hoaDon.getChiTietKhuyenMai().add(chiTietKhuyenMai);
             hoaDon.tienPhaiThu();
             hoaDon.getChiTietKhuyenMai().remove(chiTietKhuyenMai);
-            for (HoaDon hd : hoaDons) {
-                tienPhaiThu += hd.getTienPhaiThu();
-            }
-            this.tienPhaiThu.setText(FORMAT_MONEY.format(tienPhaiThu + thue));
-            this.thanhTienKMKhac.setText(FORMAT_MONEY.format(thanhTienKM));
+            double thanhTienKhac = thanhTienKMKhac.getText().trim().equals("")
+                    ? 0
+                    : Double.parseDouble(thanhTienKMKhac.getText().replace("VNĐ", "").replace(",", ""));
+            this.thanhTienKMKhac.setText(FORMAT_MONEY.format(thanhTienKhac + thanhTienKM - gd_ThanhToan.getOldPoint()));
+            gd_ThanhToan.setOldPoint(thanhTienKM);
+            this.tienPhaiThu.setText(FORMAT_MONEY.format(tongThanhToan - Double.parseDouble(thanhTienKMKhac.getText().replace("VNĐ", "").replace(",", ""))));
             theThanhVien.setDiemTich(theThanhVien.getDiemTich() - Double.parseDouble(txtDiemSuDung.getText()));
             jFrame.setVisible(false);
             jFrame.dispose();
@@ -445,11 +446,13 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
         this.hoaDons = hoaDons;
     }
 
-    public void setThue(Double thue) {
-        this.thue = thue;
+    public void setTongThanhToan(Double tongThanhToan) {
+        this.tongThanhToan = tongThanhToan;
     }
 
-
+    void setGDThanhToan(GD_ThanhToan aThis) {
+        this.gd_ThanhToan = aThis;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;
     private javax.swing.JLabel diem;
