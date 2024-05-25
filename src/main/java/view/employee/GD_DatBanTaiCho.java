@@ -9,10 +9,13 @@ import component.MyButton;
 import component.OrderCard;
 import component.ScrollBarCustom;
 import component.WrapLayout;
+import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
+import dao.imlp.BanDAO;
 import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
+import entity.Ban;
 import entity.HoaDon;
 import entity.NhanVien;
 import icon.FontAwesome;
@@ -30,8 +33,10 @@ import javax.swing.*;
 import static utils.AppUtils.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 /**
  * @author Laptop
@@ -44,6 +49,7 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
     private JPanel mainPanel;
     private NhanVien nv;
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private IBanDAO banDAO = new BanDAO();
     private List<HoaDon> hoadons;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private boolean waitForPayment = true;
@@ -568,6 +574,38 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
     private void setInitActive(JButton button) {
         ActionEvent fakeEvent = new ActionEvent(button, ActionEvent.ACTION_PERFORMED, "");
         setActiveTab(fakeEvent);
+    }
+
+    public void cutInvoice(HoaDon hoaDon) {
+        List<Ban> listBan = banDAO.findAll(Ban.class);
+        for (Ban ban : listBan) {
+            if (ban.getOldBanGop() != null && !ban.getOldBanGop().equals("null,") && !ban.getOldBanGop().equals("null")) {
+                List<String> oldBanGops = new ArrayList<>(Arrays.asList(ban.getOldBanGop().split(",")));
+                List<Integer> oldStates = new ArrayList<>();
+                String[] oldStateStrings = ban.getOldState().split(",");
+                for (String stateString : oldStateStrings) {
+                    oldStates.add(Integer.parseInt(stateString));
+                }
+                int lastIndex = oldBanGops.size() - 1;
+                List<String> oldHoaDonAndBanGop = new ArrayList<>(Arrays.asList(oldBanGops.get(lastIndex).split("-")));
+                if (oldHoaDonAndBanGop.get(0).equals(hoaDon.getMaHoaDon())) {
+                    ban.setBanGop((Ban) banDAO.findById(oldHoaDonAndBanGop.get(1), Ban.class));
+                    ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldStates.get(lastIndex)]);
+                    oldBanGops.remove(oldBanGops.size() - 1);
+                    oldStates.remove(oldStates.size() - 1);
+                    String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+                    String oldState = oldStates.size() > 0 ? (oldStates.stream()
+                            .map(Object::toString)
+                            .collect(Collectors.joining(",")))
+                            : null;
+                    ban.setOldBanGop(!oldBanGop.endsWith(",") ? oldBanGop + "," : oldBanGop);
+                    ban.setOldState(!oldState.endsWith(",") ? oldState + "," : oldState);
+                    hoaDon.setBan((Ban) banDAO.findById(oldHoaDonAndBanGop.get(1), Ban.class));
+                }
+                banDAO.update(ban);
+                hoaDonDAO.update(hoaDon);
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

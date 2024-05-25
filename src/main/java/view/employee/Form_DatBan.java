@@ -80,7 +80,6 @@ public class Form_DatBan extends javax.swing.JPanel {
     public Form_DatBan(JFrame jFrame, Ban ban) {
         this.jFrame = jFrame;
         this.ban = ban;
-        ;
         initComponents();
         Notifications.getInstance().setJFrame(jFrame);
         FlatIntelliJLaf.setup();
@@ -881,12 +880,6 @@ public class Form_DatBan extends javax.swing.JPanel {
     }
 
     private void setOld(Ban ban, Ban mainBan) {
-//        String oldBanGop = null;
-//        if (ban.getBanGop() != null) {
-//            
-//        }
-
-//      
         String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
         oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
         ban.setBanGop(mainBan);

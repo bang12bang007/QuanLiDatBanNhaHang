@@ -58,7 +58,7 @@ public class OrderCard extends javax.swing.JPanel {
         setIconBtn();
         maBan.setText(hoaDon.getBan().getMaBan());
         soLuongNguoi.setText(hoaDon.getSoLuongNguoi() + "");
-        tacVuList.setPreferredSize(new Dimension(250, 150));
+        tacVuList.setPreferredSize(new Dimension(250, 200));
         tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         Notifications.getInstance();
         FlatIntelliJLaf.setup();
@@ -75,6 +75,9 @@ public class OrderCard extends javax.swing.JPanel {
         }));
         tacVuList.add(createTacVu("Ghép hóa đơn", IconFontSwing.buildIcon(FontAwesome.BOOK, 25, Color.WHITE), (e) -> {
             mergeOrder();
+        }));
+        tacVuList.add(createTacVu("Tách hóa đơn", IconFontSwing.buildIcon(FontAwesome.BOOK, 25, Color.WHITE), (e) -> {
+            cutInvoice();
         }));
     }
 
@@ -116,6 +119,13 @@ public class OrderCard extends javax.swing.JPanel {
             return gD_Ban;
         });
         menu.setVisible(false);
+    }
+
+    private void cutInvoice() {
+        ql_datMon.cutInvoice(hoaDon);
+        menu.setVisible(false);
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Tách hóa đơn Thành Công !");
+        utils.AppUtils.setUI(mainPanel, () -> new GD_DatBanTaiCho(mainPanel, NHANVIEN));
     }
 
     /**

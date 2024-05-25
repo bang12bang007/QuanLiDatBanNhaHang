@@ -816,18 +816,20 @@ public class Form_ThuTien extends javax.swing.JPanel {
             ban.setBanGop(null);
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
         } else if (oldBanGops.size() > 0) {
-            String lastItem = oldBanGops.get(oldBanGops.size() - 1);
-            ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
-            ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
-            oldBanGops.remove(oldBanGops.size() - 1);
-            oldState.remove(oldState.size() - 1);
-            String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
-            String oldStateString = oldState.size() > 0 ? (oldState.stream()
-                    .map(Object::toString)
-                    .collect(Collectors.joining(",")))
-                    : null;
-            ban.setOldBanGop(oldBanGop);
-            ban.setOldState(oldStateString);
+            while (oldState.get(oldState.size() - 1) == 0 || oldState.get(oldState.size() - 1) == 3) {
+                String lastItem = oldBanGops.get(oldBanGops.size() - 1);
+                ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
+                ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
+                oldBanGops.remove(oldBanGops.size() - 1);
+                oldState.remove(oldState.size() - 1);
+                String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+                String oldStateString = oldState.size() > 0 ? (oldState.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(",")))
+                        : null;
+                ban.setOldBanGop(oldBanGop);
+                ban.setOldState(oldStateString);
+            }
         }
 
         banDAO.update(ban);

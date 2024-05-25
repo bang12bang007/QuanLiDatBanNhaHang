@@ -265,6 +265,7 @@ public class BanItem extends javax.swing.JPanel {
                 } else {
                     setSelected();
                 }
+                gD_Ban.updateBanGopByBan(ban);
                 break;
             }
         }

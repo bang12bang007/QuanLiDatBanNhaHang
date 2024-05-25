@@ -787,7 +787,6 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                         List<Ban> banOlds = list.get(i).keySet().stream().toList().get(0);
                         int index = list.get(i).get(banOlds).get(0);
                         clearOld(banOlds, index);
-                        System.out.println("I: " + i + " INDEX: " + index);
                     }
                 } else {
                     Ban ban = bookingItems.get(active).getHoaDon().getBan();
