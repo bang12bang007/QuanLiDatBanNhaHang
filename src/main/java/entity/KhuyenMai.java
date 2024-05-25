@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.time.LocalDateTime;
 
 import java.util.Date;
 import java.util.List;
@@ -38,9 +39,9 @@ public class KhuyenMai {
     @Column(name = "TenKhuyenMai", columnDefinition = "NVARCHAR(100)", nullable = false)
     private String tenKhuyenMai;
     @Column(name = "NgayBatDau", nullable = false)
-    private Date ngayBatDau;
+    private LocalDateTime ngayBatDau;
     @Column(name = "NgayKetThuc", nullable = true)
-    private Date ngayKetThuc;
+    private LocalDateTime ngayKetThuc;
     @Column(name = "ChietKhau", nullable = false)
     private Double chietKhau;
     @Column(name = "LoaiKhuyenMai", nullable = false)
@@ -51,7 +52,7 @@ public class KhuyenMai {
     @OneToMany(mappedBy = "khuyenMai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ChiTietKhuyenMai> chiTietKhuyenMai;
 
-    public KhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Double chietKhau, LoaiKhuyenMai loaiKhuyenMai, String ghiChu) {
+    public KhuyenMai(String tenKhuyenMai, LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc, Double chietKhau, LoaiKhuyenMai loaiKhuyenMai, String ghiChu) {
         this.tenKhuyenMai = tenKhuyenMai;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;

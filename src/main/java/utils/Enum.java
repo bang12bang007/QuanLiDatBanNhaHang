@@ -49,7 +49,7 @@ public class Enum {
     ;
 
     public static enum LoaiKhuyenMai {
-        SU_KIEN_DAC_BIET, SAN_PHAM, MEM_BRONZE, MEM_SILVER, MEM_GOLD, MEM_DIAMOND;
+        SU_KIEN_DAC_BIET, SAN_PHAM, MEM_BRONZE, MEM_SILVER, MEM_GOLD, MEM_DIAMOND, SU_DUNG_DIEM;
     }
 
     ;

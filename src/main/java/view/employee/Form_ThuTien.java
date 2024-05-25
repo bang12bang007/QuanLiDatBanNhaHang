@@ -17,7 +17,6 @@ import dao.imlp.MonDAO;
 import dao.imlp.TheThanhVienDAO;
 import entity.Ban;
 import entity.HoaDon;
-import entity.KhuyenMai;
 import entity.TheThanhVien;
 import icon.FontAwesome;
 

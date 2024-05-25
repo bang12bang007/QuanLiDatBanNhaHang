@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -804,54 +805,64 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
     }
 
     public void received() {
+
         if (active >= 0) {
-            HoaDon hoaDon = bookingItems.get(active).getHoaDon();
-            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-            hoaDon.setNgayGioNhanBan(LocalDateTime.now());
-            hoaDonDAO.update(hoaDon);
-            Ban banGop = bookingItems.get(active).getHoaDon().getBan();
-            if (bookingItems.get(active).getHoaDon().getSoBanGop() > 1) {
-                SwingWorker<List<Ban>, Void> worker = new SwingWorker<List<Ban>, Void>() {
-                    utils.Enum.LoaiTrangThai trangThai = utils.Enum.LoaiTrangThai.BAN_CO_KHACH;
+            LocalDateTime bookingTime = bookingItems.get(active).getHoaDon().getNgayDatBan();
+            LocalDateTime currentTime = LocalDateTime.now();
+            Duration duration = Duration.between(currentTime, bookingTime);
+            if (duration.toMinutes() <= 10) {
+                HoaDon hoaDon = bookingItems.get(active).getHoaDon();
+                hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+                hoaDon.setNgayGioNhanBan(LocalDateTime.now());
+                hoaDonDAO.update(hoaDon);
+                Ban banGop = bookingItems.get(active).getHoaDon().getBan();
+                if (bookingItems.get(active).getHoaDon().getSoBanGop() > 1) {
+                    SwingWorker<List<Ban>, Void> worker = new SwingWorker<List<Ban>, Void>() {
+                        utils.Enum.LoaiTrangThai trangThai = utils.Enum.LoaiTrangThai.BAN_CO_KHACH;
 
-                    @Override
-                    protected List<Ban> doInBackground() throws Exception {
-                        List<Ban> bans = banDAO.findAll(Ban.class);
-                        for (Ban ban : bans) {
-                            trangThai = receivOne(ban, banGop, trangThai);
+                        @Override
+                        protected List<Ban> doInBackground() throws Exception {
+                            List<Ban> bans = banDAO.findAll(Ban.class);
+                            for (Ban ban : bans) {
+                                trangThai = receivOne(ban, banGop, trangThai);
+                            }
+                            return bans;
                         }
-                        return bans;
-                    }
 
-                    @Override
-                    protected void done() {
-                        try {
-                            for (Ban ban : get()) {
-                                if (ban.getBanGop() != null) {
-                                    if (ban.getBanGop().getMaBan().equals(banGop.getMaBan())) {
-                                        ban.setTrangThai(trangThai);
-                                        banDAO.update(ban);
+                        @Override
+                        protected void done() {
+                            try {
+                                for (Ban ban : get()) {
+                                    if (ban.getBanGop() != null) {
+                                        if (ban.getBanGop().getMaBan().equals(banGop.getMaBan())) {
+                                            ban.setTrangThai(trangThai);
+                                            banDAO.update(ban);
+                                        }
                                     }
                                 }
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (ExecutionException ex) {
+                                Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (ExecutionException ex) {
-                            Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
 
-                };
-                worker.execute();
+                    };
+                    worker.execute();
+                } else {
+                    utils.Enum.LoaiTrangThai trangThai = receivOne(banGop, null, utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+                    banGop.setTrangThai(trangThai);
+                    banDAO.update(banGop);
+                }
+                bookingItems.get(active).setTrangThai("Đã nhận bàn");
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Khách " + bookingItems.get(active).getHoaDon().getKhachHang().getHoTen() + " đã nhận bàn vào lúc " + forrmater(LocalDateTime.now().toString()));
+                setBookingActive(-1);
             } else {
-                utils.Enum.LoaiTrangThai trangThai = receivOne(banGop, null, utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
-                banGop.setTrangThai(trangThai);
-                banDAO.update(banGop);
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, 1500, "Khách nhận bàn quá sớm");
             }
-            bookingItems.get(active).setTrangThai("Đã nhận bàn");
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Khách " + bookingItems.get(active).getHoaDon().getKhachHang().getHoTen() + " đã nhận bàn vào lúc " + forrmater(LocalDateTime.now().toString()));
-            setBookingActive(-1);
+
         }
+
     }
 
     private utils.Enum.LoaiTrangThai receivOne(Ban ban, Ban banGop, utils.Enum.LoaiTrangThai trangThai) {

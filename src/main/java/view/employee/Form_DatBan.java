@@ -847,6 +847,7 @@ public class Form_DatBan extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Bàn đã được đặt trước");
             } else {
                 boolean isSuccess = hoaDonDAO.insertHoaDon(phieuDatBan);
+                
                 if (isSuccess) {
                     if (bans == null || floor == -1) {
                         setOld(ban, null);
