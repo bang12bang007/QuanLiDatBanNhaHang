@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /.DS_Store
+=======
+>>>>>>> 4ad7f5cdabf3c4d984bf13323ad1425679a9b279
 /component/
 /dao/
 /datechooser/
@@ -6,6 +9,12 @@
 /font/
 /icon/
 /lib/
+<<<<<<< HEAD
 /utils/
 /view/
 /META-INF/
+=======
+/server/
+/utils/
+/view/
+>>>>>>> 4ad7f5cdabf3c4d984bf13323ad1425679a9b279

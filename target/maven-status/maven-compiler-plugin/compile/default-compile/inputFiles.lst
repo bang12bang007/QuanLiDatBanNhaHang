@@ -29,6 +29,7 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\componen
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\component\PanelRound.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\InboxForm.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_TrangChu.java
+D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\entityManager.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\component\ModelChart.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\entity\NhanVien.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\DashboardForm.java
@@ -42,6 +43,7 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\componen
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\GD_DangNhap.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThuTien.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\IMonDAO.java
+D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_QuanLyBan.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\datechooser\Dates.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\TaiKhoanDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\menu\MyDrawerBuilder.java
@@ -63,6 +65,7 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\componen
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\entity\ChiTietKhuyenMai.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\datechooser\Slider.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\entity\HoaDon.java
+D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_Voucher.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\HoaDonDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\components\MainForm.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\GenericDAO.java
@@ -70,6 +73,7 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\man
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_QRCODE.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\datechooser\EventDateChooser.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThongTinCaNhan.java
+D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\KhuyenMaiDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\IBanDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\component\Loading.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\swing\slider\SliderTransition.java
@@ -83,7 +87,6 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\datechoo
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\datechooser\Months.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\entity\Mon.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_DatBanTaiCho.java
-D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\KhuyenMainDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\utils\AppUtils.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\ChiTietHoaDonDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\BanDAO.java
@@ -114,4 +117,3 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\componen
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\component\WrapGridLayout.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\IHoaDonDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\entity\TheThanhVien.java
-D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\ReadForm.java

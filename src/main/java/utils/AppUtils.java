@@ -7,7 +7,6 @@ package utils;
 import java.awt.Font;
 
 import component.Loading;
-import dao.imlp.BanDAO;
 import entity.NhanVien;
 
 import java.awt.BorderLayout;
@@ -30,22 +29,21 @@ import javax.swing.JScrollPane;
  * @author Laptop
  */
 public class AppUtils {
-//    public static BanDAO BANDAO = new BanDAO();
 
     public static NhanVien NHANVIEN = null;
-    public static DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
+    public static final double THUE = 0.1;
+    public static DecimalFormat FORMAT_MONEY = new DecimalFormat("###,### VNĐ");
     public static String _NORMAL_ = "src/main/java/font/OpenSans-VariableFont_wdth,wght.ttf";
     public static String _BOLD_ = "src/main/java/font/OpenSans_Condensed-ExtraBold.ttf";
     public static String _ITALIC_ = "src/main/java/font/OpenSans-Italic-VariableFont_wdth,wght.ttf";
 
-    public static Font getFont(float a, String b) {
+    public static Font getFont(float size, String style) {
         try {
-            File fontStyle = new File(b);
-            Font font = Font.createFont(Font.TRUETYPE_FONT, fontStyle).deriveFont(a);
-            return font;
+            File fontStyle = new File(style);
+            return Font.createFont(Font.TRUETYPE_FONT, fontStyle).deriveFont(size);
         } catch (Exception e) {
+            e.printStackTrace();
         }
-
         return null;
     }
 
@@ -59,7 +57,6 @@ public class AppUtils {
         SwingWorker<JPanel, Void> worker = new SwingWorker<JPanel, Void>() {
             @Override
             protected JPanel doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây, trả về JPanel hoặc null
                 return componentSupplier.get();
             }
 
@@ -67,7 +64,7 @@ public class AppUtils {
             protected void done() {
                 try {
                     mainJPanel.removeAll();
-                    JPanel resultPanel = get(); // Nhận kết quả từ công việc lâu dài
+                    JPanel resultPanel = get();
                     if (resultPanel != null) {
                         mainJPanel.add(resultPanel);
                     } else {
@@ -109,15 +106,11 @@ public class AppUtils {
         while (matcher.find()) {
             result.append(matcher.group(1).toLowerCase());
         }
-        if (result.toString().contains(abbreviation.toLowerCase()) || input.toLowerCase().contains(abbreviation.toLowerCase())) {
-            return true;
-        } else {
-            return false;
-        }
+        return result.toString().contains(abbreviation.toLowerCase()) || input.toLowerCase().contains(abbreviation.toLowerCase());
     }
+
     //loai bo trung lap bang khoa
-    public static <T> Predicate<T> distinctByKey(
-            Function<? super T, ?> keyExtractor) {
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
 
         Map<Object, Boolean> seen = new ConcurrentHashMap<>();
         return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;

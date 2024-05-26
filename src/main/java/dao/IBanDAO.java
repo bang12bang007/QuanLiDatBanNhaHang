@@ -28,4 +28,4 @@ public interface IBanDAO<T> extends GenericDAO<T> {
     public List<Ban> getListBanGopInvoice(String maBan);
 
     public List<Ban> findByBanGop(Ban ban);
-}
+    }

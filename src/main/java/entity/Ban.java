@@ -41,7 +41,7 @@ import utils.Enum.LoaiTrangThai;
     @NamedQuery(name = "Ban.findTableByState", query = "SELECT b FROM Ban b WHERE b.trangThai = :trangThai"),
     @NamedQuery(name = "Ban.updateStateById", query = "UPDATE Ban SET trangThai = :trangThai WHERE maBan = :maBan"),
     @NamedQuery(name = "Ban.findHoaDon", query = "SELECT h FROM Ban b inner join HoaDon h on h.ban = b where b.banGop = :MaBanGop and h.trangThai IN (0,1)"),
-    @NamedQuery(name = "Ban.getListBanGopInvoice", query = "SELECT b FROM Ban b WHERE b.trangThai = LoaiTrangThai.KHAC OR (b.trangThai = LoaiTrangThai.BAN_CO_KHACH AND b.banGop.maBan = :maBan)")
+    @NamedQuery(name = "Ban.getListBanGopInvoice", query = "SELECT b FROM Ban b WHERE (b.trangThai = LoaiTrangThai.KHAC OR b.trangThai = LoaiTrangThai.BAN_CO_KHACH) AND b.banGop.maBan = :maBan")
 })
 public class Ban {
 
@@ -53,15 +53,18 @@ public class Ban {
     @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThai trangThai;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBanGop", nullable = true)
     private Ban banGop;
+
     @Column(name = "Tang", nullable = false)
     private String tang;
     @Column(name = "OldBanGop", nullable = true)
     private String oldBanGop;
     @Column(name = "OldState", nullable = true)
     private String oldState;
+
     @OneToMany(mappedBy = "ban", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
 }

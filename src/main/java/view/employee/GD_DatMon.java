@@ -1115,7 +1115,6 @@ public class GD_DatMon extends javax.swing.JPanel {
         utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
         FoodList.repaint();
         FoodList.revalidate();
-        btnNV.setText(Integer.toString(ban.getSoGhe()));
         SwingWorker<List<Food>, Void> worker = new SwingWorker<List<Food>, Void>() {
             @Override
             protected List<Food> doInBackground() throws Exception {
@@ -1276,6 +1275,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 //            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
 //            banDAO.update(ban);
             hoaDon.setChiTietHoaDon(list);
+            hoaDon.setSoBanGop(gD_Ban.getBanItems().size());
             hoaDonDAO.insertHoaDon(hoaDon);
             gD_Ban.order();
 //=======

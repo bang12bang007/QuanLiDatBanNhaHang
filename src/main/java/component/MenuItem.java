@@ -48,7 +48,7 @@ public class MenuItem extends javax.swing.JPanel {
 
     public void push(String[] data) {
         tenMon.setText("  " + data[0] + "");
-        soLuong.setText(utils.AppUtils.tien_format.format(Double.parseDouble(data[1])));
+        soLuong.setText(utils.AppUtils.FORMAT_MONEY.format(Double.parseDouble(data[1])));
     }
 
     private Icon getIconByType() {

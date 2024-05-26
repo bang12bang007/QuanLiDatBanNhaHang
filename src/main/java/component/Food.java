@@ -157,10 +157,15 @@ public class Food extends javax.swing.JPanel {
 
     private void btnFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoodActionPerformed
         // TODO add your handling code here:
+        addOrderFood();
     }//GEN-LAST:event_btnFoodActionPerformed
 
     private void panelFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFoodMouseClicked
         // TODO add your handling code here:
+        addOrderFood();
+    }//GEN-LAST:event_panelFoodMouseClicked
+
+    public void addOrderFood() {
         panelFood.setBackground(new java.awt.Color(234, 124, 105));
         boolean found = false;
         for (int i = 0; i < orders.size(); i++) {
@@ -191,8 +196,7 @@ public class Food extends javax.swing.JPanel {
             datmon.setList_quantity(list_Quantity);
             updateTongTien();
         }
-
-    }//GEN-LAST:event_panelFoodMouseClicked
+    }
 
     public void updateTongTien() {
         double tong = 0.0;

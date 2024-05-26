@@ -28,7 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @NamedQueries({
-        @NamedQuery(name = "ChiTietKhuyenMai.delete", query = "DELETE FROM ChiTietKhuyenMai ct WHERE ct.hoaDon = :hoaDon and ct.khuyenMai = :khuyenMai")
+    @NamedQuery(name = "ChiTietKhuyenMai.delete", query = "DELETE FROM ChiTietKhuyenMai ct WHERE ct.hoaDon = :hoaDon and ct.khuyenMai = :khuyenMai")
 })
 public class ChiTietKhuyenMai {
 
@@ -56,7 +56,8 @@ public class ChiTietKhuyenMai {
 
     public void thanhTien() {
         double total = hoaDon.getTienPhaiThu() * khuyenMai.getChietKhau();
-        setThanhTien(total);
+        System.out.println("CHECK: " + (khuyenMai.getChietKhau() > 1));
+        setThanhTien(khuyenMai.getChietKhau() > 1 ? khuyenMai.getChietKhau() : total);
     }
 
 }

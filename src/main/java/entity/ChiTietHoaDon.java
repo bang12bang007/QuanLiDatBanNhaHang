@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import utils.Enum.LoaiTrangThaiHoaDon;
 
 /**
  * @author dmx
@@ -31,6 +32,9 @@ import lombok.ToString;
 //        @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
 //        @NamedQuery(name = "ChiTietHoaDon.DS_MonThinhHanh", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon h WHERE h.trangThai = 0 GROUP BY c.mon"),})
 //=======
+//    SELECT * FROM ChiTietHoaDon ct JOIN HoaDon hd ON ct.MaHoaDon = hd.MaHoaDon  WHERE hd.MaBan = 'BAN0102' AND hd.TrangThai = 1
+//    SELECT c, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon hd WHERE hd.ban = :ban AND hd.trangThai = LoaiTrangThaiHoaDon.CHUA_THANH_TOAN GROUP BY c
+    @NamedQuery(name = "ChiTietHoaDon.listChiTietByBan", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c JOIN c.hoaDon hd WHERE hd.ban = :ban AND hd.trangThai = LoaiTrangThaiHoaDon.CHUA_THANH_TOAN GROUP BY c.mon"),
     @NamedQuery(name = "ChiTietHoaDon.HoaDon", query = "SELECT c FROM ChiTietHoaDon c WHERE c.hoaDon = :hoaDon"),
     @NamedQuery(name = "ChiTietHoaDon.DS_SoLuong", query = "SELECT c FROM ChiTietHoaDon c WHERE c.soLuong = :soLuong"),
     @NamedQuery(name = "ChiTietHoaDon.sumSoLuongByMaMon", query = "SELECT c.mon, SUM(c.soLuong) FROM ChiTietHoaDon c GROUP BY c.mon"),

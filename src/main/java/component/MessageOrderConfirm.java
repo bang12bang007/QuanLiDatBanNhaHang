@@ -29,7 +29,7 @@ public class MessageOrderConfirm extends javax.swing.JPanel {
     }
 
     private void setMessage() {
-        String message = "Bạn có muốn gộp các bàn ";
+        String message = "Bạn có muốn chọn bàn ";
         for (BanItem banItem : banItem.getGDBan().getBanItems()) {
             message += banItem.getBan().getMaBan() + ", ";
             maxPeople += banItem.getBan().getSoGhe();
