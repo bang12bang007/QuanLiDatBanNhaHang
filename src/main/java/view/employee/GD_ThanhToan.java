@@ -93,6 +93,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         btnScanQR.setIcon(IconFontSwing.buildIcon(FontAwesome.QRCODE, 20, Color.WHITE));
         khuyenMai.setIcon(IconFontSwing.buildIcon(FontAwesome.TAG, 20, Color.WHITE));
         iconSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20));
+        btnThemThanhVien.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 20));
         iconSearch_KM.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 20));
         maHoaDon.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
         txtMTV.setBackground(new Color(0, 0, 0, 0));
@@ -169,6 +170,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         maTheContainer1 = new component.PanelRound();
         txtTenThanhVien = new javax.swing.JTextField();
+        btnThemThanhVien = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         maTheContainer2 = new component.PanelRound();
         txtHangThe = new javax.swing.JTextField();
@@ -305,18 +307,27 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             }
         });
 
+        btnThemThanhVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnThemThanhVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThemThanhVienMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout maTheContainer1Layout = new javax.swing.GroupLayout(maTheContainer1);
         maTheContainer1.setLayout(maTheContainer1Layout);
         maTheContainer1Layout.setHorizontalGroup(
             maTheContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(maTheContainer1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtTenThanhVien)
-                .addContainerGap())
+                .addComponent(txtTenThanhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnThemThanhVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         maTheContainer1Layout.setVerticalGroup(
             maTheContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtTenThanhVien, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(btnThemThanhVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
@@ -1035,10 +1046,12 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     private void btnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownActionPerformed
         // TODO add your handling code here:
+        jScrollPane1.getVerticalScrollBar().setValue(jScrollPane1.getVerticalScrollBar().getValue() + 30);
     }//GEN-LAST:event_btnDownActionPerformed
 
     private void btnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpActionPerformed
         // TODO add your handling code here:
+        jScrollPane1.getVerticalScrollBar().setValue(jScrollPane1.getVerticalScrollBar().getValue() - 30);
     }//GEN-LAST:event_btnUpActionPerformed
 
     private void txtMTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMTVActionPerformed
@@ -1064,10 +1077,12 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
         // TODO add your handling code here:
+        tableBody.getVerticalScrollBar().setValue(tableBody.getVerticalScrollBar().getValue() - 30);
     }//GEN-LAST:event_btnUpTableActionPerformed
 
     private void btnDownTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownTableActionPerformed
         // TODO add your handling code here:
+        tableBody.getVerticalScrollBar().setValue(tableBody.getVerticalScrollBar().getValue() + 30);
     }//GEN-LAST:event_btnDownTableActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -1147,6 +1162,24 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_voucherMouseClicked
 
+    private void btnThemThanhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemThanhVienMouseClicked
+        // TODO add your handling code here:
+        if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
+            thuTienJFrame = new JFrame();
+            thuTienJFrame.setUndecorated(true);
+            thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
+            thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_ThemTheThanhVien form_ThemTheThanhVien = new Form_ThemTheThanhVien(thuTienJFrame);
+            form_ThemTheThanhVien.setGDThanhToan(this);
+            thuTienJFrame.add(form_ThemTheThanhVien);
+            thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
+            thuTienJFrame.setVisible(true);
+        } else {
+            thuTienJFrame.toFront();
+        }
+    }//GEN-LAST:event_btnThemThanhVienMouseClicked
+
     public void loadData() {
         int width = tableContainer.getWidth();
         int index = 1;
@@ -1202,7 +1235,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         setThe(theThanhVien);
     }
 
-    private void setThe(TheThanhVien theThanhVien) {
+    public void setThe(TheThanhVien theThanhVien) {
         if (theThanhVien != null) {
             KhachHang khachHang = theThanhVien.getKhachHang();
             txtMTV.setText(theThanhVien.getMaThe());
@@ -1275,6 +1308,13 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         this.indexIsActive = indexIsActive;
     }
 
+    public JPanel getMainPanel() {
+        return mJPanel;
+    }
+
+    public HoaDon getHoaDon() {
+        return this.hoaDon;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MKMcontainer;
@@ -1286,6 +1326,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private component.MyButton btnLuuTam;
     private component.MyButton btnReserve;
     private component.MyButton btnScanQR;
+    private javax.swing.JLabel btnThemThanhVien;
     private component.MyButton btnThuTien;
     private component.MyButton btnUp;
     private component.MyButton btnUpTable;

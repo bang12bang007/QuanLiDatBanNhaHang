@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import view.manager.components.Background;
-import view.manager.forms.DashboardForm;
 import view.manager.menu.FormManager;
 import raven.popup.GlassPanePopup;
 import utils.AppUtils;
@@ -36,7 +35,7 @@ public class GD_Dashboard extends JFrame {
         setContentPane(new Background()); // Giả sử Background là một lớp JPanel đã được định nghĩa
         GlassPanePopup.install(this); // Giả sử GlassPanePopup là một lớp tiện ích đã được định nghĩa
         FormManager.install(this); // Giả sử FormManager là một lớp tiện ích đã được định nghĩa
-        FormManager.showForm(new DashboardForm()); // Giả sử DashboardForm là một lớp JPanel đã được định nghĩa
+        FormManager.showForm(new view.manager.forms.GD_Dashboard()); // Giả sử DashboardForm là một lớp JPanel đã được định nghĩa
     }
 
     public void run() {

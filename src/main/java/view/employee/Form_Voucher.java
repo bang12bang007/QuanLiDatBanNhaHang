@@ -497,9 +497,13 @@ public class Form_Voucher extends javax.swing.JPanel {
 //           nếu % thì phải tổng thanh toán * % mà chỉ nên áp dụng được 1 hóa đơn
             if (!isSuccess) {
                 Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Mỗi voucher chỉ áp dụng cho 1 hóa đơn");
+            } else {
+                thanhTienKMKhach.setText(FORMAT_MONEY.format(thanhTienKhac + voucherSelected.getChietKhau()));
+                tienPhaiThu.setText(FORMAT_MONEY.format((Double.parseDouble(tongThanhToan.getText().replace("VNĐ", "").replace(",", "")) - Double.parseDouble(thanhTienKMKhach.getText().replace("VNĐ", "").replace(",", "")))));
+                jFrame.setVisible(false);
+                jFrame.dispose();
             }
-            thanhTienKMKhach.setText(FORMAT_MONEY.format(isSuccess ? thanhTienKhac + voucherSelected.getChietKhau() : thanhTienKhac));
-            tienPhaiThu.setText(FORMAT_MONEY.format((Double.parseDouble(tongThanhToan.getText().replace("VNĐ", "").replace(",", "")) - Double.parseDouble(thanhTienKMKhach.getText().replace("VNĐ", "").replace(",", "")))));
+
         } else {
             Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Vui lòng chọn vào voucher!");
         }

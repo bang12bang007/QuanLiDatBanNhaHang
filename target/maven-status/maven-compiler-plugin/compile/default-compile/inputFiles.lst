@@ -56,6 +56,7 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\OrderIt
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\TheThanhVien.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\AbstractDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\menu\ThemesChange.java
+D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThemTheThanhVien.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\menu\Menu.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ModelLegend.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_BaoCao.java
@@ -117,7 +118,6 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\For
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\Spline.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ScrollBarCustom.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\PanelGradient.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\server\Server.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\utils\Enum.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\Mon.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\utils\UndoRedo.java

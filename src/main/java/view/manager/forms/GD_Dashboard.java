@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,11 +30,11 @@ import raven.chart.pie.PieChart;
 import view.manager.components.SimpleForm;
 
 /**
- * @author Raven
+ * @author dmx
  */
-public class DashboardForm extends SimpleForm {
+public class GD_Dashboard extends SimpleForm {
 
-    public DashboardForm() {
+    public GD_Dashboard() {
         init();
     }
 
@@ -100,7 +102,7 @@ public class DashboardForm extends SimpleForm {
     private void createLineChart() {
         lineChart = new LineChart();
         lineChart.setChartType(LineChart.ChartType.CURVE);
-        lineChart.putClientProperty(FlatClientProperties.STYLE, "" + "border:5,5,5,5,$Component.borderColor,,20");
+//        lineChart.putClientProperty(FlatClientProperties.STYLE, "" + "border:5,5,5,5,$Component.borderColor,,20");
         add(lineChart);
         createLineChartData();
     }
@@ -195,20 +197,48 @@ public class DashboardForm extends SimpleForm {
         LocalDateTime today = LocalDateTime.now();
         LocalDateTime date = today.minusDays(30);
         DateTimeFormatter df = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+        Map<String, Long> totalCounts = new HashMap<>(); // Map to store total counts per dish
+
         while (!date.isAfter(today)) {
-            String dateString = date.format(df);
             List<Object[]> listCTHD = daoCTHD.sumSoLuongByMaMonByDate(date);
-            List<Object[]> sortedListCTHD = listCTHD.stream()
-                    .sorted((arr1, arr2) -> ((Comparable) arr2[1]).compareTo(arr1[1])) // Sắp xếp theo giảm dần
-                    .collect(Collectors.toList());
-            for (Object[] x : sortedListCTHD) {
+
+            // Sum up quantities for each dish across all dates
+            for (Object[] x : listCTHD) {
                 Mon mon = (Mon) x[0];
                 String tenMon = mon.getTenMon();
                 Long tongSoLuong = (Long) x[1];
-                categoryDataset.addValue(tongSoLuong, tenMon, dateString);
+                totalCounts.put(tenMon, totalCounts.getOrDefault(tenMon, 0L) + tongSoLuong);
+            }
+
+            date = date.plusDays(1);
+        }
+
+        // Sort the total counts in descending order and take the top 3
+        List<Map.Entry<String, Long>> top3 = totalCounts.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+
+        // Reset date to start iterating again
+            date = today.minusDays(30);
+
+        while (!date.isAfter(today)) {
+            String dateString = date.format(df);
+            List<Object[]> listCTHD = daoCTHD.sumSoLuongByMaMonByDate(date);
+            for (Object[] x : listCTHD) {
+                Mon mon = (Mon) x[0];
+                String tenMon = mon.getTenMon();
+                Long tongSoLuong = (Long) x[1];
+
+                // Only add data for the top 3 dishes
+                if (top3.stream().anyMatch(entry -> entry.getKey().equals(tenMon))) {
+                    categoryDataset.addValue(tongSoLuong, tenMon, dateString);
+                }
             }
             date = date.plusDays(1);
         }
+
 //        try {
 //            Date date = df.parse(categoryDataset.getColumnKey(0));
 //            Date dateEnd = df.parse(categoryDataset.getColumnKey(categoryDataset.getColumnCount() - 1));

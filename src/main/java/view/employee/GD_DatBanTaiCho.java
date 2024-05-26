@@ -612,8 +612,12 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
         if (!isSuccess) {
             Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Không thể tách hóa đơn gốc");
         } else {
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Tách hóa đơn Thành Công !");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Khôi phục hóa đơn Thành Công !");
         }
+    }
+
+    public boolean canMoveTable(HoaDon hoaDon) {
+        return hoaDon.getBan().getBanGop() == null ? false : true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
