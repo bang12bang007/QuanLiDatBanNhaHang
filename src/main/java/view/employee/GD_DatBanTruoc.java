@@ -1070,7 +1070,7 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         } else if (hoaDon.getTrangThai().ordinal() == 2) {
             trangThai = "Đã hủy";
         }
-        return new String[]{hoaDon.getNgayDatBan().toString(), hoaDon.getKhachHang().getHoTen(), hoaDon.getSoLuongNguoi() + "", trangThai, hoaDon.getTongThanhToan() + ""};
+        return new String[]{hoaDon.getNgayDatBan().toString(), hoaDon.getKhachHang().getHoTen(), hoaDon.getSoLuongNguoi() + "", trangThai, 0 + ""};
     }
 
     public JPanel getMainJpanel() {
