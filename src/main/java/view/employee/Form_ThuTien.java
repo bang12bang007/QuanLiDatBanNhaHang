@@ -17,7 +17,6 @@ import dao.imlp.MonDAO;
 import dao.imlp.TheThanhVienDAO;
 import entity.Ban;
 import entity.HoaDon;
-import entity.KhuyenMai;
 import entity.TheThanhVien;
 import icon.FontAwesome;
 
@@ -50,7 +49,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private DecimalFormat formatNotVND = new DecimalFormat("###,###");
     private double btnTotal = 0;
-    //  NDK  Tạo list để lưu các btn
     private List<JButton> moneyDenominations = new ArrayList<>();
     private List<JButton> moneySuggestions = new ArrayList<>();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
@@ -61,7 +59,8 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private List<HoaDon> hoaDons;
     private JPanel mainJPanel;
     private TheThanhVien theThanhVien;
-
+    private double thue = 0;
+    
     public Form_ThuTien(JFrame jFrame, List<HoaDon> hoaDons) {
         initComponents();
         this.jFrame = jFrame;
@@ -75,7 +74,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
         Notifications.getInstance().setJFrame(jFrame);
         FlatIntelliJLaf.setup();
     }
-
+    
     private void createAndSetEventForButtons() {
         moneyDenominations.add(btn500);
         moneyDenominations.add(btn200);
@@ -95,7 +94,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             });
         }
     }
-
+    
     private void createAndSetEventButtonSuggestions() {
         moneySuggestions.add(suggestion1);
         moneySuggestions.add(suggestion2);
@@ -646,7 +645,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
-
+        
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -654,7 +653,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 updateHoaDon();
                 return null;
             }
-
+            
             @Override
             protected void done() {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán thành công");
@@ -662,9 +661,9 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
             }
-
+            
         };
-
+        
         worker.execute();
     }//GEN-LAST:event_btnDongActionPerformed
 
@@ -682,7 +681,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 pay();
                 return null;
             }
-
+            
             @Override
             protected void done() {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán và tạo hóa đơn thành công");
@@ -692,9 +691,9 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
             }
-
+            
         };
-
+        
         worker.execute();
 
     }//GEN-LAST:event_btnInVaDongActionPerformed
@@ -732,7 +731,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private void suggestion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suggestion1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_suggestion1ActionPerformed
-
+    
     private void onChange(double total, double btnTotal) {
         if (total - btnTotal < 0) {
             txtTienKhachDua.setText("0");
@@ -741,7 +740,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
         }
         tienPhaiTra.setText(tien_format.format(btnTotal - total));
     }
-
+    
     void setTienPhaiThu(Double total) {
         this.total = total;
         tienPhaiThu.setText(tien_format.format(total));
@@ -751,7 +750,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             moneySuggestions.get(i).setText(formatNotVND.format(suggestions.get(i)));
         }
     }
-
+    
     public List<Double> getSuggestedAmounts(double originalValue) {
         createAndSetEventButtonSuggestions();
         List<Double> suggestions = new ArrayList<>();
@@ -760,7 +759,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
         suggestions.add(Math.ceil(originalValue / 100000) * 100000);
         return suggestions;
     }
-
+    
     private void createHoaDon() {
         String tien = tienPhaiTra.getText().replace("VNĐ", "");
         tien = tien.replace(",", "");
@@ -793,14 +792,19 @@ public class Form_ThuTien extends javax.swing.JPanel {
             updateBanAfterPay(_ban_);
         }
     }
-
+    
+    public void setThue(double thue) {
+        this.thue = thue;
+    }
+    
     private void updateHoaDon() {
+        hoaDons.get(0).addThue(thue);
         hoaDons.forEach(hoaDon -> {
             hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
             hoaDonDAO.update(hoaDon);
         });
     }
-
+    
     private void updateBanAfterPay(Ban ban) {
         List<String> oldBanGops = new ArrayList<>();
         List<Integer> oldState = new ArrayList<>();
@@ -816,6 +820,20 @@ public class Form_ThuTien extends javax.swing.JPanel {
             ban.setBanGop(null);
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
         } else if (oldBanGops.size() > 0) {
+            while (oldState.get(oldState.size() - 1) == 0 || oldState.get(oldState.size() - 1) == 3) {
+                String lastItem = oldBanGops.get(oldBanGops.size() - 1);
+                ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
+                ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
+                oldBanGops.remove(oldBanGops.size() - 1);
+                oldState.remove(oldState.size() - 1);
+                String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+                String oldStateString = oldState.size() > 0 ? (oldState.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(",")))
+                        : null;
+                ban.setOldBanGop(oldBanGop);
+                ban.setOldState(oldStateString);
+            }
             String lastItem = oldBanGops.get(oldBanGops.size() - 1);
             ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
             ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
@@ -829,14 +847,14 @@ public class Form_ThuTien extends javax.swing.JPanel {
             ban.setOldBanGop(oldBanGop);
             ban.setOldState(oldStateString);
         }
-
+        
         banDAO.update(ban);
     }
-
+    
     public void setMainJPanel(JPanel jPanel) {
         this.mainJPanel = jPanel;
     }
-
+    
     public void setTheThanhVien(TheThanhVien theThanhVien) {
         this.theThanhVien = theThanhVien;
     }
