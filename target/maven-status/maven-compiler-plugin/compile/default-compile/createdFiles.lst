@@ -5,6 +5,7 @@ view\employee\GD_DatBanTruoc$5.class
 view\manager\menu\MyDrawerBuilder$1.class
 view\manager\forms\InboxForm.class
 view\employee\Form_GhiChu$4.class
+view\manager\forms\GD_QuanLyBan$6.class
 dao\imlp\KhachHangDAO.class
 view\manager\menu\ThemesChange.class
 dao\imlp\ChiTietHoaDonDAO.class
@@ -13,6 +14,7 @@ view\manager\swing\slider\SimpleTransition$2.class
 component\DiscountItem.class
 view\employee\GD_DatBanTruoc$12.class
 component\OrderCard.class
+view\manager\forms\GD_QuanLyBan$13.class
 view\employee\GD_ThanhToan$4.class
 view\manager\swing\slider\PanelSlider$PanelSnapshot.class
 utils\Enum$LoaiTrangThaiMon.class
@@ -28,6 +30,7 @@ view\employee\GD_Ban.class
 view\employee\Form_XemThucDon$7.class
 dao\ITaiKhoanDAO.class
 view\GD_DangNhap$1.class
+view\manager\forms\GD_QuanLyBan$1.class
 view\employee\GD_BaoCao$4.class
 component\OrderItem_forUIDatMon$1.class
 component\LegendItem.class
@@ -80,6 +83,7 @@ entity\TheThanhVien.class
 view\employee\GD_DatMon$19$1.class
 view\employee\GD_DatMon$6.class
 dao\GenericDAO.class
+view\manager\forms\GD_QuanLyBan$9.class
 view\employee\Form_ThongTinCaNhan$1.class
 view\employee\Form_ThuTien$3.class
 utils\Enum.class
@@ -89,7 +93,9 @@ view\manager\utils\DateCalculator.class
 view\employee\Form_ThuTien$7.class
 view\employee\GD_DatMon$12.class
 view\employee\Form_XemThucDon$5.class
+view\manager\forms\GD_QuanLyBan$3.class
 dao\IChiTietHoaDonDAO.class
+view\manager\forms\GD_QuanLyBan$10.class
 component\MessageMoveTable$2.class
 entity\Ban.class
 view\employee\Form_GhiChu$1.class
@@ -106,6 +112,7 @@ component\Spline.class
 view\employee\Form_XemThucDon.class
 view\employee\GD_TrangChu$7.class
 view\employee\GD_ThanhToan$13.class
+view\manager\forms\GD_QuanLyBan$8.class
 view\manager\menu\MyDrawerBuilder$3.class
 utils\Enum$TypeDatMon_Branch.class
 view\employee\GD_DatBanTaiCho$2.class
@@ -121,6 +128,7 @@ view\employee\Form_GhiChu$6.class
 view\employee\GD_DatBanTaiCho$9.class
 datechooser\Slider$2.class
 view\employee\GD_ThanhToan$12.class
+view\manager\forms\GD_QuanLyBan$11.class
 view\employee\GD_DatBanTaiCho$3.class
 component\OrderItem.class
 view\employee\Form_ThuTien$6.class
@@ -143,6 +151,7 @@ datechooser\Slider.class
 dao\imlp\AbstractDAO.class
 view\employee\GD_DatBanTaiCho$7.class
 view\employee\GD_DatBanTruoc$16.class
+view\manager\forms\GD_QuanLyBan$14.class
 view\employee\GD_TrangChu$8.class
 view\employee\GD_DatMon$1.class
 view\manager\swing\slider\SimpleTransition.class
@@ -157,7 +166,9 @@ datechooser\SelectedDate.class
 view\employee\Form_GhiChu$5.class
 datechooser\Slider$4.class
 component\MyButton.class
+view\manager\forms\GD_QuanLyBan$2.class
 component\BlankPlotChatRender.class
+view\manager\forms\GD_QuanLyBan$5.class
 view\employee\Form_GhiChu$2.class
 view\GD_DangNhap$2.class
 dao\IKhachHangDAO.class
@@ -169,9 +180,11 @@ datechooser\Slider$5.class
 entity\TaiKhoan.class
 view\employee\GD_ThanhToan$15.class
 component\OrderCard$2.class
+view\manager\forms\GD_QuanLyBan$15.class
 view\employee\GD_DatBanTaiCho$6.class
 view\employee\GD_TrangChu$6.class
 view\manager\forms\InboxForm$1.class
+view\manager\forms\GD_QuanLyBan$4.class
 datechooser\Slider$6.class
 view\GD_DangNhap$3.class
 component\MessageMoveTable$3.class
@@ -212,6 +225,7 @@ view\employee\Form_DatBan$8.class
 view\employee\GD_DatBanTaiCho.class
 view\employee\GD_ThanhToan$8.class
 datechooser\DateChooser$4.class
+view\manager\forms\GD_QuanLyBan$12.class
 view\manager\menu\Menu$2.class
 view\employee\GD_DatBanTruoc$4.class
 view\employee\GD_ThanhToan$3.class
@@ -219,6 +233,7 @@ view\employee\GD_DatMon$21.class
 view\employee\GD_ThanhToan$11.class
 view\employee\Form_DoiSoLuongNguoi$4.class
 component\WrapGridLayout.class
+view\manager\forms\GD_QuanLyBan$7.class
 view\employee\GD_TrangChu$9.class
 view\employee\GD_BaoCao$3.class
 view\employee\Form_DoiSoLuongNguoi.class
@@ -242,6 +257,7 @@ component\ModelLegend.class
 datechooser\Dates.class
 view\employee\Form_XemThucDon$6.class
 view\employee\Form_GhiChu$8.class
+dao\imlp\entityManager.class
 view\manager\menu\Menu.class
 dao\imlp\BanDAO.class
 component\MessageReserve.class

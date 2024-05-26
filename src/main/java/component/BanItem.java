@@ -25,10 +25,12 @@ import static javax.swing.SwingConstants.LEFT;
 import javax.swing.SwingUtilities;
 
 import jiconfont.swing.IconFontSwing;
+import raven.toast.Notifications;
 
 import static utils.AppUtils.*;
 
 import view.employee.GD_Ban;
+import view.employee.GD_DatBanTaiCho;
 import view.employee.GD_DatMon;
 
 /**
@@ -43,7 +45,6 @@ public class BanItem extends javax.swing.JPanel {
     private String type;
     private String image_type;
     private Ban ban;
-    private NhanVien nv;
     private int trangThai;
     private GD_Ban gD_Ban;
     private GD_DatMon gD_datMon;
@@ -52,7 +53,6 @@ public class BanItem extends javax.swing.JPanel {
         this.main = main;
         this.type = type;
         this.ban = ban;
-        this.nv = NHANVIEN;
         this.trangThai = trangThai;
         initComponents();
         jLabel1.setText(ban.getMaBan());
@@ -74,6 +74,17 @@ public class BanItem extends javax.swing.JPanel {
         tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tacVuList.add(createTacVu("Đặt món", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
             gD_Ban.setFormMessageOrderConfirm(this);
+            menu.setVisible(false);
+        }));
+    }
+
+    private void createListTacVuForMergeInvoice() {
+        tacVuList.setPreferredSize(new Dimension(250, 50));
+        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+        tacVuList.add(createTacVu("Ghép hóa đơn", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
+            gD_Ban.mergeInvoice();
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Ghép hóa đơn thành công");
+            utils.AppUtils.setUI(this.main, () -> new GD_DatBanTaiCho(this.main, NHANVIEN));
             menu.setVisible(false);
         }));
     }
@@ -119,31 +130,18 @@ public class BanItem extends javax.swing.JPanel {
 
         javax.swing.GroupLayout tacVuListLayout = new javax.swing.GroupLayout(tacVuList);
         tacVuList.setLayout(tacVuListLayout);
-        tacVuListLayout.setHorizontalGroup(
-                tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 256, Short.MAX_VALUE)
-        );
-        tacVuListLayout.setVerticalGroup(
-                tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 160, Short.MAX_VALUE)
-        );
+        tacVuListLayout.setHorizontalGroup(tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 256, Short.MAX_VALUE));
+        tacVuListLayout.setVerticalGroup(tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 160, Short.MAX_VALUE));
 
         javax.swing.GroupLayout morePanelLayout = new javax.swing.GroupLayout(morePanel);
         morePanel.setLayout(morePanelLayout);
-        morePanelLayout.setHorizontalGroup(
-                morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tacVuList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        morePanelLayout.setVerticalGroup(
-                morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tacVuList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        morePanelLayout.setHorizontalGroup(morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(tacVuList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        morePanelLayout.setVerticalGroup(morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(tacVuList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
 
         setBackground(new java.awt.Color(83, 86, 99));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_)
-        );
+        jLabel1.setFont(utils.AppUtils.getFont(16f, _BOLD_));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("101");
@@ -184,8 +182,7 @@ public class BanItem extends javax.swing.JPanel {
 
         if (trangThai == utils.Enum.LoaiTrangThai.BAN_TRONG.ordinal() || trangThai == utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.ordinal()) {
             ImageIcon handIcon = new ImageIcon("./src/main/java/icon/icon_close.png");
-            Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-                    handIcon.getImage(), new Point(0, 0), "Hand Cursor");
+            Cursor handCursor = Toolkit.getDefaultToolkit().createCustomCursor(handIcon.getImage(), new Point(0, 0), "Hand Cursor");
             myButton1.setCursor(handCursor);
         }
     }//GEN-LAST:event_myButton1MouseEntered
@@ -198,6 +195,7 @@ public class BanItem extends javax.swing.JPanel {
     public void setActive() {
         ImageIcon icon = new ImageIcon("./src/main/java/icon/check_50.png");
         check_icon.setIcon(icon);
+        gD_Ban.addBanItem(this);
     }
 
     public void setSelected() {
@@ -243,8 +241,7 @@ public class BanItem extends javax.swing.JPanel {
                 if (image_type.equals("/images/my_table_blue.png")) {
                     setSelected();
                 } else if (image_type.equals("/images/my_table_gray.png")) {
-                    Ban _ban_ = ban.getBanGop() != null ? ban.getBanGop() : ban;
-                    if (gD_Ban.checkTime(LocalDateTime.now(), gD_Ban.getTimeByBan(_ban_))) {
+                    if (gD_Ban.isTimeValidate(LocalDateTime.now(), ban)) {
                         setSelected();
                     } else {
                         gD_Ban.showMessage("Bàn đã đặt trước");
@@ -258,6 +255,18 @@ public class BanItem extends javax.swing.JPanel {
                 }
                 break;
             }
+            case "GHEP_HOA_DON": {
+                if (image_type.equals("/images/my_table_gray.png")) {
+                    if (gD_Ban.isTimeValidate(LocalDateTime.now(), ban)) {
+                        setSelected();
+                    } else {
+                        gD_Ban.showMessage("Bàn đã đặt trước");
+                    }
+                } else {
+                    setSelected();
+                }
+                break;
+            }
         }
     }//GEN-LAST:event_myButton1ActionPerformed
 
@@ -265,7 +274,11 @@ public class BanItem extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (SwingUtilities.isRightMouseButton(evt) && check_icon.getIcon() != null) {
             tacVuList.removeAll();
-            createListTacVu();
+            if (type.equals("GHEP_HOA_DON")) {
+                createListTacVuForMergeInvoice();
+            } else {
+                createListTacVu();
+            }
             menu.removeAll();
             menu.add(morePanel);
             menu.show(this, 20, this.getHeight() / 2);
@@ -273,7 +286,6 @@ public class BanItem extends javax.swing.JPanel {
     }//GEN-LAST:event_myButton1MouseClicked
 
     public void toGD_DatMon() {
-        //      Tách riêng ra một hàm khác
         utils.AppUtils.setUI(main, () -> {
             GD_DatMon gd;
             if (gD_Ban.getGd_Datmon() == null) {//chưa có thì tạo

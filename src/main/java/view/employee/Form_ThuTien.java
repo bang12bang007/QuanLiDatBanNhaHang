@@ -15,6 +15,7 @@ import dao.imlp.ChiTietHoaDonDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.MonDAO;
 import dao.imlp.TheThanhVienDAO;
+import entity.Ban;
 import entity.HoaDon;
 import entity.KhuyenMai;
 import entity.TheThanhVien;
@@ -23,7 +24,9 @@ import icon.FontAwesome;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -55,14 +58,14 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
     private IMonDAO monDAO = new MonDAO();
     private IBanDAO banDAO = new BanDAO();
-    private HoaDon hoaDon;
+    private List<HoaDon> hoaDons;
     private JPanel mainJPanel;
     private TheThanhVien theThanhVien;
 
-    public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
+    public Form_ThuTien(JFrame jFrame, List<HoaDon> hoaDons) {
         initComponents();
         this.jFrame = jFrame;
-        this.hoaDon = hoaDon;
+        this.hoaDons = hoaDons;
         this.setBackground(new Color(0, 0, 0, 0.6f));
         wrapper.setBackground(new Color(0, 0, 0, 0));
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -648,6 +651,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             @Override
             protected Void doInBackground() throws Exception {
                 pay();
+                updateHoaDon();
                 return null;
             }
 
@@ -683,6 +687,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             protected void done() {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán và tạo hóa đơn thành công");
                 createHoaDon();
+                updateHoaDon();
                 jFrame.setVisible(false);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
@@ -760,7 +765,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
         String tien = tienPhaiTra.getText().replace("VNĐ", "");
         tien = tien.replace(",", "");
         double tienThua = Double.parseDouble(tien);
-        hoaDonDAO.createInvoice(hoaDon, total + tienThua, tienThua);
+        hoaDonDAO.createInvoice(hoaDons.get(0), total + tienThua, tienThua);
     }
 
     //duccuong1609 : khuyenmai thanh nhieu nhieu voi hoa don roi
@@ -774,23 +779,63 @@ public class Form_ThuTien extends javax.swing.JPanel {
             } else if (diemTichLuy >= 2000.0) {
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.VANG);
             } else if (diemTichLuy >= 10000.0) {
-                System.out.println("VCL dcmm");
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.KIMCUONG);
             }
-            // Làm tròn số với hai chữ số thập phân
             theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
             theThanhVienDAO.update(theThanhVien);
         }
-//        hoaDon.setKhuyenMai(khuyenMais);
-        hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
-        hoaDonDAO.update(hoaDon);
-        banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
+        Ban _ban_ = hoaDons.get(0).getBan();
+        List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
+        listBanGop.forEach(ban -> {
+            updateBanAfterPay(ban);
+        });
+        if (listBanGop.size() == 0) {
+            updateBanAfterPay(_ban_);
+        }
+    }
+
+    private void updateHoaDon() {
+        hoaDons.forEach(hoaDon -> {
+            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+            hoaDonDAO.update(hoaDon);
+        });
+    }
+
+    private void updateBanAfterPay(Ban ban) {
+        List<String> oldBanGops = new ArrayList<>();
+        List<Integer> oldState = new ArrayList<>();
+        if (ban.getOldBanGop() != null) {
+            oldBanGops = new ArrayList<>(Arrays.asList(ban.getOldBanGop().split(",")));
+            oldState = new ArrayList<>();
+            String[] oldStateStrings = ban.getOldState().split(",");
+            for (String stateString : oldStateStrings) {
+                oldState.add(Integer.parseInt(stateString));
+            }
+        }
+        if (oldBanGops.size() == 0) {
+            ban.setBanGop(null);
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
+        } else if (oldBanGops.size() > 0) {
+            String lastItem = oldBanGops.get(oldBanGops.size() - 1);
+            ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
+            ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
+            oldBanGops.remove(oldBanGops.size() - 1);
+            oldState.remove(oldState.size() - 1);
+            String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+            String oldStateString = oldState.size() > 0 ? (oldState.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(",")))
+                    : null;
+            ban.setOldBanGop(oldBanGop);
+            ban.setOldState(oldStateString);
+        }
+
+        banDAO.update(ban);
     }
 
     public void setMainJPanel(JPanel jPanel) {
         this.mainJPanel = jPanel;
     }
-
 
     public void setTheThanhVien(TheThanhVien theThanhVien) {
         this.theThanhVien = theThanhVien;

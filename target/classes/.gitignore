@@ -1,3 +1,10 @@
+/component/
+/dao/
+/datechooser/
+/entity/
+/font/
+/icon/
 /lib/
+/server/
+/utils/
 /view/
-/META-INF/
