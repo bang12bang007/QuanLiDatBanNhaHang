@@ -47,6 +47,7 @@ public class BanItem extends javax.swing.JPanel {
     private int trangThai;
     private GD_Ban gD_Ban;
     private GD_DatMon gD_datMon;
+    private int maxPeople;
 
     public BanItem(Ban ban, int trangThai, JPanel main, String type) {
         this.main = main;
@@ -76,6 +77,11 @@ public class BanItem extends javax.swing.JPanel {
             gD_Ban.setFormMessageOrderConfirm(this);
             menu.setVisible(false);
         }));
+        if (gD_Ban.getBanItems().size() == 1) {
+            tacVuList.add(createTacVu("Đặt món", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
+                menu.setVisible(false);
+            }));
+        }
     }
 
     private void createListTacVuForMergeInvoice() {
@@ -305,6 +311,7 @@ public class BanItem extends javax.swing.JPanel {
                 gd = new GD_DatMon(main, gD_Ban.getMainBan(), utils.Enum.DatMon_ThemMon.DATMON);
                 gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
                 gd.setgD_Ban(gD_Ban);
+                gd.setMaxPeople(maxPeople);
             } else {//có load vào rồi thì gọi lại
                 gd = gD_Ban.getGd_Datmon();
                 gd.getBtnBack().setBackground(new Color(83, 86, 99));
@@ -325,6 +332,10 @@ public class BanItem extends javax.swing.JPanel {
         this.gD_datMon = gD_datMon;
     }
 
+    public void setMaxPeople(GD_DatMon gd, int max) {
+        gd.setMaxPeople(max);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel check_icon;
     private javax.swing.JLabel jLabel1;
@@ -334,4 +345,7 @@ public class BanItem extends javax.swing.JPanel {
     private javax.swing.JPanel tacVuList;
     // End of variables declaration//GEN-END:variables
 
+    public void setMaxPeople(int maxPeople) {
+        this.maxPeople = maxPeople;
+    }
 }

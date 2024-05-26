@@ -4,18 +4,9 @@
  */
 package component;
 
-import com.formdev.flatlaf.FlatIntelliJLaf;
-
 import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import raven.toast.Notifications;
-import view.employee.GD_DatBanTruoc;
-
 import static utils.AppUtils.*;
-
-import view.employee.GD_DatBanTaiCho;
 
 /**
  * @author Laptop
@@ -27,6 +18,7 @@ public class MessageOrderConfirm extends javax.swing.JPanel {
      */
     private JFrame jFrame;
     private BanItem banItem;
+    private int maxPeople = 0;
 
     public MessageOrderConfirm(JFrame jFrame, BanItem banItem) {
         this.jFrame = jFrame;
@@ -38,12 +30,10 @@ public class MessageOrderConfirm extends javax.swing.JPanel {
 
     private void setMessage() {
         String message = "Bạn có muốn gộp các bàn ";
-        int maxPeople = 0;
         for (BanItem banItem : banItem.getGDBan().getBanItems()) {
             message += banItem.getBan().getMaBan() + ", ";
             maxPeople += banItem.getBan().getSoGhe();
         }
-
         message += "tổng số người tối đa " + maxPeople;
         jLabel2.setText(message);
     }
@@ -235,6 +225,7 @@ public class MessageOrderConfirm extends javax.swing.JPanel {
 
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
         // TODO add your handling code here:
+        banItem.setMaxPeople(maxPeople);
         banItem.toGD_DatMon();
         jFrame.setVisible(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

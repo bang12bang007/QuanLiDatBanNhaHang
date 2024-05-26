@@ -1115,6 +1115,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
         FoodList.repaint();
         FoodList.revalidate();
+        btnNV.setText(Integer.toString(ban.getSoGhe()));
         SwingWorker<List<Food>, Void> worker = new SwingWorker<List<Food>, Void>() {
             @Override
             protected List<Food> doInBackground() throws Exception {
@@ -1125,6 +1126,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                 ghiChus = new ArrayList<>();
                 //lấy danh sách chi tiết hóa đơn từ luồng thêm món nhờ hóa đơn (từ ordercard --> đặt món)
                 if (!branch.equals(TypeDatMon_Branch.DATMON)) {
+                    btnNV.setText(Integer.toString(ban.getSoGhe()));
                     loadOrderDetail();
                 }
                 mons = new ArrayList<Mon>();
@@ -1204,6 +1206,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         } else {
             details = chitietDAO.getListByHoaDon(hoaDon);
         }
+
         for (ChiTietHoaDon d : details) { //duccuong1609 : này load trước mấy chi tiết hóa đơn lên
             orders.add(d.getMon());
             ghiChus.add(d.getGhiChu());
@@ -1594,5 +1597,14 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     public List<ChiTietHoaDon> getMain_details() {
         return main_details;
+    }
+
+    private int maxPeople = 0;
+
+    public void setMaxPeople(int maxPeople) {
+        this.maxPeople = maxPeople;
+        if (maxPeople > ban.getSoGhe()) {
+            btnNV.setText(Integer.toString(maxPeople));
+        }
     }
 }
