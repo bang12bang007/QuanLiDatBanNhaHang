@@ -40,6 +40,7 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.findFromDateToDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
     @NamedQuery(name = "HoaDon.findOrdersByMonth", query = "SELECT h FROM HoaDon h WHERE MONTH(h.ngayLapHoaDon) = :month"),
+    @NamedQuery(name = "HoaDon.findOrdersByHour", query = "SELECT h FROM HoaDon h WHERE HOUR(h.ngayLapHoaDon) = :hour and CAST(h.ngayLapHoaDon AS date) = CAST(:date AS date) and h.trangThai = 2"),
     @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date)"),
     @NamedQuery(name = "HoaDon.findStateAndTableId", query = " SELECT h FROM HoaDon h WHERE h.ban.maBan = :ban and h.trangThai = :trangThai")
 })
@@ -115,7 +116,7 @@ public class HoaDon {
     public Double getTongThanhToan() {
         return this.tongThanhToan;
     }
-
+    
     public void tienPhaiThu() {
         double total = tongThanhToan;
         for (ChiTietKhuyenMai chiTiet : chiTietKhuyenMai) {

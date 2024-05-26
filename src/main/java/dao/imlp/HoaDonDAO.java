@@ -28,6 +28,7 @@ import entity.Ban;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.NhanVien;
+import entity.ChiTietKhuyenMai;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -282,55 +283,68 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     }
 
     public int getTongHoaDon(NhanVien nv) {
-        int hd = 0;
-        String ngay = generateTime.substring(0, 6);
+        int sum = 0;
         List<HoaDon> hoaDons = findAll(HoaDon.class);
-        for (HoaDon h : hoaDons) {
-            if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {
-                if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
-                    hd += 1;
+        for (HoaDon hd_total : hoaDons) {
+            if (hd_total.getNgayLapHoaDon().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
+                if (hd_total.getTrangThai().equals(LoaiTrangThaiHoaDon.DA_THANH_TOAN) && nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
+                        sum += 1;
+                    // chưa áp dụng khuyến mãi 
                 }
             }
         }
-        return hd;
+        return sum;
     }
-    
+
+    public int getSoLuongKhachHang(NhanVien nv) {
+        int sum = 0;
+        List<HoaDon> hoaDons = findAll(HoaDon.class);
+        for (HoaDon hd_total : hoaDons) {
+            if (hd_total.getNgayLapHoaDon().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
+                if (hd_total.getTrangThai().equals(LoaiTrangThaiHoaDon.DA_THANH_TOAN) && nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
+                        sum += hd_total.getSoLuongNguoi();
+                    // chưa áp dụng khuyến mãi 
+                }
+            }
+        }
+        return sum;
+    }
+
     public double[] getThongKeTheoCa(NhanVien nv, int startHour, int endHour) {
         double dt = 0;
         double hd = 0;
         double kh = 0;
-       String ngay = generateTime.substring(0, 6);
+        String ngay = generateTime.substring(0, 6);
         List<HoaDon> hoaDons = findAll(HoaDon.class);
-        ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO(); 
+        ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO();
         for (HoaDon h : hoaDons) {
-            String time = h.getMaHoaDon().substring(8, 10);
-            int gio = Integer.parseInt(time);
-             if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {  //            KiemTraTheoMaNhanVien
+            int gio = h.getNgayLapHoaDon().getHour();
+            if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {  //            KiemTraTheoMaNhanVien
                 if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
-                    if(gio >= startHour && gio <= endHour){
+                    if (gio > startHour && gio <= endHour) {
                         hd += 1;
-                        dt += (tien.TotalFoodCurrency(h)/getTongDoanhThu(nv)) * 100;   // phần trăm theo tổng doanh thu
+                        dt += tien.TotalFoodCurrency(h) / 1000000;   // phần trăm theo tổng doanh thu
                         kh += h.getSoLuongNguoi();
                     }
                 }
             }
         }
-       double[] result = {dt,hd,kh};
+        double[] result = {dt, hd, kh};
         return result;
     }
-    
+
     @Override
     public double getTongDoanhThu(NhanVien nv) {
+        ChiTietKhuyenMai km = new ChiTietKhuyenMai();
         double sum = 0.0;
-        String day = generateTime.substring(0, 6);
         ChiTietHoaDonDAO tien = new ChiTietHoaDonDAO();
         List<HoaDon> hd = findAll(HoaDon.class);
         for (HoaDon hd_total : hd) {
-            if (nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
-                if (day.equals(hd_total.getMaHoaDon().substring(2, 8))) {
-                    sum += tien.TotalFoodCurrency(hd_total);
+            if (hd_total.getNgayLapHoaDon().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
+                if (hd_total.getTrangThai().equals(LoaiTrangThaiHoaDon.DA_THANH_TOAN) && nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
+                        sum += tien.TotalFoodCurrency(hd_total);
+                    // chưa áp dụng khuyến mãi 
                 }
-//                Chưa áp mã khuyễn mãi và VAT
             }
         }
         return sum;
@@ -415,6 +429,14 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         return em.createNamedQuery("HoaDon.findStateAndTableId", HoaDon.class)
                 .setParameter("ban", oldBanGop)
                 .setParameter("trangThai", loaiTrangThai)
+                .getResultList();
+    }
+
+    @Override
+    public List<HoaDon> findByHour(int hour) {
+        return em.createNamedQuery("HoaDon.findOrdersByHour", HoaDon.class)
+                .setParameter("hour", hour)
+                .setParameter("date", LocalDate.now())
                 .getResultList();
     }
 }
