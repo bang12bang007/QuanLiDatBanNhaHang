@@ -24,6 +24,7 @@ import javax.swing.SwingUtilities;
 
 import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
+import utils.AppUtils;
 
 import static utils.AppUtils.*;
 
@@ -299,8 +300,17 @@ public class BanItem extends javax.swing.JPanel {
                 gd.setgD_Ban(gD_Ban);
                 gd.setMaxPeople(maxPeople);
             } else {//có load vào rồi thì gọi lại
-                gd = gD_Ban.getGd_Datmon();
-                gd.getBtnBack().setBackground(new Color(83, 86, 99));
+                int peopleCount = Integer.parseInt(gD_Ban.getGd_Datmon().getBtnNV().getText());
+                if (peopleCount <= maxPeople && peopleCount > maxPeople - AppUtils.SOGHE) {//chỉ gọi lại khi không có thay đổi về gộp bàn
+                    gd = gD_Ban.getGd_Datmon();
+                    gd.getBtnBack().setBackground(new Color(83, 86, 99));
+                } 
+                else {
+                    gd = new GD_DatMon(main, gD_Ban.getMainBan(), utils.Enum.DatMon_ThemMon.DATMON);
+                    gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
+                    gd.setgD_Ban(gD_Ban);
+                    gd.setMaxPeople(maxPeople);
+                }
             }
             return gd;
         });

@@ -1607,4 +1607,7 @@ public class GD_DatMon extends javax.swing.JPanel {
             btnNV.setText(Integer.toString(maxPeople));
         }
     }
+    public MyButton getBtnNV() {
+        return btnNV;
+    }
 }
