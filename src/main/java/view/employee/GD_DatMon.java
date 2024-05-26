@@ -1110,6 +1110,11 @@ public class GD_DatMon extends javax.swing.JPanel {
     }//GEN-LAST:event_btnKhacActionPerformed
 
     public void First_LoadData() {
+        if(hoaDon == null){//hoa don rong doi het sang luong dat mon
+            orders = new ArrayList<>();
+            loai = DatMon_ThemMon.DATMON;
+            branch = TypeDatMon_Branch.DATMON;
+        }
         FoodList.removeAll();
         Loading loading = new Loading();
         utils.AppUtils.setLoadingForTable(scrollFoodList, true, loading, FoodList);
@@ -1120,7 +1125,7 @@ public class GD_DatMon extends javax.swing.JPanel {
             protected List<Food> doInBackground() throws Exception {
                 // Thực hiện công việc lâu dài ở đây
                 List<Food> list = new ArrayList<>();
-                orders = new ArrayList<Mon>();
+                orders = new ArrayList<>();
                 details = new ArrayList<>();
                 ghiChus = new ArrayList<>();
                 //lấy danh sách chi tiết hóa đơn từ luồng thêm món nhờ hóa đơn (từ ordercard --> đặt món)
@@ -1175,7 +1180,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     public void loadOrderDetail() {//pre-load orderdetails
         ghiChus = new ArrayList<>();
         if (ban.getBanGop() != null) {
-            hoadons = banDAO.findListOrderbyBan(ban);
+            hoadons = hoaDonDAO.getListHoaDonGhep(hoaDon);
             main_details = chitietDAO.getListByHoaDon(hoaDon);
 
             for (HoaDon h : hoadons) {
