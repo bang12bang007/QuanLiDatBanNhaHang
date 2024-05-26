@@ -28,8 +28,9 @@ import raven.chart.pie.PieChart;
 import view.manager.components.SimpleForm;
 
 /**
- * @author Raven
+ * @author dmx
  */
+
 public class DashboardForm extends SimpleForm {
 
     public DashboardForm() {
@@ -64,6 +65,7 @@ public class DashboardForm extends SimpleForm {
         createPieChart();
         createLineChart();
         createBarChart();
+
     }
 
     private void createPieChart() {
@@ -99,7 +101,7 @@ public class DashboardForm extends SimpleForm {
     private void createLineChart() {
         lineChart = new LineChart();
         lineChart.setChartType(LineChart.ChartType.CURVE);
-        lineChart.putClientProperty(FlatClientProperties.STYLE, "" + "border:5,5,5,5,$Component.borderColor,,20");
+//        lineChart.putClientProperty(FlatClientProperties.STYLE, "" + "border:5,5,5,5,$Component.borderColor,,20");
         add(lineChart);
         createLineChartData();
     }
@@ -181,8 +183,8 @@ public class DashboardForm extends SimpleForm {
         List<TheThanhVien> sortedListTTV = listTTV.stream()
                 .sorted(Comparator.comparingDouble(TheThanhVien::getDiemTich).reversed()) // Sắp xếp theo giảm dần
                 .collect(Collectors.toList());
-        int i=0;
-        while (i < 5 && i<sortedListTTV.size()) {
+        int i = 0;
+        while (i < 5 && i < sortedListTTV.size()) {
             dataset.addValue(sortedListTTV.get(i).getKhachHang().getHoTen(), sortedListTTV.get(i).getDiemTich());
             i++;
         }

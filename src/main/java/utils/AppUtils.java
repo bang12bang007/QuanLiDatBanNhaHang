@@ -36,6 +36,7 @@ public class AppUtils {
     public static String _NORMAL_ = "src/main/java/font/OpenSans-VariableFont_wdth,wght.ttf";
     public static String _BOLD_ = "src/main/java/font/OpenSans_Condensed-ExtraBold.ttf";
     public static String _ITALIC_ = "src/main/java/font/OpenSans-Italic-VariableFont_wdth,wght.ttf";
+    public static int SOGHE = 8;
 
     public static Font getFont(float size, String style) {
         try {

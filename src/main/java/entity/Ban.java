@@ -53,15 +53,18 @@ public class Ban {
     @Column(name = "TrangThai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiTrangThai trangThai;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaBanGop", nullable = true)
     private Ban banGop;
+
     @Column(name = "Tang", nullable = false)
     private String tang;
     @Column(name = "OldBanGop", nullable = true)
     private String oldBanGop;
     @Column(name = "OldState", nullable = true)
     private String oldState;
+
     @OneToMany(mappedBy = "ban", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HoaDon> hoaDon;
 }
