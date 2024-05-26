@@ -42,7 +42,9 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.findOrdersByMonth", query = "SELECT h FROM HoaDon h WHERE MONTH(h.ngayLapHoaDon) = :month"),
     @NamedQuery(name = "HoaDon.findOrdersByHour", query = "SELECT h FROM HoaDon h WHERE HOUR(h.ngayLapHoaDon) = :hour and CAST(h.ngayLapHoaDon AS date) = CAST(:date AS date) and h.trangThai = 2"),
     @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date)"),
-    @NamedQuery(name = "HoaDon.findStateAndTableId", query = " SELECT h FROM HoaDon h WHERE h.ban.maBan = :ban and h.trangThai = :trangThai")
+    @NamedQuery(name = "HoaDon.findStateAndTableId", query = " SELECT h FROM HoaDon h WHERE h.ban.maBan = :ban and h.trangThai = :trangThai"),
+    @NamedQuery(name = "HoaDon.getListHoaDonGhep", query = "SELECT h FROM HoaDon h WHERE h.ban = :ban and h.trangThai = LoaiTrangThaiHoaDon.CHUA_THANH_TOAN"),
+    @NamedQuery(name = "HoaDon.getListHoaDonGhepDatTruoc", query = "SELECT h FROM HoaDon h WHERE h.ban = :ban and h.trangThai = LoaiTrangThaiHoaDon.DAT_TRUOC and h.ngayLapHoaDon = :ngay"),
 })
 public class HoaDon {
 
@@ -123,6 +125,11 @@ public class HoaDon {
             total -= chiTiet.getThanhTien();
         }
         setTienPhaiThu(total);
+    }
+
+    public void addThue(double tax) {
+        setTienPhaiThu(tienPhaiThu + tax);
+        setTongThanhToan(tongThanhToan + tax);
     }
 
     public void tongThanhToan() {

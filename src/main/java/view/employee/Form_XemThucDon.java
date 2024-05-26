@@ -748,7 +748,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             dsMonString += item.getData()[0] + " (" + item.getData()[1] + " Suất)" + isQuote;
             total += getPriceByName(item.getData()[0]) * Integer.parseInt(item.getData()[1]);
         }
-        tongTien.setText(tien_format.format(total));
+        tongTien.setText(FORMAT_MONEY.format(total));
         txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();
@@ -767,7 +767,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             dsMonString += item.getData()[0] + " (" + item.getData()[1] + " Suất)" + isQuote;
             total += getPriceByName(item.getData()[0]) * Integer.parseInt(item.getData()[1]);
         }
-        tongTien.setText(tien_format.format(total));
+        tongTien.setText(FORMAT_MONEY.format(total));
         txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();
@@ -792,7 +792,7 @@ public class Form_XemThucDon extends javax.swing.JPanel {
             dsMonString += item.getData()[0] + " (" + item.getSoLuong() + " Suất)" + isQuote;
             total += getPriceByName(item.getData()[0]) * item.getSoLuong();
         }
-        tongTien.setText(tien_format.format(total));
+        tongTien.setText(FORMAT_MONEY.format(total));
         txtYeuCauDatMon.setText(dsMonString);
         tableBodyRight.repaint();
         tableBodyRight.revalidate();

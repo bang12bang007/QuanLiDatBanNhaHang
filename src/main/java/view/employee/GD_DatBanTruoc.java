@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -84,6 +85,8 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
         btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 24, Color.WHITE));
+        btnDownTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
+        btnUpTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         dateChooser.addEventDateChooser(new EventDateChooser() {
             public void dateSelected(SelectedAction action, SelectedDate date) {
                 if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
@@ -96,12 +99,8 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
             @Override
             public void componentResized(ComponentEvent e) {
                 if (tableBody.getWidth() != 0 && tableBody.getHeight() != 0) {
-//                    loadData();
-//                    LocalDate date = LocalDate.now();
-//                    filterByDate(new SelectedDate(date.getDayOfMonth(), date.getMonthValue(), date.getYear()));
-                    autoCancelOrder();
                     autoWarning();
-                    // Loại bỏ lắng nghe sự kiện sau khi đã được kích hoạt một lần
+                    autoCancelOrder();
                     tableBody.removeComponentListener(this);
                 }
             }
@@ -681,10 +680,12 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     private void btnDownTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownTableActionPerformed
         // TODO add your handling code here:
+        tableScroll.getVerticalScrollBar().setValue(tableScroll.getVerticalScrollBar().getValue() + 30);
     }//GEN-LAST:event_btnDownTableActionPerformed
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
         // TODO add your handling code here:
+        tableScroll.getVerticalScrollBar().setValue(tableScroll.getVerticalScrollBar().getValue() - 30);
 
     }//GEN-LAST:event_btnUpTableActionPerformed
 
@@ -782,30 +783,15 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                         clearOld(banOlds, index);
                     } else {
                         List<HoaDon> orders = hoaDonDAO.findByStateAndIdTable(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC, banGop.getMaBan());
-//                        orders = orders.stream().filter(order -> order.getBan().getMaBan().equals(banGop.getMaBan())).toList();
                         List<Map<List<Ban>, List<Integer>>> list = new ArrayList<>();
-//                      i = 1 vì oldBanGop thì phần tử đầu tiên luôn luôn là null
                         for (int i = 1; i < orders.size(); i++) {
                             Map<List<Ban>, List<Integer>> map = createToAddBanGops(new ArrayList<>(), banGop, bans, i);
-//                            List<Ban> banOlds = map.keySet().stream().toList().get(0);
-//                            int index = map.get(banOlds).get(0);
                             list.add(map);
-//                            if (i == orders.indexOf(hoaDon)) {
-//                                clearOld(banOlds, index);
-//                            }
                         }
                         int i = orders.indexOf(hoaDon);
                         List<Ban> banOlds = list.get(i).keySet().stream().toList().get(0);
                         int index = list.get(i).get(banOlds).get(0);
                         clearOld(banOlds, index);
-                        System.out.println("I: " + i + " INDEX: " + index);
-//                        for (int i = 0; i < list.size(); i++) { 
-//                            System.out.println("RESULTS" + orders.indexOf(hoaDon));
-//                            if (i == orders.indexOf(hoaDon)) {
-//
-//                                break;
-//                            }
-//                        }
                     }
                 } else {
                     Ban ban = bookingItems.get(active).getHoaDon().getBan();
@@ -823,54 +809,64 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
     }
 
     public void received() {
+
         if (active >= 0) {
-            HoaDon hoaDon = bookingItems.get(active).getHoaDon();
-            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-            hoaDon.setNgayGioNhanBan(LocalDateTime.now());
-            hoaDonDAO.update(hoaDon);
-            Ban banGop = bookingItems.get(active).getHoaDon().getBan();
-            if (bookingItems.get(active).getHoaDon().getSoBanGop() > 1) {
-                SwingWorker<List<Ban>, Void> worker = new SwingWorker<List<Ban>, Void>() {
-                    utils.Enum.LoaiTrangThai trangThai = utils.Enum.LoaiTrangThai.BAN_CO_KHACH;
+            LocalDateTime bookingTime = bookingItems.get(active).getHoaDon().getNgayDatBan();
+            LocalDateTime currentTime = LocalDateTime.now();
+            Duration duration = Duration.between(currentTime, bookingTime);
+            if (duration.toMinutes() <= 10) {
+                HoaDon hoaDon = bookingItems.get(active).getHoaDon();
+                hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+                hoaDon.setNgayGioNhanBan(LocalDateTime.now());
+                hoaDonDAO.update(hoaDon);
+                Ban banGop = bookingItems.get(active).getHoaDon().getBan();
+                if (bookingItems.get(active).getHoaDon().getSoBanGop() > 1) {
+                    SwingWorker<List<Ban>, Void> worker = new SwingWorker<List<Ban>, Void>() {
+                        utils.Enum.LoaiTrangThai trangThai = utils.Enum.LoaiTrangThai.BAN_CO_KHACH;
 
-                    @Override
-                    protected List<Ban> doInBackground() throws Exception {
-                        List<Ban> bans = banDAO.findAll(Ban.class);
-                        for (Ban ban : bans) {
-                            trangThai = receivOne(ban, banGop, trangThai);
+                        @Override
+                        protected List<Ban> doInBackground() throws Exception {
+                            List<Ban> bans = banDAO.findAll(Ban.class);
+                            for (Ban ban : bans) {
+                                trangThai = receivOne(ban, banGop, trangThai);
+                            }
+                            return bans;
                         }
-                        return bans;
-                    }
 
-                    @Override
-                    protected void done() {
-                        try {
-                            for (Ban ban : get()) {
-                                if (ban.getBanGop() != null) {
-                                    if (ban.getBanGop().getMaBan().equals(banGop.getMaBan())) {
-                                        ban.setTrangThai(trangThai);
-                                        banDAO.update(ban);
+                        @Override
+                        protected void done() {
+                            try {
+                                for (Ban ban : get()) {
+                                    if (ban.getBanGop() != null) {
+                                        if (ban.getBanGop().getMaBan().equals(banGop.getMaBan())) {
+                                            ban.setTrangThai(trangThai);
+                                            banDAO.update(ban);
+                                        }
                                     }
                                 }
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (ExecutionException ex) {
+                                Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (ExecutionException ex) {
-                            Logger.getLogger(GD_DatBanTruoc.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
 
-                };
-                worker.execute();
+                    };
+                    worker.execute();
+                } else {
+                    utils.Enum.LoaiTrangThai trangThai = receivOne(banGop, null, utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
+                    banGop.setTrangThai(trangThai);
+                    banDAO.update(banGop);
+                }
+                bookingItems.get(active).setTrangThai("Đã nhận bàn");
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Khách " + bookingItems.get(active).getHoaDon().getKhachHang().getHoTen() + " đã nhận bàn vào lúc " + forrmater(LocalDateTime.now().toString()));
+                setBookingActive(-1);
             } else {
-                utils.Enum.LoaiTrangThai trangThai = receivOne(banGop, null, utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
-                banGop.setTrangThai(trangThai);
-                banDAO.update(banGop);
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, 1500, "Khách nhận bàn quá sớm");
             }
-            bookingItems.get(active).setTrangThai("Đã nhận bàn");
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Khách " + bookingItems.get(active).getHoaDon().getKhachHang().getHoTen() + " đã nhận bàn vào lúc " + forrmater(LocalDateTime.now().toString()));
-            setBookingActive(-1);
+
         }
+
     }
 
     private utils.Enum.LoaiTrangThai receivOne(Ban ban, Ban banGop, utils.Enum.LoaiTrangThai trangThai) {
@@ -950,13 +946,8 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
             Map<List<String>, List<Integer>> results = createOld(ban.getOldBanGop(), ban.getOldState());
             List<String> oldBanGops = results.keySet().stream().toList().get(0);
             List<Integer> oldState = results.get(oldBanGops);
-//            Collections.reverse(oldBanGops);
-//            Collections.reverse(oldState);
-//            System.out.println("SIZE OF OLD_BANGOP: " + oldBanGops.size() + " SIZE OF OLD_STATE: " + oldState.size());
             oldBanGops.remove(index);
             oldState.remove(index);
-//            Collections.reverse(oldBanGops);
-//            Collections.reverse(oldState);
             String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
             String oldStateString = oldState.size() > 0 ? (oldState.stream()
                     .map(Object::toString)
@@ -986,20 +977,16 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         List<Ban> banOlds = new ArrayList<>();
         int index = initIndex;
         while (banOlds.size() + banGops.size() != bookingItems.get(active).getHoaDon().getSoBanGop()) {
-//            banOlds = new ArrayList<>();
             for (Ban ban : bans) {
                 if (ban.getOldBanGop() != null) {
                     Map<List<String>, List<Integer>> map = createOld(ban.getOldBanGop(), ban.getOldState());
                     List<String> oldBanGops = map.keySet().stream().toList().get(0);
                     List<Integer> oldState = map.get(oldBanGops);
-//                    Collections.reverse(oldBanGops);
-//                    Collections.reverse(oldState);
                     if (oldBanGops.contains(banGop.getMaBan()) && oldBanGops.get(index).equals(banGop.getMaBan())) {
                         banOlds.add(ban);
                     }
                 }
             }
-//            if(banOlds.size() + banGops.size() != bookingItems.get(active).getHoaDon().getSoBanGop())
             index++;
         }
         results.put(banOlds, List.of(index - 1));
@@ -1133,8 +1120,7 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
             @Override
             public void run() {
                 for (HoaDon order : reserveOrder) {
-//                  Tre 10'
-                    if (order.getNgayDatBan().isBefore(LocalDateTime.now())) {
+                    if (order.getNgayDatBan().isBefore(LocalDateTime.now()) && order.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
                         order.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
                         hoaDonDAO.update(order);
                         banDAO.updateStateById(order.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
@@ -1159,7 +1145,10 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
             @Override
             public void run() {
                 for (BookingItem bookingItem : bookingItems) {
-                    if (bookingItem.getHoaDon().getNgayDatBan().equals(LocalDateTime.now())) {
+                    LocalDateTime bookingTime = bookingItem.getHoaDon().getNgayDatBan();
+                    LocalDateTime currentTime = LocalDateTime.now();
+                    Duration duration = Duration.between(currentTime, bookingTime);
+                    if (duration.toMinutes() <= 5 && bookingItem.getHoaDon().getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
                         bookingItem.warning();
                     }
                 }

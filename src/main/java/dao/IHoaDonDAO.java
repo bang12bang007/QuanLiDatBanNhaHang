@@ -11,6 +11,7 @@ import entity.NhanVien;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import java.util.List;
 
@@ -69,5 +70,9 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
 
     public List<HoaDon> findByStateAndIdTable(Enum loaiTrangThai, String oldBanGop);
     public List<HoaDon> findByHour(int hour);
+
+    public List<HoaDon> getListHoaDonGhep(HoaDon hoaDon);
+    
+    public List<HoaDon> getListHoaDonGhepDatTruoc(HoaDon hoaDon);
 
 }

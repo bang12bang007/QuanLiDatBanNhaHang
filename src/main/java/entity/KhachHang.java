@@ -37,7 +37,7 @@ public class KhachHang {
     private String maKhachHang;
     @Column(name = "TenKhachHang", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String hoTen;
-    @Column(name = "SoDienThoai", nullable = false)
+    @Column(name = "SoDienThoai", nullable = false, unique = true)
     private String soDienThoai;
     @Column(name = "DiaChi", columnDefinition = "NVARCHAR(255)", nullable = true)
     private String diaChi;

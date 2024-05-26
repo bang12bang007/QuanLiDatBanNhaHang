@@ -23,9 +23,10 @@ import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
 import view.manager.forms.DashboardForm;
 import view.manager.forms.InboxForm;
-import view.manager.forms.ReadForm;
+import view.manager.forms.GD_QuanLyBan;
 import raven.swing.AvatarIcon;
 import static utils.AppUtils.*;
+import view.manager.forms.GD_QuanLyBan;
 
 /**
  * @author Raven
@@ -70,9 +71,9 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
         MenuItem items[] = new MenuItem[]{
             new Item("Dashboard", "dashboard.svg"),
-            new Item("Email", "email.svg")
-            .subMenu("Inbox")
-            .subMenu("Read"),
+            new Item("Manager", "email.svg")
+            .subMenu("Quản lý Bàn")
+            .subMenu("Inbox"),
             new Item("Chat", "chat.svg"),
             new Item("Calendar", "calendar.svg"),
             new Item("Advanced UI", "ui.svg")
@@ -141,7 +142,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 if (index.length == 1) {
                     switch (((Item) items[index[0]]).getName()) {
                         case "Dashboard": {
-                            FormManager.showForm(new DashboardForm());
+                            FormManager.showForm(() -> new DashboardForm());
                             break;
                         }
                     }
@@ -153,8 +154,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                             FormManager.showForm(new InboxForm());
                             break;
                         }
-                        case "Read": {
-                            FormManager.showForm(new ReadForm());
+                        case "Quản lý Bàn": {
+                            FormManager.showForm(new GD_QuanLyBan());
                             break;
                         }
                     }

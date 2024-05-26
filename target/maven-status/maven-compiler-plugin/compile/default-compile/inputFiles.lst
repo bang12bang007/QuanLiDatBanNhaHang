@@ -6,6 +6,7 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/WrapLayout.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/Button.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/entity/TheThanhVien.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/Form_ThemTheThanhVien.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/SplinePoint.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/KhachHangDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/ModernScrollBarUI.java
@@ -28,6 +29,7 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/CurveLineChart.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/ComboBoxSuggestion.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/IHoaDonDAO.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/KhuyenMaiDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/swing/slider/PanelSlider.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/entity/Mon.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/Form_ThemMonKhac.java
@@ -66,10 +68,10 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/RoundJTextField.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/OrderCard.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/NiceScale.java
-/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/server/Server.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/IMonDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/LegendItem.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/GD_DatBanTaiCho.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/entityManager.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/Dates.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/Years.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/IChiTietKhuyenMaiDAO.java
@@ -79,12 +81,12 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/PanelGradient.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/ModelChart.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/BlankPlotChart.java
-/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/KhuyenMainDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/MonDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/GenericDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/IBanDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/NhanVienDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/Loading.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/forms/GD_QuanLyBan.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/GD_ThongKe.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/TransparentPopupMenu.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/OrderItem_forUIDatMon.java
@@ -108,11 +110,11 @@
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/menu/MyDrawerBuilder.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/component/ModelLegend.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/Form_QRCODE.java
-/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/forms/ReadForm.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/dao/imlp/AbstractDAO.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/menu/Menu.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/EventDateChooser.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/datechooser/Slider.java
+/Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/Form_Voucher.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/forms/InboxForm.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/employee/GD_TrangChu.java
 /Users/quanvo/Desktop/QuanLiNhaHang/QuanLiDatBanNhaHang/src/main/java/view/manager/utils/DateCalculator.java

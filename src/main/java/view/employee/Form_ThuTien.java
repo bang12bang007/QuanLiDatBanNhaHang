@@ -17,12 +17,12 @@ import dao.imlp.MonDAO;
 import dao.imlp.TheThanhVienDAO;
 import entity.Ban;
 import entity.HoaDon;
-import entity.KhuyenMai;
 import entity.TheThanhVien;
 import icon.FontAwesome;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +50,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private DecimalFormat formatNotVND = new DecimalFormat("###,###");
     private double btnTotal = 0;
-    //  NDK  Tạo list để lưu các btn
     private List<JButton> moneyDenominations = new ArrayList<>();
     private List<JButton> moneySuggestions = new ArrayList<>();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
@@ -58,14 +57,15 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
     private IMonDAO monDAO = new MonDAO();
     private IBanDAO banDAO = new BanDAO();
-    private HoaDon hoaDon;
+    private List<HoaDon> hoaDons;
     private JPanel mainJPanel;
     private TheThanhVien theThanhVien;
+    private double thue = 0;
 
-    public Form_ThuTien(JFrame jFrame, HoaDon hoaDon) {
+    public Form_ThuTien(JFrame jFrame, List<HoaDon> hoaDons) {
         initComponents();
         this.jFrame = jFrame;
-        this.hoaDon = hoaDon;
+        this.hoaDons = hoaDons;
         this.setBackground(new Color(0, 0, 0, 0.6f));
         wrapper.setBackground(new Color(0, 0, 0, 0));
         IconFontSwing.register(FontAwesome.getIconFont());
@@ -651,6 +651,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             @Override
             protected Void doInBackground() throws Exception {
                 pay();
+                updateHoaDon();
                 return null;
             }
 
@@ -686,6 +687,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
             protected void done() {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán và tạo hóa đơn thành công");
                 createHoaDon();
+                updateHoaDon();
                 jFrame.setVisible(false);
                 jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
@@ -763,12 +765,11 @@ public class Form_ThuTien extends javax.swing.JPanel {
         String tien = tienPhaiTra.getText().replace("VNĐ", "");
         tien = tien.replace(",", "");
         double tienThua = Double.parseDouble(tien);
-        hoaDonDAO.createInvoice(hoaDon, total + tienThua, tienThua);
+        hoaDonDAO.createInvoice(hoaDons.get(0), total + tienThua, tienThua);
     }
 
     //duccuong1609 : khuyenmai thanh nhieu nhieu voi hoa don roi
     private void pay() {
-        System.out.println("PAYING....");
         if (theThanhVien != null) {
             double diemTichLuy = theThanhVien.getDiemTich() + ((int) total / 100000);
             if (diemTichLuy >= 100.0) {
@@ -778,15 +779,12 @@ public class Form_ThuTien extends javax.swing.JPanel {
             } else if (diemTichLuy >= 2000.0) {
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.VANG);
             } else if (diemTichLuy >= 10000.0) {
-                System.out.println("VCL dcmm");
                 theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.KIMCUONG);
             }
-            // Làm tròn số với hai chữ số thập phân
             theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
             theThanhVienDAO.update(theThanhVien);
         }
-//        hoaDon.setKhuyenMai(khuyenMais);
-        Ban _ban_ = hoaDon.getBan();
+        Ban _ban_ = hoaDons.get(0).getBan();
         List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
         listBanGop.forEach(ban -> {
             updateBanAfterPay(ban);
@@ -794,9 +792,19 @@ public class Form_ThuTien extends javax.swing.JPanel {
         if (listBanGop.size() == 0) {
             updateBanAfterPay(_ban_);
         }
-        hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
-        hoaDonDAO.update(hoaDon);
-//        banDAO.updateStateById(hoaDon.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
+    }
+
+    public void setThue(double thue) {
+        this.thue = thue;
+    }
+
+    private void updateHoaDon() {
+        hoaDons.get(0).addThue(thue);
+        hoaDons.forEach(hoaDon -> {
+            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+            hoaDon.setNgayLapHoaDon(LocalDateTime.now());
+            hoaDonDAO.update(hoaDon);
+        });
     }
 
     private void updateBanAfterPay(Ban ban) {
@@ -814,6 +822,20 @@ public class Form_ThuTien extends javax.swing.JPanel {
             ban.setBanGop(null);
             ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
         } else if (oldBanGops.size() > 0) {
+            while (oldState.get(oldState.size() - 1) == 0 || oldState.get(oldState.size() - 1) == 3) {
+                String lastItem = oldBanGops.get(oldBanGops.size() - 1);
+                ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
+                ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);
+                oldBanGops.remove(oldBanGops.size() - 1);
+                oldState.remove(oldState.size() - 1);
+                String oldBanGop = oldBanGops.size() > 0 ? String.join(",", oldBanGops) : null;
+                String oldStateString = oldState.size() > 0 ? (oldState.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(",")))
+                        : null;
+                ban.setOldBanGop(oldBanGop);
+                ban.setOldState(oldStateString);
+            }
             String lastItem = oldBanGops.get(oldBanGops.size() - 1);
             ban.setBanGop((Ban) banDAO.findById(lastItem, Ban.class));
             ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldState.get(oldState.size() - 1)]);

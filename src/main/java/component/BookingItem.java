@@ -89,12 +89,8 @@ public class BookingItem extends javax.swing.JPanel {
     }
 
     public void warning() {
-        if (hoaDon != null) {
-            if (hoaDon.getNgayDatBan().isEqual(LocalDateTime.now())) {
-                left.setBackground(new Color(234, 124, 105));
-                right.setBackground(new Color(234, 124, 105));
-            }
-        }
+        left.setBackground(new Color(234, 124, 105));
+        right.setBackground(new Color(234, 124, 105));
     }
 
     /**
