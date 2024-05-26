@@ -85,6 +85,8 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         tableScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         calender.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
         btnSearch.setIcon(IconFontSwing.buildIcon(FontAwesome.SEARCH, 24, Color.WHITE));
+        btnDownTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
+        btnUpTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         dateChooser.addEventDateChooser(new EventDateChooser() {
             public void dateSelected(SelectedAction action, SelectedDate date) {
                 if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
@@ -97,8 +99,8 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
             @Override
             public void componentResized(ComponentEvent e) {
                 if (tableBody.getWidth() != 0 && tableBody.getHeight() != 0) {
-                    autoCancelOrder();
                     autoWarning();
+                    autoCancelOrder();
                     tableBody.removeComponentListener(this);
                 }
             }
@@ -678,10 +680,12 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
 
     private void btnDownTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownTableActionPerformed
         // TODO add your handling code here:
+        tableScroll.getVerticalScrollBar().setValue(tableScroll.getVerticalScrollBar().getValue() + 30);
     }//GEN-LAST:event_btnDownTableActionPerformed
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
         // TODO add your handling code here:
+        tableScroll.getVerticalScrollBar().setValue(tableScroll.getVerticalScrollBar().getValue() - 30);
 
     }//GEN-LAST:event_btnUpTableActionPerformed
 
@@ -1116,8 +1120,7 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
             @Override
             public void run() {
                 for (HoaDon order : reserveOrder) {
-//                  Tre 10'
-                    if (order.getNgayDatBan().isBefore(LocalDateTime.now())) {
+                    if (order.getNgayDatBan().isBefore(LocalDateTime.now()) && order.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
                         order.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.HUY_BO);
                         hoaDonDAO.update(order);
                         banDAO.updateStateById(order.getBan().getMaBan(), utils.Enum.LoaiTrangThai.BAN_TRONG);
@@ -1142,7 +1145,10 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
             @Override
             public void run() {
                 for (BookingItem bookingItem : bookingItems) {
-                    if (bookingItem.getHoaDon().getNgayDatBan().equals(LocalDateTime.now())) {
+                    LocalDateTime bookingTime = bookingItem.getHoaDon().getNgayDatBan();
+                    LocalDateTime currentTime = LocalDateTime.now();
+                    Duration duration = Duration.between(currentTime, bookingTime);
+                    if (duration.toMinutes() <= 5 && bookingItem.getHoaDon().getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
                         bookingItem.warning();
                     }
                 }
