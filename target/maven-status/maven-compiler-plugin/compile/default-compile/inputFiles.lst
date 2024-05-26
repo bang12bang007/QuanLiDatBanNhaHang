@@ -27,6 +27,7 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\KhuyenMai.
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\swing\slider\SimpleTransition.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\ChiTietKhuyenMaiDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThongTinCaNhan.java
+D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_QuanLyKhuyenMai.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\components\Background.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\NhanVienDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\HoaDonDAO.java
@@ -39,11 +40,13 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\ChiTietKhu
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\OrderCard.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ShadowRenderer.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\Dates.java
+D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_QuanLyNhanVien.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\RoundJTextField.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_SuDungDiem.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\components\SimpleForm.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\MyJMenuItem.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThuTien.java
+D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_QuanLyMon.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\CurveLineChart.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\Ban.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\menu\MyDrawerBuilder.java

@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import view.manager.components.MainForm;
