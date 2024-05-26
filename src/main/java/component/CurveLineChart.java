@@ -32,6 +32,7 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
 //import component.BlankPlotChatRender;
 //import component.Spline;
 //import component.SplinePoint;
+
 public class CurveLineChart extends JComponent implements java.beans.Customizer {
      public boolean isFillColor() {
         return fillColor;
@@ -128,9 +129,9 @@ public class CurveLineChart extends JComponent implements java.beans.Customizer 
 
     private void createChart() {
         blankPlotChart.setBlankPlotChatRender(new BlankPlotChatRender() {
-
+                        
             @Override
-            public String getLabelText(int index) {
+            public String getLabelText(int index) {// nay la hang ngang
                 return model.get(index).getLabel();
             }
 
@@ -185,6 +186,7 @@ public class CurveLineChart extends JComponent implements java.beans.Customizer 
     }
 
     private void draw(Graphics2D g2, Rectangle2D rec, int index, double maxValue) {
+        
         SplinePoint points[];
         if (lastPoint == null || !animatorChange.isRunning()) {
             points = toPoint(rec, index, maxValue);
@@ -203,7 +205,24 @@ public class CurveLineChart extends JComponent implements java.beans.Customizer 
         List<SplinePoint> list = spline.createSpline(animate, points);
         Path2D.Double path = new Path2D.Double();
         boolean first = true;
+        //fix duoc nhung ma luoi
+//        Map<SplinePoint,Integer> listError = new LinkedHashMap<>();
+//        for (SplinePoint p : list) {
+//            if(p.getY() > list.get(0).getY()){
+//                listError.put(p, list.indexOf(p));
+//            }
+//        }
+        
+//        Set<SplinePoint> entrySet = listError.keySet();
+//        boolean isCountinue = true;
+//        Map<SplinePoint,Integer> countinueMap = new LinkedHashMap<>();
+//        for(SplinePoint s : entrySet){
+//        }
+        
         for (SplinePoint p : list) {
+            if(p.getY() > list.get(0).getY()){//cung qua
+                p.setY(list.get(0).getY());
+            }
             if (first) {
                 path.moveTo(p.getX(), p.getY());
                 first = false;
@@ -231,12 +250,12 @@ public class CurveLineChart extends JComponent implements java.beans.Customizer 
         }
         g2.draw(path);
         if (currentPoint != -1) {
-            SplinePoint s = spline.getSpline(currentPoint);
+            SplinePoint s = spline.getSpline(currentPoint);            
             drawLabel(g2, s);
         }
     }
 
-    private void drawLabel(Graphics2D g2, SplinePoint s) {
+    private void drawLabel(Graphics2D g2, SplinePoint s) {//may cai o mau xam luc tro vao
         g2.setStroke(new BasicStroke(1f));
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaLable * 0.3f));
         g2.fill(new Ellipse2D.Double(s.getX() - 13, s.getY() - 13, 26, 26));
@@ -258,11 +277,12 @@ public class CurveLineChart extends JComponent implements java.beans.Customizer 
             g2.fill(new RoundRectangle2D.Double(0, 0, w, h, 5, 5));
             g2.setColor(new Color(200, 200, 200, 100));
             g2.draw(new RoundRectangle2D.Double(0, 0, w, h, 5, 5));
-            g2.setColor(getForeground());
+            g2.setColor(Color.CYAN);
             double fx = (w - r2.getWidth()) / 2;
             double fy = (h - r2.getHeight()) / 2;
             fy += fm.getAscent();
             g2.drawString(text, (int) fx, (int) fy);
+            
         }
     }
 
@@ -451,14 +471,7 @@ public class CurveLineChart extends JComponent implements java.beans.Customizer 
     public void setObject(Object bean) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-   
-
-    /**
-     * Creates new customizer CurveLineChart
-     */
- 
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

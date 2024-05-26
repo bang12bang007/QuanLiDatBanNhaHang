@@ -27,7 +27,6 @@ import entity.HoaDon;
 import entity.Mon;
 import entity.NhanVien;
 import icon.FontAwesome;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -1154,6 +1153,7 @@ public class GD_DatMon extends javax.swing.JPanel {
                 if (!branch.equals(TypeDatMon_Branch.DATMON)) {
                     btnNV.setText(Integer.toString(ban.getSoGhe()));
                     loadOrderDetail();
+                    setSoLuong(ban.getSoGhe());
                 }
                 mons = new ArrayList<Mon>();
                 IMonDAO dao = new MonDAO();
@@ -1199,6 +1199,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 //                    item.setType_orderItem("PRELOAD");//có ở dưới data base load lên
 //                }
 //=======
+    
     public void loadOrderDetail() {//pre-load orderdetails
         ghiChus = new ArrayList<>();
         if (ban.getBanGop() != null) {

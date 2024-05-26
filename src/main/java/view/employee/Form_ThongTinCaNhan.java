@@ -46,7 +46,7 @@ public class Form_ThongTinCaNhan extends javax.swing.JPanel {
         if (NHANVIEN.isTrangThai()) {
             trangThai = "Đang làm";
         } else {
-            trangThai = "Đã cút";
+            trangThai = "Đã nghỉ";
         }
         this.setBackground(new Color(0, 0, 0, 0.7f));
         jLabel9.setText(NHANVIEN.getHoTen());
