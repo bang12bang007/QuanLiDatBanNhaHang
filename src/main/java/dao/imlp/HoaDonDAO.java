@@ -452,4 +452,12 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
                 .setParameter("ban", hoaDon.getBan())
                 .getResultList();
     }
+    
+    @Override
+    public List<HoaDon> getListHoaDonGhepDatTruoc(HoaDon hoaDon) {
+        return em.createNamedQuery("HoaDon.getListHoaDonGhepDatTruoc", HoaDon.class)
+                .setParameter("ban", hoaDon.getBan())
+                .setParameter("ngay", hoaDon.getNgayLapHoaDon())
+                .getResultList();
+    }
 }

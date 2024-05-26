@@ -1180,7 +1180,12 @@ public class GD_DatMon extends javax.swing.JPanel {
     public void loadOrderDetail() {//pre-load orderdetails
         ghiChus = new ArrayList<>();
         if (ban.getBanGop() != null) {
-            hoadons = hoaDonDAO.getListHoaDonGhep(hoaDon);
+            if(branch.equals(TypeDatMon_Branch.THEMMON)){//LOAD ORDERDETAIL KHI THEMMON TAI CHO
+                hoadons = hoaDonDAO.getListHoaDonGhep(hoaDon);
+            }
+            if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){//LOAD ORDERDETAIL KHI THEMMON DAT TRUOC
+                hoadons = hoaDonDAO.getListHoaDonGhepDatTruoc(hoaDon);
+            }
             main_details = chitietDAO.getListByHoaDon(hoaDon);
 
             for (HoaDon h : hoadons) {
