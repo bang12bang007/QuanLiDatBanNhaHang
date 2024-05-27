@@ -4,13 +4,20 @@
  */
 package view.employee;
 
+import component.Food;
 import component.RoundJTextField;
+import dao.IMonDAO;
+import dao.imlp.MonDAO;
+import entity.Mon;
 import icon.FontAwesome;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 
 import jiconfont.swing.IconFontSwing;
+import utils.AppUtils;
 
 import static utils.AppUtils.*;
 
@@ -23,7 +30,11 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
      * Creates new form Form_ThemMonKhac
      */
     private JFrame main;
-
+    private IMonDAO dao = new MonDAO();
+    private List<Mon> list = new ArrayList<>();
+    private GD_DatMon gd_datMon;
+    private Food food;
+    
     public Form_ThemMonKhac(JFrame main) {
         this.main = main;
         initComponents();
@@ -33,6 +44,7 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         btnMinus.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 20, Color.WHITE));
         btnHelp.setIcon(IconFontSwing.buildIcon(FontAwesome.QUESTION, 20, Color.WHITE));
         btnClose.setIcon(IconFontSwing.buildIcon(FontAwesome.WINDOW_CLOSE, 20, Color.WHITE));
+        list = dao.findOthers();
     }
 
     /**
@@ -54,11 +66,11 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new RoundJTextField(10);
-        jTextField2 = new RoundJTextField(10);
-        jTextField3 = new RoundJTextField(10);
+        txtMon = new RoundJTextField(10);
+        txtSoLuong = new RoundJTextField(10);
+        txtDonGia = new RoundJTextField(10);
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtGhiChu = new javax.swing.JTextArea();
         btnMinus = new component.MyButton();
         btnPlus = new component.MyButton();
         panelRound4 = new component.PanelRound();
@@ -94,28 +106,28 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
         panelRound2.setLayout(panelRound2Layout);
         panelRound2Layout.setHorizontalGroup(
-                panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound2Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20))
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         panelRound2Layout.setVerticalGroup(
-                panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(10, 10, 10))
-                                        .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panelRound3.setBackground(new java.awt.Color(83, 86, 99));
@@ -136,16 +148,26 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Ghi Chú");
 
-        jTextField1.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        txtMon.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        txtMon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMonKeyReleased(evt);
+            }
+        });
 
-        jTextField2.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        txtSoLuong.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        txtSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSoLuongKeyReleased(evt);
+            }
+        });
 
-        jTextField3.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        txtDonGia.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtGhiChu.setColumns(20);
+        txtGhiChu.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        txtGhiChu.setRows(5);
+        jScrollPane1.setViewportView(txtGhiChu);
 
         btnMinus.setBackground(new java.awt.Color(83, 86, 99));
         btnMinus.setBorder(null);
@@ -153,6 +175,11 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         btnMinus.setColor(new java.awt.Color(83, 86, 99));
         btnMinus.setColorClick(new java.awt.Color(83, 86, 99));
         btnMinus.setColorOver(new java.awt.Color(83, 86, 99));
+        btnMinus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinusActionPerformed(evt);
+            }
+        });
 
         btnPlus.setBackground(new java.awt.Color(83, 86, 99));
         btnPlus.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,50 +195,50 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
         panelRound3Layout.setHorizontalGroup(
-                panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound3Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(49, 49, 49)
-                                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-                                        .addComponent(jTextField3)
-                                        .addComponent(jTextField1)
-                                        .addGroup(panelRound3Layout.createSequentialGroup()
-                                                .addComponent(jTextField2)
-                                                .addGap(0, 0, 0)
-                                                .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, 0)
-                                                .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(20, 20, 20))
+            panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                    .addComponent(txtDonGia)
+                    .addComponent(txtMon)
+                    .addGroup(panelRound3Layout.createSequentialGroup()
+                        .addComponent(txtSoLuong)
+                        .addGap(0, 0, 0)
+                        .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         panelRound3Layout.setVerticalGroup(
-                panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound3Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(20, 20, 20)
-                                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(20, 20, 20)
-                                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(20, 20, 20)
-                                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(20, Short.MAX_VALUE))
+            panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMon, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtDonGia, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         panelRound4.setBackground(new java.awt.Color(31, 29, 43));
@@ -225,6 +252,11 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         myButton3.setColorOver(new java.awt.Color(234, 124, 105));
         myButton3.setFont(utils.AppUtils.getFont(14f, _BOLD_));
         myButton3.setRadius(10);
+        myButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton3ActionPerformed(evt);
+            }
+        });
 
         myButton4.setBackground(new java.awt.Color(83, 86, 99));
         myButton4.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,69 +270,103 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
         javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
         panelRound4.setLayout(panelRound4Layout);
         panelRound4Layout.setHorizontalGroup(
-                panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound4Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20))
+            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         panelRound4Layout.setVerticalGroup(
-                panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound4Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(20, Short.MAX_VALUE))
+            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(myButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
-                panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelRound4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelRound4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelRound1Layout.setVerticalGroup(
-                panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(119, Short.MAX_VALUE)
-                                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(120, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(119, Short.MAX_VALUE)
+                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(94, Short.MAX_VALUE)
-                                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(94, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
+                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
         // TODO add your handling code here:
+        txtSoLuong.setText("" + (Integer.parseInt(txtSoLuong.getText().trim()) + 1));
     }//GEN-LAST:event_btnPlusActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here:
         main.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void txtMonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMonKeyReleased
+        // TODO add your handling code here:
+        for (Mon mon : list) {
+            if (AppUtils.CheckContainsAbbreviation(mon.getTenMon(), txtMon.getText())) {
+                txtMon.setText(mon.getTenMon());
+                txtSoLuong.setText("1");
+                txtDonGia.setText(mon.getGiaBan().toString());
+            } else {
+                txtDonGia.setText("");
+            }
+        }
+    }//GEN-LAST:event_txtMonKeyReleased
+
+    private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
+        // TODO add your handling code here:
+        if (Integer.parseInt(txtSoLuong.getText().trim()) > 1) {
+            txtSoLuong.setText("" + (Integer.parseInt(txtSoLuong.getText().trim()) - 1));
+        }
+    }//GEN-LAST:event_btnMinusActionPerformed
+
+    private void txtSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyReleased
+        // TODO add your handling code here:
+        try {
+            int soLuong = Integer.parseInt(txtSoLuong.getText());
+        } catch (Exception e) {
+            txtSoLuong.setText("1");
+        }
+    }//GEN-LAST:event_txtSoLuongKeyReleased
+
+    private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -314,15 +380,25 @@ public class Form_ThemMonKhac extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private component.MyButton myButton3;
     private component.MyButton myButton4;
     private component.PanelRound panelRound1;
     private component.PanelRound panelRound2;
     private component.PanelRound panelRound3;
     private component.PanelRound panelRound4;
+    private javax.swing.JTextField txtDonGia;
+    private javax.swing.JTextArea txtGhiChu;
+    private javax.swing.JTextField txtMon;
+    private javax.swing.JTextField txtSoLuong;
     // End of variables declaration//GEN-END:variables
+
+    public GD_DatMon getGd_datMon() {
+        return gd_datMon;
+    }
+
+    public void setGd_datMon(GD_DatMon gd_datMon) {
+        this.gd_datMon = gd_datMon;
+    }
+    
+
 }
