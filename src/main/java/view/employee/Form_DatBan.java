@@ -39,10 +39,12 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.time.Duration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -732,6 +734,12 @@ public class Form_DatBan extends javax.swing.JPanel {
         this.dsMon = ds;
     }
 
+    private boolean checkTime(LocalDateTime from, LocalDateTime to) {
+        Duration duration = Duration.between(from, to);
+        long hours = duration.toHours();
+        return Math.abs(hours) >= 8;
+    }
+
     void setGD_ban(GD_Ban gD_Ban) {
         this.gD_Ban = gD_Ban;
     }
@@ -838,14 +846,27 @@ public class Form_DatBan extends javax.swing.JPanel {
             HoaDon hoaDon = createHoaDon();
             hoaDon.setMaHoaDon(this.hoaDon.getMaHoaDon());
             updateMenu(hoaDon);
-            boolean isSuccess = hoaDonDAO.update(hoaDon);
-            if (isSuccess) {
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn thành công");
-                this.jFrame.setVisible(false);
-                this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBanTruoc(this.mainJpanel));
+            LocalDate date = LocalDate.of(this.hoaDon.getNgayDatBan().getYear(), this.hoaDon.getNgayDatBan().getMonthValue(), this.hoaDon.getNgayDatBan().getDayOfMonth());
+            List<HoaDon> hoaDons = hoaDonDAO.filterByDate(date).stream().filter(hd -> ((HoaDon) hd).getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)).toList();
+            boolean isDuplicate = false;
+            for (HoaDon hd : hoaDons) {
+                if (!checkTime(hoaDon.getNgayDatBan(), hd.getNgayDatBan()) && !this.hoaDon.getMaHoaDon().equals(hd.getMaHoaDon())) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (isDuplicate) {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi ngày giờ không thành công!");
             } else {
-                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn không thành công");
+                boolean isSuccess = hoaDonDAO.update(hoaDon);
+                if (isSuccess) {
+                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn thành công");
+                    this.jFrame.setVisible(false);
+                    this.jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    utils.AppUtils.setUI(this.mainJpanel, () -> new GD_DatBanTruoc(this.mainJpanel));
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi bàn không thành công");
+                }
             }
         }
     }
@@ -855,7 +876,7 @@ public class Form_DatBan extends javax.swing.JPanel {
             HoaDon phieuDatBan = createHoaDon();
             phieuDatBan.setChiTietHoaDon(getListDetails(phieuDatBan));
             phieuDatBan.setSoBanGop(bans == null ? 1 : bans.size());
-            List<HoaDon> hoaDons = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC);
+            List<HoaDon> hoaDons = ban.getHoaDon().stream().filter(hd -> hd.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)).toList();
             boolean isDuplicate = false;
             for (HoaDon hoaDon : hoaDons) {
                 if (!gD_Ban.checkTime(phieuDatBan.getNgayDatBan(), hoaDon.getNgayDatBan())) {
@@ -902,12 +923,14 @@ public class Form_DatBan extends javax.swing.JPanel {
 
     private void setOld(Ban ban, Ban mainBan) {
         String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
+        oldBanGop = !oldBanGop.endsWith(",") && !oldBanGop.equals("") ? oldBanGop + "," : oldBanGop;
         oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
         ban.setBanGop(mainBan);
         ban.setOldBanGop(oldBanGop);
         String oldState = null;
         if (oldBanGop != null) {
             oldState = ban.getOldState() == null ? "" : ban.getOldState();
+            oldState = !oldState.endsWith(",") && !oldState.equals("") ? oldState + "," : oldState;
             oldState += ban.getTrangThai().ordinal() + ",";
         }
         ban.setOldState(oldState);

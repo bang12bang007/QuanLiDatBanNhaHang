@@ -1,5 +1,6 @@
 package view.manager.forms;
 
+import component.SimpleForm;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.KhachHangDAO;
 import dao.imlp.MonDAO;
@@ -15,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import static utils.AppUtils._NORMAL_;
-import view.manager.components.SimpleForm;
 
 public class GD_QuanLyHoaDon extends SimpleForm {
 

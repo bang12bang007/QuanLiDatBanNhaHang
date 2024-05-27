@@ -1035,15 +1035,20 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     private void btnScanQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScanQRActionPerformed
         // TODO add your handling code here:
-        JFrame jFrame = new JFrame();
-        jFrame.setUndecorated(true);
-        jFrame.setExtendedState(MAXIMIZED_BOTH);
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Form_QRCODE form_QRCODE = new Form_QRCODE(jFrame, this);
-        jFrame.add(form_QRCODE);
-        jFrame.setBackground(new Color(0, 0, 0, 0));
-        FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-        jFrame.setVisible(true);
+
+        if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
+            thuTienJFrame = new JFrame();
+            thuTienJFrame.setUndecorated(true);
+            thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
+            thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_QRCODE form_QRCODE = new Form_QRCODE(thuTienJFrame, this);
+            thuTienJFrame.add(form_QRCODE);
+            thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
+            thuTienJFrame.setVisible(true);
+        } else {
+            thuTienJFrame.toFront();
+        }
     }//GEN-LAST:event_btnScanQRActionPerformed
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
