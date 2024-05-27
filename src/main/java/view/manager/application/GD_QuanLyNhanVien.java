@@ -724,7 +724,7 @@ public class GD_QuanLyNhanVien extends SimpleForm {
     }//GEN-LAST:event_jTextFieldHoTenMouseExited
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        List<NhanVien> allNhanVien = daoNV.findAll(NhanVien.class);        
+        List<NhanVien> allNhanVien = daoNV.findAll(NhanVien.class);
         // Lấy chỉ số của hàng được chọn
         int rowIndex = jTable1.getSelectedRow();
 
@@ -901,42 +901,11 @@ public class GD_QuanLyNhanVien extends SimpleForm {
         String sdt = jTextFieldSoDienThoai.getText();
 
         // Kiểm tra nếu các trường không rỗng
-        if (gioiTinh.isEmpty() || tuoi.isEmpty() || sdt.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Các trường thông tin không được để trống!");
-            return;
+        if (!gioiTinh.isEmpty() || !tuoi.isEmpty() || !sdt.isEmpty()) {
+            String maNhanVien = "NV" + gioiTinh + tuoi + vaiTro + ngay + thang + nam + sdt.substring(7);
+            jTextFieldMaNhanVien.setText(maNhanVien);
         }
 
-        // Kiểm tra tuổi phải >= 18
-        try {
-            int tuoiInt = Integer.parseInt(tuoi);
-            if (tuoiInt < 18) {
-                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Nhân viên phải >= 18 tuổi!");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Tuổi phải là một số nguyên hợp lệ!");
-            return;
-        }
-
-        // Kiểm tra số điện thoại hợp lệ
-        if (!sdt.matches("^(03|05|07|08|09)\\d{8}$")) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Số điện thoại không hợp lệ! Phải bắt đầu bằng 03, 05, 07, 08, 09 và có 10 số.");
-            return;
-        }
-
-        // Lấy 3 số cuối của số điện thoại
-        String soDienThoaiCuoi = sdt.substring(sdt.length() - 3);
-
-        // Kiểm tra ngày bắt đầu làm việc không vượt quá ngày hiện tại
-        LocalDateTime ngayBatDauLam = LocalDateTime.now();  // Hoặc nhận từ một input nào đó
-        if (ngayBatDauLam.isAfter(LocalDateTime.now())) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Ngày bắt đầu làm việc không được vượt quá ngày hiện tại!");
-            return;
-        }
-
-        // Tạo mã nhân viên
-        String maNhanVien = "NV" + gioiTinh + tuoi + vaiTro + ngay + thang + nam + soDienThoaiCuoi;
-        jTextFieldMaNhanVien.setText(maNhanVien);
     }//GEN-LAST:event_panelRound3MouseExited
 
     private void none(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_none

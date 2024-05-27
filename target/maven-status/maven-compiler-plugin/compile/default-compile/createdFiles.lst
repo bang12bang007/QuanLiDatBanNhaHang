@@ -136,6 +136,7 @@ component\MenuItem$1.class
 view\manager\application\GD_QuanLyKhuyenMai$8.class
 view\employee\GD_DatBanTaiCho$8.class
 view\employee\GD_ThanhToan$1.class
+view\manager\forms\GD_QuanLyHoaDon$9.class
 view\manager\application\GD_QuanLyKhuyenMai$13.class
 component\Food$2.class
 component\Spline.class
@@ -194,6 +195,7 @@ view\employee\GD_TrangChu$5.class
 view\employee\Form_ThemTheThanhVien$1.class
 dao\imlp\TaiKhoanDAO.class
 datechooser\Slider.class
+view\manager\forms\GD_QuanLyHoaDon$8.class
 dao\imlp\AbstractDAO.class
 view\employee\Form_ThemMonKhac$5.class
 view\employee\GD_DatBanTaiCho$7.class
@@ -375,6 +377,7 @@ utils\DateCalculator.class
 menu\PanelSlider$PanelSnapshot$1.class
 view\employee\Form_Voucher$3.class
 view\employee\Form_ThuTien$1.class
+view\manager\forms\GD_QuanLyHoaDon$12.class
 component\BookingItem$4.class
 view\employee\GD_DatMon$18.class
 component\OrderItem_forUIDatMon$3.class
@@ -382,6 +385,7 @@ view\employee\Form_SuDungDiem$3.class
 component\BlankPlotChart$1.class
 menu\MyDrawerBuilder$4.class
 view\employee\Form_ThongTinCaNhan.class
+view\manager\forms\GD_QuanLyHoaDon$13.class
 view\manager\application\GD_QuanLyNhanVien$24.class
 view\employee\Form_SuDungDiem$2.class
 view\employee\Form_Voucher$4.class
@@ -412,6 +416,7 @@ view\manager\application\GD_QuanLyMon$12.class
 component\CurveLineChart$4.class
 view\manager\application\GD_QuanLyNhanVien$26.class
 datechooser\DateChooser$6.class
+view\manager\forms\GD_QuanLyHoaDon$11.class
 dao\IBanDAO.class
 view\manager\application\GD_QuanLyMon$1.class
 view\employee\GD_DatMon$19.class
@@ -453,5 +458,6 @@ view\employee\Form_DoiSoLuongNguoi$1.class
 view\manager\application\GD_QuanLyMon$13.class
 component\BanItem$2.class
 view\employee\GD_DatBanTruoc$8.class
+view\manager\forms\GD_QuanLyHoaDon$10.class
 component\MemberCard$1.class
 component\OrderItem_forUIDatMon$5.class
