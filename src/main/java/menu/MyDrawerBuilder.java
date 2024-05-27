@@ -76,32 +76,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             .subMenu("Quản lý Khuyến mãi")
             .subMenu("Quản lý Khách hàng")
             .subMenu("Quản lý Món"),
-            new Item("Chat", "chat.svg"),
-            new Item("Calendar", "calendar.svg"),
-            new Item("Advanced UI", "ui.svg")
-            .subMenu("Cropper")
-            .subMenu("Owl Carousel")
-            .subMenu("Sweet Alert"),
-            new Item("Forms", "forms.svg")
-            .subMenu("Basic Elements")
-            .subMenu("Advanced Elements")
-            .subMenu("SEditors")
-            .subMenu("Wizard"),
-            new Item("Charts", "chart.svg")
-            .subMenu("Apex")
-            .subMenu("Flot")
-            .subMenu("Sparkline"),
-            new Item("Icons", "icon.svg")
-            .subMenu("Feather Icons")
-            .subMenu("Flag Icons")
-            .subMenu("Mdi Icons"),
-            new Item("Special Pages", "page.svg")
-            .subMenu("Blank page")
-            .subMenu("Faq")
-            .subMenu("Invoice")
-            .subMenu("Profile")
-            .subMenu("Pricing")
-            .subMenu("Timeline")
+            
         };
 
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {

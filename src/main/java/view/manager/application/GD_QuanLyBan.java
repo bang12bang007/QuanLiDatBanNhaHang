@@ -46,7 +46,7 @@ public class GD_QuanLyBan extends SimpleForm {
     private void clearData() {
         jTextField1.setText("");
         jTextField2.setText("");
-        jTextField4.setText("");
+        jTextField3.setText("");
     }
 
     /**
@@ -73,7 +73,7 @@ public class GD_QuanLyBan extends SimpleForm {
         panelRound6 = new component.PanelRound();
         jTextField2 = new javax.swing.JTextField();
         panelRound7 = new component.PanelRound();
-        jTextField4 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(83, 86, 99));
 
@@ -208,9 +208,9 @@ public class GD_QuanLyBan extends SimpleForm {
             .addComponent(jTextField2)
         );
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                jTextField3ActionPerformed(evt);
             }
         });
 
@@ -219,12 +219,12 @@ public class GD_QuanLyBan extends SimpleForm {
         panelRound7Layout.setHorizontalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound7Layout.createSequentialGroup()
-                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         panelRound7Layout.setVerticalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextField4)
+            .addComponent(jTextField3)
         );
 
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
@@ -324,16 +324,16 @@ public class GD_QuanLyBan extends SimpleForm {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void myButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseClicked
         // TODO add your handling code here:
         Ban ban = new Ban();
         ban.setMaBan(jTextField2.getText());
         ban.setTang(jTextField1.getText());
-        ban.setSoGhe(Integer.parseInt(jTextField4.getText()));
+        ban.setSoGhe(Integer.parseInt(jTextField3.getText()));
         ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
         if (daoB.insert(ban)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thêm bàn thành công !");
@@ -373,7 +373,7 @@ public class GD_QuanLyBan extends SimpleForm {
 
             jTextField1.setText(ban.getTang());
             jTextField2.setText(ban.getMaBan());
-            jTextField4.setText(String.valueOf(ban.getSoGhe()));
+            jTextField3.setText(String.valueOf(ban.getSoGhe()));
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -382,7 +382,7 @@ public class GD_QuanLyBan extends SimpleForm {
         Ban ban = new Ban();
         ban.setMaBan(jTextField2.getText());
         ban.setTang(jTextField1.getText());
-        ban.setSoGhe(Integer.parseInt(jTextField4.getText()));
+        ban.setSoGhe(Integer.parseInt(jTextField3.getText()));
         ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
         if (daoB.update(ban)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi thông tin bàn thành công !");
@@ -403,7 +403,7 @@ public class GD_QuanLyBan extends SimpleForm {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel maBan;
     private component.MyButton myButton1;
     private component.MyButton myButton2;
