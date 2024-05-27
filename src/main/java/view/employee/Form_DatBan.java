@@ -902,12 +902,14 @@ public class Form_DatBan extends javax.swing.JPanel {
 
     private void setOld(Ban ban, Ban mainBan) {
         String oldBanGop = ban.getOldBanGop() == null ? "" : ban.getOldBanGop();
+        oldBanGop = !oldBanGop.endsWith(",") ? oldBanGop + "," : oldBanGop;
         oldBanGop += ban.getBanGop() != null ? ban.getBanGop().getMaBan() + "," : null + ",";
         ban.setBanGop(mainBan);
         ban.setOldBanGop(oldBanGop);
         String oldState = null;
         if (oldBanGop != null) {
             oldState = ban.getOldState() == null ? "" : ban.getOldState();
+            oldState = !oldState.endsWith(",") ? oldState + "," : oldState;
             oldState += ban.getTrangThai().ordinal() + ",";
         }
         ban.setOldState(oldState);
