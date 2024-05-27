@@ -25,6 +25,7 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\datechoo
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\AbstractDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\entity\KhachHang.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\icon\FontAwesome.java
+D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\component\MemberCard.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\imlp\KhachHangDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_XemThucDon.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\component\PanelGradient.java
@@ -120,4 +121,5 @@ D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\componen
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\component\WrapGridLayout.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\dao\IHoaDonDAO.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\entity\TheThanhVien.java
+D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_LuuTam.java
 D:\PhatTrienUngDung\QLNH\QLNH_Project\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_Dashboard.java

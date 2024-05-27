@@ -393,7 +393,7 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
                     String ghiChu = theThanhVien.getKhachHang().getHoTen() + " sử dụng " + txtDiemSuDung.getText();
                     double thanhTienKM = (Double.parseDouble(txtDiemSuDung.getText()) * 20000 / 50);
                     HoaDon hoaDon = hoaDons.get(0);
-                    KhuyenMai khuyenMai = new KhuyenMai("THE_THANH_VIEN", LocalDateTime.now(), LocalDateTime.now(), thanhTienKM, utils.Enum.LoaiKhuyenMai.SU_DUNG_DIEM, ghiChu);
+                    KhuyenMai khuyenMai = new KhuyenMai("THE_THANH_VIEN", LocalDateTime.now(), LocalDateTime.now(), null, thanhTienKM, utils.Enum.LoaiKhuyenMai.SU_DUNG_DIEM, ghiChu);
                     ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(hoaDon, khuyenMai);
                     hoaDon.getChiTietKhuyenMai().add(chiTietKhuyenMai);
                     hoaDon.tienPhaiThu();
@@ -411,6 +411,7 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
                     Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Điểm tích lũy không đủ");
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Điểm tích lũy không hợp lệ");
             }
         } else {

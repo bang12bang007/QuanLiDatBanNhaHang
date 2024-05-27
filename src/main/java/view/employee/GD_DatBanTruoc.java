@@ -932,15 +932,6 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
         return banGops;
     }
 
-    private int indexOf(HoaDon hoaDon, List<HoaDon> hoaDons) {
-        for (int i = 0; i < hoaDons.size(); i++) {
-            if (hoaDons.get(i).getMaHoaDon().equals(hoaDon.getMaHoaDon())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     private void clearOld(List<Ban> banOlds, int index) {
         for (Ban ban : banOlds) {
             Map<List<String>, List<Integer>> results = createOld(ban.getOldBanGop(), ban.getOldState());
@@ -1156,6 +1147,10 @@ public class GD_DatBanTruoc extends javax.swing.JPanel {
                 tableBody.revalidate();
             }
         }, 0, 1, TimeUnit.SECONDS);
+    }
+
+    public boolean canMoveTable(HoaDon hoaDon) {
+        return hoaDon.getBan().getBanGop() == null ? false : true;
     }
 
 

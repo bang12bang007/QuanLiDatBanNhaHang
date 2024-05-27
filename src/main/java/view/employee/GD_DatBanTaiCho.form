@@ -55,6 +55,8 @@
                   <Component id="btnCheckout" min="-2" pref="189" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnReserve" min="-2" pref="150" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnSaveTemple" min="-2" pref="150" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="myButton1" min="-2" pref="137" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -75,6 +77,7 @@
                           <Component id="btnCheckout" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="btnReserve" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="myButton1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="btnSaveTemple" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       </Group>
                       <Component id="panelRound2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -280,6 +283,31 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="component.MyButton" name="btnSaveTemple">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="L&#x1b0;u t&#x1ea1;m (0)"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="color" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="63" green="56" red="53" type="rgb"/>
+            </Property>
+            <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="69" green="7c" red="ea" type="rgb"/>
+            </Property>
+            <Property name="colorOver" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="69" green="7c" red="ea" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="utils.AppUtils.getFont(14f, _NORMAL_)&#xa;" type="code"/>
+            </Property>
+            <Property name="radius" type="int" value="8"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveTempleActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

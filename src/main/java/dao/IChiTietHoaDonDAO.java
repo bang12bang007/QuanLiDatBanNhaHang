@@ -22,7 +22,7 @@ public interface IChiTietHoaDonDAO<T> extends GenericDAO<T> {
 
     List<ChiTietHoaDon> getListByHoaDon(HoaDon hoaDon);
 
-    Map<Mon, Long> getListByBan(HoaDon hoaDon);
+    Map<Mon, Long> getListByBan(HoaDon hoaDon, utils.Enum.LoaiTrangThaiHoaDon trangThai);
 
     List<ChiTietHoaDon> getListBySoLuong(int soLuong);
 

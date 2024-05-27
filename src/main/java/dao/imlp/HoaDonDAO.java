@@ -160,8 +160,11 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         PdfWriter pdfWriter = null;
         double tongThanhToan = 0;
 //      asyn await chỗ này
-        Map<Mon, Long> map = chiTietHoaDonDAO.getListByBan(hoaDon);
-        for (HoaDon hd : getListHoaDonGhep(hoaDon)) {
+        Map<Mon, Long> map = chiTietHoaDonDAO.getListByBan(hoaDon, LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        List<HoaDon> list = getListHoaDonGhep(hoaDon, LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+        list = list.size() == 0 ? getListHoaDonGhep(hoaDon, LoaiTrangThaiHoaDon.CHO_THANH_TOAN) : list;
+        map = map.size() == 0 ? chiTietHoaDonDAO.getListByBan(hoaDon, LoaiTrangThaiHoaDon.CHO_THANH_TOAN) : map;
+        for (HoaDon hd : list) {
             tongThanhToan += chiTietHoaDonDAO.TotalFoodCurrency(hd);
         }
 
@@ -291,7 +294,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         for (HoaDon hd_total : hoaDons) {
             if (hd_total.getNgayLapHoaDon().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
                 if (hd_total.getTrangThai().equals(LoaiTrangThaiHoaDon.DA_THANH_TOAN) && nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
-                        sum += 1;
+                    sum += 1;
                     // chưa áp dụng khuyến mãi 
                 }
             }
@@ -305,7 +308,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         for (HoaDon hd_total : hoaDons) {
             if (hd_total.getNgayLapHoaDon().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
                 if (hd_total.getTrangThai().equals(LoaiTrangThaiHoaDon.DA_THANH_TOAN) && nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
-                        sum += hd_total.getSoLuongNguoi();
+                    sum += hd_total.getSoLuongNguoi();
                     // chưa áp dụng khuyến mãi 
                 }
             }
@@ -324,16 +327,17 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             int gio = h.getNgayLapHoaDon().getHour();
             if (nv.getMaNV().equals(h.getNhanVien().getMaNV())) {  //            KiemTraTheoMaNhanVien
                 if (ngay.equals(h.getMaHoaDon().substring(2, 8))) {
-                        hd += 1;
-                        dt += tien.TotalFoodCurrency(h) / 1000000;   // phần trăm theo tổng doanh thu
-                        kh += h.getSoLuongNguoi();
-                    }
+                    hd += 1;
+                    dt += tien.TotalFoodCurrency(h) / 1000000;   // phần trăm theo tổng doanh thu
+                    kh += h.getSoLuongNguoi();
                 }
             }
-        
+        }
+
         double[] result = {dt, hd, kh};
         return result;
     }
+
     @Override
     public double getTongDoanhThu(NhanVien nv) {
         ChiTietKhuyenMai km = new ChiTietKhuyenMai();
@@ -343,7 +347,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         for (HoaDon hd_total : hd) {
             if (hd_total.getNgayLapHoaDon().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
                 if (hd_total.getTrangThai().equals(LoaiTrangThaiHoaDon.DA_THANH_TOAN) && nv.getMaNV().equals(hd_total.getNhanVien().getMaNV())) {
-                        sum += tien.TotalFoodCurrency(hd_total);
+                    sum += tien.TotalFoodCurrency(hd_total);
                     // chưa áp dụng khuyến mãi 
                 }
             }
@@ -441,12 +445,13 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
                 .getResultList();
     }
 
-    public List<HoaDon> getListHoaDonGhep(HoaDon hoaDon) {
+    public List<HoaDon> getListHoaDonGhep(HoaDon hoaDon, LoaiTrangThaiHoaDon trangThai) {
         return em.createNamedQuery("HoaDon.getListHoaDonGhep", HoaDon.class)
                 .setParameter("ban", hoaDon.getBan())
+                .setParameter("trangThai", trangThai)
                 .getResultList();
     }
-    
+
     @Override
     public List<HoaDon> getListHoaDonGhepDatTruoc(HoaDon hoaDon) {
         return em.createNamedQuery("HoaDon.getListHoaDonGhepDatTruoc", HoaDon.class)

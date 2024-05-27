@@ -4,18 +4,18 @@
  */
 package view.employee;
 
+import LIB.FadeEffect;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import component.MemberCard;
 import dao.IKhachHangDAO;
 import dao.ITheThanhVienDAO;
 import dao.imlp.KhachHangDAO;
 import dao.imlp.TheThanhVienDAO;
-import datechooser.EventDateChooser;
-import datechooser.SelectedAction;
-import datechooser.SelectedDate;
 import entity.KhachHang;
 import entity.TheThanhVien;
 import icon.FontAwesome;
 import java.awt.Color;
+import java.awt.Frame;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,6 +39,7 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
     private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
     private GD_ThanhToan GDThanhToan;
+    private JFrame jFrameForm;
 
     public Form_ThemTheThanhVien(JFrame jFrame) {
         this.jFrame = jFrame;
@@ -48,17 +49,8 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
         IconFontSwing.register(FontAwesome.getIconFont());
         this.setBackground(new Color(0, 0, 0, 0.6f));
         txtYeuCau.setBackground(TRANSPERANT);
-        txtDate.setBackground(TRANSPERANT);
         txtKhachHang.setBackground(TRANSPERANT);
         txtSoDienThoai.setBackground(TRANSPERANT);
-        calendar.setIcon(IconFontSwing.buildIcon(FontAwesome.CALENDAR, 24, new Color(31, 29, 43)));
-        dateChooser.addEventDateChooser(new EventDateChooser() {
-            public void dateSelected(SelectedAction action, SelectedDate date) {
-                if (action.getAction() == com.raven.datechooser.SelectedAction.DAY_SELECTED) {
-                    dateChooser.hidePopup();
-                }
-            }
-        });
         autoComplete();
 
     }
@@ -75,10 +67,6 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
         footer = new component.PanelRound();
         btnCat = new component.MyButton();
         btnHuy = new component.MyButton();
-        jLabel2 = new javax.swing.JLabel();
-        panelRound1 = new component.PanelRound();
-        calendar = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         panelRound3 = new component.PanelRound();
         txtKhachHang = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -88,12 +76,10 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         yeuCauKhac = new component.PanelRound();
         txtYeuCau = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
         dateChooser.setDateFormat("dd/MM/yyyy");
-        dateChooser.setTextRefernce(txtDate);
 
         setForeground(new java.awt.Color(255, 255, 255));
 
@@ -183,42 +169,6 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel2.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Ngày sinh");
-
-        panelRound1.setBackground(java.awt.Color.white);
-        panelRound1.setRoundBottomLeft(8);
-        panelRound1.setRoundBottomRight(8);
-        panelRound1.setRoundTopLeft(8);
-        panelRound1.setRoundTopRight(8);
-
-        calendar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        calendar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                calendarMouseClicked(evt);
-            }
-        });
-
-        txtDate.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
-        txtDate.setBorder(null);
-
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(calendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(txtDate)
-        );
-
         panelRound3.setBackground(java.awt.Color.white);
         panelRound3.setRoundBottomLeft(8);
         panelRound3.setRoundBottomRight(8);
@@ -304,10 +254,6 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
             .addComponent(txtYeuCau)
         );
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel9.setText("*");
-
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 51, 51));
         jLabel13.setText("*");
@@ -320,7 +266,7 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
         wrapper.setLayout(wrapperLayout);
         wrapperLayout.setHorizontalGroup(
             wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(header, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(header, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 465, Short.MAX_VALUE)
             .addGroup(wrapperLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,14 +278,9 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(wrapperLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(yeuCauKhac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRound4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -350,13 +291,7 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
             wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(wrapperLayout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12)
+                .addGap(30, 30, 30)
                 .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(wrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -391,9 +326,9 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+                .addContainerGap(114, Short.MAX_VALUE)
                 .addComponent(wrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -418,26 +353,47 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
                     khachHang = new KhachHang(txtKhachHang.getText(), txtSoDienThoai.getText(), txtYeuCau.getText());
                     sdt = txtSoDienThoai.getText().substring(1, txtSoDienThoai.getText().length());
                     khachHang.setMaKhachHang("KH" + sdt);
-                    khachHangDAO.insert(khachHang);
                 }
                 TheThanhVien theThanhVien = new TheThanhVien(0.0, khachHang, utils.Enum.LoaiTheThanhVien.TIEUCHUAN);
                 theThanhVien.setMaThe(createMaThe(khachHang));
-                boolean isSuccess = theThanhVienDAO.insert(theThanhVien);
-                if (isSuccess) {
-                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 1500, "Thêm thẻ thành viên thành công");
-                    jFrame.setVisible(false);
-                    jFrame.dispose();
-                    utils.AppUtils.setUI(GDThanhToan.getMainPanel(), () -> {
-                        GD_ThanhToan gd = new GD_ThanhToan(GDThanhToan.getHoaDon(), GDThanhToan.getMainPanel());
-                        gd.setThe(theThanhVien);
-                        return gd;
-                    });
+
+                if (jFrameForm == null || !jFrameForm.isVisible()) {
+                    jFrameForm = new JFrame();
+                    jFrameForm.setUndecorated(true);
+                    jFrameForm.setExtendedState(Frame.MAXIMIZED_BOTH);
+                    jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    MemberCard memberCard = new MemberCard(jFrameForm, theThanhVien);
+                    memberCard.setFormThemTheThanhVien(this);
+                    jFrameForm.add(memberCard);
+                    jFrameForm.setBackground(new Color(0, 0, 0, 0));
+                    FadeEffect.fadeInFrame(jFrameForm, 8, 0.1f);
+                    jFrameForm.setAlwaysOnTop(true);
+                    jFrameForm.toFront();
+                    jFrameForm.requestFocus();
+                    jFrameForm.setVisible(true);
+                } else {
+                    jFrameForm.toFront();
                 }
             } else {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 1500, "Khách hàng đã có thẻ thành viên");
             }
         }
     }//GEN-LAST:event_btnCatActionPerformed
+
+    public void addMembership(TheThanhVien theThanhVien) {
+        khachHangDAO.insert(theThanhVien.getKhachHang());
+        boolean isSuccess = theThanhVienDAO.insert(theThanhVien);
+        if (isSuccess) {
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 1500, "Thêm thẻ thành viên thành công");
+            jFrame.setVisible(false);
+            jFrame.dispose();
+            utils.AppUtils.setUI(GDThanhToan.getMainPanel(), () -> {
+                GD_ThanhToan gd = new GD_ThanhToan(GDThanhToan.getHoaDon(), GDThanhToan.getMainPanel());
+                gd.setThe(theThanhVien);
+                return gd;
+            });
+        }
+    }
 
     private String createMaThe(KhachHang khachHang) {
         LocalDate date = LocalDate.now();
@@ -487,11 +443,6 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
         this.GDThanhToan = aThis;
     }
 
-    private void calendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calendarMouseClicked
-        // TODO add your handling code here:
-        dateChooser.showPopup();
-    }//GEN-LAST:event_calendarMouseClicked
-
     private void autoComplete() {
         khachHangs = khachHangDAO.findAll(KhachHang.class);
         for (KhachHang khachHang : khachHangs) {
@@ -515,7 +466,6 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.MyButton btnCat;
     private component.MyButton btnHuy;
-    private javax.swing.JLabel calendar;
     private datechooser.DateChooser dateChooser;
     private component.PanelRound footer;
     private component.PanelRound header;
@@ -523,15 +473,11 @@ public class Form_ThemTheThanhVien extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
-    private component.PanelRound panelRound1;
     private component.PanelRound panelRound3;
     private component.PanelRound panelRound4;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtKhachHang;
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtYeuCau;

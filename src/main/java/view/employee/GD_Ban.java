@@ -63,14 +63,13 @@ public class GD_Ban extends javax.swing.JPanel {
     private Ban ban;
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private JFrame jFrameForm;
-    private GD_DatMon gd_Datmon; //sử dụng để khi back từ món về vô lại nhanh
+    private GD_DatMon gd_Datmon;
     private HoaDon hoaDon;
     private List<BanItem> banItems = new ArrayList<>();
     private List<BanItem> listBanItem = new ArrayList<>();
     private int soLuongGheTruocKhiGop = 0;
+    private String branchMoveTable = "";
 
-    //    NDK: Them phieu dat ban de chuyen ban
-//    NDK: Bi do GD_DatBan, DatMon, QuanLyDatMon, TrangChu
     public GD_Ban(JPanel main, String type) {
         this.type = type;
         this.main = main;
@@ -520,13 +519,12 @@ public class GD_Ban extends javax.swing.JPanel {
         return this.ban;
     }
 
-    //chuyenban : mat phieu dat roi
     public void moveTable(Ban ban) {
         hoaDonDAO.updateBanById(hoaDon.getMaHoaDon(), ban);
         banDAO.updateStateById(ban.getMaBan(), this.ban.getTrangThai());
         banDAO.updateStateById(this.ban.getMaBan(), ban.getTrangThai());
         List<String> oldBanGops = new ArrayList<>();
-        if (ban.getOldBanGop() != null) {
+        if (ban.getOldBanGop() != null && this.ban.getOldBanGop() != null) {
             oldBanGops = new ArrayList<>(Arrays.asList(this.ban.getOldBanGop().split(",")));
         }
         if (oldBanGops.size() == 1) {
@@ -566,7 +564,7 @@ public class GD_Ban extends javax.swing.JPanel {
             jFrameForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
             jFrameForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             MessageMoveTable message = new MessageMoveTable(jFrameForm, banItem);
-            message.setBranch("DAT_TAI_CHO");
+            message.setBranch(branchMoveTable);
             jFrameForm.add(message);
             jFrameForm.setBackground(new Color(0, 0, 0, 0));
             FadeEffect.fadeInFrame(jFrameForm, 8, 0.1f);
@@ -681,53 +679,68 @@ public class GD_Ban extends javax.swing.JPanel {
         }
     }
 
+    private boolean isExistBan(Ban ban) {
+        for (BanItem banItem : getBanItems()) {
+            if (banItem.getBan().getMaBan().equals(ban.getMaBan())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void mergeInvoice() {
-        String maBanGop = hoaDon.getBan().getMaBan();
-        reloadTableMergeInvoice();
-        Ban mainBan = hoaDon.getBan();
-        String mHD = getHoaDonByBan(getBanItems().get(getBanItems().size() - 1).getBan()) != null ? getHoaDonByBan(getBanItems().get(getBanItems().size() - 1).getBan()).getMaHoaDon() : "";
-        int soLuongGheSauKhiGop = getBanItems().stream()
-                .mapToInt(banItem -> banItem.getBan().getSoGhe())
-                .sum();
-        if (soLuongGheSauKhiGop >= soLuongGheTruocKhiGop) {
-            for (BanItem banItem : getBanItems()) {
-                Ban ban = banItem.getBan();
-                if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT) || ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG)) {
-                    mergeTable(ban, mainBan);
-                } else {
-                    mergeTableNotEmpty(ban, mHD);
-                    Ban banTemp = ban.getBanGop() != null ? ban.getBanGop() : ban;
-                    banTemp.getHoaDon().forEach(hoaDon -> {
-                        if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
-                            hoaDon.setBan(mainBan);
-                            hoaDonDAO.update(hoaDon);
-                        }
-                    });
-                    if (ban.getBanGop() == null) {
-                        ban.setBanGop(mainBan);
+        if (isExistBan(hoaDon.getBan())) {
+            String maBanGop = hoaDon.getBan().getMaBan();
+            reloadTableMergeInvoice();
+            Ban mainBan = hoaDon.getBan();
+            String mHD = getHoaDonByBan(getBanItems().get(getBanItems().size() - 1).getBan()) != null ? getHoaDonByBan(getBanItems().get(getBanItems().size() - 1).getBan()).getMaHoaDon() : "";
+            int soLuongGheSauKhiGop = getBanItems().stream()
+                    .mapToInt(banItem -> banItem.getBan().getSoGhe())
+                    .sum();
+            if (soLuongGheSauKhiGop >= soLuongGheTruocKhiGop) {
+                for (BanItem banItem : getBanItems()) {
+                    Ban ban = banItem.getBan();
+                    if (ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT) || ban.getTrangThai().equals(utils.Enum.LoaiTrangThai.BAN_TRONG)) {
+                        mergeTable(ban, mainBan);
                     } else {
-                        List<Ban> listBanGop = banDAO.findByBanGop(ban.getBanGop());
-                        listBanGop.forEach(banGop -> {
-                            if (banGop.equals(ban)) {
-                                banGop.setBanGop(mainBan);
-                                banDAO.update(banGop);
+                        mergeTableNotEmpty(ban, mHD);
+                        Ban banTemp = ban.getBanGop() != null ? ban.getBanGop() : ban;
+                        banTemp.getHoaDon().forEach(hoaDon -> {
+                            if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                                hoaDon.setBan(mainBan);
+                                hoaDonDAO.update(hoaDon);
                             }
                         });
+                        if (ban.getBanGop() == null) {
+                            ban.setBanGop(mainBan);
+                        } else {
+                            List<Ban> listBanGop = banDAO.findByBanGop(ban.getBanGop());
+                            listBanGop.forEach(banGop -> {
+                                if (banGop.equals(ban)) {
+                                    banGop.setBanGop(mainBan);
+                                    banDAO.update(banGop);
+                                }
+                            });
+                        }
+                    }
+                    banDAO.update(ban);
+                }
+                this.hoaDon.setBan(mainBan);
+                hoaDonDAO.update(hoaDon);
+                List<HoaDon> orders = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
+                for (HoaDon order : orders) {
+                    if (order.getBan().getMaBan().equals(maBanGop)) {
+                        order.setBan(mainBan);
+                        hoaDonDAO.update(order);
                     }
                 }
-                banDAO.update(ban);
-            }
-            this.hoaDon.setBan(mainBan);
-            hoaDonDAO.update(hoaDon);
-            List<HoaDon> orders = hoaDonDAO.findByState(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
-            for (HoaDon order : orders) {
-                if (order.getBan().getMaBan().equals(maBanGop)) {
-                    order.setBan(mainBan);
-                    hoaDonDAO.update(order);
-                }
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Ghép hóa đơn thành công");
+            } else {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không thể ghép hóa đơn");
             }
         } else {
-            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không thể gộp bàn được");
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không thể ghép hóa đơn");
         }
     }
 
@@ -817,6 +830,10 @@ public class GD_Ban extends javax.swing.JPanel {
 
     public void setGd_Datmon(GD_DatMon gd_Datmon) {
         this.gd_Datmon = gd_Datmon;
+    }
+
+    public void setBranchMoveTable(String branchMoveTable) {
+        this.branchMoveTable = branchMoveTable;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

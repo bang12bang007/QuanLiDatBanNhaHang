@@ -66,7 +66,6 @@ entity\HoaDon.class
 view\employee\Form_ThemTheThanhVien$4.class
 component\CurveLineChart$1.class
 entity\ChiTietHoaDon.class
-view\employee\GD_DatBanTaiCho$1.class
 view\employee\Form_ThemMonKhac$2.class
 view\employee\GD_DatMon.class
 view\employee\GD_DatBanTruoc$10.class
@@ -74,10 +73,12 @@ component\BookingItem$2.class
 component\OrderItem$1.class
 view\manager\utils\DateCalculator$ModelDate.class
 view\manager\menu\MyDrawerBuilder.class
+view\employee\GD_DatBanTaiCho$11.class
 dao\imlp\HoaDonDAO.class
 view\employee\Form_XemThucDon$4.class
 view\employee\GD_DatMon$11.class
 view\employee\GD_DatMon$4.class
+view\employee\Form_LuuTam$3.class
 datechooser\DateChooser$3.class
 datechooser\Slider$1.class
 dao\IKhuyenMaiDAO.class
@@ -87,7 +88,6 @@ view\employee\GD_DatBanTruoc$3.class
 component\MessageReserve$1.class
 component\MessageOrderConfirm.class
 dao\imlp\TheThanhVienDAO.class
-view\employee\Form_ThemTheThanhVien$6.class
 view\manager\forms\GD_QuanLyNhanVien$6.class
 utils\Enum$LoaiTrangThai.class
 view\employee\GD_DatMon$14.class
@@ -106,6 +106,7 @@ utils\Enum$LoaiTrangThaiHoaDon.class
 view\manager\forms\GD_QuanLyNhanVien$12.class
 view\GD_DangNhap.class
 view\manager\utils\DateCalculator.class
+view\employee\Form_LuuTam$1.class
 view\employee\Form_ThuTien$7.class
 view\employee\GD_DatMon$12.class
 view\employee\Form_XemThucDon$5.class
@@ -137,7 +138,6 @@ view\manager\menu\MyDrawerBuilder$3.class
 view\employee\Form_Voucher.class
 utils\Enum$TypeDatMon_Branch.class
 view\manager\forms\GD_QuanLyMon$9.class
-view\employee\GD_DatBanTaiCho$2.class
 view\employee\Form_DatBan$10.class
 component\ScrollBarCustom.class
 component\MessageMoveTable$1.class
@@ -159,7 +159,6 @@ view\employee\Form_ThuTien$6.class
 view\manager\menu\MyDrawerBuilder$4.class
 view\manager\forms\GD_QuanLyKhachHang$1.class
 view\manager\forms\GD_QuanLyKhachHang$13.class
-view\employee\GD_ThanhToan$18.class
 view\manager\forms\GD_QuanLyMon$8.class
 view\manager\forms\GD_Dashboard.class
 view\employee\Form_GhiChu$7.class
@@ -175,7 +174,6 @@ view\manager\forms\GD_QuanLyKhachHang$12.class
 view\manager\application\GD_Dashboard.class
 view\manager\forms\GD_QuanLyKhuyenMai$3.class
 view\manager\forms\GD_QuanLyMon$4.class
-view\employee\GD_ThanhToan$17.class
 view\employee\GD_DatBanTaiCho$4.class
 view\employee\GD_ThanhToan$2.class
 view\employee\GD_TrangChu$5.class
@@ -186,7 +184,6 @@ dao\imlp\AbstractDAO.class
 view\employee\GD_DatBanTaiCho$7.class
 view\employee\GD_DatBanTruoc$16.class
 view\manager\forms\GD_QuanLyMon$7.class
-view\employee\GD_TrangChu$8.class
 view\employee\GD_DatMon$1.class
 view\manager\forms\GD_QuanLyNhanVien$1.class
 view\manager\swing\slider\SimpleTransition.class
@@ -224,6 +221,7 @@ component\ComboBoxSuggestion.class
 view\employee\GD_DatMon$5.class
 view\employee\Form_DatBan$3.class
 view\manager\forms\GD_QuanLyKhuyenMai$13.class
+view\employee\Form_LuuTam$2.class
 dao\IMonDAO.class
 component\PanelShadow$ShadowType.class
 component\MessageReserve$2.class
@@ -236,7 +234,6 @@ entity\NhanVien.class
 view\employee\GD_ThanhToan$16.class
 view\manager\forms\GD_QuanLyNhanVien$5.class
 datechooser\SelectedAction.class
-view\employee\Form_ThemTheThanhVien$5.class
 component\WrapLayout.class
 view\manager\forms\GD_QuanLyKhachHang$9.class
 view\employee\GD_TrangChu$4.class
@@ -257,7 +254,6 @@ view\manager\forms\GD_QuanLyNhanVien.class
 component\OrderCard$5.class
 view\employee\Form_DatBan$8.class
 view\employee\GD_DatMon$22$1.class
-view\employee\GD_DatBanTaiCho.class
 view\employee\GD_ThanhToan$8.class
 datechooser\DateChooser$4.class
 view\manager\forms\GD_QuanLyNhanVien$26.class
@@ -334,6 +330,7 @@ view\employee\GD_DatMon$8.class
 view\manager\forms\GD_QuanLyNhanVien$8.class
 view\employee\GD_DatBanTruoc$2.class
 view\manager\menu\FormManager.class
+view\employee\Form_LuuTam$5.class
 view\employee\Form_DatBan$6.class
 component\OrderItem_forUIDatMon$9.class
 view\manager\forms\GD_QuanLyKhuyenMai$16.class
@@ -347,6 +344,7 @@ view\employee\Form_ThongTinCaNhan.class
 view\employee\Form_SuDungDiem$2.class
 view\employee\Form_Voucher$4.class
 entity\LoaiMon.class
+component\MemberCard$3.class
 view\manager\forms\GD_QuanLyKhachHang.class
 view\manager\forms\GD_QuanLyNhanVien$9.class
 view\employee\GD_DatMon$20.class
@@ -355,6 +353,7 @@ view\employee\Form_DatBan$1.class
 component\CurveLineChart$2.class
 view\employee\GD_DatMon$17.class
 view\manager\forms\GD_QuanLyKhuyenMai$11.class
+view\employee\Form_LuuTam.class
 view\manager\forms\GD_QuanLyKhachHang$7.class
 view\manager\forms\GD_QuanLyNhanVien$16.class
 component\PanelShadow$GradientType.class
@@ -367,6 +366,7 @@ view\employee\GD_DatMon$9.class
 view\manager\forms\GD_QuanLyMon$13.class
 component\OrderItem_forUIDatMon$2.class
 component\OrderItem_forUIDatMon$8.class
+view\employee\Form_LuuTam$4.class
 component\SplinePoint.class
 component\CurveLineChart$3.class
 component\CurveLineChart$4.class
@@ -379,6 +379,7 @@ view\manager\forms\GD_QuanLyNhanVien$23.class
 component\ComboSuggestionUI$2.class
 view\employee\Form_DatBan$4.class
 view\manager\forms\GD_QuanLyKhuyenMai$12.class
+component\MemberCard$2.class
 view\employee\GD_DatBanTruoc$9.class
 view\manager\menu\Menu$1.class
 component\MessageMoveTable.class
@@ -390,9 +391,11 @@ view\employee\Form_Voucher$7.class
 view\manager\forms\GD_QuanLyNhanVien$25.class
 view\manager\forms\GD_QuanLyKhuyenMai$15.class
 view\employee\GD_DatMon$23.class
+view\employee\Form_LuuTam$6.class
 view\employee\Form_DoiSoLuongNguoi$3.class
 datechooser\DateChooser$8.class
 component\OrderItem_forUIDatMon$4.class
+component\MemberCard.class
 view\manager\forms\GD_QuanLyNhanVien$19.class
 component\BanItem$1.class
 view\employee\Form_DatBan$5.class
@@ -408,4 +411,5 @@ component\BanItem$2.class
 view\manager\forms\GD_QuanLyNhanVien$18.class
 view\manager\forms\GD_QuanLyKhuyenMai$14.class
 view\employee\GD_DatBanTruoc$8.class
+component\MemberCard$1.class
 component\OrderItem_forUIDatMon$5.class

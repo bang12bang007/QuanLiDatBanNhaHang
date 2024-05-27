@@ -220,7 +220,7 @@ public class GD_Dashboard extends SimpleForm {
                 .collect(Collectors.toList());
 
         // Reset date to start iterating again
-            date = today.minusDays(30);
+        date = today.minusDays(30);
 
         while (!date.isAfter(today)) {
             String dateString = date.format(df);

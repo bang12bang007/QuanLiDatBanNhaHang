@@ -96,10 +96,11 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void moveTable() {
         if (ql_datMon.canMoveTable(hoaDon)) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không di chuyển được bàn gộp");
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không di chuyển được các bàn gộp");
         } else {
             utils.AppUtils.setUI(mainPanel, () -> {
                 GD_Ban gD_Ban = new GD_Ban(mainPanel, "CHUYEN_BAN");
+                gD_Ban.setBranchMoveTable("DAT_TAI_CHO");
                 gD_Ban.setHoaDon(hoaDon);
                 return gD_Ban;
             });
@@ -410,6 +411,8 @@ public class OrderCard extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
             Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Vui lòng nhận bàn để thanh toán!");
+        } else if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN)) {
+            new GD_ThanhToan(hoaDon, mainPanel).showFormThuTien(ql_datMon.getTienPhaiThu(hoaDon), ql_datMon.getHoaDons(hoaDon));
         } else {
             utils.AppUtils.setUI(mainPanel, () -> new GD_ThanhToan(hoaDon, mainPanel));
         }

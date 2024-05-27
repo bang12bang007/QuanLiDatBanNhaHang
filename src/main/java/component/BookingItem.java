@@ -12,14 +12,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 
 import jiconfont.swing.IconFontSwing;
+import raven.toast.Notifications;
 import view.employee.GD_Ban;
 import view.employee.GD_DatBanTruoc;
 import view.employee.GD_DatMon;
@@ -37,12 +33,12 @@ public class BookingItem extends javax.swing.JPanel {
     private GD_DatBanTruoc GD;
     private int index;
     private HoaDon hoaDon;
-    
+
     public BookingItem() {
         initComponents();
         wrapper.setPreferredSize(new Dimension(1076, 60));
     }
-    
+
     public void setActive(int active) {
         if (active == index) {
             this.setBorder(new LineBorder(new Color(234, 124, 105)));
@@ -50,7 +46,7 @@ public class BookingItem extends javax.swing.JPanel {
             this.setBorder(null);
         }
     }
-    
+
     public BookingItem(int index, String[] data, int width, GD_DatBanTruoc GD) {
         this.index = index;
         this.GD = GD;
@@ -64,30 +60,30 @@ public class BookingItem extends javax.swing.JPanel {
         btnNhanBan.setColor(new Color(0, 0, 0, 0));
         push(data);
     }
-    
+
     public void setIndex(int index) {
         this.index = index;
     }
-    
+
     public void setColorByIndex(int index) {
         Color color = index % 2 == 0 ? new Color(83, 86, 99) : new Color(31, 29, 43);
         left.setBackground(color);
         right.setBackground(color);
     }
-    
+
     private void push(String[] data) {
         gioDen.setText("   " + forrmater(data[0]));
         khachHang.setText(data[1]);
         soNguoi.setText(data[2]);
         trangThai.setText(data[3]);
         datCoc.setText(FORMAT_MONEY.format(Double.parseDouble(data[4])) + "    ");
-        
+
     }
-    
+
     public void setData(String[] data) {
         push(data);
     }
-    
+
     public void warning() {
         left.setBackground(new Color(234, 124, 105));
         right.setBackground(new Color(234, 124, 105));
@@ -214,11 +210,17 @@ public class BookingItem extends javax.swing.JPanel {
     private void btnSapChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapChoActionPerformed
         // TODO add your handling code here:
         //----------------------------------------------------------------------------------------//
-        utils.AppUtils.setUI(GD.getMainJpanel(), () -> {
-            GD_Ban gD_Ban = new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN");
-            gD_Ban.setHoaDon(hoaDon);
-            return gD_Ban;
-        });
+        if (GD.canMoveTable(hoaDon)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không di chuyển được các bàn gộp");
+        } else {
+            utils.AppUtils.setUI(GD.getMainJpanel(), () -> {
+                GD_Ban gD_Ban = new GD_Ban(GD.getMainJpanel(), "CHUYEN_BAN");
+                gD_Ban.setBranchMoveTable("DAT_TRUOC");
+                gD_Ban.setHoaDon(hoaDon);
+                return gD_Ban;
+            });
+        }
+
     }//GEN-LAST:event_btnSapChoActionPerformed
 
     private void wrapperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wrapperMouseClicked
@@ -227,14 +229,14 @@ public class BookingItem extends javax.swing.JPanel {
         //------------------------------------------------//
         GD.setInfoForActiveItem(hoaDon);
     }//GEN-LAST:event_wrapperMouseClicked
-    
+
     public void setHoaDon(HoaDon hoaDon) {
         this.hoaDon = hoaDon;
         if (hoaDon.getTrangThai().ordinal() == 1) {
             hideButton();
         }
     }
-    
+
     public HoaDon getHoaDon() {
         return this.hoaDon;
     }
@@ -262,12 +264,12 @@ public class BookingItem extends javax.swing.JPanel {
         String formattedDateTime = inputDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
         return formattedDateTime;
     }
-    
+
     public void setTrangThai(String trangThai) {
         this.trangThai.setText(trangThai);
         hideButton();
     }
-    
+
     private void hideButton() {
         btnNhanBan.setVisible(false);
         btnGoiMon.setVisible(false);

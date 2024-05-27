@@ -79,7 +79,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     public GD_ThanhToan(HoaDon hoaDon, JPanel mJPanel) {
         this.hoaDon = hoaDon;
         this.mJPanel = mJPanel;
-        this.hoaDonGhep = hoaDonDAO.getListHoaDonGhep(hoaDon);
+        this.hoaDonGhep = hoaDonDAO.getListHoaDonGhep(hoaDon, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         initComponents();
         IconFontSwing.register(FontAwesome.getIconFont());
         theThanhVienLabel.setIcon(IconFontSwing.buildIcon(FontAwesome.CREDIT_CARD, 20, Color.WHITE));
@@ -128,7 +128,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         btnLuuTam.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 20, Color.WHITE));
         btnThuTien.setIcon(IconFontSwing.buildIcon(FontAwesome.MONEY, 20, Color.WHITE));
         autoComplete();
-
+        onChangeMutipl();
     }
 
     private void setTotalAndSubTotal() {
@@ -164,8 +164,8 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         theThanhVienContainer = new javax.swing.JPanel();
         theThanhVienLabel = new javax.swing.JLabel();
         maTheContainer = new component.PanelRound();
-        txtMTV = new javax.swing.JTextField();
         iconSearch = new javax.swing.JLabel();
+        txtMTV = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         maTheContainer1 = new component.PanelRound();
@@ -193,7 +193,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         ngayGioHienTai = new javax.swing.JLabel();
         btnBack = new component.MyButton();
         jPanel2 = new javax.swing.JPanel();
-        btnReserve = new component.MyButton();
         btnThuTien = new component.MyButton();
         btnLuuTam = new component.MyButton();
         btnInTamTinh = new component.MyButton();
@@ -254,14 +253,8 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         maTheContainer.setRoundTopLeft(8);
         maTheContainer.setRoundTopRight(8);
 
-        txtMTV.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
+        txtMTV.setEditable(false);
         txtMTV.setBorder(null);
-        txtMTV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMTVActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout maTheContainerLayout = new javax.swing.GroupLayout(maTheContainer);
         maTheContainer.setLayout(maTheContainerLayout);
@@ -276,8 +269,8 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         );
         maTheContainerLayout.setVerticalGroup(
             maTheContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(iconSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(txtMTV, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(iconSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(txtMTV)
         );
 
         jLabel1.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
@@ -648,21 +641,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(31, 29, 43));
 
-        btnReserve.setForeground(new java.awt.Color(255, 255, 255));
-        btnReserve.setText("Tách hóa đơn");
-        btnReserve.setToolTipText("");
-        btnReserve.setColor(new java.awt.Color(83, 86, 99));
-        btnReserve.setColorClick(new java.awt.Color(234, 124, 105));
-        btnReserve.setColorOver(new java.awt.Color(234, 124, 105));
-        btnReserve.setFont(utils.AppUtils.getFont(13f, _BOLD_)
-        );
-        btnReserve.setRadius(8);
-        btnReserve.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReserveActionPerformed(evt);
-            }
-        });
-
         btnThuTien.setForeground(new java.awt.Color(255, 255, 255));
         btnThuTien.setText("Thu tiền");
         btnThuTien.setToolTipText("");
@@ -714,8 +692,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
                 .addComponent(btnInTamTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(btnLuuTam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -728,7 +704,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThuTien, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuuTam, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInTamTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -913,7 +888,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         jLabel12.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
         );
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Thuế  GTGT 10%");
+        jLabel12.setText("Thuế  GTGT 5%");
 
         thue.setBackground(new java.awt.Color(255, 255, 255));
         thue.setFont(utils.AppUtils.getFont(20f, _NORMAL_)
@@ -940,7 +915,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                                 .addComponent(thanhTien, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(rightContainerLayout.createSequentialGroup()
                                 .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                                 .addComponent(thue, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(24, 24, 24)
                         .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1054,10 +1029,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         jScrollPane1.getVerticalScrollBar().setValue(jScrollPane1.getVerticalScrollBar().getValue() - 30);
     }//GEN-LAST:event_btnUpActionPerformed
 
-    private void txtMTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMTVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMTVActionPerformed
-
     private void txtMKMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMKMActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMKMActionPerformed
@@ -1090,19 +1061,19 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         utils.AppUtils.setUI(mJPanel, () -> new GD_DatBanTaiCho(mJPanel, utils.AppUtils.NHANVIEN));
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReserveActionPerformed
-
     private void btnThuTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuTienActionPerformed
         // TODO add your handling code here:
+        showFormThuTien(Double.parseDouble(tienThu.getText().replace("VNĐ", "").replace(",", "")), this.hoaDonGhep);
+    }//GEN-LAST:event_btnThuTienActionPerformed
+
+    public void showFormThuTien(Double tienPhaiThu, List<HoaDon> hoaDons) {
         if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
             thuTienJFrame = new JFrame();
             thuTienJFrame.setUndecorated(true);
             thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
             thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            Form_ThuTien form_ThuTien = new Form_ThuTien(thuTienJFrame, this.hoaDonGhep);
-            form_ThuTien.setTienPhaiThu(Double.parseDouble(tienThu.getText().replace("VNĐ", "").replace(",", "")));
+            Form_ThuTien form_ThuTien = new Form_ThuTien(thuTienJFrame, hoaDons);
+            form_ThuTien.setTienPhaiThu(tienPhaiThu);
             form_ThuTien.setThue(Double.parseDouble(thue.getText().replace("VNĐ", "").replace(",", "")));
             form_ThuTien.setMainJPanel(mJPanel);
             form_ThuTien.setTheThanhVien(theThanhVien);
@@ -1113,11 +1084,24 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         } else {
             thuTienJFrame.toFront();
         }
-    }//GEN-LAST:event_btnThuTienActionPerformed
+    }
 
     private void btnLuuTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuTamActionPerformed
         // TODO add your handling code here:
-        loadData();
+        if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
+            thuTienJFrame = new JFrame();
+            thuTienJFrame.setUndecorated(true);
+            thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
+            thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_LuuTam form_LuuTam = new Form_LuuTam(thuTienJFrame, mJPanel, Double.parseDouble(thue.getText().replace("VNĐ", "").replace(",", "")));
+            form_LuuTam.setHoaDons(hoaDonGhep);
+            thuTienJFrame.add(form_LuuTam);
+            thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
+            thuTienJFrame.setVisible(true);
+        } else {
+            thuTienJFrame.toFront();
+        }
     }//GEN-LAST:event_btnLuuTamActionPerformed
 
     private void btnInTamTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInTamTinhActionPerformed
@@ -1183,7 +1167,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     public void loadData() {
         int width = tableContainer.getWidth();
         int index = 1;
-        Map<Mon, Long> map = chiTietHoaDonDAO.getListByBan(hoaDon);
+        Map<Mon, Long> map = chiTietHoaDonDAO.getListByBan(hoaDon, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         for (Map.Entry<Mon, Long> entry : map.entrySet()) {
             Mon mon = entry.getKey();
             Long soLuong = entry.getValue();
@@ -1279,6 +1263,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             tienPhaiThu += hoaDon.getTienPhaiThu();
         }
         thanhTienKMKhac.setText("");
+        oldPoint = 0;
         thue.setText(tien_format.format(tienPhaiThu * THUE));
         tongThanhToan.setText(FORMAT_MONEY.format(tienPhaiThu * THUE + tienPhaiThu));
         tienThu.setText(tien_format.format(tienPhaiThu * THUE + tienPhaiThu));
@@ -1324,7 +1309,6 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private component.MyButton btnDownTable;
     private component.MyButton btnInTamTinh;
     private component.MyButton btnLuuTam;
-    private component.MyButton btnReserve;
     private component.MyButton btnScanQR;
     private javax.swing.JLabel btnThemThanhVien;
     private component.MyButton btnThuTien;
@@ -1375,7 +1359,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private javax.swing.JLabel tongThanhToan;
     private javax.swing.JTextField txtHangThe;
     private javax.swing.JTextField txtMKM;
-    private javax.swing.JTextField txtMTV;
+    private javax.swing.JPasswordField txtMTV;
     private javax.swing.JTextField txtTenThanhVien;
     private component.PanelRound voucher;
     // End of variables declaration//GEN-END:variables

@@ -26,11 +26,13 @@ import java.awt.FlowLayout;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -45,6 +47,7 @@ import raven.toast.Notifications;
 import utils.AppUtils;
 
 import static utils.AppUtils.*;
+import view.GD_DangNhap;
 
 /**
  * @author Laptop
@@ -58,16 +61,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
     private NhanVien nhanVien = NHANVIEN;
     private ArrayList<JButton> tabs = new ArrayList<>();
 
-    //    public GD_TrangChu() {
-//        INhanVienDAO nv_dao = new NhanVienDAO();
-//        nhanVien = (NhanVien) nv_dao.findById("NV120060424290", NhanVien.class);
-//        AppUtils.saveStorage(nhanVien);
-//        set_up_UI();
-//        setExtendedState(MAXIMIZED_BOTH);
-////      NDK set up notifications
-//        Notifications.getInstance().setJFrame(this);
-//        FlatIntelliJLaf.setup();
-//    }
     //dùng cho đi từ login vào
     public GD_TrangChu() {
         set_up_UI();
@@ -95,61 +88,36 @@ public class GD_TrangChu extends javax.swing.JFrame {
         tabs.add(buttonHome);
         tabs.add(buttonThongKe);
         label_AVT.setText(nhanVien.getHoTen());
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        TransparentPopupMenu popupMenu = new TransparentPopupMenu();
-        popupMenu.setBackground(new Color(1, 1, 1, 0));
-        MyJMenuItem thongTin = new MyJMenuItem("THÔNG TIN CÁ NHÂN");
-        MyJMenuItem logOut = new MyJMenuItem("LOG OUT");
-        logOut.setIcon(IconFontSwing.buildIcon(FontAwesome.SIGN_OUT, 25, Color.WHITE));
-        thongTin.setIcon(IconFontSwing.buildIcon(FontAwesome.ADDRESS_BOOK_O, 25, Color.white));
-        thongTin.setHorizontalAlignment(LEFT);
-        thongTin.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        thongTin.setIconTextGap(10);
-        logOut.setHorizontalAlignment(LEFT);
-        logOut.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        logOut.setIconTextGap(10);
-        popupMenu.add(thongTin);
-        popupMenu.add(logOut);
+        tacVuList.setPreferredSize(new Dimension(250, 50));
+        tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
+    }
 
-        btnAVT.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    popupMenu.show(btnAVT, 0, buttonDatMon.getHeight());
-                    if (thongTin.isSelected()) {
-                        thongTin.setBackground(new Color(31, 29, 43));
+    private void createListTacVu() {
+        tacVuList.add(createTacVu("Đăng xuất", IconFontSwing.buildIcon(FontAwesome.SIGN_OUT, 25, Color.WHITE), (e) -> {
+            logOut();
+        }));
+    }
 
-                    }
-                    if (logOut.isSelected()) {
-                        thongTin.setBackground(new Color(31, 29, 43));
+    private void logOut() {
+        this.setVisible(false);
+        this.dispose();
+        new GD_DangNhap().setVisible(true);
+    }
 
-                    }
-                    if (SwingUtilities.isLeftMouseButton(e)) {
-                        utils.AppUtils.setUI(mainJpanel, () -> jPanel1);
-                    }
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                popupMenu.setPreferredSize(new Dimension(btnAVT.getWidth() + buttonHelp.getWidth() + label_AVT.getWidth(), btnAVT.getHeight() * 2));
-            }
-        });
-
-        thongTin.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                JFrame jFrame = new JFrame();
-                jFrame.setUndecorated(true);
-                jFrame.setExtendedState(MAXIMIZED_BOTH);
-                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Form_ThongTinCaNhan form = new Form_ThongTinCaNhan(jFrame);
-                jFrame.add(form);
-                jFrame.setBackground(new Color(0, 0, 0, 0));
-                FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
-                jFrame.setVisible(true);
-            }
-        });
+    private MyButton createTacVu(String content, Icon icon, ActionListener action) {
+        IconFontSwing.register(FontAwesome.getIconFont());
+        MyButton button = new MyButton();
+        button.setIcon(icon);
+        button.setFont(utils.AppUtils.getFont(16f, _NORMAL_));
+        button.setForeground(Color.WHITE);
+        button.setColor(new Color(83, 86, 99));
+        button.setColorOver(new Color(234, 124, 105));
+        button.setColorClick(new Color(234, 124, 105));
+        button.setPreferredSize(new Dimension(250, 50));
+        button.setText(content);
+        button.setHorizontalAlignment(LEFT);
+        button.addActionListener(action);
+        return button;
     }
 
     /**
@@ -161,6 +129,9 @@ public class GD_TrangChu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        morePanel = new javax.swing.JPanel();
+        tacVuList = new javax.swing.JPanel();
+        menu = new javax.swing.JPopupMenu();
         jPanel1 = new javax.swing.JPanel();
         buttonHome = new component.MyButton();
         buttonDatMon = new component.MyButton();
@@ -174,6 +145,35 @@ public class GD_TrangChu extends javax.swing.JFrame {
         gap = new component.PanelRound();
         mainJpanel = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
+
+        morePanel.setBackground(new java.awt.Color(83, 86, 99));
+
+        tacVuList.setBackground(new java.awt.Color(83, 86, 99));
+
+        javax.swing.GroupLayout tacVuListLayout = new javax.swing.GroupLayout(tacVuList);
+        tacVuList.setLayout(tacVuListLayout);
+        tacVuListLayout.setHorizontalGroup(
+            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 256, Short.MAX_VALUE)
+        );
+        tacVuListLayout.setVerticalGroup(
+            tacVuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout morePanelLayout = new javax.swing.GroupLayout(morePanel);
+        morePanel.setLayout(morePanelLayout);
+        morePanelLayout.setHorizontalGroup(
+            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tacVuList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        morePanelLayout.setVerticalGroup(
+            morePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tacVuList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        menu.setBackground(new java.awt.Color(83, 86, 99));
+        menu.setBorder(null);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(utils.AppUtils.getFont(16f, _BOLD_));
@@ -325,17 +325,16 @@ public class GD_TrangChu extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnAVT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonDatMon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonDatBan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonThongKe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(gap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -347,7 +346,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(label_day_month_year))
                                 .addComponent(buttonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(1, 1, 1)))
+                        .addGap(1, 1, 1))
+                    .addComponent(btnAVT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -380,8 +380,11 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void btnAVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVTActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainJpanel, () -> new GD_BaoCao());
-
+        tacVuList.removeAll();
+        createListTacVu();
+        menu.removeAll();
+        menu.add(morePanel);
+        menu.show(btnAVT, 0, btnAVT.getHeight() + 5);
     }//GEN-LAST:event_btnAVTActionPerformed
 
     private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed
@@ -423,13 +426,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_buttonDatMonMouseEntered
-
-    private void setUI(JComponent jComponent) {
-        mainJpanel.removeAll();
-        mainJpanel.add(jComponent);
-        mainJpanel.repaint();
-        mainJpanel.revalidate();
-    }
 
     private void setActiveTab(ActionEvent e) {
         Color transparent = new Color(0, 0, 0, 0);
@@ -491,5 +487,8 @@ public class GD_TrangChu extends javax.swing.JFrame {
     private javax.swing.JLabel label_day_month_year;
     private javax.swing.JLabel label_week_day;
     private javax.swing.JPanel mainJpanel;
+    private javax.swing.JPopupMenu menu;
+    private javax.swing.JPanel morePanel;
+    private javax.swing.JPanel tacVuList;
     // End of variables declaration//GEN-END:variables
 }

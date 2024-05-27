@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -647,20 +650,30 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
 
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+        SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
             @Override
-            protected Void doInBackground() throws Exception {
-                pay();
-                updateHoaDon();
-                return null;
+            protected Boolean doInBackground() throws Exception {
+
+                return pay();
             }
 
             @Override
             protected void done() {
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán thành công");
-                jFrame.setVisible(false);
-                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
+                try {
+                    if (get()) {
+                        updateHoaDon();
+                        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán thành công");
+                        jFrame.setVisible(false);
+                        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
+                    } else {
+                        Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Chưa đủ tiền cần trả. Còn thiếu " + FORMAT_MONEY.format(Math.abs(Double.parseDouble(tienPhaiTra.getText().replace("VNĐ", "").replace(",", "")))));
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Form_ThuTien.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ExecutionException ex) {
+                    Logger.getLogger(Form_ThuTien.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         };
@@ -676,21 +689,30 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
     private void btnInVaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInVaDongActionPerformed
         // TODO add your handling code here:
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+        SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
             @Override
-            protected Void doInBackground() throws Exception {
-                pay();
-                return null;
+            protected Boolean doInBackground() throws Exception {
+                return pay();
             }
 
             @Override
             protected void done() {
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán và tạo hóa đơn thành công");
-                createHoaDon();
-                updateHoaDon();
-                jFrame.setVisible(false);
-                jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
+                try {
+                    if (get()) {
+                        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Thanh toán và tạo hóa đơn thành công");
+                        createHoaDon();
+                        updateHoaDon();
+                        jFrame.setVisible(false);
+                        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        utils.AppUtils.setUI(mainJPanel, () -> new GD_DatBanTaiCho(mainJPanel, NHANVIEN));
+                    } else {
+                        Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Chưa đủ tiền cần trả. Còn thiếu " + FORMAT_MONEY.format(Math.abs(Double.parseDouble(tienPhaiTra.getText().replace("VNĐ", "").replace(",", "")))));
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Form_ThuTien.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ExecutionException ex) {
+                    Logger.getLogger(Form_ThuTien.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         };
@@ -768,29 +790,36 @@ public class Form_ThuTien extends javax.swing.JPanel {
         hoaDonDAO.createInvoice(hoaDons.get(0), total + tienThua, tienThua);
     }
 
-    //duccuong1609 : khuyenmai thanh nhieu nhieu voi hoa don roi
-    private void pay() {
-        if (theThanhVien != null) {
-            double diemTichLuy = theThanhVien.getDiemTich() + ((int) total / 100000);
-            if (diemTichLuy >= 100.0) {
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.DONG);
-            } else if (diemTichLuy >= 500.0) {
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.BAC);
-            } else if (diemTichLuy >= 2000.0) {
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.VANG);
-            } else if (diemTichLuy >= 10000.0) {
-                theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.KIMCUONG);
+    private boolean pay() {
+        if (Double.parseDouble(tienPhaiTra.getText().replace("VNĐ", "").replace(",", "")) >= 0) {
+            if (theThanhVien != null) {
+                double diemTichLuy = theThanhVien.getDiemTich() + ((int) total / 100000);
+                if (diemTichLuy >= 100.0) {
+                    theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.DONG);
+                } else if (diemTichLuy >= 500.0) {
+                    theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.BAC);
+                } else if (diemTichLuy >= 2000.0) {
+                    theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.VANG);
+                } else if (diemTichLuy >= 10000.0) {
+                    theThanhVien.setLoaiThe(utils.Enum.LoaiTheThanhVien.KIMCUONG);
+                }
+                theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
+                theThanhVienDAO.update(theThanhVien);
             }
-            theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
-            theThanhVienDAO.update(theThanhVien);
-        }
-        Ban _ban_ = hoaDons.get(0).getBan();
-        List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
-        listBanGop.forEach(ban -> {
-            updateBanAfterPay(ban);
-        });
-        if (listBanGop.size() == 0) {
-            updateBanAfterPay(_ban_);
+            if (hoaDons.get(0).getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                Ban _ban_ = hoaDons.get(0).getBan();
+                List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
+                listBanGop.forEach(ban -> {
+                    updateBanAfterPay(ban);
+                });
+                if (listBanGop.size() == 0) {
+                    updateBanAfterPay(_ban_);
+                }
+            }
+            return true;
+        } else {
+            return false;
+//            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Chưa đủ tiền cần trả. Còn thiếu " + FORMAT_MONEY.format(Math.abs(Double.parseDouble(tienPhaiTra.getText().replace("VNĐ", "").replace(",", "")))));
         }
     }
 
@@ -799,12 +828,16 @@ public class Form_ThuTien extends javax.swing.JPanel {
     }
 
     private void updateHoaDon() {
-        hoaDons.get(0).addThue(thue);
-        hoaDons.forEach(hoaDon -> {
-            hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
-            hoaDon.setNgayLapHoaDon(LocalDateTime.now());
-            hoaDonDAO.update(hoaDon);
-        });
+        if (Double.parseDouble(tienPhaiTra.getText().replace("VNĐ", "").replace(",", "")) >= 0) {
+            if (hoaDons.get(0).getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+                hoaDons.get(0).addThue(thue);
+            }
+            hoaDons.forEach(hoaDon -> {
+                hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
+                hoaDon.setNgayLapHoaDon(LocalDateTime.now());
+                hoaDonDAO.update(hoaDon);
+            });
+        }
     }
 
     private void updateBanAfterPay(Ban ban) {

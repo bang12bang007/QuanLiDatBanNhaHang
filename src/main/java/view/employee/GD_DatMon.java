@@ -1133,7 +1133,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTimeActionPerformed
 
     public void First_LoadData() {
-        if(hoaDon == null){//hoa don rong doi het sang luong dat mon
+        if (hoaDon == null) {//hoa don rong doi het sang luong dat mon
             orders = new ArrayList<>();
             loai = DatMon_ThemMon.DATMON;
             branch = TypeDatMon_Branch.DATMON;
@@ -1201,14 +1201,13 @@ public class GD_DatMon extends javax.swing.JPanel {
 //                    item.setType_orderItem("PRELOAD");//có ở dưới data base load lên
 //                }
 //=======
-    
     public void loadOrderDetail() {//pre-load orderdetails
         ghiChus = new ArrayList<>();
         if (ban.getBanGop() != null) {
-            if(branch.equals(TypeDatMon_Branch.THEMMON)){//LOAD ORDERDETAIL KHI THEMMON TAI CHO
-                hoadons = hoaDonDAO.getListHoaDonGhep(hoaDon);
+            if (branch.equals(TypeDatMon_Branch.THEMMON)) {//LOAD ORDERDETAIL KHI THEMMON TAI CHO
+                hoadons = hoaDonDAO.getListHoaDonGhep(hoaDon, utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
             }
-            if(branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)){//LOAD ORDERDETAIL KHI THEMMON DAT TRUOC
+            if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {//LOAD ORDERDETAIL KHI THEMMON DAT TRUOC
                 hoadons = hoaDonDAO.getListHoaDonGhepDatTruoc(hoaDon);
             }
             main_details = chitietDAO.getListByHoaDon(hoaDon);
@@ -1642,6 +1641,7 @@ public class GD_DatMon extends javax.swing.JPanel {
             btnNV.setText(Integer.toString(maxPeople));
         }
     }
+
     public MyButton getBtnNV() {
         return btnNV;
     }

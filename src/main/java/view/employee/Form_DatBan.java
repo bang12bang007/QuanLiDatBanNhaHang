@@ -712,7 +712,19 @@ public class Form_DatBan extends javax.swing.JPanel {
                 }
             }
         } else if (type.equals("UPDATE")) {
-            updatePhieuDatBan();
+            if (Integer.parseInt(txtSoNguoi.getText()) != this.hoaDon.getSoLuongNguoi()) {
+                if (banDAO.findByBanGop(this.hoaDon.getBan()).size() > 0) {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Vui lòng hủy phiếu và tạo lại!");
+                } else {
+                    if (Integer.parseInt(txtSoNguoi.getText()) > this.hoaDon.getBan().getSoGhe()) {
+                        Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 1500, "Số lượng ghế không đủ cho " + txtSoNguoi.getText() + " người");
+                    } else {
+                        updatePhieuDatBan();
+                    }
+                }
+            } else {
+                updatePhieuDatBan();
+            }
         }
     }//GEN-LAST:event_btnCatActionPerformed
 
