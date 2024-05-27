@@ -256,6 +256,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
                 NhanVien nv = (NhanVien) nhanVienDAO.findById(tenDangNhap, NhanVien.class);
                 saveStorage(nv);
                 setVisible(false);
+                dispose();
                 if (nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
                     //                Chuyen qua gd quan ly
                     new GD_Dashboard().run();

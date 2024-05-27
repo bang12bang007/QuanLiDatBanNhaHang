@@ -3,6 +3,7 @@ D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\Qua
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\ModernScrollBarUI.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_DatBanTruoc.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\manager\utils\DateCalculator.java
+D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\MemberCard.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\IBanDAO.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\OrderItem.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\datechooser\DateChooser.java
@@ -98,6 +99,7 @@ D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\Qua
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_QRCODE.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_DatBan.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_Voucher.java
+D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_LuuTam.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\ShadowRenderer.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\component\SeriesSize.java
 D:\learning_university_IUH\hoc_ky_6_(2023-2024)\Phat_trien_ung_dung\BaoCaoCK\QuanLiDatBanNhaHang\src\main\java\dao\imlp\MonDAO.java

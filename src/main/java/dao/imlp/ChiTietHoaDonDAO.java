@@ -74,12 +74,13 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
     }
 
     @Override
-    public Map<Mon, Long> getListByBan(HoaDon hoaDon) {
+    public Map<Mon, Long> getListByBan(HoaDon hoaDon, utils.Enum.LoaiTrangThaiHoaDon trangThai) {
         List<Object[]> list = em.createNamedQuery("ChiTietHoaDon.listChiTietByBan", Object[].class)
                 .setParameter("ban", hoaDon.getBan())
+                .setParameter("trangThai", trangThai)
                 .getResultList();
         Map<Mon, Long> map = new HashMap<>();
-        for(Object[] objects : list) {
+        for (Object[] objects : list) {
             map.put((Mon) objects[0], (Long) objects[1]);
         }
         return map;

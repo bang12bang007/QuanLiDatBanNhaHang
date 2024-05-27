@@ -768,7 +768,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
         hoaDonDAO.createInvoice(hoaDons.get(0), total + tienThua, tienThua);
     }
 
-    //duccuong1609 : khuyenmai thanh nhieu nhieu voi hoa don roi
     private void pay() {
         if (theThanhVien != null) {
             double diemTichLuy = theThanhVien.getDiemTich() + ((int) total / 100000);
@@ -784,13 +783,15 @@ public class Form_ThuTien extends javax.swing.JPanel {
             theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
             theThanhVienDAO.update(theThanhVien);
         }
-        Ban _ban_ = hoaDons.get(0).getBan();
-        List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
-        listBanGop.forEach(ban -> {
-            updateBanAfterPay(ban);
-        });
-        if (listBanGop.size() == 0) {
-            updateBanAfterPay(_ban_);
+        if (hoaDons.get(0).getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+            Ban _ban_ = hoaDons.get(0).getBan();
+            List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
+            listBanGop.forEach(ban -> {
+                updateBanAfterPay(ban);
+            });
+            if (listBanGop.size() == 0) {
+                updateBanAfterPay(_ban_);
+            }
         }
     }
 
@@ -799,7 +800,9 @@ public class Form_ThuTien extends javax.swing.JPanel {
     }
 
     private void updateHoaDon() {
-        hoaDons.get(0).addThue(thue);
+        if (hoaDons.get(0).getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
+            hoaDons.get(0).addThue(thue);
+        }
         hoaDons.forEach(hoaDon -> {
             hoaDon.setTrangThai(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
             hoaDon.setNgayLapHoaDon(LocalDateTime.now());

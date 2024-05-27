@@ -88,7 +88,7 @@ public class BanItem extends javax.swing.JPanel {
         tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         tacVuList.add(createTacVu("Ghép hóa đơn", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
             gD_Ban.mergeInvoice();
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Ghép hóa đơn thành công");
+
             utils.AppUtils.setUI(this.main, () -> new GD_DatBanTaiCho(this.main, NHANVIEN));
             menu.setVisible(false);
         }));
@@ -234,7 +234,6 @@ public class BanItem extends javax.swing.JPanel {
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-
         switch (type) {
             case "DAT_BAN": {
                 if (image_type.equals("/images/my_table_blue.png") || image_type.equals("/images/my_table_gray.png")) {
@@ -257,6 +256,12 @@ public class BanItem extends javax.swing.JPanel {
             case "CHUYEN_BAN": {
                 if (image_type.equals("/images/my_table_blue.png")) {
                     gD_Ban.setFormMessageMoveTable(this);
+                } else if (image_type.equals("/images/my_table_gray.png")) {
+                    if (gD_Ban.isTimeValidate(LocalDateTime.now(), ban)) {
+                        gD_Ban.setFormMessageMoveTable(this);
+                    } else {
+                        gD_Ban.showMessage("Bàn đã đặt trước");
+                    }
                 }
                 break;
             }
@@ -304,8 +309,7 @@ public class BanItem extends javax.swing.JPanel {
                 if (peopleCount <= maxPeople && peopleCount > maxPeople - AppUtils.SOGHE) {//chỉ gọi lại khi không có thay đổi về gộp bàn
                     gd = gD_Ban.getGd_Datmon();
                     gd.getBtnBack().setBackground(new Color(83, 86, 99));
-                } 
-                else {
+                } else {
                     gd = new GD_DatMon(main, gD_Ban.getMainBan(), utils.Enum.DatMon_ThemMon.DATMON);
                     gd.setBranch(utils.Enum.TypeDatMon_Branch.DATMON);
                     gd.setgD_Ban(gD_Ban);

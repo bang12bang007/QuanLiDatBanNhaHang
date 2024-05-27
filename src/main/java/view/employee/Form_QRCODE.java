@@ -85,7 +85,7 @@ public class Form_QRCODE extends javax.swing.JPanel implements Runnable, ThreadF
 
     private void initWebcam() {
         Dimension size = WebcamResolution.QVGA.getSize();
-        webcam = Webcam.getWebcams().get(0);
+        webcam = Webcam.getWebcams().get(1);
         webcam.setViewSize(size);
 
         panel = new WebcamPanel(webcam);

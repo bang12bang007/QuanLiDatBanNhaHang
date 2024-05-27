@@ -32,9 +32,9 @@ import utils.Enum.LoaiTrangThaiMon;
 @Setter
 @NoArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m inner join LoaiMon l on m.loaiMon = l WHERE m.trangThai = :trangThai"),//duccuong1609 : cai nay dung theo trang thai cung duoc
-        @NamedQuery(name = "Mon.Popular5", query = "SELECT SUM(c.soLuong) as SoLuong, c.mon as Mon FROM ChiTietHoaDon c inner join HoaDon h on c.hoaDon = h where h.trangThai = 2 group by c.mon ORDER BY SoLuong DESC LIMIT 5"),
-        @NamedQuery(name = "Mon.Other", query = "SELECT m FROM Mon m inner join LoaiMon l on m.loaiMon = l WHERE m.trangThai = 0 AND l.maLoaiMon = 'ML06'")
+    @NamedQuery(name = "Mon.Service", query = "SELECT m FROM Mon m inner join LoaiMon l on m.loaiMon = l WHERE m.trangThai = :trangThai"),//duccuong1609 : cai nay dung theo trang thai cung duoc
+    @NamedQuery(name = "Mon.Popular5", query = "SELECT SUM(c.soLuong) as SoLuong, c.mon as Mon FROM ChiTietHoaDon c inner join HoaDon h on c.hoaDon = h where h.trangThai = 2 group by c.mon ORDER BY SoLuong DESC LIMIT 5"),
+    @NamedQuery(name = "Mon.Other", query = "SELECT m FROM Mon m inner join LoaiMon l on m.loaiMon = l WHERE m.trangThai = 0 AND l.maLoaiMon = 'ML06'")
 })
 public class Mon {
 
@@ -57,7 +57,7 @@ public class Mon {
     private Double giaGoc;
     @OneToMany(mappedBy = "mon", cascade = CascadeType.ALL)
     private List<ChiTietHoaDon> chiTietHoaDon;
-    @Column(name = "DonVi", nullable = false)
+    @Column(name = "DonVi", nullable = false, columnDefinition = "NVARCHAR(50)")
     private String donVi;
 
     public Mon(String tenMon, Double giaGoc, LoaiMon loaiMon, String hinhAnh, LoaiTrangThaiMon trangThai, List<ChiTietHoaDon> chiTietHoaDon) {

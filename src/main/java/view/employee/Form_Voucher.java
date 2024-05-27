@@ -481,29 +481,32 @@ public class Form_Voucher extends javax.swing.JPanel {
 
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
         if (voucherSelected != null) {
-            boolean isSuccess = false;
-            for (int i = 0; i < Integer.parseInt(txtSoLuong.getText()); i++) {
-                HoaDon hoaDon = hoaDons.get(i);
-                ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(hoaDon, voucherSelected);
-                if (!isExistVoucher(hoaDon)) {
-                    hoaDon.getChiTietKhuyenMai().add(chiTietKhuyenMai);
-                    hoaDon.tienPhaiThu();
-                    isSuccess = true;
+            if (Integer.parseInt(txtSoLuong.getText()) <= hoaDons.size()) {
+                boolean isSuccess = false;
+                for (int i = 0; i < Integer.parseInt(txtSoLuong.getText()); i++) {
+                    HoaDon hoaDon = hoaDons.get(i);
+                    ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(hoaDon, voucherSelected);
+                    if (!isExistVoucher(hoaDon)) {
+                        hoaDon.getChiTietKhuyenMai().add(chiTietKhuyenMai);
+                        hoaDon.tienPhaiThu();
+                        isSuccess = true;
+                    }
                 }
-            }
-            double thanhTienKhac = thanhTienKMKhach.getText().trim().equals("")
-                    ? 0
-                    : Double.parseDouble(thanhTienKMKhach.getText().replace("VNĐ", "").replace(",", ""));
-//           nếu % thì phải tổng thanh toán * % mà chỉ nên áp dụng được 1 hóa đơn
-            if (!isSuccess) {
-                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Mỗi voucher chỉ áp dụng cho 1 hóa đơn");
+                double thanhTienKhac = thanhTienKMKhach.getText().trim().equals("")
+                        ? 0
+                        : Double.parseDouble(thanhTienKMKhach.getText().replace("VNĐ", "").replace(",", ""));
+                if (!isSuccess) {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Mỗi voucher chỉ áp dụng cho 1 hóa đơn");
+                } else {
+                    thanhTienKMKhach.setText(FORMAT_MONEY.format(thanhTienKhac + voucherSelected.getChietKhau()));
+                    tienPhaiThu.setText(FORMAT_MONEY.format((Double.parseDouble(tongThanhToan.getText().replace("VNĐ", "").replace(",", "")) - Double.parseDouble(thanhTienKMKhach.getText().replace("VNĐ", "").replace(",", "")))));
+                    jFrame.setVisible(false);
+                    jFrame.dispose();
+                }
             } else {
-                thanhTienKMKhach.setText(FORMAT_MONEY.format(thanhTienKhac + voucherSelected.getChietKhau()));
-                tienPhaiThu.setText(FORMAT_MONEY.format((Double.parseDouble(tongThanhToan.getText().replace("VNĐ", "").replace(",", "")) - Double.parseDouble(thanhTienKMKhach.getText().replace("VNĐ", "").replace(",", "")))));
-                jFrame.setVisible(false);
-                jFrame.dispose();
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Không thể áp dụng thêm voucher!");
+                txtSoLuong.setText("1");
             }
-
         } else {
             Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Vui lòng chọn vào voucher!");
         }

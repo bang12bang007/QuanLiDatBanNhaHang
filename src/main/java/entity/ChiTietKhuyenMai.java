@@ -56,7 +56,6 @@ public class ChiTietKhuyenMai {
 
     public void thanhTien() {
         double total = hoaDon.getTienPhaiThu() * khuyenMai.getChietKhau();
-        System.out.println("CHECK: " + (khuyenMai.getChietKhau() > 1));
         setThanhTien(khuyenMai.getChietKhau() > 1 ? khuyenMai.getChietKhau() : total);
     }
 
