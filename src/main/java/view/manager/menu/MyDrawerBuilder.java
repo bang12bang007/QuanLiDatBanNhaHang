@@ -25,6 +25,7 @@ import view.manager.forms.GD_Dashboard;
 import raven.swing.AvatarIcon;
 import static utils.AppUtils.*;
 import view.manager.forms.GD_QuanLyBan;
+import view.manager.forms.GD_QuanLyHoaDon;
 import view.manager.forms.GD_QuanLyKhachHang;
 import view.manager.forms.GD_QuanLyKhuyenMai;
 import view.manager.forms.GD_QuanLyMon;
@@ -75,7 +76,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             .subMenu("Quản lý Nhân viên")
             .subMenu("Quản lý Khuyến mãi")
             .subMenu("Quản lý Khách hàng")
-            .subMenu("Quản lý Món"),
+            .subMenu("Quản lý Món")
+            .subMenu("Quản lý Hóa Đơn"),
             new Item("Chat", "chat.svg"),
             new Item("Calendar", "calendar.svg"),
             new Item("Advanced UI", "ui.svg")
@@ -170,6 +172,10 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         }
                         case "Quản lý Khách hàng": {
                             FormManager.showForm(new GD_QuanLyKhachHang());
+                            break;
+                        }
+                        case "Quản lý Hóa Đơn": {
+                            FormManager.showForm(new GD_QuanLyHoaDon());
                             break;
                         }
                     }

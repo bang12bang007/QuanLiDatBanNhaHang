@@ -97,6 +97,7 @@ public class GD_DatMon extends javax.swing.JPanel {
     private boolean guiBep;
     private List<HoaDon> hoadons; //DS hóa đơn ứng với bàn gộp
     private List<String> ghiChus;
+    private boolean payment = false;
 
     public GD_DatMon(JPanel main, Ban ban, utils.Enum.DatMon_ThemMon loai) {
         this.nv = AppUtils.NHANVIEN;
@@ -135,7 +136,9 @@ public class GD_DatMon extends javax.swing.JPanel {
             First_LoadData();
         }
         btnKhuyenMai.setVisible(false);
-        btnTime.setVisible(false); 
+        btnThem.setVisible(false);
+        btnTime.setText("Lần thay Đổi Gần Nhất : " + LocalDateTime.now().getHour() + " Giờ " + LocalDateTime.now().getMinute() + " Phút ");
+        btnHelpCaculator.setVisible(false);
         Notifications.getInstance();
         FlatIntelliJLaf.setup();
     }
@@ -516,8 +519,8 @@ public class GD_DatMon extends javax.swing.JPanel {
         btnTime.setBackground(new java.awt.Color(83, 86, 99));
         btnTime.setForeground(new java.awt.Color(255, 255, 255));
         btnTime.setColor(new java.awt.Color(83, 86, 99));
-        btnTime.setColorClick(new java.awt.Color(234, 124, 105));
-        btnTime.setColorOver(new java.awt.Color(234, 124, 105));
+        btnTime.setColorClick(new java.awt.Color(83, 86, 99));
+        btnTime.setColorOver(new java.awt.Color(83, 86, 99));
         btnTime.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnTime.setRadius(10);
@@ -559,11 +562,11 @@ public class GD_DatMon extends javax.swing.JPanel {
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound2Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(btnKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(btnTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(btnTime, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -571,11 +574,11 @@ public class GD_DatMon extends javax.swing.JPanel {
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+            .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnKhuyenMai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnUp, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         panelRound3.setBackground(new java.awt.Color(83, 86, 99));
@@ -620,6 +623,11 @@ public class GD_DatMon extends javax.swing.JPanel {
         btnTinhTien.setFont(utils.AppUtils.getFont(12f, _BOLD_)
         );
         btnTinhTien.setRadius(20);
+        btnTinhTien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTinhTienActionPerformed(evt);
+            }
+        });
 
         btnCat.setForeground(new java.awt.Color(255, 255, 255));
         btnCat.setText("CẤT VÀ THÊM");
@@ -1062,6 +1070,7 @@ public class GD_DatMon extends javax.swing.JPanel {
         jFrame.setExtendedState(MAXIMIZED_BOTH);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Form_ThemMonKhac form = new Form_ThemMonKhac(jFrame);
+        form.setGd_datMon(this);
         jFrame.add(form, BorderLayout.CENTER);
         jFrame.setBackground(new Color(0, 0, 0, 0));
         FadeEffect.fadeInFrame(jFrame, 8, 0.1f);
@@ -1130,7 +1139,22 @@ public class GD_DatMon extends javax.swing.JPanel {
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_btnTimeActionPerformed
+
+    private void btnTinhTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhTienActionPerformed
+        // TODO add your handling code here:
+        payment = true;
+        Create_OrUpdate_Order();
+        if (guiBep == true) {
+            if (!branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+                AppUtils.setUI(main, () -> new GD_ThanhToan(hoaDon, main));
+            }
+        }
+        if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Vui Lòng Khong Thanh toan khi dat truoc !");
+        }
+    }//GEN-LAST:event_btnTinhTienActionPerformed
 
     public void First_LoadData() {
         if (hoaDon == null) {//hoa don rong doi het sang luong dat mon
@@ -1275,6 +1299,9 @@ public class GD_DatMon extends javax.swing.JPanel {
     public void Create_OrUpdate_Order() {
 //  NDK: t di chuyển lên trên lúc tạo biến rồi
         if (!orders.isEmpty()) {
+            if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+                guiBep = false;
+            }
             if (guiBep == true) {
                 if (branch.equals(TypeDatMon_Branch.DATMON)) {
                     using_for_DatMon(banDAO, hoaDonDAO, chitietDAO);
@@ -1285,7 +1312,9 @@ public class GD_DatMon extends javax.swing.JPanel {
             } else if (!branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Vui Lòng Chọn Gửi Bếp !");
             }
-            using_for_DatTruocMon(chitietDAO, hoaDonDAO);
+            if (branch.equals(TypeDatMon_Branch.DAT_TRUOC_MON)) {
+                using_for_DatTruocMon(chitietDAO, hoaDonDAO);
+            }
         } else {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Vui Lòng Chọn Ít Nhất 1 Món Ăn Để Gửi Bếp !");
         }
@@ -1316,6 +1345,7 @@ public class GD_DatMon extends javax.swing.JPanel {
 //            ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_CO_KHACH);
 //            banDAO.update(ban);
 //>>>>>>> 718f89ec6b614f67f9ff179eae94343a24dadfec
+
             AppUtils.setUI(main, () -> new GD_DatBanTaiCho(main, nv));
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Cất Thành Công");
         }
@@ -1331,8 +1361,10 @@ public class GD_DatMon extends javax.swing.JPanel {
             } else {
                 ThemMon_KhongGopBan(pre_order, chitietDAO, details);
             }
-            AppUtils.setUI(main, () -> new GD_DatBanTaiCho(main, nv));
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
+            if (!payment) {
+                AppUtils.setUI(main, () -> new GD_DatBanTaiCho(main, nv));
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay Đổi Thành Công");
+            }
         }
 
     }
