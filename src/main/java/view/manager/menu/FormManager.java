@@ -14,9 +14,6 @@ import view.manager.swing.slider.PanelSlider;
 import view.manager.swing.slider.SimpleTransition;
 import view.manager.utils.UndoRedo;
 
-/**
- * @author Raven
- */
 public class FormManager {
 
     private static FormManager instance;

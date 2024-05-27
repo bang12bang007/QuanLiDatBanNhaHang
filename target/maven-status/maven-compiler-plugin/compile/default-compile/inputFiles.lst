@@ -27,6 +27,7 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\KhuyenMai.
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\swing\slider\SimpleTransition.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\ChiTietKhuyenMaiDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_ThongTinCaNhan.java
+D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_Dashboard.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_QuanLyKhuyenMai.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\components\Background.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\NhanVienDAO.java
@@ -102,7 +103,6 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\Event
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\IKhuyenMaiDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\KhachHangDAO.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\dao\imlp\MonDAO.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\DashboardForm.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\GD_ThongKe.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\BlankPlotChatRender.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ComboSuggestionUI.java
@@ -112,12 +112,12 @@ D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\Transpa
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\datechooser\Months.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\utils\DateCalculator.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\DiscountItem.java
-D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\InboxForm.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\KhachHang.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\employee\Form_XemThucDon.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\Spline.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\ScrollBarCustom.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\component\PanelGradient.java
+D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\forms\GD_QuanLyKhachHang.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\utils\Enum.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\entity\Mon.java
 D:\BaiTapLonPhatTrienUngDung\QuanLiDatBanNhaHang\src\main\java\view\manager\utils\UndoRedo.java

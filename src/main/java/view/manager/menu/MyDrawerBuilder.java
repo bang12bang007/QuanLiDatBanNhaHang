@@ -22,17 +22,14 @@ import raven.drawer.component.menu.SimpleMenuStyle;
 import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
 import view.manager.forms.GD_Dashboard;
-import view.manager.forms.GD_QuanLyBan;
 import raven.swing.AvatarIcon;
 import static utils.AppUtils.*;
 import view.manager.forms.GD_QuanLyBan;
+import view.manager.forms.GD_QuanLyKhachHang;
 import view.manager.forms.GD_QuanLyKhuyenMai;
 import view.manager.forms.GD_QuanLyMon;
 import view.manager.forms.GD_QuanLyNhanVien;
 
-/**
- * @author Raven
- */
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     public MyDrawerBuilder() {
@@ -41,7 +38,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
-        AvatarIcon icon = new AvatarIcon(getClass().getResource("/view/manager/resources/image/profile.png"), 60, 60, 999);
+        AvatarIcon icon = new AvatarIcon(getClass().getResource("/images/Avatar.png"), 60, 60, 999);
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
@@ -77,6 +74,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             .subMenu("Quản lý Bàn")
             .subMenu("Quản lý Nhân viên")
             .subMenu("Quản lý Khuyến mãi")
+            .subMenu("Quản lý Khách hàng")
             .subMenu("Quản lý Món"),
             new Item("Chat", "chat.svg"),
             new Item("Calendar", "calendar.svg"),
@@ -158,16 +156,20 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                             FormManager.showForm(new GD_QuanLyBan());
                             break;
                         }
-                        case "Quản lý Nhân viên":{
+                        case "Quản lý Nhân viên": {
                             FormManager.showForm(new GD_QuanLyNhanVien());
                             break;
                         }
-                        case "Quản lý Món":{
+                        case "Quản lý Món": {
                             FormManager.showForm(new GD_QuanLyMon());
                             break;
                         }
-                        case "Quản lý Khuyến mãi":{
+                        case "Quản lý Khuyến mãi": {
                             FormManager.showForm(new GD_QuanLyKhuyenMai());
+                            break;
+                        }
+                        case "Quản lý Khách hàng": {
+                            FormManager.showForm(new GD_QuanLyKhachHang());
                             break;
                         }
                     }

@@ -1,8 +1,5 @@
 package view.manager.application;
 
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -17,8 +14,6 @@ import raven.popup.GlassPanePopup;
 import utils.AppUtils;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import javax.swing.*;
-import java.awt.*;
 
 public class GD_Dashboard extends JFrame {
 
@@ -45,11 +40,3 @@ public class GD_Dashboard extends JFrame {
         EventQueue.invokeLater(() -> new GD_Dashboard().setVisible(true));
     }
 }
-
-
-//    public static void main(String[] args) {
-//        FlatLaf.registerCustomDefaultsSource("view.manager.themes");
-//        UIManager.put("defaultFont", utils.AppUtils.getFont(13f, AppUtils._NORMAL_));
-//        FlatMacDarkLaf.setup();
-//        EventQueue.invokeLater(() -> new GD_Dashboard().setVisible(true));
-//    }

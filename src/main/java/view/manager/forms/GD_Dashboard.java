@@ -102,7 +102,6 @@ public class GD_Dashboard extends SimpleForm {
     private void createLineChart() {
         lineChart = new LineChart();
         lineChart.setChartType(LineChart.ChartType.CURVE);
-//        lineChart.putClientProperty(FlatClientProperties.STYLE, "" + "border:5,5,5,5,$Component.borderColor,,20");
         add(lineChart);
         createLineChartData();
     }

@@ -24,9 +24,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import utils.Enum.LoaiTrangThaiMon;
 
-/**
- * @author Laptop
- */
 @Entity
 @Getter
 @Setter
