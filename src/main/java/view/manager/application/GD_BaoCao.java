@@ -28,6 +28,17 @@ import raven.chart.data.pie.DefaultPieDataset;
 import raven.chart.line.LineChart;
 import raven.chart.pie.PieChart;
 import component.SimpleForm;
+import java.lang.reflect.Field;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.Currency;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import raven.chart.blankchart.PlotChart;
 
 /**
  * @author dmx
@@ -61,11 +72,17 @@ public class GD_BaoCao extends SimpleForm {
     }
 
     private void init() {
-        setLayout(new MigLayout("wrap,fill,gap 10", "fill"));
-        setBackground(new Color(83, 86, 99));
-        createPieChart();
-        createLineChart();
-        createBarChart();
+        try {
+            setLayout(new MigLayout("wrap,fill,gap 10", "fill"));
+            setBackground(new Color(83, 86, 99));
+            createPieChart();
+            createLineChart();
+            createBarChart();
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(GD_BaoCao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(GD_BaoCao.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -102,13 +119,15 @@ public class GD_BaoCao extends SimpleForm {
     private void createLineChart() {
         lineChart = new LineChart();
         lineChart.setChartType(LineChart.ChartType.CURVE);
+        setNumberForrmatForLinchart(lineChart);
         add(lineChart);
         createLineChartData();
     }
 
-    private void createBarChart() {
+    private void createBarChart() throws IllegalArgumentException, IllegalAccessException {
         // BarChart 1
         barChart1 = new HorizontalBarChart();
+        setNumberForrmatVND(barChart1);
         JLabel header1 = new JLabel("Tổng doanh thu theo tháng");
         header1.putClientProperty(FlatClientProperties.STYLE, "" + "font:+1;" + "border:0,0,5,0");
         barChart1.setHeader(header1);
@@ -121,6 +140,7 @@ public class GD_BaoCao extends SimpleForm {
 
         // BarChart 2
         barChart2 = new HorizontalBarChart();
+        setNumberForrmatQuantity(barChart2);
         JLabel header2 = new JLabel("Tổng số hoá đơn theo tháng");
         header2.putClientProperty(FlatClientProperties.STYLE, "" + "font:+1;" + "border:0,0,5,0");
         barChart2.setHeader(header2);
@@ -130,6 +150,44 @@ public class GD_BaoCao extends SimpleForm {
         panel2.putClientProperty(FlatClientProperties.STYLE, "" + "border:5,5,5,5,$Component.borderColor,,20");
         panel2.add(barChart2);
         add(panel2);
+    }
+
+    private void setNumberForrmatQuantity(HorizontalBarChart barChart1) {
+        try {
+            DecimalFormat numberFormat = new DecimalFormat("#,###");
+            Field valuesFormatField = HorizontalBarChart.class.getDeclaredField("valuesFormat");
+            valuesFormatField.setAccessible(true);
+            valuesFormatField.set(barChart1, numberFormat);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setNumberForrmatVND(HorizontalBarChart barChart1) {
+        try {
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
+            symbols.setCurrencySymbol("VNĐ");
+            DecimalFormat numberFormat = new DecimalFormat("###,###,###,###.## ¤", symbols);
+            numberFormat.setPositivePrefix("");
+            numberFormat.setNegativePrefix("-");
+            Field valuesFormatField = HorizontalBarChart.class.getDeclaredField("valuesFormat");
+            valuesFormatField.setAccessible(true);
+            valuesFormatField.set(barChart1, numberFormat);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setNumberForrmatForLinchart(LineChart barChart1) {
+        try {
+            DecimalFormat numberFormat = new DecimalFormat("#,###");
+            Field valuesFormatField = PlotChart.class.getDeclaredField("valuesFormat");
+            valuesFormatField.setAccessible(true);
+            valuesFormatField.set(barChart1, numberFormat);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     private DefaultPieDataset staticticsTotalRevenueByMonth() {
@@ -260,6 +318,7 @@ public class GD_BaoCao extends SimpleForm {
 //            System.err.println(e);
 //        }
         lineChart.setCategoryDataset(categoryDataset);
+
         lineChart.getChartColor().addColor(Color.decode("#38bdf8"), Color.decode("#fb7185"), Color.decode("#34d399"));
         JLabel header = new JLabel("Top 3 món được sử dụng trong 30 ngày gần nhất");
         header.putClientProperty(FlatClientProperties.STYLE, "" + "font:+1;" + "border:0,0,5,0");
