@@ -152,7 +152,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         IconFontSwing.register(FontAwesome.getIconFont());
         huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
         if (type_orderItem.equals("PRE_LOAD")) {
-            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white));
+            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.BAN, 30, Color.white));
         }
         increase.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 15, Color.white));
         decrease.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS, 15, Color.white));
@@ -317,7 +317,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 14));
         IconFontSwing.register(FontAwesome.getIconFont());
         if (type_orderItem.equals("PRELOAD")) {
-            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white));
+            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.BAN, 30, Color.white));
         } else {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, Color.white));
         }
@@ -328,7 +328,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
         //        thanhTien.setFont(new Font("Jetbrains Mono", Font.BOLD, 20));
         IconFontSwing.register(FontAwesome.getIconFont());
         if (type_orderItem.equals("PRELOAD")) {
-            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, new Color(234, 124, 105)));
+            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.BAN, 30, new Color(234, 124, 105)));
         } else {
             huy.setIcon(IconFontSwing.buildIcon(FontAwesome.TRASH, 30, new Color(234, 124, 105)));
         }
@@ -531,7 +531,7 @@ public class OrderItem_forUIDatMon extends javax.swing.JPanel {
     public void setType_orderItem(String type_orderItem) {
         this.type_orderItem = type_orderItem;
         if (type_orderItem.equals("PRELOAD")) {
-            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.SHOPPING_CART, 30, Color.white));
+            huy.setIcon(IconFontSwing.buildIcon(FontAwesome.BAN, 30, Color.white));
             ghi.setIcon(IconFontSwing.buildIcon(FontAwesome.BOOKMARK, 30, Color.white));
             soLuong.setEditable(false);
         }

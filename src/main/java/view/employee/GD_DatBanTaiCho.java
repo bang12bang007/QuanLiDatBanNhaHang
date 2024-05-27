@@ -24,6 +24,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JScrollPane;
 
 import jiconfont.swing.IconFontSwing;
@@ -42,7 +44,7 @@ import raven.toast.Notifications;
 /**
  * @author Laptop
  */
-public class GD_DatBanTaiCho extends javax.swing.JPanel {
+public class GD_DatBanTaiCho extends javax.swing.JPanel implements KeyListener{
 
     /**
      * Creates new form GD_Order
@@ -683,5 +685,20 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTextField txtMaBan;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("You releasd key char: " + e.getKeyChar());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("You releasd key char: " + e.getKeyChar());
+    }
 
 }
