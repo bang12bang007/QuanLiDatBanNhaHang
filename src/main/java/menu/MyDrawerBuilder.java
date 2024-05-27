@@ -29,6 +29,7 @@ import view.manager.application.GD_QuanLyKhachHang;
 import view.manager.application.GD_QuanLyKhuyenMai;
 import view.manager.application.GD_QuanLyMon;
 import view.manager.application.GD_QuanLyNhanVien;
+import view.manager.forms.GD_QuanLyHoaDon;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
@@ -69,14 +70,41 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     public SimpleMenuOption getSimpleMenuOption() {
 
         MenuItem items[] = new MenuItem[]{
-            new Item("Dashboard", "dashboard.svg"),
-            new Item("Manager", "email.svg")
+            new Item("Thống Kê", "dashboard.svg"),
+            new Item("Quản Lý", "email.svg")
             .subMenu("Quản lý Bàn")
             .subMenu("Quản lý Nhân viên")
             .subMenu("Quản lý Khuyến mãi")
             .subMenu("Quản lý Khách hàng")
-            .subMenu("Quản lý Món"),
-            
+            .subMenu("Quản lý Món")
+            .subMenu("Quản lý Hóa Đơn")
+//            new Item("Chat", "chat.svg"),
+//            new Item("Calendar", "calendar.svg"),
+//            new Item("Advanced UI", "ui.svg")
+//            .subMenu("Cropper")
+//            .subMenu("Owl Carousel")
+//            .subMenu("Sweet Alert"),
+//            new Item("Forms", "forms.svg")
+//            .subMenu("Basic Elements")
+//            .subMenu("Advanced Elements")
+//            .subMenu("SEditors")
+//            .subMenu("Wizard"),
+//            new Item("Charts", "chart.svg")
+//            .subMenu("Apex")
+//            .subMenu("Flot")
+//            .subMenu("Sparkline"),
+//            new Item("Icons", "icon.svg")
+//            .subMenu("Feather Icons")
+//            .subMenu("Flag Icons")
+//            .subMenu("Mdi Icons"),
+//            new Item("Special Pages", "page.svg")
+//            .subMenu("Blank page")
+//            .subMenu("Faq")
+//            .subMenu("Invoice")
+//            .subMenu("Profile")
+//            .subMenu("Pricing")
+//            .subMenu("Timeline")
+//            .subMenu("Quản lý Món"),
         };
 
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
@@ -145,6 +173,10 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                         }
                         case "Quản lý Khách hàng": {
                             FormManager.showForm(new GD_QuanLyKhachHang());
+                            break;
+                        }
+                        case "Quản lý Hóa Đơn": {
+                            FormManager.showForm(new GD_QuanLyHoaDon());
                             break;
                         }
                     }
