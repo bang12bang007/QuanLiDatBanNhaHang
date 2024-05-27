@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import view.manager.components.MainForm;
@@ -15,9 +14,6 @@ import view.manager.swing.slider.PanelSlider;
 import view.manager.swing.slider.SimpleTransition;
 import view.manager.utils.UndoRedo;
 
-/**
- * @author Raven
- */
 public class FormManager {
 
     private static FormManager instance;

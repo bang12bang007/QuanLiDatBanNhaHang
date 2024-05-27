@@ -5,7 +5,6 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import java.awt.Color;
@@ -16,9 +15,6 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-/**
- * @author Raven
- */
 public class ThemesChange extends JPanel {
 
     public ThemesChange() {

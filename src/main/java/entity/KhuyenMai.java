@@ -14,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
 
-import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -42,8 +41,10 @@ public class KhuyenMai {
     private LocalDateTime ngayBatDau;
     @Column(name = "NgayKetThuc", nullable = true)
     private LocalDateTime ngayKetThuc;
-    @Column(name = "ChietKhau", nullable = false)
+    @Column(name = "ChietKhau", nullable = true)
     private Double chietKhau;
+    @Column(name = "MenhGia", nullable = true)
+    private Double menhGia;
     @Column(name = "LoaiKhuyenMai", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private LoaiKhuyenMai loaiKhuyenMai;
