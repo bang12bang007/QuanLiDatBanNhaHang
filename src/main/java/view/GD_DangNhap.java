@@ -21,7 +21,7 @@ import view.employee.GD_TrangChu;
 
 import static utils.AppUtils.*;
 
-import view.manager.application.GD_Dashboard;
+import view.manager.application.GD_QuanLy;
 
 /**
  * @author Laptop
@@ -53,10 +53,10 @@ public class GD_DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Notifications.getInstance().setJFrame(this);
         FlatIntelliJLaf.setup();
-//        tenDangNhap.setText("NV121100624045");
-//        matKhau.setText("11122003");
-        tenDangNhap.setText("NV120060424290");
-        matKhau.setText("280920003");
+        tenDangNhap.setText("NV121100624045");
+        matKhau.setText("11122003");
+//        tenDangNhap.setText("NV120060424290");
+//        matKhau.setText("280920003");
     }
 
     /**
@@ -260,7 +260,7 @@ public class GD_DangNhap extends javax.swing.JFrame {
                 dispose();
                 if (nv.getVaiTro().equals(utils.Enum.LoaiVaiTro.NHAN_VIEN_QL)) {
                     //                Chuyen qua gd quan ly
-                    new GD_Dashboard().run();
+                    new GD_QuanLy().run();
                 } else {
                     //                Chuyen qua gd nhan vien
                     new GD_TrangChu().setVisible(true);

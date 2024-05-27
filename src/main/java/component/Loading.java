@@ -6,8 +6,6 @@ package component;
 
 import javax.swing.ImageIcon;
 
-import view.manager.components.SimpleForm;
-
 /**
  * @author Laptop
  */
