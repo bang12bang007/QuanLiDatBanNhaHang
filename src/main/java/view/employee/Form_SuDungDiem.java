@@ -387,26 +387,34 @@ public class Form_SuDungDiem extends javax.swing.JPanel {
 
     private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
         // TODO add your handling code here:
-        if (Double.parseDouble(txtDiemSuDung.getText()) <= ((TheThanhVien) theThanhVienDAO.findById(theThanhVien.getMaThe(), TheThanhVien.class)).getDiemTich()) {
-            String ghiChu = theThanhVien.getKhachHang().getHoTen() + " sử dụng " + txtDiemSuDung.getText();
-            double thanhTienKM = (Double.parseDouble(txtDiemSuDung.getText()) * 20000 / 50);
-            HoaDon hoaDon = hoaDons.get(0);
-            KhuyenMai khuyenMai = new KhuyenMai("THE_THANH_VIEN", LocalDateTime.now(), LocalDateTime.now(), thanhTienKM, utils.Enum.LoaiKhuyenMai.SU_DUNG_DIEM, ghiChu);
-            ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(hoaDon, khuyenMai);
-            hoaDon.getChiTietKhuyenMai().add(chiTietKhuyenMai);
-            hoaDon.tienPhaiThu();
-            hoaDon.getChiTietKhuyenMai().remove(chiTietKhuyenMai);
-            double thanhTienKhac = thanhTienKMKhac.getText().trim().equals("")
-                    ? 0
-                    : Double.parseDouble(thanhTienKMKhac.getText().replace("VNĐ", "").replace(",", ""));
-            this.thanhTienKMKhac.setText(FORMAT_MONEY.format(thanhTienKhac + thanhTienKM - gd_ThanhToan.getOldPoint()));
-            gd_ThanhToan.setOldPoint(thanhTienKM);
-            this.tienPhaiThu.setText(FORMAT_MONEY.format(tongThanhToan - Double.parseDouble(thanhTienKMKhac.getText().replace("VNĐ", "").replace(",", ""))));
-            theThanhVien.setDiemTich(theThanhVien.getDiemTich() - Double.parseDouble(txtDiemSuDung.getText()));
-            jFrame.setVisible(false);
-            jFrame.dispose();
+        if (!txtDiemSuDung.getText().trim().equals("")) {
+            try {
+                if (Double.parseDouble(txtDiemSuDung.getText()) <= ((TheThanhVien) theThanhVienDAO.findById(theThanhVien.getMaThe(), TheThanhVien.class)).getDiemTich()) {
+                    String ghiChu = theThanhVien.getKhachHang().getHoTen() + " sử dụng " + txtDiemSuDung.getText();
+                    double thanhTienKM = (Double.parseDouble(txtDiemSuDung.getText()) * 20000 / 50);
+                    HoaDon hoaDon = hoaDons.get(0);
+                    KhuyenMai khuyenMai = new KhuyenMai("THE_THANH_VIEN", LocalDateTime.now(), LocalDateTime.now(), thanhTienKM, utils.Enum.LoaiKhuyenMai.SU_DUNG_DIEM, ghiChu);
+                    ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(hoaDon, khuyenMai);
+                    hoaDon.getChiTietKhuyenMai().add(chiTietKhuyenMai);
+                    hoaDon.tienPhaiThu();
+                    hoaDon.getChiTietKhuyenMai().remove(chiTietKhuyenMai);
+                    double thanhTienKhac = thanhTienKMKhac.getText().trim().equals("")
+                            ? 0
+                            : Double.parseDouble(thanhTienKMKhac.getText().replace("VNĐ", "").replace(",", ""));
+                    this.thanhTienKMKhac.setText(FORMAT_MONEY.format(thanhTienKhac + thanhTienKM - gd_ThanhToan.getOldPoint()));
+                    gd_ThanhToan.setOldPoint(thanhTienKM);
+                    this.tienPhaiThu.setText(FORMAT_MONEY.format(tongThanhToan - Double.parseDouble(thanhTienKMKhac.getText().replace("VNĐ", "").replace(",", ""))));
+                    theThanhVien.setDiemTich(theThanhVien.getDiemTich() - Double.parseDouble(txtDiemSuDung.getText()));
+                    jFrame.setVisible(false);
+                    jFrame.dispose();
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Điểm tích lũy không đủ");
+                }
+            } catch (Exception e) {
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Điểm tích lũy không hợp lệ");
+            }
         } else {
-            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Điểm tích lũy không đủ");
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Điểm tích lũy không hợp lệ");
         }
     }//GEN-LAST:event_myButton3ActionPerformed
 

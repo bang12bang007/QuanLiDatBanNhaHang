@@ -3,7 +3,6 @@ package view.manager.forms;
 import dao.imlp.BanDAO;
 import entity.Ban;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -11,14 +10,8 @@ import raven.toast.Notifications;
 import static utils.AppUtils._NORMAL_;
 import view.manager.components.SimpleForm;
 
-/**
- * @author RAVEN
- */
 public class GD_QuanLyBan extends SimpleForm {
 
-    /**
-     * Creates new form ReadForm
-     */
     public GD_QuanLyBan() {
         initComponents();
 
@@ -381,7 +374,6 @@ public class GD_QuanLyBan extends SimpleForm {
 
     private void maBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maBanMouseClicked
         // TODO add your handling code here:
-
     }//GEN-LAST:event_maBanMouseClicked
 
     private void soGheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soGheMouseClicked
@@ -444,23 +436,22 @@ public class GD_QuanLyBan extends SimpleForm {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 //        // TODO add your handling code here:
-//        // Lấy chỉ số hàng được chọn
-//        int selectedRow = jTable1.getSelectedRow();
-//
-//        // Kiểm tra xem có hàng nào được chọn không
-//        if (selectedRow != -1) {
-//            // Lấy dữ liệu từ các cột trong hàng được chọn
-//            String tang = jTable1.getValueAt(selectedRow, 1).toString();
-//            String maBan = jTable1.getValueAt(selectedRow, 2).toString();
-//            String trangThai = jTable1.getValueAt(selectedRow, 3).toString();
-//            String soGhe = jTable1.getValueAt(selectedRow, 4).toString();
-//
-//            // Điền dữ liệu vào các JTextField
-//            jTextField1.setText(maBan);
-//            jTextField2.setText(tang);
-//            jComboBox1.setSelectedItem(trangThai);
-//            jTextField4.setText(soGhe);
-//        }
+
+        List<Ban> allBans = daoB.findAll(Ban.class);
+
+        // Lấy chỉ số của hàng được chọn
+        int rowIndex = jTable1.getSelectedRow();
+
+        // Kiểm tra nếu hàng được chọn hợp lệ
+        if (rowIndex >= 0) {
+            // Lấy đối tượng NhanVien từ hàng được chọn
+            Ban ban = allBans.get(rowIndex);
+
+            jTextField1.setText(ban.getTang());
+            jTextField2.setText(ban.getMaBan());
+            jTextField4.setText(String.valueOf(ban.getSoGhe()));
+            jComboBox1.setSelectedItem(ban.getTrangThai());
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void none(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_none
@@ -475,11 +466,11 @@ public class GD_QuanLyBan extends SimpleForm {
         ban.setSoGhe(Integer.parseInt(jTextField4.getText()));
         ban.setTrangThai(utils.Enum.LoaiTrangThai.valueOf(jComboBox1.getSelectedItem().toString()));
         if (daoB.update(ban)) {
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thêm bàn thành công !");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi thông tin bàn thành công !");
             populateTable();
             clearData();
         } else {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Chưa được thêm bàn!");
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Chưa thay đổi được thông tin bàn!");
 
         }
     }//GEN-LAST:event_myButton2MouseClicked

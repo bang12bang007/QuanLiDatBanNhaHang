@@ -9,9 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-/**
- * @author Raven
- */
 public class Background extends JPanel {
 
     public Background() {

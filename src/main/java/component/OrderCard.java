@@ -58,7 +58,7 @@ public class OrderCard extends javax.swing.JPanel {
         setIconBtn();
         maBan.setText(hoaDon.getBan().getMaBan());
         soLuongNguoi.setText(hoaDon.getSoLuongNguoi() + "");
-        tacVuList.setPreferredSize(new Dimension(250, 200));
+        tacVuList.setPreferredSize(new Dimension(250, 150));
         tacVuList.setLayout(new WrapLayout(FlowLayout.LEADING, 0, 0));
         Notifications.getInstance();
         FlatIntelliJLaf.setup();
@@ -67,16 +67,13 @@ public class OrderCard extends javax.swing.JPanel {
     }
 
     private void createListTacVu() {
-        tacVuList.add(createTacVu("Gửi bếp", IconFontSwing.buildIcon(FontAwesome.SPOON, 25, Color.WHITE), (e) -> {
-            sendCook();
-        }));
-        tacVuList.add(createTacVu("Chuyển bàn", IconFontSwing.buildIcon(FontAwesome.REFRESH, 25, Color.WHITE), (e) -> {
+        tacVuList.add(createTacVu("Chuyển bàn", IconFontSwing.buildIcon(FontAwesome.ARROWS_H, 25, Color.WHITE), (e) -> {
             moveTable();
         }));
         tacVuList.add(createTacVu("Ghép hóa đơn", IconFontSwing.buildIcon(FontAwesome.BOOK, 25, Color.WHITE), (e) -> {
             mergeOrder();
         }));
-        tacVuList.add(createTacVu("Tách hóa đơn", IconFontSwing.buildIcon(FontAwesome.BOOK, 25, Color.WHITE), (e) -> {
+        tacVuList.add(createTacVu("Khôi phục hóa đơn", IconFontSwing.buildIcon(FontAwesome.REFRESH, 25, Color.WHITE), (e) -> {
             cutInvoice();
         }));
     }
@@ -98,18 +95,21 @@ public class OrderCard extends javax.swing.JPanel {
     }
 
     private void moveTable() {
-        utils.AppUtils.setUI(mainPanel, () -> {
-            GD_Ban gD_Ban = new GD_Ban(mainPanel, "CHUYEN_BAN");
-            gD_Ban.setHoaDon(hoaDon);
-            return gD_Ban;
-        });
+        if (ql_datMon.canMoveTable(hoaDon)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không di chuyển được bàn gộp");
+        } else {
+            utils.AppUtils.setUI(mainPanel, () -> {
+                GD_Ban gD_Ban = new GD_Ban(mainPanel, "CHUYEN_BAN");
+                gD_Ban.setHoaDon(hoaDon);
+                return gD_Ban;
+            });
+        }
         menu.setVisible(false);
     }
 
     private void sendCook() {
         Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Gửi Bếp Thành Công !");
         menu.setVisible(false);
-
     }
 
     private void mergeOrder() {
@@ -392,11 +392,27 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChinhSuaActionPerformed
         // TODO add your handling code here:
+        editOrder();
     }//GEN-LAST:event_btnChinhSuaActionPerformed
 
+    private void editOrder() {
+        AppUtils.setUI(mainPanel, () -> {
+            GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
+            gD_DatMon.setHoaDon(this.hoaDon);
+            gD_DatMon.setGd_qlDatMon(ql_datMon);
+            if (!ql_datMon.isWaitForPayment()) {
+                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
+            }
+            return gD_DatMon;
+        });
+    }
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        utils.AppUtils.setUI(mainPanel, () -> new GD_ThanhToan(hoaDon, mainPanel));
+        if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Vui lòng nhận bàn để thanh toán!");
+        } else {
+            utils.AppUtils.setUI(mainPanel, () -> new GD_ThanhToan(hoaDon, mainPanel));
+        }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnTacVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTacVuActionPerformed
@@ -410,19 +426,16 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         // TODO add your handling code here:
+        if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Vui lòng nhận bàn để gửi bếp");
+        } else {
+            sendCook();
+        }
     }//GEN-LAST:event_btnCheckActionPerformed
 
     private void panelRound3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MouseClicked
         // TODO add your handling code here:
-        AppUtils.setUI(mainPanel, () -> {
-            GD_DatMon gD_DatMon = new GD_DatMon(mainPanel, hoaDon.getBan(), utils.Enum.DatMon_ThemMon.THEMMON);
-            gD_DatMon.setHoaDon(this.hoaDon);
-            gD_DatMon.setGd_qlDatMon(ql_datMon);
-            if (!ql_datMon.isWaitForPayment()) {
-                gD_DatMon.setBranch(utils.Enum.TypeDatMon_Branch.DAT_TRUOC_MON);
-            }
-            return gD_DatMon;
-        });
+        editOrder();
     }//GEN-LAST:event_panelRound3MouseClicked
 
     private void setIconBtn() {
@@ -430,7 +443,7 @@ public class OrderCard extends javax.swing.JPanel {
         btnThanhToan.setIcon(IconFontSwing.buildIcon(FontAwesome.CALCULATOR, 20, Color.WHITE));
         btnChinhSua.setIcon(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, Color.WHITE));
         btnTacVu.setIcon(IconFontSwing.buildIcon(FontAwesome.ELLIPSIS_H, 20, Color.WHITE));
-        btnCheck.setIcon(IconFontSwing.buildIcon(FontAwesome.CHECK_SQUARE_O, 20, Color.WHITE));
+        btnCheck.setIcon(IconFontSwing.buildIcon(FontAwesome.CUTLERY, 20, Color.WHITE));
         soLuongNguoi.setIcon(IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.WHITE));
     }
 

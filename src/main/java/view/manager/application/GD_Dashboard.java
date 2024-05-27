@@ -1,8 +1,5 @@
 package view.manager.application;
 
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -12,14 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import view.manager.components.Background;
-import view.manager.forms.DashboardForm;
 import view.manager.menu.FormManager;
 import raven.popup.GlassPanePopup;
 import utils.AppUtils;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import javax.swing.*;
-import java.awt.*;
 
 public class GD_Dashboard extends JFrame {
 
@@ -36,7 +30,7 @@ public class GD_Dashboard extends JFrame {
         setContentPane(new Background()); // Giả sử Background là một lớp JPanel đã được định nghĩa
         GlassPanePopup.install(this); // Giả sử GlassPanePopup là một lớp tiện ích đã được định nghĩa
         FormManager.install(this); // Giả sử FormManager là một lớp tiện ích đã được định nghĩa
-        FormManager.showForm(new DashboardForm()); // Giả sử DashboardForm là một lớp JPanel đã được định nghĩa
+        FormManager.showForm(new view.manager.forms.GD_Dashboard()); // Giả sử DashboardForm là một lớp JPanel đã được định nghĩa
     }
 
     public void run() {
@@ -46,11 +40,3 @@ public class GD_Dashboard extends JFrame {
         EventQueue.invokeLater(() -> new GD_Dashboard().setVisible(true));
     }
 }
-
-
-//    public static void main(String[] args) {
-//        FlatLaf.registerCustomDefaultsSource("view.manager.themes");
-//        UIManager.put("defaultFont", utils.AppUtils.getFont(13f, AppUtils._NORMAL_));
-//        FlatMacDarkLaf.setup();
-//        EventQueue.invokeLater(() -> new GD_Dashboard().setVisible(true));
-//    }

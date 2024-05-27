@@ -16,9 +16,6 @@ import view.manager.swing.slider.PanelSlider;
 import view.manager.swing.slider.SimpleTransition;
 import view.manager.swing.slider.SliderTransition;
 
-/**
- * @author Raven
- */
 public class MainForm extends JPanel {
 
     public MainForm() {
