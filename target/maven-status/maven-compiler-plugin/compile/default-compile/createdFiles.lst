@@ -15,7 +15,6 @@ component\DiscountItem.class
 view\manager\forms\GD_QuanLyKhuyenMai$20.class
 view\employee\GD_DatBanTruoc$12.class
 component\OrderCard.class
-view\manager\forms\GD_QuanLyBan$13.class
 view\manager\forms\GD_QuanLyKhuyenMai$5.class
 view\manager\forms\GD_QuanLyNhanVien$22.class
 view\employee\GD_ThanhToan$4.class
@@ -156,7 +155,6 @@ view\employee\Form_GhiChu$6.class
 view\employee\GD_DatBanTaiCho$9.class
 datechooser\Slider$2.class
 view\employee\GD_ThanhToan$12.class
-view\manager\forms\GD_QuanLyBan$11.class
 view\employee\GD_DatBanTaiCho$3.class
 component\OrderItem.class
 view\employee\Form_ThuTien$6.class
@@ -188,7 +186,6 @@ dao\imlp\AbstractDAO.class
 view\employee\GD_DatBanTaiCho$7.class
 view\employee\GD_DatBanTruoc$16.class
 view\manager\forms\GD_QuanLyMon$7.class
-view\manager\forms\GD_QuanLyBan$14.class
 view\employee\GD_DatMon$1.class
 view\manager\forms\GD_QuanLyNhanVien$1.class
 view\manager\swing\slider\SimpleTransition.class
@@ -207,7 +204,6 @@ component\MyButton.class
 view\manager\forms\GD_QuanLyBan$2.class
 view\manager\forms\GD_QuanLyBan$5.class
 view\manager\forms\GD_QuanLyKhachHang$10.class
-view\manager\forms\GD_QuanLyBan$15.class
 view\employee\GD_DatBanTaiCho$6.class
 view\employee\GD_TrangChu$6.class
 view\manager\forms\GD_QuanLyMon$5.class
@@ -265,7 +261,6 @@ view\employee\Form_DatBan$8.class
 view\employee\GD_DatMon$22$1.class
 view\employee\GD_ThanhToan$8.class
 datechooser\DateChooser$4.class
-view\manager\forms\GD_QuanLyBan$12.class
 view\manager\forms\GD_QuanLyNhanVien$26.class
 view\manager\menu\Menu$2.class
 view\employee\GD_DatBanTruoc$4.class

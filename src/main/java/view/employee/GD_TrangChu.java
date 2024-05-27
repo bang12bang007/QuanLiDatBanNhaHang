@@ -360,11 +360,16 @@ public class GD_TrangChu extends javax.swing.JFrame {
         menu.removeAll();
         menu.add(morePanel);
         menu.show(btnAVT, 0, btnAVT.getHeight() + 5);
-
     }//GEN-LAST:event_btnAVTActionPerformed
 
     private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed
         // TODO add your handling code here:
+        try {
+            String url = "https://drive.google.com/file/d/1KK2T_ybcP7SZJaZ6n_w0Lt_1TP0GPlt_/view?usp=sharing";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+        } catch (java.io.IOException e) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 1500, "Không có kết nối mạng");
+        }
     }//GEN-LAST:event_buttonHelpActionPerformed
 
     private void buttonThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThongKeActionPerformed

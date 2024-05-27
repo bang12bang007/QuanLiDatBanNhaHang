@@ -16,10 +16,6 @@ public class GD_QuanLyBan extends SimpleForm {
         initComponents();
 
         daoB = new BanDAO();
-        jComboBox1.addItem(utils.Enum.LoaiTrangThai.BAN_TRONG.toString());
-        jComboBox1.addItem(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.toString());
-        jComboBox1.addItem(utils.Enum.LoaiTrangThai.BAN_DA_DUOC_DAT.toString());
-        jComboBox1.addItem(utils.Enum.LoaiTrangThai.KHAC.toString());
         populateTable();
     }
 
@@ -34,7 +30,7 @@ public class GD_QuanLyBan extends SimpleForm {
         for (int i = 0; i < allBans.size(); i++) {
             Ban ban = allBans.get(i);
             // Truy cập các thuộc tính của đối tượng Ban và thêm vào từng cột
-            model.addRow(new Object[]{i + 1, ban.getTang(), ban.getMaBan(), ban.getTrangThai(), ban.getSoGhe()});
+            model.addRow(new Object[]{i + 1, ban.getMaBan(), ban.getTang(), ban.getSoGhe()});
         }
 
         // Tạo renderer tùy chỉnh để căn giữa văn bản
@@ -70,13 +66,10 @@ public class GD_QuanLyBan extends SimpleForm {
         maBan = new javax.swing.JLabel();
         soGhe = new javax.swing.JLabel();
         trangThai = new javax.swing.JLabel();
-        tang = new javax.swing.JLabel();
         myButton1 = new component.MyButton();
         myButton2 = new component.MyButton();
         panelRound4 = new component.PanelRound();
         jTextField1 = new javax.swing.JTextField();
-        panelRound5 = new component.PanelRound();
-        jComboBox1 = new javax.swing.JComboBox<>();
         panelRound6 = new component.PanelRound();
         jTextField2 = new javax.swing.JTextField();
         panelRound7 = new component.PanelRound();
@@ -97,13 +90,13 @@ public class GD_QuanLyBan extends SimpleForm {
         jTable1.setBackground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "STT", "Tầng", "Mã bàn", "Trạng thái ", "Số ghế "
+                "STT", "Mã bàn", "Tầng", "Số ghế "
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,16 +140,6 @@ public class GD_QuanLyBan extends SimpleForm {
             }
         });
 
-        tang.setFont(utils.AppUtils.getFont(16f, _NORMAL_)
-        );
-        tang.setForeground(new java.awt.Color(255, 255, 255));
-        tang.setText("Trạng thái");
-        tang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tangMouseClicked(evt);
-            }
-        });
-
         myButton1.setBackground(new java.awt.Color(51, 204, 0));
         myButton1.setForeground(new java.awt.Color(255, 255, 255));
         myButton1.setText("THÊM BÀN");
@@ -166,11 +149,6 @@ public class GD_QuanLyBan extends SimpleForm {
         myButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myButton1MouseClicked(evt);
-            }
-        });
-        myButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton1ActionPerformed(evt);
             }
         });
 
@@ -183,11 +161,6 @@ public class GD_QuanLyBan extends SimpleForm {
         myButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myButton2MouseClicked(evt);
-            }
-        });
-        myButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton2ActionPerformed(evt);
             }
         });
 
@@ -207,39 +180,12 @@ public class GD_QuanLyBan extends SimpleForm {
         panelRound4Layout.setHorizontalGroup(
             panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound4Layout.createSequentialGroup()
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         panelRound4Layout.setVerticalGroup(
             panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTextField1)
-        );
-
-        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                none(evt);
-            }
-        });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
-        panelRound5.setLayout(panelRound5Layout);
-        panelRound5Layout.setHorizontalGroup(
-            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBox1, 0, 135, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelRound5Layout.setVerticalGroup(
-            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +200,7 @@ public class GD_QuanLyBan extends SimpleForm {
             panelRound6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound6Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         panelRound6Layout.setVerticalGroup(
@@ -273,7 +219,7 @@ public class GD_QuanLyBan extends SimpleForm {
         panelRound7Layout.setHorizontalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound7Layout.createSequentialGroup()
-                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         panelRound7Layout.setVerticalGroup(
@@ -287,25 +233,21 @@ public class GD_QuanLyBan extends SimpleForm {
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(maBan, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addComponent(maBan, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelRound4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(trangThai, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addComponent(trangThai, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(panelRound6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tang, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
-                .addComponent(panelRound5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(15, 15, 15)
                 .addComponent(soGhe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(panelRound7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(40, 40, 40)
-                .addComponent(myButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                .addGap(36, 36, 36)
-                .addComponent(myButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(myButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(myButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelRound3Layout.setVerticalGroup(
@@ -313,15 +255,13 @@ public class GD_QuanLyBan extends SimpleForm {
             .addGroup(panelRound3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(myButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(myButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(myButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRound7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRound6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(soGhe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(maBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRound4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelRound5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(trangThai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -364,14 +304,6 @@ public class GD_QuanLyBan extends SimpleForm {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton1ActionPerformed
-
-    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton2ActionPerformed
-
     private void maBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maBanMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_maBanMouseClicked
@@ -383,10 +315,6 @@ public class GD_QuanLyBan extends SimpleForm {
     private void trangThaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trangThaiMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_trangThaiMouseClicked
-
-    private void tangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tangMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tangMouseClicked
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -406,7 +334,7 @@ public class GD_QuanLyBan extends SimpleForm {
         ban.setMaBan(jTextField2.getText());
         ban.setTang(jTextField1.getText());
         ban.setSoGhe(Integer.parseInt(jTextField4.getText()));
-        ban.setTrangThai(utils.Enum.LoaiTrangThai.valueOf(jComboBox1.getSelectedItem().toString()));
+        ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
         if (daoB.insert(ban)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thêm bàn thành công !");
             populateTable();
@@ -430,10 +358,6 @@ public class GD_QuanLyBan extends SimpleForm {
 
     }//GEN-LAST:event_jTextField1MouseExited
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 //        // TODO add your handling code here:
 
@@ -450,13 +374,8 @@ public class GD_QuanLyBan extends SimpleForm {
             jTextField1.setText(ban.getTang());
             jTextField2.setText(ban.getMaBan());
             jTextField4.setText(String.valueOf(ban.getSoGhe()));
-            jComboBox1.setSelectedItem(ban.getTrangThai());
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
-    private void none(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_none
-        // TODO add your handling code here:
-    }//GEN-LAST:event_none
 
     private void myButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton2MouseClicked
         // TODO add your handling code here:
@@ -464,7 +383,7 @@ public class GD_QuanLyBan extends SimpleForm {
         ban.setMaBan(jTextField2.getText());
         ban.setTang(jTextField1.getText());
         ban.setSoGhe(Integer.parseInt(jTextField4.getText()));
-        ban.setTrangThai(utils.Enum.LoaiTrangThai.valueOf(jComboBox1.getSelectedItem().toString()));
+        ban.setTrangThai(utils.Enum.LoaiTrangThai.BAN_TRONG);
         if (daoB.update(ban)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Thay đổi thông tin bàn thành công !");
             populateTable();
@@ -480,7 +399,6 @@ public class GD_QuanLyBan extends SimpleForm {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fromDateJLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
@@ -492,11 +410,9 @@ public class GD_QuanLyBan extends SimpleForm {
     private component.PanelRound panelRound2;
     private component.PanelRound panelRound3;
     private component.PanelRound panelRound4;
-    private component.PanelRound panelRound5;
     private component.PanelRound panelRound6;
     private component.PanelRound panelRound7;
     private javax.swing.JLabel soGhe;
-    private javax.swing.JLabel tang;
     private javax.swing.JLabel trangThai;
     // End of variables declaration//GEN-END:variables
 }

@@ -134,6 +134,8 @@ public class GD_DatMon extends javax.swing.JPanel {
         if (loai.equals(DatMon_ThemMon.DATMON)) {
             First_LoadData();
         }
+        btnKhuyenMai.setVisible(false);
+        btnTime.setVisible(false); 
         Notifications.getInstance();
         FlatIntelliJLaf.setup();
     }
@@ -975,10 +977,6 @@ public class GD_DatMon extends javax.swing.JPanel {
         scrollFoodList.getVerticalScrollBar().setValue(scrollFoodList.getVerticalScrollBar().getValue() - 100);
     }//GEN-LAST:event_btnDUActionPerformed
 
-    private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimeActionPerformed
-
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         // TODO add your handling code here:
         Create_OrUpdate_Order();
@@ -1129,6 +1127,10 @@ public class GD_DatMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         Scroll_Order.getVerticalScrollBar().setValue(Scroll_Order.getVerticalScrollBar().getValue() - 30);
     }//GEN-LAST:event_btnUpActionPerformed
+
+    private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimeActionPerformed
 
     public void First_LoadData() {
         if (hoaDon == null) {//hoa don rong doi het sang luong dat mon
