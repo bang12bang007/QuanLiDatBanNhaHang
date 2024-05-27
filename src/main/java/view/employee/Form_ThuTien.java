@@ -21,6 +21,8 @@ import entity.TheThanhVien;
 import icon.FontAwesome;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,9 +32,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingWorker;
 
 import jiconfont.swing.IconFontSwing;
@@ -77,6 +84,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
         createAndSetEventForButtons();
         Notifications.getInstance().setJFrame(jFrame);
         FlatIntelliJLaf.setup();
+        setupKeyBindings();
     }
 
     private void createAndSetEventForButtons() {
@@ -648,12 +656,49 @@ public class Form_ThuTien extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
+    private void setupKeyBindings() {
+        InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = this.getActionMap();
 
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0), "F8");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.ALT_DOWN_MASK), "ALT_N");
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "F9");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.ALT_DOWN_MASK), "ALT_L");
+
+        actionMap.put("F8", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dong();
+            }
+        });
+
+        actionMap.put("ALT_N", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dong();
+            }
+        });
+
+        actionMap.put("F9", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inVaDong();
+            }
+        });
+
+        actionMap.put("ALT_L", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inVaDong();
+            }
+        });
+    }
+
+    private void dong() {
         SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
             @Override
             protected Boolean doInBackground() throws Exception {
-
                 return pay();
             }
 
@@ -677,18 +722,10 @@ public class Form_ThuTien extends javax.swing.JPanel {
             }
 
         };
-
         worker.execute();
-    }//GEN-LAST:event_btnDongActionPerformed
+    }
 
-    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        // TODO add your handling code here:
-        jFrame.setVisible(false);
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_btnHuyActionPerformed
-
-    private void btnInVaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInVaDongActionPerformed
-        // TODO add your handling code here:
+    private void inVaDong() {
         SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
             @Override
             protected Boolean doInBackground() throws Exception {
@@ -718,7 +755,21 @@ public class Form_ThuTien extends javax.swing.JPanel {
         };
 
         worker.execute();
+    }
 
+    private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
+        dong();
+
+    }//GEN-LAST:event_btnDongActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        // TODO add your handling code here:
+        jFrame.setVisible(false);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void btnInVaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInVaDongActionPerformed
+        inVaDong();
     }//GEN-LAST:event_btnInVaDongActionPerformed
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
@@ -819,7 +870,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
             return true;
         } else {
             return false;
-//            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Chưa đủ tiền cần trả. Còn thiếu " + FORMAT_MONEY.format(Math.abs(Double.parseDouble(tienPhaiTra.getText().replace("VNĐ", "").replace(",", "")))));
         }
     }
 

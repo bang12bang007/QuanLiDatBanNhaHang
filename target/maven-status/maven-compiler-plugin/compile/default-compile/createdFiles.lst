@@ -32,6 +32,7 @@ view\employee\GD_TrangChu$3.class
 component\MessageOrderConfirm$3.class
 component\MessageReserve$3.class
 view\employee\Form_DoiSoLuongNguoi$5.class
+view\employee\GD_DatBanTaiCho$13.class
 view\employee\GD_Ban.class
 view\employee\Form_XemThucDon$7.class
 dao\ITaiKhoanDAO.class
@@ -132,6 +133,7 @@ view\employee\Form_XemThucDon.class
 view\employee\GD_TrangChu$7.class
 view\employee\GD_ThanhToan$13.class
 view\manager\forms\GD_QuanLyKhuyenMai$2.class
+view\employee\Form_ThuTien$10.class
 view\manager\forms\GD_QuanLyBan$8.class
 view\employee\Form_ThemTheThanhVien$2.class
 view\manager\forms\GD_QuanLyNhanVien$2.class
@@ -192,6 +194,7 @@ view\manager\forms\GD_QuanLyNhanVien$1.class
 view\manager\swing\slider\SimpleTransition.class
 utils\Enum$LoaiKhuyenMai.class
 view\employee\Form_XemThucDon$9.class
+view\employee\Form_ThuTien$11.class
 component\OrderCard$1.class
 utils\Enum$DatMon_ThemMon.class
 component\MessageReserve$4.class
@@ -211,6 +214,7 @@ view\manager\forms\GD_QuanLyMon$5.class
 view\manager\forms\GD_QuanLyKhachHang$11.class
 view\manager\forms\GD_QuanLyKhuyenMai$1.class
 view\manager\forms\GD_QuanLyBan$4.class
+view\employee\Form_ThuTien$12.class
 datechooser\Slider$6.class
 view\GD_DangNhap$3.class
 view\employee\GD_DatMon$21$1.class
@@ -222,6 +226,7 @@ view\employee\Form_SuDungDiem.class
 view\employee\GD_ThanhToan$14.class
 dao\imlp\MonDAO.class
 component\ComboBoxSuggestion.class
+view\employee\Form_ThuTien$9.class
 view\employee\GD_DatMon$5.class
 view\employee\Form_DatBan$3.class
 view\manager\forms\GD_QuanLyKhuyenMai$13.class
@@ -277,6 +282,7 @@ view\employee\GD_BaoCao$3.class
 view\employee\Form_DoiSoLuongNguoi.class
 view\employee\Form_XemThucDon$8.class
 view\manager\forms\GD_QuanLyNhanVien$15.class
+view\employee\GD_DatBanTaiCho$12.class
 component\MenuItem$3.class
 component\Food$1.class
 entity\ChiTietKhuyenMai.class

@@ -11,6 +11,7 @@ import dao.IMonDAO;
 import dao.imlp.MonDAO;
 import entity.HoaDon;
 import entity.Mon;
+import icon.FontAwesome;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -22,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
+import jiconfont.swing.IconFontSwing;
 
 import static utils.AppUtils.*;
 
@@ -57,6 +59,10 @@ public class Form_XemThucDon extends javax.swing.JPanel {
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         txtYeuCauDatMon.setText(yeuCauDatMon.getText());
+        btnDownTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
+        btnUpTable.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
+        btnDownTable1.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_DOWN, 10, Color.WHITE));
+        btnUpTable1.setIcon(IconFontSwing.buildIcon(FontAwesome.CHEVRON_UP, 10, Color.WHITE));
         FirstTimeLoadItem();
     }
 
@@ -636,18 +642,23 @@ public class Form_XemThucDon extends javax.swing.JPanel {
 
     private void btnUpTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTableActionPerformed
         // TODO add your handling code here:
+        tableScrollLeft.getVerticalScrollBar().setValue(tableScrollLeft.getVerticalScrollBar().getValue() - 50);
     }//GEN-LAST:event_btnUpTableActionPerformed
 
     private void btnDownTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownTableActionPerformed
         // TODO add your handling code here:
+        tableScrollLeft.getVerticalScrollBar().setValue(tableScrollLeft.getVerticalScrollBar().getValue() + 50);
     }//GEN-LAST:event_btnDownTableActionPerformed
 
     private void btnUpTable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpTable1ActionPerformed
         // TODO add your handling code here:
+        tableScrollRight.getVerticalScrollBar().setValue(tableScrollRight.getVerticalScrollBar().getValue() - 50);
+
     }//GEN-LAST:event_btnUpTable1ActionPerformed
 
     private void btnDownTable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownTable1ActionPerformed
         // TODO add your handling code here:
+        tableScrollRight.getVerticalScrollBar().setValue(tableScrollRight.getVerticalScrollBar().getValue() + 50);
     }//GEN-LAST:event_btnDownTable1ActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased

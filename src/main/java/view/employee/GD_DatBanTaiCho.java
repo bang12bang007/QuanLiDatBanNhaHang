@@ -44,7 +44,7 @@ import raven.toast.Notifications;
 /**
  * @author Laptop
  */
-public class GD_DatBanTaiCho extends javax.swing.JPanel implements KeyListener{
+public class GD_DatBanTaiCho extends javax.swing.JPanel {
 
     /**
      * Creates new form GD_Order
@@ -56,12 +56,13 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel implements KeyListener{
     private List<HoaDon> hoadons;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private boolean waitForPayment = true;
-    //    NDK create a list ccontains tabs
     private List<JButton> tabs = new ArrayList<>();
 
     public GD_DatBanTaiCho(JPanel main, NhanVien nv) {
         this.mainPanel = main;
+
         initComponents();
+
         txtMaBan.setBackground(new Color(0, 0, 0, 1));
         filterBan.setBackground(new Color(0, 0, 0, 0));
         filterBan.getEditor().getEditorComponent().setBackground(new Color(0, 0, 0, 0));
@@ -79,6 +80,7 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel implements KeyListener{
         tabs.add(btnReserve);
         tabs.add(btnSaveTemple);
         loadData();
+        setupKeyBindings();
     }
 
     /**
@@ -423,7 +425,31 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel implements KeyListener{
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private int count = 1;
+    private void setupKeyBindings() {
+        InputMap inputMap = mainPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = mainPanel.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "F2");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.ALT_DOWN_MASK), "ALT_T");
+
+        actionMap.put("F2", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                utils.AppUtils.setUI(mainPanel, () -> new GD_Ban(mainPanel, "DAT_MON"));
+                repaint();
+                revalidate();
+            }
+        });
+
+        actionMap.put("ALT_T", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                utils.AppUtils.setUI(mainPanel, () -> new GD_Ban(mainPanel, "DAT_MON"));
+                repaint();
+                revalidate();
+            }
+        });
+    }
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         setWaitForPayment(true);
@@ -508,7 +534,6 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel implements KeyListener{
         SwingWorker<List<OrderCard>, Void> worker = new SwingWorker<List<OrderCard>, Void>() {
             @Override
             protected List<OrderCard> doInBackground() throws Exception {
-                // Thực hiện công việc lâu dài ở đây
                 List<OrderCard> listOrderCard = new ArrayList<>();
                 hoadons = hoaDonDAO.findByState(e);
                 ArrayList<String> list = new ArrayList<>();
@@ -685,20 +710,5 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel implements KeyListener{
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTextField txtMaBan;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println("You releasd key char: " + e.getKeyChar());
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        System.out.println("You releasd key char: " + e.getKeyChar());
-    }
 
 }

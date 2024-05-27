@@ -4,21 +4,12 @@
  */
 package view.employee;
 
-import LIB.FadeEffect;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import component.Loading;
 import component.MyButton;
-import component.MyJMenuItem;
-import component.OrderCard;
-import component.TransparentPopupMenu;
 import component.WrapLayout;
-import dao.INhanVienDAO;
-import dao.imlp.NhanVienDAO;
-import entity.HoaDon;
 import entity.NhanVien;
 import icon.FontAwesome;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,25 +18,13 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-
 import static javax.swing.SwingConstants.LEFT;
-
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
 import jiconfont.swing.IconFontSwing;
 import raven.toast.Notifications;
-import utils.AppUtils;
-
 import static utils.AppUtils.*;
 import view.GD_DangNhap;
 
@@ -54,14 +33,9 @@ import view.GD_DangNhap;
  */
 public class GD_TrangChu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GD_TrangChu
-     */
-    //default test //sau này xóa
     private NhanVien nhanVien = NHANVIEN;
     private ArrayList<JButton> tabs = new ArrayList<>();
 
-    //dùng cho đi từ login vào
     public GD_TrangChu() {
         set_up_UI();
         label_AVT.setText(nhanVien.getHoTen());
@@ -72,6 +46,7 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void set_up_UI() {
         initComponents();
+
         label_week_day.setText("" + LocalDate.now().getDayOfWeek());
         label_day_month_year.setText(LocalDate.now().getDayOfMonth() + "/"
                 + LocalDate.now().getMonthValue() + "/"
@@ -419,7 +394,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
 
     private void buttonDatMonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDatMonMouseEntered
         // TODO add your handling code here:
-
     }//GEN-LAST:event_buttonDatMonMouseEntered
 
     private void setActiveTab(ActionEvent e) {
@@ -431,39 +405,6 @@ public class GD_TrangChu extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GD_TrangChu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-////        Persistence.createEntityManagerFactory("QLNH_mssql");
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GD_TrangChu().setVisible(true);
-//            }
-//        });
-//    }
     public NhanVien getNhanVien() {
         return nhanVien;
     }
