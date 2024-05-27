@@ -51,7 +51,7 @@ import raven.toast.Notifications;
  * @author Laptop
  */
 public class GD_ThanhToan extends javax.swing.JPanel {
-
+    
     private HoaDon hoaDon;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
@@ -59,12 +59,12 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private ITheThanhVienDAO theThanhVienDAO = new TheThanhVienDAO();
     private IKhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
     private IKhachHangDAO khachHangDAO = new KhachHangDAO();
-
+    
     private JPanel mJPanel;
     private DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private JFrame thuTienJFrame;
-
+    
     private List<String> loaiThe = List.of("STANDARD", "BRONZE", "SILVER", "GOLD", "DIAMOND");
     private List<DiscountItem> discountItems = new ArrayList<>();
     private List<String> items = new ArrayList<>();
@@ -75,7 +75,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
     private JPanel branch;
     private List<HoaDon> hoaDonGhep = new ArrayList<>();
     private double oldPoint = 0;
-
+    
     public GD_ThanhToan(HoaDon hoaDon, JPanel mJPanel) {
         this.hoaDon = hoaDon;
         this.mJPanel = mJPanel;
@@ -130,7 +130,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         autoComplete();
         onChangeMutipl();
     }
-
+    
     private void setTotalAndSubTotal() {
         Double[] results = getTotalAndSubTotal();
         thanhTien.setText(tien_format.format(results[1]));
@@ -138,16 +138,16 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         tienThu.setText(tien_format.format(results[0]));
         thanhTienKMKhac.setText("");
     }
-
+    
     private Double[] getTotalAndSubTotal() {
         double tienThu = 0;
         double thanhTien = 0;
-
+        
         for (HoaDon hd : this.hoaDonGhep) {
             tienThu += hd.getTienPhaiThu();
             thanhTien += chiTietHoaDonDAO.TotalFoodCurrency(hd);
         }
-
+        
         return new Double[]{tienThu, thanhTien, tienThu * THUE};
     }
 
@@ -1070,7 +1070,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         // TODO add your handling code here:
         showFormThuTien(Double.parseDouble(tienThu.getText().replace("VNĐ", "").replace(",", "")), this.hoaDonGhep);
     }//GEN-LAST:event_btnThuTienActionPerformed
-
+    
     public void showFormThuTien(Double tienPhaiThu, List<HoaDon> hoaDons) {
         if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
             thuTienJFrame = new JFrame();
@@ -1111,6 +1111,21 @@ public class GD_ThanhToan extends javax.swing.JPanel {
 
     private void btnInTamTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInTamTinhActionPerformed
         // TODO add your handling code here:
+        if (thuTienJFrame == null || !thuTienJFrame.isVisible()) {
+            thuTienJFrame = new JFrame();
+            thuTienJFrame.setUndecorated(true);
+            thuTienJFrame.setExtendedState(MAXIMIZED_BOTH);
+            thuTienJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Form_LuuTam form_LuuTam = new Form_LuuTam(thuTienJFrame, mJPanel, Double.parseDouble(thue.getText().replace("VNĐ", "").replace(",", "")));
+            form_LuuTam.setHoaDons(hoaDonGhep);
+            form_LuuTam.setType("IN_LUU_TAM");
+            thuTienJFrame.add(form_LuuTam);
+            thuTienJFrame.setBackground(new Color(0, 0, 0, 0));
+            FadeEffect.fadeInFrame(thuTienJFrame, 8, 0.1f);
+            thuTienJFrame.setVisible(true);
+        } else {
+            thuTienJFrame.toFront();
+        }
     }//GEN-LAST:event_btnInTamTinhActionPerformed
 
     private void txtTenThanhVienKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenThanhVienKeyReleased
@@ -1168,7 +1183,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             thuTienJFrame.toFront();
         }
     }//GEN-LAST:event_btnThemThanhVienMouseClicked
-
+    
     public void loadData() {
         int width = tableContainer.getWidth();
         int index = 1;
@@ -1180,7 +1195,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             index = index == 1 ? 2 : 1;
         }
     }
-
+    
     private void loadDataMKM() {
         int width = MKMcontainer.getWidth();
         AtomicInteger index = new AtomicInteger(0);
@@ -1200,7 +1215,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
                     MKMcontainer.add(khuyenMaiItem);
                 });
     }
-
+    
     public void setActive(int index) {
         boolean isAllNotActive = true;
         khuyenMais = new ArrayList<>();
@@ -1218,12 +1233,12 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             setIndexIsActive(-1);
         }
     }
-
+    
     public void setDataOfCustomer(String maThe) {
         theThanhVien = (TheThanhVien) theThanhVienDAO.findById(maThe, TheThanhVien.class);
         setThe(theThanhVien);
     }
-
+    
     public void setThe(TheThanhVien theThanhVien) {
         if (theThanhVien != null) {
             KhachHang khachHang = theThanhVien.getKhachHang();
@@ -1239,19 +1254,19 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             diem.setText("Điểm");
         }
     }
-
+    
     public void addKM(KhuyenMai khuyenMai) {
         khuyenMais.add(khuyenMai);
         onChangeMutipl();
     }
-
+    
     public void removeKM(KhuyenMai khuyenMai) {
         if (khuyenMais.removeIf(km -> km.equals(khuyenMai))) {
             onChangeMutipl();
         }
-
+        
     }
-
+    
     private void onChange(HoaDon hoaDon) {
         List<ChiTietKhuyenMai> chiTietKhuyenMais = new ArrayList<>();
         for (KhuyenMai khuyenMai : khuyenMais) {
@@ -1260,7 +1275,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         hoaDon.setChiTietKhuyenMai(chiTietKhuyenMais);
         hoaDon.tienPhaiThu();
     }
-
+    
     private void onChangeMutipl() {
         double tienPhaiThu = 0;
         for (HoaDon hoaDon : this.hoaDonGhep) {
@@ -1273,7 +1288,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         tongThanhToan.setText(FORMAT_MONEY.format(tienPhaiThu * THUE + tienPhaiThu));
         tienThu.setText(tien_format.format(tienPhaiThu * THUE + tienPhaiThu));
     }
-
+    
     private void autoComplete() {
         theThanhViens = theThanhVienDAO.findAll(TheThanhVien.class);
         for (TheThanhVien theThanhVien : theThanhViens) {
@@ -1281,27 +1296,27 @@ public class GD_ThanhToan extends javax.swing.JPanel {
         }
         AutoCompleteDecorator.decorate(txtTenThanhVien, items, false);
     }
-
+    
     public double getOldPoint() {
         return oldPoint;
     }
-
+    
     public void setOldPoint(double oldPoint) {
         this.oldPoint = oldPoint;
     }
-
+    
     public int indexIsActive() {
         return this.indexIsActive;
     }
-
+    
     public void setIndexIsActive(int indexIsActive) {
         this.indexIsActive = indexIsActive;
     }
-
+    
     public JPanel getMainPanel() {
         return mJPanel;
     }
-
+    
     public HoaDon getHoaDon() {
         return this.hoaDon;
     }
