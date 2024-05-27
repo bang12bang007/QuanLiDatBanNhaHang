@@ -18,7 +18,7 @@ import lombok.ToString;
 import utils.Enum.LoaiTheThanhVien;
 
 /**
- * @author dmx
+ * @author dm
  */
 @Entity
 @Getter
