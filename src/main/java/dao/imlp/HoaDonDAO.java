@@ -159,6 +159,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 
         PdfWriter pdfWriter = null;
         double tongThanhToan = 0;
+        double tienPhaiThu = 0;
 //      asyn await chỗ này
         Map<Mon, Long> map = chiTietHoaDonDAO.getListByBan(hoaDon, LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         List<HoaDon> list = getListHoaDonGhep(hoaDon, LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
@@ -166,6 +167,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
         map = map.size() == 0 ? chiTietHoaDonDAO.getListByBan(hoaDon, LoaiTrangThaiHoaDon.CHO_THANH_TOAN) : map;
         for (HoaDon hd : list) {
             tongThanhToan += chiTietHoaDonDAO.TotalFoodCurrency(hd);
+            tienPhaiThu += hd.getTienPhaiThu();
         }
 
         try {
@@ -182,7 +184,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
             document.add(new Paragraph("246, Lê Văn Thọ, Phường 11, Q.Gò Vấp").setTextAlignment(TextAlignment.CENTER).setMargin(0));
             document.add(new Paragraph("Thành phố Hồ Chí Minh    Hotline: 0902 777 600").setTextAlignment(TextAlignment.CENTER).setMargin(0));
             document.add(new Image(ImageDataFactory.create("./src/main/resources/images/logo_2.png")).setHorizontalAlignment(HorizontalAlignment.CENTER));
-            document.add(new Paragraph("PHIẾU HÓA ĐƠN").setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
+            document.add(new Paragraph(tienKhachTra > 0 ? "PHIẾU HÓA ĐƠN" : "PHIẾU TẠM TÍNH").setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
             document.add(new Paragraph("Số: " + hoaDon.getMaHoaDon()).setTextAlignment(TextAlignment.CENTER).setBold().setMargin(0));
 //          ---Ngày---
             LocalDateTime inputDateTime = LocalDateTime.parse(LocalDateTime.now().toString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
@@ -228,11 +230,13 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 //          -----Tổng thanh toán----
             document.add(createCost(new Paragraph("Tổng thanh toán").setBold(), formatter.format(tongThanhToan), pageWidth));
 //          -----Còn phải thu----
-            document.add(createCost(new Paragraph("Còn phải thu").setBold(), formatter.format(tienKhachTra - tienThua), pageWidth));
+            document.add(createCost(new Paragraph("Còn phải thu").setBold(), formatter.format(tienKhachTra > 0 ? tienKhachTra - tienThua : tienPhaiThu), pageWidth));
+            if (tienKhachTra > 0) {
 //          -----Tiền Khách trả----
-            document.add(createCost(new Paragraph("Tiền khách trả").setBold(), formatter.format(tienKhachTra), pageWidth));
+                document.add(createCost(new Paragraph("Tiền khách trả").setBold(), formatter.format(tienKhachTra), pageWidth));
 //          -----Tiền thừa----
-            document.add(createCost(new Paragraph("Tiền thừa").setBold(), formatter.format(tienThua), pageWidth));
+                document.add(createCost(new Paragraph("Tiền thừa").setBold(), formatter.format(tienThua), pageWidth));
+            }
 
             document.add(new Paragraph("Quý khách vui lòng kiểm tra kỹ lại nội dung trước khi thanh toán! Trân trọng cảm ơn!").setTextAlignment(TextAlignment.CENTER).setBold());
             document.add(new Paragraph("HẸN GẶP LẠI QUÝ KHÁCH").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(20f));

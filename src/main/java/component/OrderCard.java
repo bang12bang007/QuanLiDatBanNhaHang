@@ -45,6 +45,7 @@ public class OrderCard extends javax.swing.JPanel {
     private Double total = 0.0;
     private DecimalFormat tien_format = new DecimalFormat("###,### VNĐ");
     private GD_DatBanTaiCho ql_datMon;//khai biến để back về không cần tạo mới
+    private GD_ThanhToan gD_ThanhToan;
 
     public OrderCard() {
         initComponents();
@@ -114,18 +115,27 @@ public class OrderCard extends javax.swing.JPanel {
     }
 
     private void mergeOrder() {
-        utils.AppUtils.setUI(mainPanel, () -> {
-            GD_Ban gD_Ban = new GD_Ban(mainPanel, "GHEP_HOA_DON");
-            gD_Ban.setHoaDon(hoaDon);
-            return gD_Ban;
-        });
+        if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Vui lòng nhận bàn để ghép hóa đơn!");
+        } else {
+            utils.AppUtils.setUI(mainPanel, () -> {
+                GD_Ban gD_Ban = new GD_Ban(mainPanel, "GHEP_HOA_DON");
+                gD_Ban.setHoaDon(hoaDon);
+                return gD_Ban;
+            });
+        }
         menu.setVisible(false);
     }
 
     private void cutInvoice() {
-        ql_datMon.cutInvoice(hoaDon);
+        if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Vui lòng nhận bàn để khôi phục hóa đơn!");
+        } else {
+            ql_datMon.cutInvoice(hoaDon);
+            menu.setVisible(false);
+            utils.AppUtils.setUI(mainPanel, () -> new GD_DatBanTaiCho(mainPanel, NHANVIEN));
+        }
         menu.setVisible(false);
-        utils.AppUtils.setUI(mainPanel, () -> new GD_DatBanTaiCho(mainPanel, NHANVIEN));
     }
 
     /**
@@ -393,7 +403,11 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChinhSuaActionPerformed
         // TODO add your handling code here:
-        editOrder();
+        if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không thể sửa hóa đơn");
+        } else {
+            editOrder();
+        }
     }//GEN-LAST:event_btnChinhSuaActionPerformed
 
     private void editOrder() {
@@ -412,7 +426,12 @@ public class OrderCard extends javax.swing.JPanel {
         if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
             Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Vui lòng nhận bàn để thanh toán!");
         } else if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN)) {
-            new GD_ThanhToan(hoaDon, mainPanel).showFormThuTien(ql_datMon.getTienPhaiThu(hoaDon), ql_datMon.getHoaDons(hoaDon));
+            if (gD_ThanhToan == null) {
+                gD_ThanhToan = new GD_ThanhToan(hoaDon, mainPanel);
+                gD_ThanhToan.showFormThuTien(ql_datMon.getTienPhaiThu(hoaDon), ql_datMon.getHoaDons(hoaDon));
+            } else {
+                gD_ThanhToan.showFormThuTien(ql_datMon.getTienPhaiThu(hoaDon), ql_datMon.getHoaDons(hoaDon));
+            }
         } else {
             utils.AppUtils.setUI(mainPanel, () -> new GD_ThanhToan(hoaDon, mainPanel));
         }
@@ -420,17 +439,23 @@ public class OrderCard extends javax.swing.JPanel {
 
     private void btnTacVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTacVuActionPerformed
         // TODO add your handling code here:
-        tacVuList.removeAll();
-        createListTacVu();
-        menu.removeAll();
-        menu.add(morePanel);
-        menu.show(btnTacVu, 0, btnTacVu.getHeight() + 5);
+        if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không thể chọn tác vụ");
+        } else {
+            tacVuList.removeAll();
+            createListTacVu();
+            menu.removeAll();
+            menu.add(morePanel);
+            menu.show(btnTacVu, 0, btnTacVu.getHeight() + 5);
+        }
     }//GEN-LAST:event_btnTacVuActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         // TODO add your handling code here:
         if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.DAT_TRUOC)) {
             Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Vui lòng nhận bàn để gửi bếp");
+        } else if (hoaDon.getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN)) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, "Không thể gửi bếp");
         } else {
             sendCook();
         }

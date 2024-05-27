@@ -91,7 +91,9 @@ public class GD_QuanLyHoaDon extends SimpleForm {
                 hoaDonList.add(h);
             }
         }
-
+        if (hoaDonList.size() == 0) {
+            return;
+        }
         for (int i = 0; i < hoaDonList.size(); i++) {
             HoaDon h = hoaDonList.get(i);
 
@@ -130,7 +132,9 @@ public class GD_QuanLyHoaDon extends SimpleForm {
                 hoaDonList.add(h);
             }
         }
-
+        if (hoaDonList.size() == 0) {
+            return;
+        }
         for (int i = 0; i < hoaDonList.size(); i++) {
             HoaDon h = hoaDonList.get(i);
 

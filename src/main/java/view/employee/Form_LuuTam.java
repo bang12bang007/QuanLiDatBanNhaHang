@@ -4,27 +4,18 @@
  */
 package view.employee;
 
-import LIB.FadeEffect;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import component.MemberCard;
 import dao.IBanDAO;
 import dao.IHoaDonDAO;
 import dao.IKhachHangDAO;
-import dao.ITheThanhVienDAO;
 import dao.imlp.BanDAO;
 import dao.imlp.HoaDonDAO;
 import dao.imlp.KhachHangDAO;
-import dao.imlp.TheThanhVienDAO;
 import entity.Ban;
 import entity.HoaDon;
 import entity.KhachHang;
-import entity.TheThanhVien;
 import icon.FontAwesome;
 import java.awt.Color;
-import java.awt.Frame;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +44,7 @@ public class Form_LuuTam extends javax.swing.JPanel {
     private IHoaDonDAO hoaDonDAO = new HoaDonDAO();
     private List<HoaDon> hoaDons = new ArrayList<>();
     private double thue;
+    private String type;
 
     public Form_LuuTam(JFrame jFrame, JPanel mainJPanel, double thue) {
         this.jFrame = jFrame;
@@ -341,8 +333,12 @@ public class Form_LuuTam extends javax.swing.JPanel {
 
     private void btnCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatActionPerformed
         if (isValidate()) {
-            save();
-            updateHoaDon();
+            if (type.equals("IN_LUU_TAM")) {
+                saveAndPrint();
+            } else {
+                save();
+                updateHoaDon();
+            }
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1000, "Lưu tạm hóa đơn thành công");
             jFrame.setVisible(false);
             jFrame.dispose();
@@ -377,6 +373,16 @@ public class Form_LuuTam extends javax.swing.JPanel {
         if (listBanGop.size() == 0) {
             updateBanAfterPay(_ban_);
         }
+    }
+
+    private void saveAndPrint() {
+        save();
+        updateHoaDon();
+        createInvoice();
+    }
+
+    private void createInvoice() {
+        hoaDonDAO.createInvoice(hoaDons.get(0), 0, 0);
     }
 
     private void updateHoaDon() {
@@ -479,6 +485,10 @@ public class Form_LuuTam extends javax.swing.JPanel {
 
     public void setHoaDons(List<HoaDon> hoaDons) {
         this.hoaDons = hoaDons;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

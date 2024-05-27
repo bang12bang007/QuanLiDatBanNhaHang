@@ -464,7 +464,7 @@ public class GD_Ban extends javax.swing.JPanel {
     }
 
     public void showMessage(String message) {
-        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, message);
+        Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1500, message);
     }
 
     private void setActive(ActionEvent e) {

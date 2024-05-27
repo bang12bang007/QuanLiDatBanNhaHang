@@ -644,7 +644,7 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
                 }
                 int lastIndex = oldBanGops.size() - 1;
                 List<String> oldHoaDonAndBanGop = new ArrayList<>(Arrays.asList(oldBanGops.get(lastIndex).split("-")));
-                if (oldHoaDonAndBanGop.get(0).equals(hoaDon.getMaHoaDon())) {
+                if (oldHoaDonAndBanGop.get(0).equals(hoaDon.getMaHoaDon()) || oldHoaDonAndBanGop.get(0).equals("")) {
                     ban.setBanGop((Ban) banDAO.findById(oldHoaDonAndBanGop.get(1), Ban.class));
                     ban.setTrangThai(utils.Enum.LoaiTrangThai.values()[oldStates.get(lastIndex)]);
                     oldBanGops.remove(oldBanGops.size() - 1);
@@ -664,9 +664,9 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
             }
         }
         if (!isSuccess) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Không thể tách hóa đơn gốc");
+            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_RIGHT, 1000, "Đây là hóa đơn gốc");
         } else {
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Khôi phục hóa đơn Thành Công!");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 1500, "Khôi phục hóa đơn thành công!");
         }
     }
 
