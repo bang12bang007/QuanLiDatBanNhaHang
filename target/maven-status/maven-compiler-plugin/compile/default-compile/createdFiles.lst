@@ -10,6 +10,7 @@ view\manager\menu\ThemesChange.class
 dao\imlp\ChiTietHoaDonDAO.class
 dao\INhanVienDAO.class
 view\manager\forms\GD_QuanLyKhuyenMai$19.class
+view\employee\Form_QRCODE$1.class
 view\manager\swing\slider\SimpleTransition$2.class
 component\DiscountItem.class
 view\manager\forms\GD_QuanLyKhuyenMai$20.class
