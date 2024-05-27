@@ -38,14 +38,13 @@ import utils.Enum.LoaiTrangThaiHoaDon;
     @NamedQuery(name = "HoaDon.OnOrdering", query = "SELECT h FROM HoaDon h WHERE h.trangThai = :trangThai"),
     @NamedQuery(name = "HoaDon.updateStateById", query = "UPDATE HoaDon SET trangThai = :trangThai WHERE maHoaDon = :maHoaDon"),
     @NamedQuery(name = "HoaDon.updateBanById", query = "UPDATE HoaDon SET ban = :ban WHERE maHoaDon = :maHoaDon"),
-    @NamedQuery(name = "HoaDon.findFromDateToDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date)"),
-    @NamedQuery(name = "HoaDon.findOrdersByMonth", query = "SELECT h FROM HoaDon h WHERE MONTH(h.ngayLapHoaDon) = :month"),
-    @NamedQuery(name = "HoaDon.findOrdersByHour", query = "SELECT h FROM HoaDon h WHERE HOUR(h.ngayLapHoaDon) = :hour and CAST(h.ngayLapHoaDon AS date) = CAST(:date AS date) and h.trangThai = 2"),
-    @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date)"),
+    @NamedQuery(name = "HoaDon.findFromDateToDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayLapHoaDon AS date) >= CAST(:ngayBatDau AS date) AND CAST(h.ngayLapHoaDon AS date) <= CAST(:ngayKetThuc AS date) AND h.trangThai = LoaiTrangThaiHoaDon.DA_THANH_TOAN"),
+    @NamedQuery(name = "HoaDon.findOrdersByMonth", query = "SELECT h FROM HoaDon h WHERE MONTH(h.ngayLapHoaDon) = :month AND h.trangThai = LoaiTrangThaiHoaDon.DA_THANH_TOAN"),
+    @NamedQuery(name = "HoaDon.findOrdersByHour", query = "SELECT h FROM HoaDon h WHERE HOUR(h.ngayLapHoaDon) = :hour and CAST(h.ngayLapHoaDon AS date) = CAST(:date AS date) AND h.trangThai = LoaiTrangThaiHoaDon.DA_THANH_TOAN"),
+    @NamedQuery(name = "HoaDon.filterByDate", query = "SELECT h FROM HoaDon h WHERE CAST(h.ngayDatBan AS date) = CAST(:date AS date) AND h.trangThai = LoaiTrangThaiHoaDon.DA_THANH_TOAN"),
     @NamedQuery(name = "HoaDon.findStateAndTableId", query = " SELECT h FROM HoaDon h WHERE h.ban.maBan = :ban and h.trangThai = :trangThai"),
     @NamedQuery(name = "HoaDon.getListHoaDonGhep", query = "SELECT h FROM HoaDon h WHERE h.ban = :ban and h.trangThai = :trangThai"),
-    @NamedQuery(name = "HoaDon.getListHoaDonGhepDatTruoc", query = "SELECT h FROM HoaDon h WHERE h.ban = :ban and h.trangThai = LoaiTrangThaiHoaDon.DAT_TRUOC and h.ngayLapHoaDon = :ngay"),
-})
+    @NamedQuery(name = "HoaDon.getListHoaDonGhepDatTruoc", query = "SELECT h FROM HoaDon h WHERE h.ban = :ban and h.trangThai = LoaiTrangThaiHoaDon.DAT_TRUOC and h.ngayLapHoaDon = :ngay"),})
 public class HoaDon {
 
     @Id
@@ -118,7 +117,7 @@ public class HoaDon {
     public Double getTongThanhToan() {
         return this.tongThanhToan;
     }
-    
+
     public void tienPhaiThu() {
         double total = tongThanhToan;
         for (ChiTietKhuyenMai chiTiet : chiTietKhuyenMai) {

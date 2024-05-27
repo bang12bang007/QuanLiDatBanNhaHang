@@ -1263,6 +1263,7 @@ public class GD_ThanhToan extends javax.swing.JPanel {
             tienPhaiThu += hoaDon.getTienPhaiThu();
         }
         thanhTienKMKhac.setText("");
+        oldPoint = 0;
         thue.setText(tien_format.format(tienPhaiThu * THUE));
         tongThanhToan.setText(FORMAT_MONEY.format(tienPhaiThu * THUE + tienPhaiThu));
         tienThu.setText(tien_format.format(tienPhaiThu * THUE + tienPhaiThu));

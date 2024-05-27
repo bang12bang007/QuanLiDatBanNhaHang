@@ -31,7 +31,7 @@ import javax.swing.JScrollPane;
 public class AppUtils {
 
     public static NhanVien NHANVIEN = null;
-    public static final double THUE = 0.1;
+    public static final double THUE = 0.05;
     public static DecimalFormat FORMAT_MONEY = new DecimalFormat("###,### VNĐ");
     public static String _NORMAL_ = "src/main/java/font/OpenSans-VariableFont_wdth,wght.ttf";
     public static String _BOLD_ = "src/main/java/font/OpenSans_Condensed-ExtraBold.ttf";

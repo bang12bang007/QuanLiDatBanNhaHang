@@ -61,4 +61,15 @@ public class KhuyenMai {
         this.loaiKhuyenMai = loaiKhuyenMai;
         this.ghiChu = ghiChu;
     }
+
+    public KhuyenMai(String tenKhuyenMai, LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc, Double chietKhau, Double menhGia, LoaiKhuyenMai loaiKhuyenMai, String ghiChu) {
+        this.tenKhuyenMai = tenKhuyenMai;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.chietKhau = chietKhau;
+        this.menhGia = menhGia;
+        this.loaiKhuyenMai = loaiKhuyenMai;
+        this.ghiChu = ghiChu;
+    }
+
 }
