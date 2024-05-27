@@ -266,11 +266,6 @@ public class GD_DatMon extends javax.swing.JPanel {
 
         jTextFieldSearch.setFont(utils.AppUtils.getFont(16f, _ITALIC_)
         );
-        jTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldSearchActionPerformed(evt);
-            }
-        });
         jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldSearchKeyReleased(evt);
@@ -1090,10 +1085,6 @@ public class GD_DatMon extends javax.swing.JPanel {
         FoodList.repaint();
         FoodList.revalidate();
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
-
-    private void jTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldSearchActionPerformed
 
     private void btnKhacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhacActionPerformed
         // TODO add your handling code here:

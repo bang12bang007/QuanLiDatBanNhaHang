@@ -34,7 +34,7 @@ public class GD_QuanLyHoaDon extends SimpleForm {
         List<HoaDon> hoaDons = dao.findByState(utils.Enum.LoaiTrangThaiHoaDon.DA_THANH_TOAN);
 
         for (HoaDon h : hoaDons) {
-            if(!listNV.contains(h.getNhanVien())){
+            if (!listNV.contains(h.getNhanVien())) {
                 listNV.add(h.getNhanVien());
             }
             jComboBox4.addItem(h.getNhanVien().getHoTen());
@@ -346,7 +346,7 @@ public class GD_QuanLyHoaDon extends SimpleForm {
     private void JButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonUpdateActionPerformed
         // TODO add your handling code here:
         HoaDon h = dao.findById(txtMa.getText(), HoaDon.class);
-        dao.createInvoice(h, h.getTienPhaiThu(), 0);
+        dao.createInvoice(h, h.getTienPhaiThu(), 0, h.getBan().getMaBan());
     }//GEN-LAST:event_JButtonUpdateActionPerformed
 
     private void JButtonUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JButtonUpdateMouseClicked

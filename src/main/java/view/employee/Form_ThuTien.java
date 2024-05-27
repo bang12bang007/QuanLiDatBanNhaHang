@@ -71,6 +71,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
     private JPanel mainJPanel;
     private TheThanhVien theThanhVien;
     private double thue = 0;
+    private String banGop = "";
 
     public Form_ThuTien(JFrame jFrame, List<HoaDon> hoaDons) {
         initComponents();
@@ -759,7 +760,6 @@ public class Form_ThuTien extends javax.swing.JPanel {
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
         dong();
-
     }//GEN-LAST:event_btnDongActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -838,7 +838,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
         String tien = tienPhaiTra.getText().replace("VNĐ", "");
         tien = tien.replace(",", "");
         double tienThua = Double.parseDouble(tien);
-        hoaDonDAO.createInvoice(hoaDons.get(0), total + tienThua, tienThua);
+        hoaDonDAO.createInvoice(hoaDons.get(0), total + tienThua, tienThua, banGop);
     }
 
     private boolean pay() {
@@ -857,6 +857,7 @@ public class Form_ThuTien extends javax.swing.JPanel {
                 theThanhVien.setDiemTich(Math.round(diemTichLuy * 100.0) / 100.0);
                 theThanhVienDAO.update(theThanhVien);
             }
+            createBanGop();
             if (hoaDons.get(0).getTrangThai().equals(utils.Enum.LoaiTrangThaiHoaDon.CHUA_THANH_TOAN)) {
                 Ban _ban_ = hoaDons.get(0).getBan();
                 List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
@@ -871,6 +872,23 @@ public class Form_ThuTien extends javax.swing.JPanel {
         } else {
             return false;
         }
+    }
+
+    private void createBanGop() {
+        List<Ban> bans = banDAO.findByBanGop(hoaDons.get(0).getBan());
+        StringBuilder banString = new StringBuilder();
+
+        if (bans.isEmpty()) {
+            banString.append(hoaDons.get(0).getBan().getMaBan());
+        } else {
+            for (Ban ban : bans) {
+                if (banString.length() > 0) {
+                    banString.append(", ");
+                }
+                banString.append(ban.getMaBan());
+            }
+        }
+        banGop = banString.toString();
     }
 
     public void setThue(double thue) {

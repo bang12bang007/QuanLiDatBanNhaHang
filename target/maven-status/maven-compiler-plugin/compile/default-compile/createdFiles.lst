@@ -68,7 +68,6 @@ component\CurveLineChart$1.class
 entity\ChiTietHoaDon.class
 view\employee\GD_DatBanTaiCho$1.class
 view\employee\Form_ThemMonKhac$2.class
-view\employee\GD_DatMon$23$1.class
 view\employee\GD_DatMon.class
 view\employee\GD_DatBanTruoc$10.class
 component\BookingItem$2.class
@@ -225,6 +224,7 @@ component\MessageMoveTable$4.class
 view\employee\GD_ThanhToan$15.class
 component\OrderCard$2.class
 menu\PanelSlider$PanelSnapshot.class
+view\employee\GD_DatBanTaiCho$14.class
 view\manager\application\GD_QuanLyBan$9.class
 view\employee\GD_DatBanTaiCho$6.class
 view\employee\GD_TrangChu$6.class
@@ -440,7 +440,6 @@ component\OrderItem_forUIDatMon$4.class
 component\MemberCard.class
 component\BanItem$1.class
 view\employee\Form_DatBan$5.class
-view\employee\GD_DatMon$24.class
 view\manager\application\GD_QuanLyKhachHang$13.class
 view\manager\application\GD_QuanLyMon$14.class
 view\employee\Form_DoiSoLuongNguoi$2.class
