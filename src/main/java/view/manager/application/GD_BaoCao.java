@@ -1,4 +1,4 @@
-package view.manager.forms;
+package view.manager.application;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import dao.imlp.ChiTietHoaDonDAO;
@@ -27,14 +27,14 @@ import raven.chart.data.category.DefaultCategoryDataset;
 import raven.chart.data.pie.DefaultPieDataset;
 import raven.chart.line.LineChart;
 import raven.chart.pie.PieChart;
-import view.manager.components.SimpleForm;
+import component.SimpleForm;
 
 /**
  * @author dmx
  */
-public class GD_Dashboard extends SimpleForm {
+public class GD_BaoCao extends SimpleForm {
 
-    public GD_Dashboard() {
+    public GD_BaoCao() {
         init();
     }
 

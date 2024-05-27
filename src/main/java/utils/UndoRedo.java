@@ -1,4 +1,4 @@
-package view.manager.utils;
+package utils;
 
 import component.Loading;
 

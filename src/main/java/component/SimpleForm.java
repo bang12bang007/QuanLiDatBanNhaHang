@@ -1,4 +1,4 @@
-package view.manager.components;
+package component;
 
 import com.formdev.flatlaf.FlatClientProperties;
 

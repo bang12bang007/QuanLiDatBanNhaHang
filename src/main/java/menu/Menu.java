@@ -1,4 +1,4 @@
-package view.manager.menu;
+package menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
 

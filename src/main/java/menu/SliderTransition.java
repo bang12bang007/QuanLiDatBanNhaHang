@@ -1,4 +1,4 @@
-package view.manager.swing.slider;
+package menu;
 
 import java.awt.Component;
 import java.awt.Graphics;

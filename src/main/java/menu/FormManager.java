@@ -1,4 +1,4 @@
-package view.manager.menu;
+package menu;
 
 import component.Loading;
 
@@ -8,11 +8,9 @@ import java.util.function.Supplier;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import view.manager.components.MainForm;
-import view.manager.components.SimpleForm;
-import view.manager.swing.slider.PanelSlider;
-import view.manager.swing.slider.SimpleTransition;
-import view.manager.utils.UndoRedo;
+import component.MainForm;
+import component.SimpleForm;
+import utils.UndoRedo;
 
 public class FormManager {
 

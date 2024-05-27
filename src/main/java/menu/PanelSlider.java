@@ -1,4 +1,4 @@
-package view.manager.swing.slider;
+package menu;
 
 import com.formdev.flatlaf.util.Animator;
 import com.formdev.flatlaf.util.CubicBezierEasing;

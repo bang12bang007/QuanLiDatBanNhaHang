@@ -1,4 +1,4 @@
-package view.manager.swing.slider;
+package menu;
 
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;

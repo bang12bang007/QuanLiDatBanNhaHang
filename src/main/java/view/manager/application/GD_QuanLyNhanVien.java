@@ -1,4 +1,4 @@
-package view.manager.forms;
+package view.manager.application;
 
 import dao.imlp.NhanVienDAO;
 import dao.imlp.TaiKhoanDAO;
@@ -16,7 +16,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import raven.toast.Notifications;
 import static utils.AppUtils._NORMAL_;
-import view.manager.components.SimpleForm;
+import component.SimpleForm;
 
 public class GD_QuanLyNhanVien extends SimpleForm {
 

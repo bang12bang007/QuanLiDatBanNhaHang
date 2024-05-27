@@ -1,4 +1,4 @@
-package view.manager.forms;
+package view.manager.application;
 
 import dao.imlp.KhuyenMaiDAO;
 import entity.KhuyenMai;
@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 import static utils.AppUtils._NORMAL_;
 import utils.Enum.LoaiKhuyenMai;
-import view.manager.components.SimpleForm;
+import component.SimpleForm;
 
 public class GD_QuanLyKhuyenMai extends SimpleForm {
 

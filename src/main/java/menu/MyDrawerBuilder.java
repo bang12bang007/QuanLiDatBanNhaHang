@@ -1,4 +1,4 @@
-package view.manager.menu;
+package menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -21,14 +21,14 @@ import raven.drawer.component.menu.SimpleMenuOption;
 import raven.drawer.component.menu.SimpleMenuStyle;
 import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
-import view.manager.forms.GD_Dashboard;
+import view.manager.application.GD_BaoCao;
 import raven.swing.AvatarIcon;
 import static utils.AppUtils.*;
-import view.manager.forms.GD_QuanLyBan;
-import view.manager.forms.GD_QuanLyKhachHang;
-import view.manager.forms.GD_QuanLyKhuyenMai;
-import view.manager.forms.GD_QuanLyMon;
-import view.manager.forms.GD_QuanLyNhanVien;
+import view.manager.application.GD_QuanLyBan;
+import view.manager.application.GD_QuanLyKhachHang;
+import view.manager.application.GD_QuanLyKhuyenMai;
+import view.manager.application.GD_QuanLyMon;
+import view.manager.application.GD_QuanLyNhanVien;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
@@ -144,7 +144,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 if (index.length == 1) {
                     switch (((Item) items[index[0]]).getName()) {
                         case "Dashboard": {
-                            FormManager.showForm(() -> new GD_Dashboard());
+                            FormManager.showForm(() -> new GD_BaoCao());
                             break;
                         }
                     }

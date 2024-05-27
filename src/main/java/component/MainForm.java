@@ -1,4 +1,4 @@
-package view.manager.components;
+package component;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
-import view.manager.menu.FormManager;
-import view.manager.swing.slider.PanelSlider;
-import view.manager.swing.slider.SimpleTransition;
-import view.manager.swing.slider.SliderTransition;
+import menu.FormManager;
+import menu.PanelSlider;
+import menu.SimpleTransition;
+import menu.SliderTransition;
 
 public class MainForm extends JPanel {
 

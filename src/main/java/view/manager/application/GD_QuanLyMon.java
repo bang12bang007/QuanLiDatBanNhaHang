@@ -1,4 +1,4 @@
-package view.manager.forms;
+package view.manager.application;
 
 import dao.imlp.MonDAO;
 import entity.*;
@@ -15,7 +15,7 @@ import javax.swing.table.TableColumnModel;
 import raven.toast.Notifications;
 import static utils.AppUtils._NORMAL_;
 import utils.Enum.LoaiTrangThaiMon;
-import view.manager.components.SimpleForm;
+import component.SimpleForm;
 
 public class GD_QuanLyMon extends SimpleForm {
 
