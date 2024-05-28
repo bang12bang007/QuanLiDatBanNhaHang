@@ -45,6 +45,7 @@ public class Form_LuuTam extends javax.swing.JPanel {
     private List<HoaDon> hoaDons = new ArrayList<>();
     private double thue;
     private String type;
+    private String banGop;
 
     public Form_LuuTam(JFrame jFrame, JPanel mainJPanel, double thue) {
         this.jFrame = jFrame;
@@ -364,7 +365,25 @@ public class Form_LuuTam extends javax.swing.JPanel {
         return true;
     }
 
+    private void createBanGop() {
+        List<Ban> bans = banDAO.findByBanGop(hoaDons.get(0).getBan());
+        StringBuilder banString = new StringBuilder();
+
+        if (bans.isEmpty()) {
+            banString.append(hoaDons.get(0).getBan().getMaBan());
+        } else {
+            for (Ban ban : bans) {
+                if (banString.length() > 0) {
+                    banString.append(", ");
+                }
+                banString.append(ban.getMaBan());
+            }
+        }
+        banGop = banString.toString();
+    }
+
     private void save() {
+        createBanGop();
         Ban _ban_ = hoaDons.get(0).getBan();
         List<Ban> listBanGop = banDAO.getListBanGopInvoice(_ban_.getMaBan());
         listBanGop.forEach(ban -> {
@@ -382,7 +401,7 @@ public class Form_LuuTam extends javax.swing.JPanel {
     }
 
     private void createInvoice() {
-        hoaDonDAO.createInvoice(hoaDons.get(0), 0, 0);
+        hoaDonDAO.createInvoice(hoaDons.get(0), 0, 0, banGop);
     }
 
     private void updateHoaDon() {

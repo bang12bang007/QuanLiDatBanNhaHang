@@ -22,6 +22,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
+import dao.IBanDAO;
 import dao.IChiTietHoaDonDAO;
 import dao.IHoaDonDAO;
 import entity.Ban;
@@ -67,6 +68,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     private String hour_format = String.format("%02d", timeNow.getHour());
     private String generateTime = Integer.toString(timeNow.getYear()).substring(2, 4) + month_format + date_format + hour_format;
     private IChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private IBanDAO banDAO = new BanDAO();
     private DecimalFormat formatter = new DecimalFormat("###,###đ");
 
     public HoaDon findLast() {
@@ -155,12 +157,12 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
     }
 
     @Override
-    public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua) {
+    public void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua, String banGop) {
 
         PdfWriter pdfWriter = null;
         double tongThanhToan = 0;
         double tienPhaiThu = 0;
-//      asyn await chỗ này
+
         Map<Mon, Long> map = chiTietHoaDonDAO.getListByBan(hoaDon, LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         List<HoaDon> list = getListHoaDonGhep(hoaDon, LoaiTrangThaiHoaDon.CHUA_THANH_TOAN);
         list = list.size() == 0 ? getListHoaDonGhep(hoaDon, LoaiTrangThaiHoaDon.CHO_THANH_TOAN) : list;
@@ -199,7 +201,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO<HoaDon>
 //          ---Bàn---
             Paragraph paragraphTable = new Paragraph().setMargin(0);
             paragraphTable.add(new Text("Bàn: ").setBold());
-            paragraphTable.add(new Text(hoaDon.getBan().getMaBan()));
+            paragraphTable.add(new Text(banGop));
             document.add(paragraphTable);
 //          ---Nhân viên---
             Paragraph paragraphEmp = new Paragraph().setMargin(0);

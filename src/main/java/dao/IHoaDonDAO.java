@@ -26,33 +26,13 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
 
     List<HoaDon> findOnOrder();
 
-    //    find by state (NDK)
     List<HoaDon> findByState(Enum state);
 
     boolean updateStateById(String id, Enum state);
 
     boolean updateBanById(String id, Ban ban);
 
-//    <<<<<< < HEAD //    use to move from this table to other table
-//         boolean updateBanById(String id, Ban ban);
-//
-//    void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
-//
-//    double getTongDoanhThu(NhanVien nv);
-//
-//    List<HoaDon> findHoaDonTuNgayDenNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
-//
-//    int getTongHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
-//
-//    double getTongTienHoaDonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
-//
-//    int getTongSoLuongMonTheoNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc);
-//
-//    List<HoaDon> filterByDate(LocalDate date);
-//
-//}
-//=======
-    void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua);
+    void createInvoice(HoaDon hoaDon, double tienKhachTra, double tienThua, String banGop);
 
     double getTongDoanhThu(NhanVien nv);
 
@@ -69,10 +49,11 @@ public interface IHoaDonDAO<T> extends GenericDAO<T> {
     int getTotalInVoicesByMonth(int month);
 
     public List<HoaDon> findByStateAndIdTable(Enum loaiTrangThai, String oldBanGop);
+
     public List<HoaDon> findByHour(int hour);
 
     public List<HoaDon> getListHoaDonGhep(HoaDon hoaDon, utils.Enum.LoaiTrangThaiHoaDon trangThai);
-    
+
     public List<HoaDon> getListHoaDonGhepDatTruoc(HoaDon hoaDon);
 
 }

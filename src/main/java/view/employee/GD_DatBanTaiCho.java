@@ -25,7 +25,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JScrollPane;
 
 import jiconfont.swing.IconFontSwing;
@@ -40,6 +39,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
 import raven.toast.Notifications;
+import utils.AppUtils;
 
 /**
  * @author Laptop
@@ -161,6 +161,11 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
         txtMaBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaBanActionPerformed(evt);
+            }
+        });
+        txtMaBan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMaBanKeyReleased(evt);
             }
         });
 
@@ -505,6 +510,21 @@ public class GD_DatBanTaiCho extends javax.swing.JPanel {
         showOrderByState(utils.Enum.LoaiTrangThaiHoaDon.CHO_THANH_TOAN);
         setActiveTab(evt);
     }//GEN-LAST:event_btnSaveTempleActionPerformed
+
+    private void txtMaBanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaBanKeyReleased
+        // TODO add your handling code here:
+        main.removeAll();
+        for (HoaDon hoaDon : hoadons) {
+            if (AppUtils.CheckContainsAbbreviation(hoaDon.getBan().getMaBan(), txtMaBan.getText().trim())) {
+                OrderCard orderCard = new OrderCard(hoaDon, mainPanel);
+                orderCard.setToTal(chiTietHoaDonDAO.TotalFoodCurrency(hoaDon));
+                orderCard.setQl_datMon(this);
+                main.add(orderCard);
+            }
+        }
+        main.repaint();
+        main.revalidate();
+    }//GEN-LAST:event_txtMaBanKeyReleased
 
     public void loadOrdering() {
         hoadons = hoaDonDAO.findOnOrder();
