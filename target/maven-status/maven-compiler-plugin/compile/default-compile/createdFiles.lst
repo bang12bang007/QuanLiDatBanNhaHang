@@ -81,7 +81,6 @@ view\employee\GD_DatMon$4.class
 view\employee\Form_LuuTam$3.class
 view\manager\application\GD_QuanLyKhachHang$8.class
 datechooser\DateChooser$3.class
-datechooser\Slider$1.class
 dao\IKhuyenMaiDAO.class
 view\employee\GD_ThanhToan$7.class
 view\manager\application\GD_QuanLyKhachHang$5.class
@@ -213,7 +212,6 @@ component\MessageOrderConfirm$2.class
 view\employee\Form_ThuTien$8.class
 datechooser\SelectedDate.class
 view\employee\Form_GhiChu$5.class
-datechooser\Slider$4.class
 component\MyButton.class
 view\manager\application\GD_QuanLyKhuyenMai$4.class
 view\manager\forms\GD_QuanLyHoaDon$5.class
@@ -403,7 +401,6 @@ view\manager\application\GD_QuanLyKhachHang$10.class
 view\employee\Form_LuuTam.class
 component\PanelShadow$GradientType.class
 utils\AppUtils$1.class
-entity\Mon.class
 view\employee\GD_DatMon$9.class
 view\manager\application\GD_QuanLyNhanVien$17.class
 component\OrderItem_forUIDatMon$2.class
