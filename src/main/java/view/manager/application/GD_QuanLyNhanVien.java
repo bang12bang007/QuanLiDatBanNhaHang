@@ -901,7 +901,7 @@ public class GD_QuanLyNhanVien extends SimpleForm {
         String sdt = jTextFieldSoDienThoai.getText();
 
         // Kiểm tra nếu các trường không rỗng
-        if (!gioiTinh.isEmpty() || !tuoi.isEmpty() || !sdt.isEmpty()) {
+        if (!gioiTinh.isEmpty() && !tuoi.isEmpty() && !sdt.isEmpty()) {
             String maNhanVien = "NV" + gioiTinh + tuoi + vaiTro + ngay + thang + nam + sdt.substring(7);
             jTextFieldMaNhanVien.setText(maNhanVien);
         }

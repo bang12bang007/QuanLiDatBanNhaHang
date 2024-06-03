@@ -104,7 +104,7 @@ public class GD_ThongKe extends javax.swing.JPanel {
         khachhang.setText(Integer.toString(hd_Dao.getSoLuongKhachHang(NHANVIEN)));
         DefaultPieDataset dataset = new DefaultPieDataset();
         JFreeChart chart = ChartFactory.createPieChart3D("Báo Cáo", dataset, true, true, false);
-        dataset.setValue("Doanh Thu nhân viên", (hd_Dao.getTongDoanhThu(NHANVIEN)));
+        dataset.setValue("Doanh thu", (hd_Dao.getTongDoanhThu(NHANVIEN)));
         dataset.setValue("Tiền đầu ca", (5000000));
         PiePlot3D P = (PiePlot3D) chart.getPlot();
         P.setLabelFont(utils.AppUtils.getFont(12f, _NORMAL_));

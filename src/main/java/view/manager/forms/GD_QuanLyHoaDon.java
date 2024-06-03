@@ -388,8 +388,11 @@ public class GD_QuanLyHoaDon extends SimpleForm {
                 .addGap(0, 0, 0))
         );
 
-        myButton1.setBackground(new java.awt.Color(51, 51, 51));
         myButton1.setText("Tìm theo tên nhân viên");
+        myButton1.setColor(new java.awt.Color(153, 153, 153));
+        myButton1.setColorClick(new java.awt.Color(204, 204, 204));
+        myButton1.setColorOver(new java.awt.Color(153, 153, 153));
+        myButton1.setContentAreaFilled(true);
         myButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myButton1MouseClicked(evt);
@@ -401,8 +404,9 @@ public class GD_QuanLyHoaDon extends SimpleForm {
             }
         });
 
-        myButton2.setBackground(new java.awt.Color(51, 51, 51));
         myButton2.setText("Tìm theo tên khách hàng");
+        myButton2.setColor(new java.awt.Color(0, 204, 0));
+        myButton2.setColorOver(new java.awt.Color(0, 204, 0));
         myButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myButton2MouseClicked(evt);
@@ -487,8 +491,9 @@ public class GD_QuanLyHoaDon extends SimpleForm {
         tenMon2.setForeground(new java.awt.Color(255, 255, 255));
         tenMon2.setText("Đến ngày ");
 
-        myButton3.setBackground(new java.awt.Color(51, 51, 51));
         myButton3.setText("Tìm theo ngày");
+        myButton3.setColor(new java.awt.Color(0, 204, 0));
+        myButton3.setColorOver(new java.awt.Color(0, 204, 0));
         myButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myButton3MouseClicked(evt);
@@ -607,7 +612,18 @@ public class GD_QuanLyHoaDon extends SimpleForm {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        List<HoaDon> allHoaDons = dao.findAll(HoaDon.class);
+        // Lấy chỉ số của hàng được chọn
+        int rowIndex = jTable1.getSelectedRow();
 
+        // Kiểm tra nếu hàng được chọn hợp lệ
+        if (rowIndex >= 0) {
+            // Lấy đối tượng NhanVien từ hàng được chọn
+            HoaDon hd = allHoaDons.get(rowIndex);
+
+            // Hiển thị dữ liệu của đối tượng NhanVien lên các JTextField tương ứng
+                txtMa.setText(hd.getMaHoaDon());
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void loaiMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loaiMonMouseClicked
